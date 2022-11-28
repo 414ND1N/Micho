@@ -10,7 +10,8 @@ module.exports = class extends Client{
             GatewayIntentBits.GuildMessageTyping,
             GatewayIntentBits.GuildVoiceStates,
             GatewayIntentBits.GuildMessageReactions,
-            GatewayIntentBits.GuildEmojisAndStickers
+            GatewayIntentBits.GuildEmojisAndStickers,
+            GatewayIntentBits.Guilds
         ],
         partials : [
             Partials.User, Partials.Channel, Partials.GuildMember, Partials.Message, Partials.Reaction
@@ -63,7 +64,7 @@ module.exports = class extends Client{
     }
 
     async loadSlashCommands(){
-        console.log(`(/) Cargando comandos`.yellow);
+        console.log(`(/) Cargando comandos slash`.yellow);
         await this.slashCommands.clear();
         this.slashArray = [];
 
@@ -86,7 +87,7 @@ module.exports = class extends Client{
                 }
             })
         }  
-        console.log(`(/) (${this.slashCommands.size}) Comandos cargados`.green);
+        console.log(`(/) (${this.slashCommands.size}) Comandos slash cargados`.green);
 
         if(this?.application?.commands){
             this.application.commands.set(this.slashArray);
@@ -96,7 +97,7 @@ module.exports = class extends Client{
     }
 
     async loadHandlers(){
-        console.log(`(-) Cargando comandos`.yellow);
+        console.log(`(-) Cargando handlers`.yellow);
 
         const RUTA_ARCHIVOS = await this.utils.loadFiles("/src/handlers");
         
