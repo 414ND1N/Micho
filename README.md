@@ -9,6 +9,7 @@ Bot de discord con un prefix de *tf.* para los comandos, compatible con los coma
 ### Comandos
 * /ping
 * /pagina
+* /codigo
 
 
 ![Toffu bot discord](https://i.imgur.com/GLPfwSa.jpg "Toffu")
