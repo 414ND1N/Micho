@@ -6,10 +6,21 @@
 
 Bot de discord con un prefix de *tf.* para los comandos, compatible con los comandos slash
 
-### Comandos
-* /ping
-* /pagina
-* /codigo
+### Comandos Generales
+* ping
+* pagina
+* codigo
+
+### Comandos Música
+* djpanas
+* play
+* pausar
+* skip
+* previuos
+* stop
+* resumir
+* volumen <*numero*>
+* mezclar
 
 
 ![Toffu bot discord](https://i.imgur.com/GLPfwSa.jpg "Toffu")
