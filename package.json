@@ -9,11 +9,22 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@discordjs/opus": "^0.8.0",
+    "@discordjs/voice": "^0.14.0",
+    "@distube/soundcloud": "^1.2.2",
+    "@distube/spotify": "^1.4.2",
+    "@iamtraction/google-translate": "^2.0.1",
+    "axios": "^1.2.0",
     "color": "^4.2.3",
     "colors": "^1.4.0",
     "discord.js": "^14.6.0",
     "distube": "^4.0.4",
     "dotenv": "^16.0.3",
-    "glob": "^8.0.3"
+    "ffmpeg-static": "^4.4.1",
+    "glob": "^8.0.3",
+    "libsodium-wrappers": "^0.7.10",
+    "moment": "^2.29.4",
+    "mongoose": "^6.7.4",
+    "ms": "^2.1.3"
   }
 }

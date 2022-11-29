@@ -12,7 +12,7 @@ module.exports = async(client, message) => {
     if(COMANDO){
         if(COMANDO.OWNER) {
             const DUENOS = process.env.OWNER_IDS.split(" ");
-            if (!DUENOS.include(message.author.id)) return message.reply({content: `❌ **Solo los dueños del bot pueden ejecutar este comando! 🤨**\nFirma ${DUENOS.map(DUENO => `<@${DUENO}>`).join(", ")}`})
+            if (!DUENOS.includes(message.author.id)) return message.reply({content: `❌ **Solo los dueños del bot pueden ejecutar este comando! 🤨**\nFirma ${DUENOS.map(DUENO => `<@${DUENO}>`).join(", ")}`})
 
         }
 

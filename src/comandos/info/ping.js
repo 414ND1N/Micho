@@ -4,3 +4,4 @@ module.exports = {
         return message.reply(`\`Ping de ${client.ws.ping}ms 🧐\``)
     }
 }
+

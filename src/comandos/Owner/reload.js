@@ -7,7 +7,7 @@ module.exports = {
         let opcion = "Comandos, Eventos y Handlers";
 
         try{
-            switch(args(0)?.toLowerCase()){
+            switch(args[0]?.toLowerCase()){
                 case "commands":
                 case "comandos":{
                     opcion = "Comandos";
@@ -49,6 +49,7 @@ module.exports = {
         }catch(e){
             message.reply({content: `**Ha ocurrido un error al recargar el bot**\nMira la consola para mas detalle :P`});
             console.log(e);
+            return;
         }
     }
 }

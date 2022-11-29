@@ -1,5 +1,5 @@
 const { glob } = require('glob');
-const { promisify } = require('util');
+const { promisify } = require("util");
 const proGlob = promisify(glob);
 
 module.exports = class BotUtils{
@@ -8,10 +8,8 @@ module.exports = class BotUtils{
     }
 
     async loadFiles(dirName){
-        const ARCHIVOS = await proGlob(`${process.cwd().replace(/\\/g, "/")}/${dirName}/**/*.js`);
-  
-        ARCHIVOS.forEach((ARCHIVO) => delete require.cache[require.resolve(ARCHIVO)]);
-
-        return ARCHIVOS;
+        const Files = await proGlob(`${process.cwd().replace(/\\/g, "/")}/${dirName}/**/*.{js,json}`);
+        Files.forEach((file) => delete require.cache[require.resolve(file)]);
+        return Files;
     }
 }
