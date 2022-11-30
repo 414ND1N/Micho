@@ -54,7 +54,8 @@ module.exports = {
                     new EmbedBuilder()
                     .addFields({name: `✅ ${opcion} recargados`, value:`> *Okay!*`})
                     .setColor(process.env.COLOR)
-                ]
+                ],
+                ephemeral: true
             });
         }catch(e){
             interaction.reply({content: `**Ha ocurrido un error al recargar el bot**\nMira la consola para mas detalle :P`});

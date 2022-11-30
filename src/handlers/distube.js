@@ -9,13 +9,13 @@ module.exports = (client, Discord) => {
     client.distube = new DisTube(client, {
         emitNewSongOnly: false,
         leaveOnFinish: true,
-        leaveOnStop: false,
+        leaveOnStop: true,
         leaveOnEmpty: true,
         savePreviousSongs: true,
         emitAddSongWhenCreatingQueue: false,
         searchSongs: 0,
         nsfw: true,
-        emptyCooldown: 60,
+        emptyCooldown: 90,
         ytdlOptions: {
             highWaterMark: 1024 * 1024 * 64,
             quality: "highestaudio",
@@ -43,7 +43,7 @@ module.exports = (client, Discord) => {
             .setTitle('Reproduciendo 🎶')
             .setURL(song.url)
             .setAuthor({ name: song.user.tag, iconURL: song.user.displayAvatarURL({dynamic: true})})
-            .setDescription(`Reproduciendo \`${song.name}\`- \`(${song.formattedDuration})\``)
+            .setDescription(`Reproduciendo \`${song.name}\` - \`(${song.formattedDuration})\``)
             .setThumbnail(song.thumbnail)
 
         queue.textChannel.send({ embeds: [embed_playsong] })
@@ -81,18 +81,18 @@ module.exports = (client, Discord) => {
     });
 
     client.distube.on("noRelated", (queue) => {
-        queue.textChannel.send("No se encontró la música indicada")
+        queue.textChannel.send("No se encontró la música indicada 💀")
     });
     client.distube.on("searchInvalidAnswer", (message) => {
         message.channel.send(`El número ingresado es inválido 🤔🏳‍🌈`)
     });
 
     client.distube.on("searchNoResult", (message, query) =>{
-        message.channel.send(`No resultados encontrados en ${query}!`)
+        message.channel.send(`No resultados encontrados en ${query}! 💀`)
     });
     
     client.distube.on('error', (channel, e) => {
-        if (channel) channel.send(`Error encontrado 🤔`)
+        if (channel) channel.send(`Error encontrado 💀`)
         else console.error(e)
     })
 }
