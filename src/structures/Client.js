@@ -9,7 +9,6 @@ module.exports = class extends Client {
             GatewayIntentBits.GuildMessages,
             GatewayIntentBits.MessageContent,
             GatewayIntentBits.GuildVoiceStates,
-            GatewayIntentBits.GuildMessageReactions,
             GatewayIntentBits.GuildEmojisAndStickers,
         ],
         partials: [Partials.User, Partials.Channel, Partials.GuildMember, Partials.Message, Partials.Reaction],
@@ -19,7 +18,7 @@ module.exports = class extends Client {
         },
 
         presence: {
-            activities: [{name: process.env.STATUS, type: ActivityType[process.env.STATUS_TYPE] ?? ActivityType.Watching}
+            activities: [{name: process.env.STATUS, type: ActivityType[process.env.STATUS_TYPE]}
             ],
             status: PresenceUpdateStatus.Online
         },
@@ -92,7 +91,7 @@ module.exports = class extends Client {
 
                     this.slashArray.push(COMANDO.CMD.toJSON());
                 } catch (e) {
-                    console.log(`(/) ERROR AL CARGAR EL COMANDO ${rutaArchivo}`.bgRed);
+                    console.log(`(/) ERROR AL CARGAR EL COMANDO ${rutaArchivo}`.red);
                     console.log(e);
                 }
             })
@@ -116,7 +115,7 @@ module.exports = class extends Client {
                 try {
                     require(rutaArchivo)(this);
                 } catch (e) {
-                    console.log(`ERROR AL CARGAR EL HANDLER ${rutaArchivo}`.bgRed);
+                    console.log(`ERROR AL CARGAR EL HANDLER ${rutaArchivo}`.red);
                     console.log(e);
                 }
             })
@@ -140,7 +139,7 @@ module.exports = class extends Client {
                     const NOMBRE_EVENTO = rutaArchivo.split('\\').pop().split('/').pop().split(".")[0];
                     this.on(NOMBRE_EVENTO, EVENTO.bind(null, this));
                 } catch (e) {
-                    console.log(`ERROR AL CARGAR EL EVENTO ${rutaArchivo}`.bgRed);
+                    console.log(`ERROR AL CARGAR EL EVENTO ${rutaArchivo}`.red);
                     console.log(e);
                 }
             })

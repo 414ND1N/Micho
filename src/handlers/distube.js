@@ -1,4 +1,4 @@
-const { DisTube, Queue } = require('distube');
+const { DisTube } = require('distube');
 const {SpotifyPlugin} = require('@distube/spotify');
 const {SoundCloudPlugin} = require('@distube/soundcloud');
 const { EmbedBuilder } = require('discord.js');
@@ -23,7 +23,7 @@ module.exports = (client, Discord) => {
             liveBuffer: 60000,
             dlChunkSize: 1024 * 1024 * 4,
         },
-        //youtubeDL: false,
+        
         plugins: [
             new SpotifyPlugin({
                 parallel: true,
@@ -38,7 +38,7 @@ module.exports = (client, Discord) => {
     //eventos de distube
     client.distube.on("playSong", (queue, song)=>{
         
-            embed_playsong = new EmbedBuilder()
+        embed_playsong = new EmbedBuilder()
             .setColor('#871b1b')
             .setTitle('Reproduciendo 🎶')
             .setURL(song.url)
@@ -90,9 +90,5 @@ module.exports = (client, Discord) => {
     client.distube.on("searchNoResult", (message, query) =>{
         message.channel.send(`No resultados encontrados en ${query}! 💀`)
     });
-    
-    client.distube.on('error', (channel, e) => {
-        if (channel) channel.send(`Error encontrado 💀`)
-        else console.error(e)
-    })
+
 }
