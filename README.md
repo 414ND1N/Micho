@@ -12,7 +12,7 @@ Bot de discord con un prefix de *tf.* para los comandos, compatible con los coma
 * codigo
 
 ### Comandos Música
-* djpanas
+* djpanas <*tipo*>
 * play
 * pausar
 * skip
