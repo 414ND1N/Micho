@@ -16,7 +16,7 @@ Bot de discord con un prefix de *tf.* para los comandos, compatible con los coma
 * play
 * pausar
 * skip
-* previuos
+* previous
 * stop
 * resumir
 * volumen <*numero*>
