@@ -1,7 +1,7 @@
 
 
 module.exports = {
-    DESCRIPTION: "Sirve para desconectar al bot de la sala de voz",
+    DESCRIPTION: "Sirve para mezclar las canciónes de la lista",
     async execute(client, message, args, prefix){
         //comprobaciones previas :o
         const queue = client.distube.getQueue(message);

@@ -56,7 +56,7 @@ module.exports = (client, Discord) => {
             .setTitle('Lista de reproducción añadida 🎶')
             .setURL(song.url)
             .setAuthor({ name: song.user.tag, iconURL: song.user.displayAvatarURL({dynamic: true})})
-            .setDescription(`Se añadió \`${song.name}\`- \`(${song.formattedDuration})\``)
+            .setDescription(`Se añadió \`${song.name}\` - \`(${song.formattedDuration})\``)
             .setThumbnail(song.thumbnail)
 
         queue.textChannel.send({ embeds: [embed_addlist] })
@@ -70,7 +70,7 @@ module.exports = (client, Discord) => {
             .setTitle('Música añadida a la lista 🎶')
             .setURL(song.url)
             .setAuthor({ name: song.user.tag, iconURL: song.user.displayAvatarURL({dynamic: true})})
-            .setDescription(`Se añadió \`${song.name}\`- \`(${song.formattedDuration})\``)
+            .setDescription(`Se añadió \`${song.name}\` - \`(${song.formattedDuration})\``)
             .setThumbnail(song.thumbnail)
         
         queue.textChannel.send({ embeds: [embed_addsong] })

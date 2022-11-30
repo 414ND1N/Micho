@@ -1,4 +1,5 @@
 module.exports = {
+    name: "pause",
     DESCRIPTION: "Sirve para pausar la música en reproducción",
     async execute(client, message, args, prefix){
         //comprobaciones previas :o
