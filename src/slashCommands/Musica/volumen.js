@@ -4,7 +4,7 @@ module.exports = {
     .setDescription("Sirve para indicar el volumen de la canción en reproducción")
     .addStringOption(option =>
         option.setName("porcentaje")
-        .setDescription("Volumen para la reproducción")
+        .setDescription("Número del % para la música reproduciendose")
         .setRequired(true)
     ),
     async execute(client, interaction, prefix){
