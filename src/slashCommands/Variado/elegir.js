@@ -14,11 +14,21 @@ module.exports = {
                 embeds: [
                     new EmbedBuilder()
                         .setColor(process.env.COLOR)
-                        .setDescription(`No hay mensaje que pueda decir, escribe algo 😊`)
+                        .setDescription(`No hay opciones donde elegir, escribe algo 😊`)
                 ],
                 ephemeral: true
             })
         }
-        return interaction.reply(args)
+        let opciones = args.split(",")
+        const randomIndex = Math.floor(Math.random() * opciones.length);
+        const item = opciones[randomIndex];
+
+        return interaction.reply({
+            embeds: [
+                new EmbedBuilder()
+                    .setColor(process.env.COLOR)
+                    .addFields({name:`Elegí ${item}`, value:`> 🧐🍀`})
+            ]
+        })
     }
 } 

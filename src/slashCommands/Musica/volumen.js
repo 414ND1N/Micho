@@ -5,6 +5,7 @@ module.exports = {
     .addStringOption(option =>
         option.setName("volumen")
         .setDescription("Volumen para la reproducción")
+        .setRequired(true)
     ),
     async execute(client, interaction, prefix){
         try{
