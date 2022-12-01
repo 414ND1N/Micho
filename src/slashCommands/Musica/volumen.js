@@ -3,13 +3,13 @@ module.exports = {
     CMD: new SlashCommandBuilder()
     .setDescription("Sirve para indicar el volumen de la canción en reproducción")
     .addStringOption(option =>
-        option.setName("volumen")
+        option.setName("porcentaje")
         .setDescription("Volumen para la reproducción")
         .setRequired(true)
     ),
     async execute(client, interaction, prefix){
         try{
-            let args = interaction.options.getString("volumen");
+            let args = interaction.options.getString("porcentaje");
             const voicechannel = interaction.member.voice.channel
 
             //comprobaciones previas :o

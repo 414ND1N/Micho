@@ -3,7 +3,7 @@ module.exports = {
     CMD: new SlashCommandBuilder()
     .setDescription("Sirve para reproducir DJPANAS")
     .addStringOption(option =>
-        option.setName("opcion")
+        option.setName("tipo")
         .setDescription("Tipo de contenido")
         .addChoices(
             {name: "Kanako Ito", value:"kanako"},
@@ -16,7 +16,7 @@ module.exports = {
     ),
     async execute(client, interaction, prefix){
         try{
-            let args = interaction.options.getString("opcion");
+            let args = interaction.options.getString("tipo");
             let opcion = "Clásico";
     
             const voicechannel = interaction.member.voice.channel
