@@ -1,5 +1,4 @@
 const { Client, Collection, GatewayIntentBits, Partials, ActivityType, PresenceUpdateStatus } = require('discord.js');
-const { DisTube } = require('distube');
 const BotUtils = require('./Utils');
 module.exports = class extends Client {
     constructor(options = {

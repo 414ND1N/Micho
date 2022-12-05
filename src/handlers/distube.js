@@ -20,7 +20,7 @@ module.exports = (client, Discord) => {
             highWaterMark: 1024 * 1024 * 64,
             quality: "highestaudio",
             format: "audioonly",
-            liveBuffer: 60000,
+            liveBuffer: 20000,
             dlChunkSize: 1024 * 1024 * 4,
         },
         
