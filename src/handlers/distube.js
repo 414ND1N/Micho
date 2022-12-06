@@ -15,7 +15,7 @@ module.exports = (client, Discord) => {
         emitAddSongWhenCreatingQueue: false,
         searchSongs: 0,
         nsfw: true,
-        emptyCooldown: 90,
+        emptyCooldown: 100,
         ytdlOptions: {
             highWaterMark: 1024 * 1024 * 64,
             quality: "highestaudio",
@@ -88,14 +88,6 @@ module.exports = (client, Discord) => {
     });
 
     client.distube.on('error', (channel, e) => {
-        
-        channel.send({
-            embeds: [
-                new EmbedBuilder()
-                    .setColor(process.env.COLOR)
-                    .setDescription(`Error encontrado 💀`)
-            ],
-            ephemeral: true
-        })
+        console.log(`Error encontrado 💀`);
     })
 }

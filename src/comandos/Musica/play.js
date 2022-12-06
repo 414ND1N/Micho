@@ -30,6 +30,7 @@ module.exports = {
             textChannel: message.channel,
             message
         });
+        
         return message.reply({
             embeds: [
                 new EmbedBuilder()
