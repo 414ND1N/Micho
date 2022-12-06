@@ -19,29 +19,29 @@ module.exports = {
         
         switch(args[0]?.toLowerCase()){
             case "kanako":
-            case "kanako Ito":{
-                opcion = "Kanako ito";
-                args = 'https://www.youtube.com/playlist?list=PLtzt-E5Aq1-l_IGzZag1apUv0IA1SKgd7'
+            case "kanako ito":{
+                opcion = "Kanako Ito";
+                args = 'https://www.youtube.com/playlist?list=PLtzt-E5Aq1-l_IGzZag1apUv0IA1SKgd7';
             }
                 break;
             case "koncitas":
             case "k on":
             case "kon":{
                 opcion = "K-On";
-                args = 'https://www.youtube.com/playlist?list=PLtzt-E5Aq1-nWkX9uYlGRDEhxUs9z5yf5'
+                args = 'https://www.youtube.com/playlist?list=PLtzt-E5Aq1-nWkX9uYlGRDEhxUs9z5yf5';
             }
                 break;
             case "mixed":
             case "random":
             case "variado":{
                 opcion = "Variedad";
-                args = 'https://www.youtube.com/playlist?list=PLtzt-E5Aq1-m0PzZ_mvFU9xOOs1JuU-JU'
+                args = 'https://www.youtube.com/playlist?list=PLtzt-E5Aq1-m0PzZ_mvFU9xOOs1JuU-JU';
             }
                 break;
             case "anime":
             case "monas chinas":{
                 opcion = "Anime";
-                args = 'https://www.youtube.com/playlist?list=PLtzt-E5Aq1-lr11mrKlRcLfxYSFw-eSwR'
+                args = 'https://www.youtube.com/playlist?list=PLtzt-E5Aq1-lr11mrKlRcLfxYSFw-eSwR';
             }
                 break;
             case "juegos":
@@ -51,11 +51,11 @@ module.exports = {
             case "videogames":
             case "video games":{
                 opcion = "Video-juegos";
-                args = 'https://www.youtube.com/playlist?list=PLtzt-E5Aq1-lv_BaSVghN8JGbkHiGEH1n'
+                args = 'https://www.youtube.com/playlist?list=PLtzt-E5Aq1-lv_BaSVghN8JGbkHiGEH1n';
             }
                 break;
             default:{
-                args = 'https://www.youtube.com/playlist?list=PLtzt-E5Aq1-kGOPEbker6rjCQH6ZtKNz9'
+                args = 'https://www.youtube.com/playlist?list=PLtzt-E5Aq1-kGOPEbker6rjCQH6ZtKNz9';
             }   
                 break;
         }
@@ -72,7 +72,6 @@ module.exports = {
                     .setColor(process.env.COLOR)
                     .addFields({name: `**Reproduciendo DJPANAS ${opcion} **`, value:`> 😎`})
             ]
-        })
-    } 
-       
+        });
+    }   
 }

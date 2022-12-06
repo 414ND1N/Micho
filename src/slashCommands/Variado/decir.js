@@ -8,6 +8,7 @@ module.exports = {
         .setRequired(true)
     ),
     async execute(client, interaction, prefix){
+        await interaction.deferReply();
         let args = interaction.options.getString("texto");
         if (!args) {
             return interaction.reply({
@@ -20,13 +21,6 @@ module.exports = {
             })
         }
         interaction.channel.send(args)
-        return interaction.reply({
-            embeds: [
-                new EmbedBuilder()
-                    .setColor(process.env.COLOR)
-                    .setDescription(`Mensaje enviado`)
-            ],
-            ephemeral: true
-        })
+        return await interaction.deleteReply();
     }
 } 

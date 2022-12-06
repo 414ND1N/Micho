@@ -5,6 +5,7 @@ module.exports = {
     .addStringOption(option =>
         option.setName("cancion")
         .setDescription("Canción que se desea reproducir")
+        .setRequired(true)
     ),
     async execute(client, interaction, prefix){
         try{

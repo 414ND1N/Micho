@@ -76,10 +76,6 @@ module.exports = (client, Discord) => {
         queue.textChannel.send({ embeds: [embed_addsong] })
     });
 
-    client.distube.on("initQueue", (queue) => {
-        queue.autoplay = true;
-    });
-
     client.distube.on("noRelated", (queue) => {
         queue.textChannel.send("No se encontró la música indicada 💀")
     });
@@ -91,4 +87,15 @@ module.exports = (client, Discord) => {
         message.channel.send(`No resultados encontrados en ${query}! 💀`)
     });
 
+    client.distube.on('error', (channel, e) => {
+        
+        channel.send({
+            embeds: [
+                new EmbedBuilder()
+                    .setColor(process.env.COLOR)
+                    .setDescription(`Error encontrado 💀`)
+            ],
+            ephemeral: true
+        })
+    })
 }
