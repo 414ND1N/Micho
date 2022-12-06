@@ -5,8 +5,8 @@ module.exports = {
     
     async execute(client, message, args, prefix){
         try{
-            let argumento = args[0]?.toLowerCase()
-            if (!argumento) return message.reply(`No hay mensaje que pueda decir, escribe algo 😊`);
+            message.delete();
+            let argumento = args[0]
             if (!argumento) {
                 return interaction.reply({
                     embeds: [
@@ -17,7 +17,8 @@ module.exports = {
                     ephemeral: true
                 })
             }
-            message.reply(argumento)
+            msg = args.join(' ');
+            message.reply(msg)
             return;
 
         }catch(e){

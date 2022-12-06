@@ -19,6 +19,14 @@ module.exports = {
                 ephemeral: true
             })
         }
-        return interaction.reply(args)
+        interaction.channel.send(args)
+        return interaction.reply({
+            embeds: [
+                new EmbedBuilder()
+                    .setColor(process.env.COLOR)
+                    .setDescription(`Mensaje enviado`)
+            ],
+            ephemeral: true
+        })
     }
 } 
