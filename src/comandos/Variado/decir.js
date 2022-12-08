@@ -1,7 +1,7 @@
 const {EmbedBuilder} = require('discord.js')
 module.exports = {
     
-    DESCRIPTION: "Sirve para que toffu diga el texto dicho",
+    DESCRIPTION: "Sirve para que toffu diga el texto dado",
     
     async execute(client, message, args, prefix){
         try{
