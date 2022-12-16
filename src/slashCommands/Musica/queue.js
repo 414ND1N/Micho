@@ -4,7 +4,7 @@ module.exports = {
     CMD: new SlashCommandBuilder()
     .setDescription("Sirve para ver la lista de canciones"),
     async execute(client, interaction, prefix){
-        await interaction.deferReply();
+        
         const voicechannel = interaction.member.voice.channel
         const queue = client.distube.getQueue(voicechannel);
 
@@ -54,7 +54,6 @@ module.exports = {
             if (queue.songs.length > 1) el_embed.addFields({name: `🎧 Canción actual`, value: `**[\`${queue.songs[0].name}\`](${queue.songs[0].url})**`});
             await embeds.push(el_embed);
         }
-
         return paginacion();
 
         //función para paginacion
@@ -62,10 +61,10 @@ module.exports = {
             let pag_actual = 0
             //Si solo hay 1 embed enviamos el mensaje sin botones de navegacion
             if (embeds.length === 1) {
-                interaction.channel.send({embeds: [embeds[0]]}).catch(() => {}) ;
-                return await interaction.deleteReply();
+                interaction.channel.send({embeds: [embeds[0]]}).catch(() => {});
+                await interaction.reply('<:rolas:1051012560054407219> Lista de canciónes en cola');
             }
-            //Si el numero de embeds es mayor a 1 ponekoms botoines de paginacion
+            //Si el numero de embeds es mayor a 1 ponemos botoines de paginacion
             let btn_atras =  new ButtonBuilder()
                 .setCustomId('atras')
                 .setLabel('Atrás')
@@ -87,14 +86,14 @@ module.exports = {
 
             //Enviamos el mensaje embed con los botones
             let embedpaginas = await interaction.channel.send({
-                content: `**Haz click en los __botones__ para cambiar de páginas**`,
+                content: `**Navega con los _botones_ en el menú**`,
                 embeds: [embeds[0].setFooter({text: `Página ${pag_actual+1} / ${embeds.length}`})],
                 components: [row]
             });
-            await interaction.deleteReply();
+            await interaction.reply('<:rolas:1051012560054407219> Lista de canciónes en cola');
 
             //Creación collector y se filtra que el usuario que de click sea la misma que ha puesto el comando, y el autor del mensaje sea el cliente (Toffu)
-            const collector = embedpaginas.createMessageComponentCollector({filter: i => i?.isButton() && i?.user && i?.user.id == interaction.user.id && i?.message.author.id  == client.user.id, time: 180e3});
+            const collector = embedpaginas.createMessageComponentCollector({filter: i => i?.isButton() && i?.user && i?.user.id == interaction.user.id && i?.message.author.id  == client.user.id, time: 45e3});
             //Escuchamos los eventos del collector
             collector.on("collect", async b => {
                 //Si el usuario que hace click al boton no es el mismo a que puso el comando, se lo indicamos
@@ -150,10 +149,11 @@ module.exports = {
                         break;
                 }
             });
-            collector.on("end", () => {
+            collector.on("end", async () => {
                 //desactivamos botones y editamos el mensaje
-                embedpaginas.edit({content: "El tiempo ha expirado, utiliza denuevo el comando queue 😊", components:[]}).catch(() => {});
+                embedpaginas.edit({content: "El tiempo ha expirado ⏳, utiliza denuevo el comando queue  😊", components:[]}).catch(() => {});
                 embedpaginas.suppressEmbeds(true);
+                await interaction.deleteReply();
             });
         }
     }

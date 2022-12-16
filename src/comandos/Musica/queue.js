@@ -81,13 +81,13 @@ module.exports = {
 
             //Enviamos el mensaje embed con los botones
             let embedpaginas = await message.channel.send({
-                content: `**Haz click en los __botones__ para cambiar de páginas**`,
+                content: `**Navega con los _botones_ en el menú**`,
                 embeds: [embeds[0].setFooter({text: `Página ${pag_actual+1} / ${embeds.length}`})],
                 components: [row]
             });
 
             //Creación collector y se filtra que el usuario que de click sea la misma que ha puesto el comando, y el autor del mensaje sea el cliente (Toffu)
-            const collector = embedpaginas.createMessageComponentCollector({filter: i => i?.isButton() && i?.user && i?.user.id == message.author.id && i?.message.author.id == client.user.id, time: 180e3});
+            const collector = embedpaginas.createMessageComponentCollector({filter: i => i?.isButton() && i?.user && i?.user.id == message.author.id && i?.message.author.id == client.user.id, time: 45e3});
             //Escuchamos los eventos del collector
             collector.on("collect", async b => {
                 //Si el usuario que hace click al boton no es el mismo a que puso el comando, se lo indicamos
@@ -145,7 +145,7 @@ module.exports = {
             });
             collector.on("end", () => {
                 //desactivamos botones y editamos el mensaje
-                embedpaginas.edit({content: "El tiempo ha expirado, utiliza denuevo el comando queue 😊", components:[]}).catch(() => {});
+                embedpaginas.edit({content: "El tiempo ha expirado ⏳, utiliza denuevo el comando queue  😊", components:[]}).catch(() => {});
                 embedpaginas.suppressEmbeds(true);
             });
         }
