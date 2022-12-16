@@ -1,13 +1,18 @@
-const {SlashCommandBuilder, EmbedBuilder,} = require('discord.js')
+const {SlashCommandBuilder, EmbedBuilder} = require('discord.js')
 module.exports = {
     CMD: new SlashCommandBuilder()
-    .setDescription("Sirve para desconectar al bot de la sala de voz"),
+    .setDescription("Sirve para saltar a una canción de la lista en reproducción")
+    .addStringOption(option =>
+        option.setName("numero")
+        .setDescription('Número de la canción en la lista.')
+        .setRequired(true)
+    ),
     async execute(client, interaction, prefix){
         try{
             const voicechannel = interaction.member.voice.channel
             const queue = client.distube.getQueue(voicechannel);
-
-            //comprobaciones previas :o
+            let args = interaction.options.getString("numero");
+            let num_cancion = Number(args)-1;
 
             if (!queue){
                 return interaction.reply({
@@ -29,20 +34,18 @@ module.exports = {
                     ephemeral: true
                 })
             }
-           
-            client.distube.stop(voicechannel);
+
+            client.distube.jump(voicechannel, parseInt(num_cancion));
             return interaction.reply({
                 embeds: [
                     new EmbedBuilder()
                         .setColor(process.env.COLOR)
-                        .addFields({name: `**Se finalizó la reproducción**`, value:`> 💀 Nah bro i'm dead`})
+                        .addFields({name: `**Se ha saltado a la canción número \`${Number(args)}\`**`, value:`> 🐱‍🏍 🎶🎵`})
                 ]
             })
-
         }catch(e){
             interaction.reply({content: `**Ha ocurrido un error al recargar el bot**\nMira la consola para mas detalle :P`, ephemeral: true});
             return console.log(e);
         }
-    } 
-       
-}
+    }
+} 

@@ -77,9 +77,8 @@ module.exports = {
             })
 
         }catch(e){
-            interaction.reply({content: `**Ha ocurrido un error al recargar el bot**\nMira la consola para mas detalle :P`});
-            console.log(e);
-            return;
+            interaction.reply({content: `**Ha ocurrido un error al recargar el bot**\nMira la consola para mas detalle :P`, ephemeral: true});
+            return console.log(e);
         } 
     } 
 }

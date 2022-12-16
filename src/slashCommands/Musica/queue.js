@@ -93,7 +93,7 @@ module.exports = {
             await interaction.reply('<:rolas:1051012560054407219> Lista de canciónes en cola');
 
             //Creación collector y se filtra que el usuario que de click sea la misma que ha puesto el comando, y el autor del mensaje sea el cliente (Toffu)
-            const collector = embedpaginas.createMessageComponentCollector({filter: i => i?.isButton() && i?.user && i?.user.id == interaction.user.id && i?.message.author.id  == client.user.id, time: 45e3});
+            const collector = embedpaginas.createMessageComponentCollector({filter: i => i?.isButton() && i?.user && i?.user.id == interaction.user.id && i?.message.author.id  == client.user.id, time: 30e3});
             //Escuchamos los eventos del collector
             collector.on("collect", async b => {
                 //Si el usuario que hace click al boton no es el mismo a que puso el comando, se lo indicamos
