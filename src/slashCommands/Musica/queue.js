@@ -62,7 +62,7 @@ module.exports = {
             //Si solo hay 1 embed enviamos el mensaje sin botones de navegacion
             if (embeds.length === 1) {
                 interaction.channel.send({embeds: [embeds[0]]}).catch(() => {});
-                await interaction.reply('<:rolas:1051012560054407219> Lista de canciónes en cola');
+                return await interaction.reply('<:rolas:1051012560054407219> Lista de canciónes en cola');
             }
             //Si el numero de embeds es mayor a 1 ponemos botoines de paginacion
             let btn_atras =  new ButtonBuilder()
