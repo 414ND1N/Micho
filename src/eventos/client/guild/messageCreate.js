@@ -10,20 +10,19 @@ module.exports = async(client, message) => {
     const COMANDO = client.commands.get(CMD) || client.commands.find(c => c.ALIASES && c.ALIASES.includes(CMD));
 
     if(COMANDO){
+        if (!message.guild.members.me.permissions.has("SendMessages")) return;
+
         if(COMANDO.OWNER) {
             const DUENOS = process.env.OWNER_IDS.split(" ");
             if (!DUENOS.includes(message.author.id)) return message.reply({content: `❌ **Solo los dueños del bot pueden ejecutar este comando! 🤨**\nFirma ${DUENOS.map(DUENO => `<@${DUENO}>`).join(", ")}`})
-
         }
 
         if(COMANDO.BOT_PERMISSIONS) {
             if (!message.guild.members.me.permissions.has(COMANDO.BOT_PERMISSIONS)) return message.reply({content: `❌ **Necesito los siguientes permisos para ejecutar este comando💀 :**\n${COMANDO.BOT_PERMISSIONS.map(PERMISO => `\`${PERMISO}\``).join(", ")}`})
-
         }
 
         if(COMANDO.PERMISSIONS) {
             if (!message.members.permissions.has(COMANDO.PERMISSIONS)) return message.reply({content: `❌ **Necesitas los siguientes permisos para ejecutar este comando💀 :**\n${COMANDO.PERMISSIONS.map(PERMISO => `\`${PERMISO}\``).join(", ")}`})
-
         }
 
         try{
