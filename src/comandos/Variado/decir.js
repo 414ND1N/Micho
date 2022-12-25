@@ -5,20 +5,21 @@ module.exports = {
     
     async execute(client, message, args, prefix){
         try{
-            message.delete();
-            let argumento = args[0]
+            let channel = message.channel
+            let argumento = args[0] 
             if (!argumento) {
-                return interaction.reply({
+                return message.reply({
                     embeds: [
                         new EmbedBuilder()
-                            .setColor(process.env.COLOR)
-                            .setDescription(`No hay mensaje que pueda decir, escribe algo 😊`)
+                        .setColor(process.env.COLOR)
+                        .setDescription(`No hay mensaje que pueda decir, escribe algo 😊`)
                     ],
                     ephemeral: true
-                })
-            }
+                });
+            };
+            message.delete();
             msg = args.join(' ');
-            message.reply(msg)
+            channel.send(msg)
             return;
 
         }catch(e){

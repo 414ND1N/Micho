@@ -1,4 +1,3 @@
-
 const {EmbedBuilder} = require('discord.js');
 module.exports = {
     DESCRIPTION: "Recarga los archivos del bot",
@@ -39,14 +38,9 @@ module.exports = {
                 }   
                     break;
             }
-            message.reply({
-                embeds: [
-                    new EmbedBuilder()
-                    .addFields({name: `✅ ${opcion} recargados`, value:`> *Okay!*`})
-                    .setColor(process.env.COLOR)
-                ],
-                ephemeral: true
-            });
+            console.log(`✅ ${opcion} recargados`);
+            message.delete();
+            
         }catch(e){
             message.reply({content: `**Ha ocurrido un error al recargar el bot**\nMira la consola para mas detalle :P`});
             console.log(e);
