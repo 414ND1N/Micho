@@ -1,5 +1,6 @@
 const {EmbedBuilder} = require('discord.js')
 module.exports = {
+    ALIASES: ["code"],
     DESCRIPTION: "Muestra el repositorio de mi código ☺",
     async execute(client, message, args, prefix){
         return message.reply({

@@ -1,5 +1,6 @@
 const {EmbedBuilder} = require('discord.js')
 module.exports = {
+    ALIASES: ["parar"],
     DESCRIPTION: "Sirve para desconectar al bot de la sala de voz",
     async execute(client, message, args, prefix){
         //comprobaciones previas :o

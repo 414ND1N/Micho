@@ -1,5 +1,6 @@
 const {EmbedBuilder} = require('discord.js')
 module.exports = {
+    ALIASES: ["reproducir"],
     DESCRIPTION: "Sirve para reproducir una canción dada",
     async execute(client, message, args, prefix){
         //comprobaciones previas :o

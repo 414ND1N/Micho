@@ -1,5 +1,6 @@
 const {EmbedBuilder} = require('discord.js')
 module.exports = {
+    ALIASES: ["anterior"],
     DESCRIPTION: "Sirve para saltar a la canción anterior en la lista de reproducción",
     async execute(client, message, args, prefix){
         //comprobaciones previas :o

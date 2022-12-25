@@ -1,5 +1,6 @@
 const {EmbedBuilder} = require('discord.js')
 module.exports = {
+    ALIASES: ["panapagina", "page"],
     DESCRIPTION: "Muestra el link de la pana página",
     async execute(client, message, args, prefix){
         return message.reply({

@@ -1,6 +1,7 @@
 const {EmbedBuilder} = require('discord.js')
 const { ActionRowBuilder, ButtonBuilder, ButtonStyle} = require('discord.js');
 module.exports = {
+    ALIASES: ["lista"],
     DESCRIPTION: "Sirve para ver la lista de canciones",
     async execute(client, message, args, prefix){
         const queue = client.distube.getQueue(message);

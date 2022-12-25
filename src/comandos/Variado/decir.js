@@ -1,6 +1,6 @@
 const {EmbedBuilder} = require('discord.js')
 module.exports = {
-    
+    ALIASES: ["say"],
     DESCRIPTION: "Sirve para que toffu diga el texto dado",
     
     async execute(client, message, args, prefix){

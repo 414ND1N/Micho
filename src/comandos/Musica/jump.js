@@ -1,5 +1,6 @@
 const {EmbedBuilder} = require('discord.js')
 module.exports = {
+    ALIASES: ["saltar"],
     DESCRIPTION: "Sirve para saltar a una canción de la lista en reproducción",
     async execute(client, message, args, prefix){
         const queue = client.distube.getQueue(message);

@@ -1,5 +1,6 @@
 const {EmbedBuilder} = require('discord.js')
 module.exports = {
+    ALIASES: ["mezclar"],
     DESCRIPTION: "Sirve para mezclar las canciónes de la lista",
     async execute(client, message, args, prefix){
         //comprobaciones previas :o

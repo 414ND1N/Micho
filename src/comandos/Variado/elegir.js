@@ -1,6 +1,6 @@
 const {EmbedBuilder} = require('discord.js')
 module.exports = {
-    
+    ALIASES: ["pick"],
     DESCRIPTION: "Sirve para que toffu eliga entre distintas opciones",
     
     async execute(client, message, args, prefix){

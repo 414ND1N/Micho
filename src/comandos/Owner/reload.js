@@ -1,5 +1,5 @@
-const {EmbedBuilder} = require('discord.js');
 module.exports = {
+    ALIASES: ["recargar"],
     DESCRIPTION: "Recarga los archivos del bot",
     OWNER: true,
     async execute(client, message, args, prefix){

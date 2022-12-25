@@ -1,5 +1,6 @@
 const {EmbedBuilder} = require('discord.js')
 module.exports = {
+    ALIASES: ["volumen"],
     DESCRIPTION: "Sirve para indicar el volumen de la canción en reproducción",
     async execute(client, message, args, prefix){
         //comprobaciones previas :o
