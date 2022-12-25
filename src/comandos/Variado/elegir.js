@@ -25,7 +25,7 @@ module.exports = {
                 embeds: [
                     new EmbedBuilder()
                         .setColor(process.env.COLOR)
-                        .addFields({name:`Elegí ${item}`, value:`> 🧐🍀`})
+                        .setDescription(`Elegí \`${item}\` 🧐`)
                 ]
             })
         }catch(e){
