@@ -11,7 +11,9 @@ module.exports = {
             {name: "Eventos", value:"events"},
             {name: "Handlers", value:"handlers"},
         )
-    ),
+    )
+    .setDefaultMemberPermissions('0'),
+
     async execute(client, interaction, prefix){
         let args = interaction.options.getString("modulo");
         let opcion = "Comandos, Eventos y Handlers";

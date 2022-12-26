@@ -66,9 +66,7 @@ module.exports = class extends Client {
                 }
             })
         }
-
         console.log(`(${process.env.PREFIX}) ${this.commands.size} Comandos cargados`.green);
-
     }
 
     async loadSlashCommands() {
@@ -87,7 +85,7 @@ module.exports = class extends Client {
                     COMANDO.CMD.name = NOMBRE_COMANDO;
 
                     if (NOMBRE_COMANDO) this.slashCommands.set(NOMBRE_COMANDO, COMANDO);
-
+                    
                     this.slashArray.push(COMANDO.CMD.toJSON());
                 } catch (e) {
                     console.log(`(/) ERROR AL CARGAR EL COMANDO ${rutaArchivo}`.red);
@@ -119,9 +117,7 @@ module.exports = class extends Client {
                 }
             })
         }
-
         console.log(`(-) ${RUTA_ARCHIVOS.length} Handlers Cargados`.green);
-
     }
 
     async loadEvents() {
@@ -143,9 +139,6 @@ module.exports = class extends Client {
                 }
             })
         }
-
         console.log(`(+) ${RUTA_ARCHIVOS.length} Eventos Cargados`.green);
-
     }
-
 }

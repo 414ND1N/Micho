@@ -11,7 +11,8 @@ module.exports = {
         option.setName('mensaje')
             .setDescription('Mensaje que se desea enviar')
             .setRequired(true)
-    ),
+    )
+    .setDefaultMemberPermissions('0'),
     
     async execute(client, interaction, prefix){
         const user = interaction.options.getUser('usuario');
