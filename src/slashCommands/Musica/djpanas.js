@@ -6,17 +6,19 @@ module.exports = {
         option.setName("tipo")
         .setDescription("Tipo de contenido")
         .addChoices(
-            {name: "Kanako Ito", value:"kanako"},
+            {name: "Clásico", value:"classic"},
             {name: "Anime", value:"anime"},
             {name: "Video-juegos", value:"videogames"},
             {name: "K-On", value:"kon"},
+            {name: "Bochi the Rock", value:"bochi"},
+            {name: "Kanako Ito", value:"kanako"},
             {name: "Variedad", value:"random"},
-            {name: "Clásico", value:"classic"},
         )
     ),
     async execute(client, interaction, prefix){
         try{
             let args = interaction.options.getString("tipo");
+            let mezclar = interaction.options.getBoolean('mezclar')
             let opcion = "Clásico";
     
             const voicechannel = interaction.member.voice.channel;
@@ -58,6 +60,11 @@ module.exports = {
                     args = 'https://www.youtube.com/playlist?list=PLtzt-E5Aq1-lv_BaSVghN8JGbkHiGEH1n';
                 }
                     break;
+                case "bochi":{
+                    opcion = "Bochi the Rock";
+                    args = 'https://www.youtube.com/playlist?list=PLcEg5PtMSB3d5ROEIBnldmOS3ohWKGMLw';
+                }
+                    break;
                 default:{
                     args = 'https://www.youtube.com/playlist?list=PLtzt-E5Aq1-kGOPEbker6rjCQH6ZtKNz9';
                 }   
@@ -68,11 +75,12 @@ module.exports = {
                 member: interaction.member,
                 textChannel: interaction.channel
             });
+
             return interaction.reply({
                 embeds: [
                     new EmbedBuilder()
                         .setColor(process.env.COLOR)
-                        .addFields({name: `**Reproduciendo DJPANAS ${opcion} **`, value:`> 😎`})
+                        .addFields({name: `**Reproduciendo \`DJPANAS ${opcion}\` **`, value:`> 😎  🔊 🎶`})
                 ]
             })
 
