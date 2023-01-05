@@ -35,7 +35,6 @@ module.exports = class extends Client {
         this.start();
     }
 
-
     async start() {
         await this.loadEvents();
         await this.loadHandlers();
@@ -141,4 +140,5 @@ module.exports = class extends Client {
         }
         console.log(`(+) ${RUTA_ARCHIVOS.length} Eventos Cargados`.green);
     }
+    
 }
