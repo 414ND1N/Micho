@@ -1,5 +1,3 @@
-const {EmbedBuilder} = require('discord.js');
-
 module.exports = {
     ALIASES: ["msg"],
     DESCRIPTION: "Toffu envía un mensaje privado al usuario indicado",

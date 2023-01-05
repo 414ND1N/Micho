@@ -2,14 +2,16 @@ const {SlashCommandBuilder, EmbedBuilder} = require('discord.js')
 module.exports = {
     CMD: new SlashCommandBuilder()
     .setDescription("Sirve para indicar el volumen de la canción en reproducción")
-    .addStringOption(option =>
+    .addIntegerOption(option =>
         option.setName("porcentaje")
-        .setDescription("Número del % para la música reproduciendose")
+        .setDescription("Porcentaje del volumen para la música reproduciéndose")
         .setRequired(true)
+        .setMinValue(0)
+        .setMaxValue(200)
     ),
     async execute(client, interaction, prefix){
         try{
-            let args = interaction.options.getString("porcentaje");
+            let args = interaction.options.getInteger("porcentaje");
             const voicechannel = interaction.member.voice.channel
 
             //comprobaciones previas :o

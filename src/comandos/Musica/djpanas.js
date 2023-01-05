@@ -78,6 +78,7 @@ module.exports = {
                     new EmbedBuilder()
                         .setColor(process.env.COLOR)
                         .addFields({name: `**Reproduciendo \`DJPANAS ${opcion}\` **`, value:`> 😎  🔊 🎶`})
+                        .setThumbnail("https://i.imgur.com/B8VarKR.gif")
                 ]
             });
         }catch(e){

@@ -29,4 +29,4 @@ Bot de discord con un prefix de *tf.* para los comandos, tambien compatible con 
 * jump <*numero*>
 
 
-![Toffu bot discord](https://i.imgur.com/he1wDMU.png "Toffu")
+![Toffu bot discord](https://i.imgur.com/zMV9yIP.png "Toffu")
