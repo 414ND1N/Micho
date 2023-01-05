@@ -1,5 +1,6 @@
 const {EmbedBuilder} = require('discord.js');
 module.exports = {
+    DESCRIPTION: "Elimina los mensajes indicados del canal",
     ALIASES: ["limpiar"], 
     OWNER: true,
     async execute (client, message, args, prefix){

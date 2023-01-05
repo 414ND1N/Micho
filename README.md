@@ -14,6 +14,7 @@ Bot de discord con un prefix de *tf.* para los comandos, tambien compatible con 
 ### Comandos Variados
 * decir <*texto*>
 * elegir <*opcion1, opcion2, ...*>
+* 8ball <*pregunta*>
 
 ### Comandos Música
 * djpanas <*tipo*>

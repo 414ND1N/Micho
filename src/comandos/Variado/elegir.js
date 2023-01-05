@@ -12,8 +12,7 @@ module.exports = {
                         new EmbedBuilder()
                             .setColor(process.env.COLOR)
                             .setDescription(`No hay opciones donde elegir, escribe algo 😊`)
-                    ],
-                    ephemeral: true
+                    ]
                 })
             }
             
@@ -29,7 +28,7 @@ module.exports = {
                 ]
             })
         }catch(e){
-            message.reply({content: `**Ha ocurrido un error al recargar el bot**\nMira la consola para mas detalle :P`});
+            message.reply({content: `**Ha ocurrido un error en eleigr**\nMira la consola para mas detalle :P`});
             console.log(e);
             return;
         }

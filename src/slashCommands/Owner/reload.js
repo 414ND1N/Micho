@@ -59,6 +59,7 @@ module.exports = {
                 ],
                 ephemeral: true
             });
+            console.log(`✅ ${opcion} recargados`);
         }catch(e){
             interaction.reply({content: `**Ha ocurrido un error al recargar el bot**\nMira la consola para mas detalle :P`});
             console.log(e);
