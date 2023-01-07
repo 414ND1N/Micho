@@ -10,11 +10,13 @@ Bot de discord con un prefix de *tf.* para los comandos, tambien compatible con 
 * ping
 * pagina
 * codigo
+* help
 
 ### Comandos Variados
 * decir <*texto*>
 * elegir <*opcion1, opcion2, ...*>
 * 8ball <*pregunta*>
+*sugerir <*sugerencia*>
 
 ### Comandos Música
 * djpanas <*tipo*>

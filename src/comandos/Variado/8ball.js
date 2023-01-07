@@ -14,7 +14,6 @@ module.exports = {
                     ]
                 })
             }
-
             msg = args.join(' ');
 
             const opciones = [

@@ -48,7 +48,6 @@ module.exports = {
                 .setTitle(`🎶  Cola de reproducción - \`[${queue.songs.length} ${queue.songs.length > 1 ? "canciones": "canción"}]\``)
                 .setColor(process.env.COLOR)
                 .setDescription(desc)
-                
             
             //Si el numero de canciones a mostrar es mayor a 1 especificamos en el embed que canción se esta reproduciendo en ese momento
             if (queue.songs.length > 1) el_embed.addFields({name: `🎧 Canción actual`, value: `**[\`${queue.songs[0].name}\`](${queue.songs[0].url})**`});

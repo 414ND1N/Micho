@@ -9,13 +9,14 @@ module.exports = class extends Client {
             GatewayIntentBits.MessageContent,
             GatewayIntentBits.GuildVoiceStates,
             GatewayIntentBits.GuildEmojisAndStickers,
+            GatewayIntentBits.GuildMessageTyping,
+            GatewayIntentBits.GuildMessageReactions
         ],
-        partials: [Partials.User, Partials.Channel, Partials.GuildMember, Partials.Message, Partials.Reaction],
+        partials: [Partials.User, Partials.Channel, Partials.GuildMember, Partials.Message, Partials.Reaction, Partials.ThreadMember],
         allowedMentions: {
             parse: ["roles", "users", "everyone"],
             repliedUser: false,
         },
-
         presence: {
             activities: [{name: process.env.STATUS, type: ActivityType[process.env.STATUS_TYPE]}
             ],
