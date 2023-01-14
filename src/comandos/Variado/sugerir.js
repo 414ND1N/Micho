@@ -18,11 +18,11 @@ module.exports = {
             msg = args.join(' ');
 
             const embed_sug = new EmbedBuilder()
-            .setTitle(`Sugerencia de \`${message.author.username}\``)
-            .setDescription(`\`${msg}\``)
-            .setColor(process.env.COLOR)
-            .setTimestamp()
-            .setThumbnail(`https://i.imgur.com/rIPXKFQ.png`);
+                .setTitle(`Sugerencia de \`${message.author.username}\``)
+                .setDescription(`\`${msg}\``)
+                .setColor(process.env.COLOR)
+                .setTimestamp()
+                .setThumbnail(`https://i.imgur.com/rIPXKFQ.png`);
 
             const mensaje = await message.reply({embeds: [embed_sug], fetchReply: true});
         

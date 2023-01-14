@@ -9,14 +9,14 @@ module.exports = {
             const mensaje = args.slice(1).join(" ");
 
             if(!userID) return message.channel.send("Debes colocar la ID o mencionar a alguien 😐");
-            const user = message.mentions.members.first() || message.guild.members.cache.get(userID);
+            const user = message.mentions.users.first();
             
-            if(!mensaje) return message.reply("Debes poner un texto para mandar");
             if(!user) return message.reply("No se encontró destinario, vuelve a intentarlo");
-
+            if(!mensaje) return message.reply("Debes poner un texto para mandar");
+            
             user.send(mensaje);
             
-            console.log(`Mensaje envíado a ${user} \n > ${mensaje}`);
+            console.log(`Mensaje envíado a ${user.username} \n > ${mensaje}`);
             message.delete();
             
         }catch(e){

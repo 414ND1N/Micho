@@ -3,7 +3,7 @@ module.exports = {
     CMD: new SlashCommandBuilder()
     .setDescription("Sirve para que la bola 8 de una respuesta a una pregunta")
     .addStringOption(option =>
-      option.setName("pregunta")
+        option.setName("pregunta")
         .setDescription('Pregunta que deseas que la bola te responda')
         .setRequired(true)
     ),
@@ -12,15 +12,15 @@ module.exports = {
         let pregunta = interaction.options.getString("pregunta");
 
         const opciones = [
-        "Es cierto",
-        "Definitivamente",
-        "Lo mas probable",
-        "No tengo una respuesta para eso..", 
-        "No cuentes con ello",
-        "Es muy dudoso",
-        "Creeria que si",
-        "Diria que no",
-        "Los astros aun no se alinean",
+            "Es cierto",
+            "Definitivamente",
+            "Lo mas probable",
+            "No tengo una respuesta para eso..", 
+            "No cuentes con ello",
+            "Es muy dudoso",
+            "Creeria que si",
+            "Diria que no",
+            "Los astros aun no se alinean",
         ]
 
         const randomIndex = Math.floor(Math.random() * opciones.length);

@@ -11,11 +11,11 @@ module.exports = {
         let pregunta = interaction.options.getString("sugerencia");
         
         const embed_sug = new EmbedBuilder()
-        .setTitle(`Sugerencia de \`${interaction.user?.username}\``)
-        .setDescription(`\`${pregunta}\``)
-        .setColor(process.env.COLOR)
-        .setTimestamp()
-        .setThumbnail(`https://i.imgur.com/rIPXKFQ.png`);
+            .setTitle(`Sugerencia de \`${interaction.user?.username}\``)
+            .setDescription(`\`${pregunta}\``)
+            .setColor(process.env.COLOR)
+            .setTimestamp()
+            .setThumbnail(`https://i.imgur.com/rIPXKFQ.png`);
 
         const mensaje = await interaction.reply({embeds: [embed_sug], fetchReply: true});
         

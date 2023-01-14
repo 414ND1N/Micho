@@ -39,6 +39,5 @@ module.exports = {
                     .addFields({name: `**Buscando \`${args.join(" ")}\` ...**`, value:`> 🔎🧐`})
             ]
         })
-    } 
-       
+    }  
 }

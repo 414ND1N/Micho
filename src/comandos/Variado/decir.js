@@ -18,9 +18,8 @@ module.exports = {
                 });
             };
             message.delete();
-            msg = args.join(' ');
+            let msg = args.join(' ');
             channel.send(msg)
-            return;
 
         }catch(e){
             message.reply({content: `**Ha ocurrido un error al recargar el bot**\nMira la consola para mas detalle :P`});
