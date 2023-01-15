@@ -23,6 +23,6 @@ module.exports = {
             .setThumbnail("https://i.imgur.com/7bj9r36.gif")
 
         interaction.reply({ embeds: [ClearCommandembed]})
-            .then(() => {setTimeout(() => interaction.deleteReply(), 5000)}).catch();
+            .then(() => {setTimeout(() => interaction.deleteReply(), 10000)}).catch();
     }
 }   
