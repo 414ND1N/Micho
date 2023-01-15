@@ -12,20 +12,17 @@ module.exports = {
     .setDefaultMemberPermissions('0'),
     async execute(client, interaction, prefix){
 
-        await interaction.deferReply();
-
         const valor = interaction.options.getInteger("mensajes");
 
-        interaction.channel.bulkDelete(valor + 1, true);
+        await interaction.channel.bulkDelete(valor+1).catch(err =>{ return });
 
         const ClearCommandembed = new EmbedBuilder()
             .setTitle('🧹 __CLEAR__ 🧹')
             .setColor(process.env.COLOR)
-            .setDescription(`Se han eliminado una cantidad de ${valor} de mensajes`)
-            .setThumbnail("https://i.imgur.com/WHCwA6t.gif")
+            .setDescription(`Se han eliminado una cantidad de \`${valor}\` de mensajes`)
+            .setThumbnail("https://i.imgur.com/7bj9r36.gif")
 
-        interaction.channel.send({ embeds: [ClearCommandembed], ephemeral: true })
-            .then(msg => {setTimeout(() => msg.delete(), 10000)}).catch(console.log('Error csm con clear :p'));
-        return await interaction.deleteReply();
+        interaction.reply({ embeds: [ClearCommandembed]})
+            .then(() => {setTimeout(() => interaction.deleteReply(), 5000)}).catch();
     }
-} 
+}   

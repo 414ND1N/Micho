@@ -38,7 +38,7 @@ module.exports = {
                 }   
                     break;
             }
-            console.log(`✅ ${opcion} recargados`);
+            console.log(`✅ ${opcion} recargados`.yellow);
             message.delete();
             
         }catch(e){

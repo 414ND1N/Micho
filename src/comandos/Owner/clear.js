@@ -12,30 +12,23 @@ module.exports = {
                 embeds: [
                     new EmbedBuilder()
                         .setColor(process.env.COLOR)
-                        .setDescription(`❌ | **Error**\n\nDebes escribir al menos un numero de mensajes para borrar`)
+                        .setDescription(`❌ | **Error**\n\nDebes escribir al menos un número de mensajes para borrar`)
                 ]
             })
         };
     
-        if (valor >= 100){
+        if (valor > 100 || valor <=0){
             return message.reply({
                 embeds: [
                     new EmbedBuilder()
                         .setColor(process.env.COLOR)
-                        .setDescription(`❌ | **Máximo de 99 mensajes para borrar**`)
+                        .setDescription(`❌ | **Máximo de \`99\` mensajes y mínimo de \`1\` mensaje para borrar**`)
                 ]
             })
         };
 
-        message.channel.bulkDelete(valor + 1, true);
+        await message.channel.bulkDelete(valor + 1, true).catch(err =>{ return });
 
-        const ClearCommandembed = new EmbedBuilder()
-            .setTitle('🧹 __CLEAR__ 🧹')
-            .setColor(process.env.COLOR)
-            .setDescription(`Se han eliminado una cantidad de ${valor} de mensajes`)
-            .setThumbnail("https://i.imgur.com/WHCwA6t.gif")
-
-        message.channel.send({ embeds: [ClearCommandembed] })
-            .then(msg => {setTimeout(() => msg.delete(), 10000)}).catch(console.log('Error csm con clear :p'));
+        console.log(`🧹 CLEAR 🧹 | Se han eliminado una cantidad de ${valor} de mensajes`.red);
     }   
 } 
