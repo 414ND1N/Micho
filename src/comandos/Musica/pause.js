@@ -11,8 +11,7 @@ module.exports = {
                     new EmbedBuilder()
                         .setColor(process.env.COLOR)
                         .setDescription(`No hay música reproduciendose`)
-                ],
-                ephemeral: true
+                ]
             })
         };
         
@@ -22,8 +21,7 @@ module.exports = {
                     new EmbedBuilder()
                         .setColor(process.env.COLOR)
                         .setDescription(`Tienes que estar en un canal de voz para ejecutar el comando 🤨`)
-                ],
-                ephemeral: true
+                ]
             })
         };
 
@@ -31,8 +29,10 @@ module.exports = {
         return message.reply({
             embeds: [
                 new EmbedBuilder()
+                    .setTitle('Pausar música')
+                    .setThumbnail('https://i.imgur.com/kY0gh91.gif')
                     .setColor(process.env.COLOR)
-                    .addFields({name: `**Se ha pausado la música**`, value:`> 🚦🛑`})
+                    .addFields({name: `Se pausó la música`, value:`> 🚦🛑`})
             ]
         })
     } 

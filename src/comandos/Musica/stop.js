@@ -11,8 +11,7 @@ module.exports = {
                     new EmbedBuilder()
                         .setColor(process.env.COLOR)
                         .setDescription(`No hay música reproduciendose`)
-                ],
-                ephemeral: true
+                ]
             })
         };
         
@@ -22,8 +21,7 @@ module.exports = {
                     new EmbedBuilder()
                         .setColor(process.env.COLOR)
                         .setDescription(`Tienes que estar en un canal de voz para ejecutar el comando 🤨`)
-                ],
-                ephemeral: true
+                ]
             })
         };
 
@@ -31,8 +29,10 @@ module.exports = {
         return message.reply({
             embeds: [
                 new EmbedBuilder()
+                    .setTitle('Finalización música')
                     .setColor(process.env.COLOR)
-                    .addFields({name: `**Se finalizó la reproducción**`, value:`> 💀 Nah bro i'm dead`})
+                    .addFields({name: `Saliendo del canal ...`, value:`> Hasta la próxima 😊`})
+                    .setThumbnail('https://i.imgur.com/lIs9ZAg.gif')
             ]
         })
     } 

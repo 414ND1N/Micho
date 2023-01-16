@@ -32,8 +32,10 @@ module.exports = {
             return interaction.reply({
                 embeds: [
                     new EmbedBuilder()
+                        .setTitle('Reproducción música')
+                        .setThumbnail('https://i.imgur.com/vMaawHJ.gif')
                         .setColor(process.env.COLOR)
-                        .addFields({name: `**Buscando \`${args}\` ...**`, value:`> 🔎🧐`})
+                        .addFields({name: `Buscando \`${args}\` ...`, value:`> 🔎🧐`})
                 ]
             })
 

@@ -18,7 +18,7 @@ module.exports = (client, Discord) => {
         emptyCooldown: 100,
         ytdlOptions: {
             highWaterMark: 1024 * 1024 * 64,
-            quality: "highestaudio",
+            quality: "135",
             format: "audioonly",
             liveBuffer: 20000,
             dlChunkSize: 1024 * 1024 * 4,
@@ -39,10 +39,9 @@ module.exports = (client, Discord) => {
     client.distube.on("playSong", (queue, song)=>{
         
         embed_playsong = new EmbedBuilder()
-            .setColor('#871b1b')
-            .setTitle('Reproduciendo 🎶')
+            .setColor(process.env.COLOR)
+            .setTitle('Reproducción 🔈 🎶')
             .setURL(song.url)
-            .setAuthor({ name: song.user.tag, iconURL: song.user.displayAvatarURL({dynamic: true})})
             .setDescription(`Reproduciendo \`${song.name}\` - \`(${song.formattedDuration})\``)
             .setThumbnail(song.thumbnail)
 
@@ -52,7 +51,7 @@ module.exports = (client, Discord) => {
 
     client.distube.on("addList", (queue, song) => {
         embed_addlist = new EmbedBuilder()
-            .setColor('#871b1b')
+            .setColor(process.env.COLOR)
             .setTitle('Lista de reproducción añadida 🎶')
             .setURL(song.url)
             .setAuthor({ name: song.user.tag, iconURL: song.user.displayAvatarURL({dynamic: true})})
@@ -66,8 +65,8 @@ module.exports = (client, Discord) => {
     client.distube.on("addSong", (queue, song)=>{
         
         embed_addsong = new EmbedBuilder()
-            .setColor('#871b1b')
-            .setTitle('Música añadida a la lista 🎶')
+            .setColor(process.env.COLOR)
+            .setTitle('Música añadida 🎶')
             .setURL(song.url)
             .setAuthor({ name: song.user.tag, iconURL: song.user.displayAvatarURL({dynamic: true})})
             .setDescription(`Se añadió \`${song.name}\` - \`(${song.formattedDuration})\``)

@@ -79,9 +79,10 @@ module.exports = {
             return interaction.reply({
                 embeds: [
                     new EmbedBuilder()
+                        .setTitle('Reproducción DJ PANAS')
+                        .setThumbnail("https://i.imgur.com/vMaawHJ.gif")
                         .setColor(process.env.COLOR)
-                        .addFields({name: `**Reproduciendo \`DJPANAS ${opcion}\` **`, value:`> 😎  🔊 🎶`})
-                        .setThumbnail("https://i.imgur.com/B8VarKR.gif")
+                        .addFields({name: `**Reproduciendo DJ PANAS \`${opcion}\` **`, value:`> 😎  🔊 🎶`})
                 ]
             })
 

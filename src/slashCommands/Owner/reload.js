@@ -7,6 +7,7 @@ module.exports = {
         .setDescription("Módulo a recargar")
         .addChoices(
             {name: "Comandos", value:"comandos"},
+            {name: "Comandos prefix", value:"prefix"},
             {name: "Comandos diagonales", value:"slash"},
             {name: "Eventos", value:"events"},
             {name: "Handlers", value:"handlers"},
@@ -24,9 +25,16 @@ module.exports = {
                 case "comandos":{
                     opcion = "Comandos";
                     await client.loadCommands();
+                    await client.loadSlashCommands();
                 }
                     break;
-                case "slashCommands":
+                case "prefixcommands":
+                case "prefix":{
+                    opcion = "Comandos Prefix";
+                    await client.loadCommands();
+                }
+                    break;
+                case "slashcommands":
                 case "slash":{
                     opcion = "Comandos Diagonales";
                     await client.loadSlashCommands();

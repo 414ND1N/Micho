@@ -6,16 +6,22 @@ module.exports = {
         let opcion = "Comandos, Eventos y Handlers";
 
         try{
-            if (!args) { return console.log(`Debes colocar lo que deseas recargar del bot 😐`.red)}
 
             switch(args[0]?.toLowerCase()){
                 case "commands":
                 case "comandos":{
                     opcion = "Comandos";
                     await client.loadCommands();
+                    await client.loadSlashCommands();
                 }
                     break;
-                case "slashCommands":
+                case "prefixcommands":
+                case "prefix":{
+                    opcion = "Comandos Prefix";
+                    await client.loadCommands();
+                }
+                    break;
+                case "slashcommands":
                 case "slash":{
                     opcion = "Comandos Diagonales";
                     await client.loadSlashCommands();

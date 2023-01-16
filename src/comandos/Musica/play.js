@@ -10,8 +10,7 @@ module.exports = {
                     new EmbedBuilder()
                         .setColor(process.env.COLOR)
                         .setDescription(`Tienes que especificar el nombre de una canción 🤨`)
-                ],
-                ephemeral: true
+                ]
             })
         }
         
@@ -21,8 +20,7 @@ module.exports = {
                     new EmbedBuilder()
                         .setColor(process.env.COLOR)
                         .setDescription(`Tienes que estar en un canal de voz para ejecutar el comando 🤨`)
-                ],
-                ephemeral: true
+                ]
             })
         };
 
@@ -35,8 +33,10 @@ module.exports = {
         return message.reply({
             embeds: [
                 new EmbedBuilder()
+                    .setTitle('Reproducción música')
+                    .setThumbnail('https://i.imgur.com/vMaawHJ.gif')
                     .setColor(process.env.COLOR)
-                    .addFields({name: `**Buscando \`${args.join(" ")}\` ...**`, value:`> 🔎🧐`})
+                    .addFields({name: `Buscando \`${args}\` ...`, value:`> 🔎🧐`})
             ]
         })
     }  

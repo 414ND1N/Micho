@@ -34,8 +34,10 @@ module.exports = {
             return interaction.reply({
                 embeds: [
                     new EmbedBuilder()
+                        .setTitle('Resumen música')
+                        .setThumbnail('https://i.imgur.com/Zqg98ma.gif')
                         .setColor(process.env.COLOR)
-                        .addFields({name: `**Se ha resumido la música**`, value:`> 🐱‍🏍 🎶🎵`})
+                        .addFields({name: `Se resumió la reproducción`, value:`> 🐱‍🏍 🎶🎵`})
                 ]
             })
             

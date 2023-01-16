@@ -10,8 +10,7 @@ module.exports = {
                     new EmbedBuilder()
                         .setColor(process.env.COLOR)
                         .setDescription(`Tienes que especificar el volumen 🤨`)
-                ],
-                ephemeral: true
+                ]
             })
         }
         
@@ -21,8 +20,7 @@ module.exports = {
                     new EmbedBuilder()
                         .setColor(process.env.COLOR)
                         .setDescription(`Tienes que estar en un canal de voz para ejecutar el comando 🤨`)
-                ],
-                ephemeral: true
+                ]
             })
         };
 
@@ -30,8 +28,10 @@ module.exports = {
         return message.reply({
             embeds: [
                 new EmbedBuilder()
+                    .setTitle('Volúmen música')
                     .setColor(process.env.COLOR)
-                    .addFields({name:`Se cambió el volumen a ${Number(args[0])} %`, value:`> 🔈🔉 🔊`})
+                    .addFields({name:`Se cambió el volúmen a \`${Number(args)} %\``, value:`> 🔈🔉 🔊`})
+                    .setThumbnail('https://i.imgur.com/IPLiduk.gif')
             ]
         })
     }      

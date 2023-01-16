@@ -34,8 +34,10 @@ module.exports = {
             return interaction.reply({
                 embeds: [
                     new EmbedBuilder()
+                        .setTitle('Finalización música')
                         .setColor(process.env.COLOR)
-                        .addFields({name: `**Se finalizó la reproducción**`, value:`> 💀 Nah bro i'm dead`})
+                        .addFields({name: `Saliendo del canal ...`, value:`> Hasta la próxima 😊`})
+                        .setThumbnail('https://i.imgur.com/lIs9ZAg.gif')
                 ]
             })
 

@@ -3,46 +3,65 @@ module.exports = {
     ALIASES: ["saltar"],
     DESCRIPTION: "Sirve para saltar a una canción de la lista en reproducción",
     async execute(client, message, args, prefix){
+        
         const queue = client.distube.getQueue(message);
-        let num_cancion = Number(args[0])-1;
-        //comprobaciones previas :o
         if (!queue) {
             return message.reply({
                 embeds: [
                     new EmbedBuilder()
                         .setColor(process.env.COLOR)
                         .setDescription(`No hay música reproduciendose`)
-                ],
-                ephemeral: true
+                ]
             })
         };
+
         if (!args.length) {
             return message.reply({
                 embeds: [
                     new EmbedBuilder()
                         .setColor(process.env.COLOR)
                         .setDescription(`Tienes que especificar el número de canción 🤨`)
-                ],
-                ephemeral: true
+                ]
             })
         }
+        let num_cancion = Number(args[0])-1;
+
         if (!message.member.voice?.channel){
             return message.reply({
                 embeds: [
                     new EmbedBuilder()
                         .setColor(process.env.COLOR)
                         .setDescription(`Tienes que estar en un canal de voz para ejecutar el comando 🤨`)
-                ],
-                ephemeral: true
+                ]
             })
         };
-
-        client.distube.jump(message, parseInt(num_cancion));
+        if (num_cancion < 1) {
+            return message.reply({
+                embeds: [
+                    new EmbedBuilder()
+                        .setColor(process.env.COLOR)
+                        .setDescription(`No se puede saltar a la canción en reproducción`)
+                ]
+            })
+        };
+        
+        if (num_cancion > (queue.songs.length)-1) {
+            return message.reply({
+                embeds: [
+                    new EmbedBuilder()
+                        .setColor(process.env.COLOR)
+                        .setDescription(`La lista unicamente cuenta con \`${queue.songs.length}\` canciones`)
+                ]
+            })
+        };
+        client.distube.jump(message, num_cancion);
         return message.reply({
             embeds: [
                 new EmbedBuilder()
+                    .setTitle('Salto en lista de música')
+                    .setThumbnail('https://i.imgur.com/bDO4VTw.gif')
                     .setColor(process.env.COLOR)
-                    .addFields({name: `**Se ha saltado a la canción número \`${Number(args)}\`**`, value:`> 🐱‍🏍 🎶🎵`})
+                    .addFields({name: `Se saltó a la canción número \`${Number(args)}\``, value:`> 🐱‍🏍 🎶🎵`})
             ]
         })
     }      

@@ -12,8 +12,7 @@ module.exports = {
                         new EmbedBuilder()
                             .setColor(process.env.COLOR)
                             .setDescription(`Tienes que estar en un canal de voz para ejecutar el comando 🤨`)
-                    ],
-                    ephemeral: true
+                    ]
                 })
             };
             
@@ -76,9 +75,10 @@ module.exports = {
             return message.reply({
                 embeds: [
                     new EmbedBuilder()
+                        .setTitle('Reproducción DJ PANAS')
+                        .setThumbnail("https://i.imgur.com/vMaawHJ.gif")
                         .setColor(process.env.COLOR)
-                        .addFields({name: `**Reproduciendo \`DJPANAS ${opcion}\` **`, value:`> 😎  🔊 🎶`})
-                        .setThumbnail("https://i.imgur.com/B8VarKR.gif")
+                        .addFields({name: `**Reproduciendo DJ PANAS \`${opcion}\` **`, value:`> 😎  🔊 🎶`})
                 ]
             });
         }catch(e){
