@@ -6,6 +6,8 @@ module.exports = {
         let opcion = "Comandos, Eventos y Handlers";
 
         try{
+            if (!args) { return console.log(`Debes colocar lo que deseas recargar del bot 😐`.red)}
+
             switch(args[0]?.toLowerCase()){
                 case "commands":
                 case "comandos":{

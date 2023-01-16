@@ -8,15 +8,15 @@ module.exports = {
             const userID = args[0]
             const mensaje = args.slice(1).join(" ");
 
-            if(!userID) return message.channel.send("Debes colocar la ID o mencionar a alguien 😐");
+            if(!userID) { return console.log("Debes colocar la ID o mencionar a alguien 😐".red)}
             const user = message.mentions.users.first();
             
-            if(!user) return message.reply("No se encontró destinario, vuelve a intentarlo");
-            if(!mensaje) return message.reply("Debes poner un texto para mandar");
+            if(!user) { return console.log("No se encontró destinario, vuelve a intentarlo".red)}
+            if(!mensaje) { return console.log("Debes poner un texto para mandar".red)}
             
             user.send(mensaje);
             
-            console.log(`Mensaje envíado a ${user.username} \n > ${mensaje}`);
+            console.log(`Mensaje envíado a ${user.username} \n > ${mensaje}`.blue);
             message.delete();
             
         }catch(e){

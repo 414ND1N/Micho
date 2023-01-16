@@ -1,4 +1,4 @@
-const {SlashCommandBuilder, EmbedBuilder} = require('discord.js');
+const {SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits} = require('discord.js');
 module.exports = {
     CMD: new SlashCommandBuilder()
     .setDescription("Toffu envía un mensaje privado al usuario indicado")
@@ -12,7 +12,7 @@ module.exports = {
             .setDescription('Mensaje que se desea enviar')
             .setRequired(true)
     )
-    .setDefaultMemberPermissions('0'),
+    .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
     
     async execute(client, interaction, prefix){
         const user = interaction.options.getUser('usuario');

@@ -1,4 +1,4 @@
-const {SlashCommandBuilder, EmbedBuilder} = require('discord.js')
+const {SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits} = require('discord.js')
 module.exports = {
     CMD: new SlashCommandBuilder()
     .setDescription("Elimina los mensajes indicados del canal")
@@ -9,7 +9,7 @@ module.exports = {
         .setMinValue(1)
         .setMaxValue(99)
     )
-    .setDefaultMemberPermissions('0'),
+    .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
     async execute(client, interaction, prefix){
 
         const valor = interaction.options.getInteger("mensajes");

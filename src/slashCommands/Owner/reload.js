@@ -1,4 +1,4 @@
-const {SlashCommandBuilder, EmbedBuilder} = require('discord.js')
+const {SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits} = require('discord.js')
 module.exports = {
     CMD: new SlashCommandBuilder()
     .setDescription("Recarga los archivos del bot")
@@ -12,7 +12,7 @@ module.exports = {
             {name: "Handlers", value:"handlers"},
         )
     )
-    .setDefaultMemberPermissions('0'),
+    .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
 
     async execute(client, interaction, prefix){
         let args = interaction.options.getString("modulo");
