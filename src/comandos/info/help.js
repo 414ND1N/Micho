@@ -81,7 +81,7 @@ module.exports = {
                     {name: `elegir`, value:`Sirve para que Toffu eliga entre las opciones dadas \n> Las opciones se dan separadas por coma \`,\``},
                     {name: `8ball`, value:`Sirve para que la bola 8 de una respuesta a una pregunta`},
                     {name: `sugerir`, value:`Sirve para dar una sugerencia para poder votar`},
-                    {name: `accion`, value:`Sirve para dar una sugerencia para poder votar\n> Entre las acciones esta \`abrazar\`, \`besar\`, \`golpear\`, \`dar palmadas\`, \`mirar fijamente\`, \`bofetear\`, \`dar toques\`, \`presumir\`, \`lamer\`, \`pulgar arriba\`, \`berrinche\`, \`sonrojar\`.`},
+                    {name: `accion`, value:`Sirve para hacer una acción a otro usuario\n> Entre las acciones esta \`abrazar\`, \`besar\`, \`golpear\`, \`dar palmadas\`, \`mirar fijamente\`, \`bofetear\`, \`dar toques\`, \`presumir\`, \`lamer\`, \`pulgar arriba\`, \`berrinche\`, \`sonrojar\`.`},
                     {name: `gif`, value:`Sirve para mostrar el gif que se desee buscar\n> Mostrara un gif aleatorio de \`tenor.com\``},
                 ) 
                 .setThumbnail(`https://i.imgur.com/s2lV0y5.png`);
