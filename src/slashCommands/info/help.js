@@ -8,12 +8,12 @@ module.exports = {
         let btn_menu = new ButtonBuilder()
             .setCustomId('menu')
             .setLabel('Menú')
-            .setStyle(ButtonStyle.Danger)
+            .setStyle(ButtonStyle.Success)
             .setEmoji(`🏠`);
         
         let btn_info =  new ButtonBuilder()
             .setCustomId('info')
-            .setLabel('Información')
+            .setLabel('Info')
             .setStyle(ButtonStyle.Primary)
             .setEmoji(`<:facts:1061057414876639292>`);
 
@@ -29,7 +29,13 @@ module.exports = {
             .setStyle(ButtonStyle.Primary)
             .setEmoji(`<:sus:1061064541179486218>`);
 
-        const row = new ActionRowBuilder().addComponents(btn_menu,btn_info,btn_music,btn_var);    
+        let btn_salir =  new ButtonBuilder()
+            .setCustomId('exit')
+            .setLabel('❌ Salir')
+            .setStyle(ButtonStyle.Danger);
+
+
+        const row = new ActionRowBuilder().addComponents(btn_menu,btn_info,btn_music,btn_var,btn_salir);    
 
         const embed_menu = new EmbedBuilder()
         .setTitle('Menú')
@@ -119,6 +125,10 @@ module.exports = {
                 case 'var':{
                     collector.resetTimer();
                     await i.update({embeds: [embed_menu3], components:[row]})
+                }
+                    break;
+                case 'exit':{
+                    collector.stop();
                 }
                     break;
                 default:

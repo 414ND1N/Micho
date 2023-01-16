@@ -66,22 +66,26 @@ module.exports = {
             //Si el numero de embeds es mayor a 1 ponemos botoines de paginacion
             let btn_atras =  new ButtonBuilder()
                 .setCustomId('atras')
-                .setLabel('Atrás')
                 .setStyle(ButtonStyle.Success)
                 .setEmoji(`⬅`);
+            
             let btn_siguiente =  new ButtonBuilder()
                 .setCustomId('siguiente')
-                .setLabel('Siguiente')
                 .setStyle(ButtonStyle.Success)
                 .setEmoji(`➡`);
 
             let btn_inicio = new ButtonBuilder()
                 .setCustomId('inicio')
                 .setLabel('Inicio')
-                .setStyle(ButtonStyle.Danger)
+                .setStyle(ButtonStyle.Primary)
                 .setEmoji(`🏠`);
+            
+            let btn_salir =  new ButtonBuilder()
+                .setCustomId('exit')
+                .setLabel('❌ Salir')
+                .setStyle(ButtonStyle.Danger);
 
-            const row = new ActionRowBuilder().addComponents(btn_atras,btn_inicio,btn_siguiente);
+            const row = new ActionRowBuilder().addComponents(btn_inicio, btn_atras, btn_siguiente, btn_salir);
 
             //Enviamos el mensaje embed con los botones
             let embedpaginas = await interaction.channel.send({
@@ -142,6 +146,10 @@ module.exports = {
                         pag_actual = 0;
                         await embedpaginas.edit({embeds: [embeds[pag_actual].setFooter({text: `Página ${pag_actual+1} / ${embeds.length}`})], components: [embedpaginas.components[0]]}).catch(() => {});
                         await b?.deferUpdate();
+                    }
+                        break;
+                    case 'exit':{
+                        collector.stop();
                     }
                         break;
                     default:
