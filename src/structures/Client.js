@@ -29,8 +29,9 @@ module.exports = class extends Client {
 
         this.commands = new Collection();
         this.slashCommands = new Collection();
+        this.voiceGenerator = new Collection();
         this.slashArray = [];
-
+        
         this.utils = new BotUtils(this);
 
         this.start();

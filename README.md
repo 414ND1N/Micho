@@ -6,6 +6,11 @@
 
 Bot de discord con un prefix de *tf.* para los comandos, tambien compatible con los comandos slash.
 
+### Funciones
+* Sistema de bienvenida
+* Anticrash
+* distube (para música)
+
 ### Comandos Generales
 * ping
 * pagina
@@ -34,4 +39,4 @@ Bot de discord con un prefix de *tf.* para los comandos, tambien compatible con 
 * jump <*numero*>
 
 
-![Toffu bot discord](https://i.imgur.com/zMV9yIP.png "Toffu")
+![Toffu bot discord](https://i.imgur.com/0qZPVzN.png "Toffu")

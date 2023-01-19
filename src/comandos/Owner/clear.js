@@ -1,4 +1,3 @@
-const {EmbedBuilder} = require('discord.js');
 module.exports = {
     DESCRIPTION: "Elimina los mensajes indicados del canal",
     ALIASES: ["limpiar"], 

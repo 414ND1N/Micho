@@ -1,4 +1,4 @@
-const {SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits, ChatInputCommandInteraction} = require('discord.js')
+const {SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits} = require('discord.js')
 module.exports = {
     CMD: new SlashCommandBuilder()
     .setDescription("Elimina los mensajes indicados del canal")
