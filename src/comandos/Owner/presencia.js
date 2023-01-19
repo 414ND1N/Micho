@@ -55,7 +55,6 @@ module.exports = {
                         client.user.setActivity(actividad, {type: ActivityType.Competing});
                         break;     
                     default:
-                        //por default sera Watching
                         client.user.setActivity(actividad, {type: ActivityType.Watching});
                         break;
                 }

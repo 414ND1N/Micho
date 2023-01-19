@@ -62,7 +62,6 @@ module.exports = {
                         client.user.setActivity(actividad, {type: ActivityType.Competing});
                         break;     
                     default:
-                        //por default sera Watching
                         client.user.setActivity(actividad, {type: ActivityType.Watching});
                         break;
                 }
@@ -75,7 +74,7 @@ module.exports = {
         return interaction.reply({
             embeds: [
                 new EmbedBuilder()
-                    .setTitle('Cambió de presencia de Toffu')
+                    .setTitle('Cambio de presencia de Toffu')
                     .setColor(process.env.COLOR)
                     .setDescription(`Se cambió ${sub} a \`${tipo}\`.`)
                     .setThumbnail("https://i.imgur.com/lIs9ZAg.gif")
