@@ -3,7 +3,7 @@ const {ActivityType} = require('discord.js');
 module.exports = {
     ALIASES: ['presence'],
     DESCRIPTION: "Sirve para actualizar la presencia de Toffu",
-    
+    OWNER: true,
     async execute(client, message, args, prefix){
         //comprobaciones previas :o
         const sub = args[0].toLowerCase()
@@ -29,7 +29,6 @@ module.exports = {
                         client.user.setPresence({status: 'invisible'});
                         break;     
                     default:
-                        //por default sera online
                         client.user.setPresence({status: 'online'});
                         break;
                 }
