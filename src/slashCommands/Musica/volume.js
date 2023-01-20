@@ -32,7 +32,7 @@ module.exports = {
                     new EmbedBuilder()
                         .setTitle('Volúmen música')
                         .setColor(process.env.COLOR)
-                        .addFields({name:`Se cambió el volúmen a \`${Number(args)} %\``, value:`> 🔈🔉 🔊`})
+                        .addFields({name:`Se cambió el volúmen a \`${Number(args)} %\``, value:`🔈🔉 🔊`})
                         .setThumbnail('https://i.imgur.com/IPLiduk.gif')
                 ]
             })

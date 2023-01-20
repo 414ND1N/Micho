@@ -38,19 +38,19 @@ module.exports = (client, Discord) => {
     //eventos de distube
     client.distube.on("playSong", (queue, song)=>{
         
-        embed_playsong = new EmbedBuilder()
+        embed = new EmbedBuilder()
             .setColor(process.env.COLOR)
             .setTitle('Reproducción 🔈 🎶')
             .setURL(song.url)
             .setDescription(`Reproduciendo \`${song.name}\` - \`(${song.formattedDuration})\``)
             .setThumbnail(song.thumbnail)
 
-        queue.textChannel.send({ embeds: [embed_playsong] })
+        queue.textChannel.send({ embeds: [embed] })
         
     })
 
     client.distube.on("addList", (queue, song) => {
-        embed_addlist = new EmbedBuilder()
+        embed = new EmbedBuilder()
             .setColor(process.env.COLOR)
             .setTitle('Lista de reproducción añadida 🎶')
             .setURL(song.url)
@@ -58,28 +58,47 @@ module.exports = (client, Discord) => {
             .setDescription(`Se añadió \`${song.name}\` - \`(${song.formattedDuration})\``)
             .setThumbnail(song.thumbnail)
 
-        queue.textChannel.send({ embeds: [embed_addlist] })
+        queue.textChannel.send({ embeds: [embed] })
         
     }); 
 
-    client.distube.on("addSong", (queue, song)=>{
+    client.distube.on("empty", (queue)=>{
         
-        embed_addsong = new EmbedBuilder()
+        embed = new EmbedBuilder()
+            .setTitle('Finalización música')
             .setColor(process.env.COLOR)
-            .setTitle('Música añadida 🎶')
-            .setURL(song.url)
-            .setAuthor({ name: song.user.tag, iconURL: song.user.displayAvatarURL({dynamic: true})})
-            .setDescription(`Se añadió \`${song.name}\` - \`(${song.formattedDuration})\``)
-            .setThumbnail(song.thumbnail)
+            .setDescription(`No hay nadie en la sala de voz,\nprocedo a salirme lentamente ...`)
+            .setThumbnail('https://i.imgur.com/L8cJ1fZ.gif')
         
-        queue.textChannel.send({ embeds: [embed_addsong] })
+        queue.textChannel.send({ embeds: [embed] })
+    });
+
+    client.distube.on("finish", (queue)=>{
+        
+        embed = new EmbedBuilder()
+            .setTitle('Lista completada')
+            .setColor(process.env.COLOR)
+            .setDescription('Agrega más música para\nseguir reproduciendo')
+            .setThumbnail('https://i.imgur.com/PKBROBp.gif')
+        queue.textChannel.send({ embeds: [embed] })
+    }); 
+
+    client.distube.on("disconnect", (queue)=>{
+        
+        embed = new EmbedBuilder()
+            .setTitle('Finalización música')
+            .setColor(process.env.COLOR)
+            .addFields({name: `Saliendo del canal ...`, value:`Hasta la próxima 😊`})
+            .setThumbnail('https://i.imgur.com/lIs9ZAg.gif')
+        
+        queue.textChannel.send({ embeds: [embed] })
     });
 
     client.distube.on("noRelated", (queue) => {
-        queue.textChannel.send("No se encontró la música indicada 💀")
+        queue.textChannel.send("No se encontró un video similar para reproducir")
     });
     client.distube.on("searchInvalidAnswer", (message) => {
-        message.channel.send(`El número ingresado es inválido 🤔🏳‍🌈`)
+        message.channel.send(`la busqueda ingresada no es valida 🤔`)
     });
 
     client.distube.on("searchNoResult", (message, query) =>{
@@ -88,5 +107,13 @@ module.exports = (client, Discord) => {
 
     client.distube.on('error', (channel, e) => {
         console.log(`Error encontrado 💀`);
-    })
+    });
+
+    /*
+    client.distube.on('searchResult', (message, results) => {
+        message.channel.send(`**Elíge entre las opciones*\n${
+            results.map((song, i) => `**${i + 1}**. ${song.name} - \`${song.formattedDuration}\``).join("\n")
+        }\n*Enter anything else or wait 60 seconds to cancel*`);
+    });
+    */
 }

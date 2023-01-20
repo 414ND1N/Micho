@@ -4,7 +4,8 @@ module.exports = {
     CMD: new SlashCommandBuilder()
     .setDescription("Sirve para ver la lista de canciones"),
     async execute(client, interaction, prefix){
-        
+        await interaction.deferReply();
+
         const voicechannel = interaction.member.voice.channel
         const queue = client.distube.getQueue(voicechannel);
 
@@ -93,7 +94,6 @@ module.exports = {
                 embeds: [embeds[0].setFooter({text: `Página ${pag_actual+1} / ${embeds.length}`})],
                 components: [row]
             });
-            await interaction.reply('<:rolas:1051012560054407219> Lista de canciónes en cola');
 
             //Creación collector y se filtra que el usuario que de click sea la misma que ha puesto el comando, y el autor del mensaje sea el cliente (Toffu)
             const collector = embedpaginas.createMessageComponentCollector({filter: i => i?.isButton() && i?.user && i?.user.id == interaction.user.id && i?.message.author.id  == client.user.id, time: 30e3});

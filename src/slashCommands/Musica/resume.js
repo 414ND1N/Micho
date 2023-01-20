@@ -37,7 +37,7 @@ module.exports = {
                         .setTitle('Resumen música')
                         .setThumbnail('https://i.imgur.com/Zqg98ma.gif')
                         .setColor(process.env.COLOR)
-                        .addFields({name: `Se resumió la reproducción`, value:`> 🐱‍🏍 🎶🎵`})
+                        .addFields({name: `Se resumió la reproducción`, value:`🐱‍🏍 🎶🎵`})
                 ]
             })
             

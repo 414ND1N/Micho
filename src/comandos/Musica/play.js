@@ -34,9 +34,9 @@ module.exports = {
             embeds: [
                 new EmbedBuilder()
                     .setTitle('Reproducción música')
-                    .setThumbnail('https://i.imgur.com/vMaawHJ.gif')
+                    .setThumbnail('https://i.imgur.com/WHCwA6t.gif')
                     .setColor(process.env.COLOR)
-                    .addFields({name: `Buscando \`${args}\` ...`, value:`> 🔎🧐`})
+                    .setDescription(`Buscando \`${args}\` ...`)
             ]
         })
     }  

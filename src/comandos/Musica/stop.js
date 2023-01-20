@@ -26,15 +26,6 @@ module.exports = {
         };
 
         client.distube.stop(message);
-        return message.reply({
-            embeds: [
-                new EmbedBuilder()
-                    .setTitle('Finalización música')
-                    .setColor(process.env.COLOR)
-                    .addFields({name: `Saliendo del canal ...`, value:`> Hasta la próxima 😊`})
-                    .setThumbnail('https://i.imgur.com/lIs9ZAg.gif')
-            ]
-        })
     } 
        
 }

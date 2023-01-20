@@ -37,7 +37,7 @@ module.exports = {
                         .setTitle('Siguiente música')
                         .setThumbnail('https://i.imgur.com/9fBJ0s7.gif')
                         .setColor(process.env.COLOR)
-                        .addFields({name: `Se saltó a la siguiente música`, value:`> ⏭ ⏭ ⏭ `})
+                        .addFields({name: `Se saltó a la siguiente música`, value:`⏭ ⏭ ⏭ `})
                 ]
             })
 

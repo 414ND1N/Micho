@@ -32,7 +32,7 @@ module.exports = {
                     .setTitle('Pausar música')
                     .setThumbnail('https://i.imgur.com/kY0gh91.gif')
                     .setColor(process.env.COLOR)
-                    .addFields({name: `Se pausó la música`, value:`> 🚦🛑`})
+                    .addFields({name: `Se pausó la música`, value:`🚦🛑`})
             ]
         })
     } 

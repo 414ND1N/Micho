@@ -4,6 +4,7 @@ module.exports = {
     .setDescription("Sirve para desconectar al bot de la sala de voz"),
     async execute(client, interaction, prefix){
         try{
+            await interaction.deferReply()
             const voicechannel = interaction.member.voice.channel
             const queue = client.distube.getQueue(voicechannel);
 
@@ -31,15 +32,8 @@ module.exports = {
             }
            
             client.distube.stop(voicechannel);
-            return interaction.reply({
-                embeds: [
-                    new EmbedBuilder()
-                        .setTitle('Finalización música')
-                        .setColor(process.env.COLOR)
-                        .addFields({name: `Saliendo del canal ...`, value:`> Hasta la próxima 😊`})
-                        .setThumbnail('https://i.imgur.com/lIs9ZAg.gif')
-                ]
-            })
+            
+            await interaction.deleteReply()
 
         }catch(e){
             interaction.reply({content: `**Ha ocurrido un error al recargar el bot**\nMira la consola para mas detalle :P`, ephemeral: true});

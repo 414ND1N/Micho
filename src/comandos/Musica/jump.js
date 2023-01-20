@@ -61,7 +61,7 @@ module.exports = {
                     .setTitle('Salto en lista de música')
                     .setThumbnail('https://i.imgur.com/bDO4VTw.gif')
                     .setColor(process.env.COLOR)
-                    .addFields({name: `Se saltó a la canción número \`${Number(args)}\``, value:`> 🐱‍🏍 🎶🎵`})
+                    .addFields({name: `Se saltó a la canción número \`${Number(args)}\``, value:`🐱‍🏍 🎶🎵`})
             ]
         })
     }      

@@ -78,7 +78,7 @@ module.exports = {
                         .setTitle('Reproducción DJ PANAS')
                         .setThumbnail("https://i.imgur.com/vMaawHJ.gif")
                         .setColor(process.env.COLOR)
-                        .addFields({name: `**Reproduciendo DJ PANAS \`${opcion}\` **`, value:`> 😎  🔊 🎶`})
+                        .addFields({name: `**Se agregó DJ PANAS \`${opcion}\` a la lista**`, value:`😎  🔊 🎶`})
                 ]
             });
         }catch(e){

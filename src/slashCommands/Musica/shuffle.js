@@ -39,7 +39,7 @@ module.exports = {
                         .setTitle('Mezcla lista música')
                         .setThumbnail('https://i.imgur.com/8L4WreH.gif')
                         .setColor(process.env.COLOR)
-                        .addFields({name: `Se mezcló la lista de música`, value:`> 🎶 😎👍`})
+                        .addFields({name: `Se mezcló la lista de música`, value:`🎶 😎👍`})
                 ]
             })
             
