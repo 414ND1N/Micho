@@ -45,7 +45,7 @@ module.exports = {
                     {name: `\`Música\``, value: `Comandos para reproducir música en el canal de voz que te encuentres conectado`},
                     {name: `\`Variedad\``, value: `Comandos para funciónes miscelaneo`}
                 ) 
-                .setThumbnail("https://i.imgur.com/WHCwA6t.gif");
+                .setThumbnail("https://i.imgur.com/xbzkVJh.gif");
 
             const embed_menu1 = new EmbedBuilder()
                 .setTitle('Información')

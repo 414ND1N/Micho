@@ -38,15 +38,15 @@ module.exports = {
         const row = new ActionRowBuilder().addComponents(btn_menu,btn_info,btn_music,btn_var,btn_salir);    
 
         const embed_menu = new EmbedBuilder()
-        .setTitle('Menú')
-        .setDescription(`Los comandos compatibles con **Toffu**, tanto con \`/\` o con \`tf.\``)
-        .setColor(process.env.COLOR)
-        .addFields(
-            {name: `\`Información\``, value: `Comandos que brindan información del bot y/o servidor`},
-            {name: `\`Música\``, value: `Comandos para reproducir música en el canal de voz que te encuentres conectado`},
-            {name: `\`Variedad\``, value: `Comandos para funciónes miscelaneo`}
-        ) 
-        .setThumbnail("https://i.imgur.com/WHCwA6t.gif");
+            .setTitle('Menú')
+            .setDescription(`Los comandos compatibles con **Toffu**, tanto con \`/\` o con \`tf.\``)
+            .setColor(process.env.COLOR)
+            .addFields(
+                {name: `\`Información\``, value: `Comandos que brindan información del bot y/o servidor`},
+                {name: `\`Música\``, value: `Comandos para reproducir música en el canal de voz que te encuentres conectado`},
+                {name: `\`Variedad\``, value: `Comandos para funciónes miscelaneo`}
+            ) 
+            .setThumbnail("https://i.imgur.com/xbzkVJh.gif");
 
         const embed_menu1 = new EmbedBuilder()
             .setTitle('Información')
