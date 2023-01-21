@@ -8,14 +8,14 @@ module.exports = (client, Discord) => {
 
     client.distube = new DisTube(client, {
         emitNewSongOnly: false,
-        leaveOnFinish: true,
+        leaveOnFinish: false,
         leaveOnStop: true,
-        leaveOnEmpty: false,
+        leaveOnEmpty: true,
         savePreviousSongs: true,
         emitAddSongWhenCreatingQueue: false,
         searchSongs: 0,
         nsfw: true,
-        emptyCooldown: 100,
+        emptyCooldown: 60,
         ytdlOptions: {
             highWaterMark: 1024 * 1024 * 64,
             quality: "135",

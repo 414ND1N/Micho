@@ -59,41 +59,54 @@ module.exports = {
         //función para paginacion
         async function paginacion(){
             let pag_actual = 0
-            //Si solo hay 1 embed enviamos el mensaje sin botones de navegacion
-            if (embeds.length === 1) {
-                interaction.channel.send({embeds: [embeds[0]]}).catch(() => {});
-                return await interaction.reply('<:rolas:1051012560054407219> Lista de canciónes en cola');
-            }
-            //Si el numero de embeds es mayor a 1 ponemos botoines de paginacion
-            let btn_atras =  new ButtonBuilder()
-                .setCustomId('atras')
-                .setStyle(ButtonStyle.Success)
-                .setEmoji(`⬅`);
-            
-            let btn_siguiente =  new ButtonBuilder()
-                .setCustomId('siguiente')
-                .setStyle(ButtonStyle.Success)
-                .setEmoji(`➡`);
+            let embedpaginas = null;
+            let row = null;
 
-            let btn_inicio = new ButtonBuilder()
-                .setCustomId('inicio')
-                .setLabel('Inicio')
-                .setStyle(ButtonStyle.Primary)
-                .setEmoji(`🏠`);
-            
+            //Creacion boton salir para el menú
             let btn_salir =  new ButtonBuilder()
                 .setCustomId('exit')
                 .setLabel('❌ Salir')
                 .setStyle(ButtonStyle.Danger);
+            
+            //Si solo hay 1 embed enviamos el mensaje sin botones de navegacion
+            if (embeds.length === 1) {
 
-            const row = new ActionRowBuilder().addComponents(btn_inicio, btn_atras, btn_siguiente, btn_salir);
+                row = new ActionRowBuilder().addComponents(btn_salir);
 
-            //Enviamos el mensaje embed con los botones
-            let embedpaginas = await interaction.channel.send({
-                content: `**Navega con los _botones_ en el menú**`,
-                embeds: [embeds[0].setFooter({text: `Página ${pag_actual+1} / ${embeds.length}`})],
-                components: [row]
-            });
+                embedpaginas = await interaction.channel.send({
+                    embeds: [embeds[0]],
+                    components: [row]
+                }).catch(() => {});
+            
+            //Si el numero de embeds es mayor a 1 ponemos los botones de paginacion
+            }else{
+                
+                let btn_atras =  new ButtonBuilder()
+                    .setCustomId('atras')
+                    .setStyle(ButtonStyle.Success)
+                    .setEmoji(`⬅`);
+                
+                let btn_siguiente =  new ButtonBuilder()
+                    .setCustomId('siguiente')
+                    .setStyle(ButtonStyle.Success)
+                    .setEmoji(`➡`);
+
+                let btn_inicio = new ButtonBuilder()
+                    .setCustomId('inicio')
+                    .setLabel('Inicio')
+                    .setStyle(ButtonStyle.Primary)
+                    .setEmoji(`🏠`);
+
+
+                row = new ActionRowBuilder().addComponents(btn_inicio, btn_atras, btn_siguiente, btn_salir);
+
+                //Enviamos el mensaje embed con los botones
+                embedpaginas = await interaction.channel.send({
+                    content: `**Navega con los _botones_ en el menú**`,
+                    embeds: [embeds[0].setFooter({text: `Página ${pag_actual+1} / ${embeds.length}`})],
+                    components: [row]
+                });
+            }
 
             //Creación collector y se filtra que el usuario que de click sea la misma que ha puesto el comando, y el autor del mensaje sea el cliente (Toffu)
             const collector = embedpaginas.createMessageComponentCollector({filter: i => i?.isButton() && i?.user && i?.user.id == interaction.user.id && i?.message.author.id  == client.user.id, time: 30e3});
