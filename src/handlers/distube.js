@@ -10,7 +10,7 @@ module.exports = (client, Discord) => {
         emitNewSongOnly: false,
         leaveOnFinish: true,
         leaveOnStop: true,
-        leaveOnEmpty: true,
+        leaveOnEmpty: false,
         savePreviousSongs: true,
         emitAddSongWhenCreatingQueue: false,
         searchSongs: 0,
