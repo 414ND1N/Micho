@@ -11,7 +11,7 @@ module.exports = {
                 return message.reply({
                     embeds: [
                         new EmbedBuilder()
-                        .setColor(process.env.COLOR)
+                        .setColor(process.env.COLOR_ERROR)
                         .setDescription(`No hay mensaje que pueda decir, escribe algo 😊`)
                     ],
                     ephemeral: true

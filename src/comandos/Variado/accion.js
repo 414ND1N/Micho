@@ -14,7 +14,7 @@ module.exports = {
             return message.reply({
                 embeds: [
                     new EmbedBuilder()
-                        .setColor(process.env.COLOR)
+                        .setColor(process.env.COLOR_ERROR)
                         .setDescription(`Debes colocar la ID o mencionar a alguien 😐`)
                 ]
             })
@@ -26,7 +26,7 @@ module.exports = {
             return message.reply({
                 embeds: [
                     new EmbedBuilder()
-                        .setColor(process.env.COLOR)
+                        .setColor(process.env.COLOR_ERROR)
                         .setDescription("No se encontró destinario, vuelve a intentarlo")
                 ]
             })
@@ -36,7 +36,7 @@ module.exports = {
             return message.reply({
                 embeds: [
                     new EmbedBuilder()
-                        .setColor(process.env.COLOR)
+                        .setColor(process.env.COLOR_ERROR)
                         .setDescription(`Tienes que especificar que gif deseas buscar 🤨`)
                 ]
             })

@@ -41,9 +41,9 @@ module.exports = {
                 .setDescription(`Los comandos compatibles con **Toffu**, tanto con \`/\` o con \`tf.\``)
                 .setColor(process.env.COLOR)
                 .addFields(
-                    {name: `\`Información\``, value: `Comandos que brindan información del bot y/o servidor`},
-                    {name: `\`Música\``, value: `Comandos para reproducir música en el canal de voz que te encuentres conectado`},
-                    {name: `\`Variedad\``, value: `Comandos para funciónes miscelaneo`}
+                    {name: `\`Información\``, value: `Comandos que brindan información del bot y/o servidor.`},
+                    {name: `\`Música\``, value: `Comandos para reproducir música en el canal de voz que te encuentres conectado.`},
+                    {name: `\`Variedad\``, value: `Comandos para funciónes miscelaneo.`}
                 ) 
                 .setThumbnail("https://i.imgur.com/xbzkVJh.gif");
 
@@ -52,11 +52,11 @@ module.exports = {
                 .setDescription(`Comandos que brindan información del bot y/o servidor`)
                 .setColor(`#3a7c21`)
                 .addFields(
-                    {name: `help`, value:`Sirve para ver el menú de ayuda con los comandos`},
-                    {name: `ping`, value:`Sirve para ver el ping en ms de \`Toffu\``},
-                    {name: `pagina`, value:`Muestra el link de la pana página`},
-                    {name: `codigo`, value:`Muestra el link del repositorio con el código de \`Toffu\``}
-                ) 
+                    {name: `help`, value:`Sirve para ver el menú de ayuda con los comandos.`},
+                    {name: `ping`, value:`Sirve para ver el ping en ms de \`Toffu\`.`},
+                    {name: `pagina`, value:`Muestra el link de la pana página.`},
+                    {name: `codigo`, value:`Muestra el link del repositorio con el código de \`Toffu\`.`}
+                )  
                 .setThumbnail(`https://i.imgur.com/Ud2cXN5.jpg`);
 
             const embed_menu2 = new EmbedBuilder()
@@ -64,12 +64,13 @@ module.exports = {
                 .setDescription(`Comandos para reproducir música en el canal de voz en el que te encuentres conectado`)
                 .setColor(`#c72a2a`)
                 .addFields(
-                    {name: `djpanas`, value:`Sirve para reproducir DJPANAS \n> Se puede elegir entre las distintas variaciones`},
-                    {name: `**SUBCOMANDOS**`, value:`Estos comandos son subcomandos del comando principal \`music\``},
-                    {name: `▪  control`, value:`>>> Entre las acciones que cuenta estan: \n\`Resumir\`, \`Pausar\`, \`Siguiente\`, \`Anterior\`, \`Mezclar\`, \`Detener\``},
-                    {name: `▪  volumen`, value:`Sirve para indicar el volumen de la canción \n> Admite de \`0%\` a \`200%\``},
-                    {name: `▪  lista`, value:`Sirve para ver la lista de canciones \n> Muestra un menú con botones de navegación`},
-                    {name: `▪  saltar`, value:`Sirve para saltar a una canción de la lista en reproducción \n> El número de canción se puede ver en la queue`},
+                    {name: `djpanas`, value:`Sirve para reproducir DJPANAS.\n> Se puede elegir entre las distintas variaciones.`},
+                    {name: `**SUBCOMANDOS**`, value:`Estos comandos son subcomandos del comando principal \`music\`.`},
+                    {name: `▪  play`, value:`Sirve para reproducir una canción dada (link o nombre). \nAdmite links de \`YouTube\`, \`Spotify\` y \`Soundcloud\`.`},
+                    {name: `▪  control`, value:`Entre las acciones que cuenta estan: \n\`Resumir\`, \`Pausar\`, \`Siguiente\`, \`Anterior\`, \`Mezclar\`, \`Detener\`.`},
+                    {name: `▪  volumen`, value:`Sirve para indicar el volumen de la canción.\n> Admite de \`0%\` a \`200%\`.`},
+                    {name: `▪  lista`, value:`Sirve para ver la lista de canciones.\n> Muestra un menú con botones de navegación.`},
+                    {name: `▪  saltar`, value:`Sirve para saltar a una canción de la lista en reproducción.\n> El número de canción se puede ver en la queue.`},
                 )  
                 .setThumbnail(`https://i.imgur.com/GLPfwSa.jpg`);
 
@@ -78,13 +79,13 @@ module.exports = {
                 .setDescription(`Comandos para funciónes miscelaneo`)
                 .setColor(`#0c6bc2`)
                 .addFields(
-                    {name: `decir`, value:`Sirve para que Toffu diga el texto dado`},
-                    {name: `elegir`, value:`Sirve para que Toffu eliga entre las opciones dadas \n> Las opciones se dan separadas por coma \`,\``},
-                    {name: `8ball`, value:`Sirve para que la bola 8 de una respuesta a una pregunta`},
-                    {name: `sugerir`, value:`Sirve para dar una sugerencia para poder votar`},
-                    {name: `accion`, value:`Sirve para hacer una acción a otro usuario\n> Entre las acciones esta \`abrazar\`, \`besar\`, \`golpear\`, \`dar palmadas\`, \`mirar fijamente\`, \`bofetear\`, \`dar toques\`, \`presumir\`, \`lamer\`, \`pulgar arriba\`, \`berrinche\`, \`sonrojar\`.`},
-                    {name: `gif`, value:`Sirve para mostrar el gif que se desee buscar\n> Mostrara un gif aleatorio de \`tenor.com\``},
-                ) 
+                    {name: `decir`, value:`Sirve para que Toffu diga el texto dado.`},
+                    {name: `elegir`, value:`Sirve para que Toffu eliga entre las opciones dadas \n> Las opciones se dan separadas por coma \`,\`.`},
+                    {name: `8ball`, value:`Sirve para que la bola 8 de una respuesta a una pregunta.`},
+                    {name: `sugerir`, value:`Sirve para dar una sugerencia para poder votar.`},
+                    {name: `accion`, value:`Sirve para hacer una acción a otro usuario\n>>> Entre las acciones esta \`abrazar\`, \`besar\`, \`golpear\`, \`dar palmadas\`, \`mirar fijamente\`, \`bofetear\`, \`dar toques\`, \`presumir\`, \`lamer\`, \`pulgar arriba\`, \`berrinche\`, \`sonrojar\`.`},
+                    {name: `gif`, value:`Sirve para mostrar el gif que se desee buscar\n> Mostrara un gif aleatorio de \`tenor.com\`.`},
+                )
                 .setThumbnail(`https://i.imgur.com/s2lV0y5.png`);
 
             let embed_help = await message.channel.send({

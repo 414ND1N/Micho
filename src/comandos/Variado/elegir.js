@@ -10,7 +10,7 @@ module.exports = {
                 return interaction.reply({
                     embeds: [
                         new EmbedBuilder()
-                            .setColor(process.env.COLOR)
+                            .setColor(process.env.COLOR_ERROR)
                             .setDescription(`No hay opciones donde elegir, escribe algo 😊`)
                     ]
                 })
