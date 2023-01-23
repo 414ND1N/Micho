@@ -3,14 +3,18 @@ module.exports = {
     DESCRIPTION: "Sirve para reproducir DJPANAS",
     async execute(client, message, args, prefix){
         try{
+            //CONSTANTES
+            const VOICE_CHANNEL = message.member.voice?.channel;
+
+            //VARIABLES
             let opcion = "Clásico";
+
             //comprobaciones previas :o
-            
             if (!message.member.voice?.channel){
                 return message.reply({
                     embeds: [
                         new EmbedBuilder()
-                            .setColor(process.env.COLOR)
+                            .setColor(process.env.COLOR_ERROR)
                             .setDescription(`Tienes que estar en un canal de voz para ejecutar el comando 🤨`)
                     ]
                 })
@@ -66,7 +70,7 @@ module.exports = {
                     break;
             }
 
-            client.distube.play(message.member.voice?.channel, args,{
+            client.distube.play(VOICE_CHANNEL, args,{
                 member: message.member,
                 textChannel: message.channel,
                 message

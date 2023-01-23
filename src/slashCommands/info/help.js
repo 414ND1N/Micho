@@ -4,7 +4,9 @@ module.exports = {
     CMD: new SlashCommandBuilder()
     .setDescription("Sirve para ver los comandos disponibles"),
     async execute(client, interaction, prefix){
-        
+
+        await interaction.deferReply();
+
         let btn_menu = new ButtonBuilder()
             .setCustomId('menu')
             .setLabel('Menú')
@@ -66,15 +68,11 @@ module.exports = {
             .setColor(`#c72a2a`)
             .addFields(
                 {name: `djpanas`, value:`Sirve para reproducir DJPANAS \n> Se puede elegir entre las distintas variaciones`},
-                {name: `play`, value:`Sirve para reproducir una canción dada \n> Admite links de \`Youtube\`, \`Spotify\`, \`Soundcloud\` o \`nombres\``},
-                {name: `pause`, value:`Sirve para pausar la música en reproducción`},
-                {name: `skip`, value:`Sirve para saltar a la siguiente canción en la lista de reproducción`},
-                {name: `previous`, value:`Sirve para saltar a la canción anterior en la lista de reproducción`},
-                {name: `volume`, value:`Sirve para indicar el volumen de la canción \n> Admite de \`0%\` a \`200%\``},
-                {name: `shuffle`, value:`Sirve para mezclar las canciónes de la lista`},
-                {name: `queue`, value:`Sirve para ver la lista de canciones \n> Muestra un menú con botones de navegación`},
-                {name: `jump`, value:`Sirve para saltar a una canción de la lista en reproducción \n> El número de canción se puede ver en la queue`},
-                {name: `stop`, value:`Sirve para desconectar al bot de la sala de voz`}
+                {name: `**SUBCOMANDOS**`, value:`Estos comandos son subcomandos del comando principal \`music\``},
+                {name: `▪  control`, value:`>>> Entre las acciones que cuenta estan: \n\`Resumir\`, \`Pausar\`, \`Siguiente\`, \`Anterior\`, \`Mezclar\`, \`Detener\``},
+                {name: `▪  volumen`, value:`Sirve para indicar el volumen de la canción \n> Admite de \`0%\` a \`200%\``},
+                {name: `▪  lista`, value:`Sirve para ver la lista de canciones \n> Muestra un menú con botones de navegación`},
+                {name: `▪  saltar`, value:`Sirve para saltar a una canción de la lista en reproducción \n> El número de canción se puede ver en la queue`},
             ) 
             .setThumbnail(`https://i.imgur.com/GLPfwSa.jpg`);
 
@@ -87,7 +85,7 @@ module.exports = {
                 {name: `elegir`, value:`Sirve para que Toffu eliga entre las opciones dadas \n> Las opciones se dan separadas por coma \`,\``},
                 {name: `8ball`, value:`Sirve para que la bola 8 de una respuesta a una pregunta`},
                 {name: `sugerir`, value:`Sirve para dar una sugerencia para poder votar`},
-                {name: `accion`, value:`Sirve para hacer una acción a otro usuario\n> Entre las acciones esta \`abrazar\`, \`besar\`, \`golpear\`, \`dar palmadas\`, \`mirar fijamente\`, \`bofetear\`, \`dar toques\`, \`presumir\`, \`lamer\`, \`pulgar arriba\`, \`berrinche\`, \`sonrojar\`.`},
+                {name: `accion`, value:`Sirve para hacer una acción a otro usuario\n>>> Entre las acciones esta \`abrazar\`, \`besar\`, \`golpear\`, \`dar palmadas\`, \`mirar fijamente\`, \`bofetear\`, \`dar toques\`, \`presumir\`, \`lamer\`, \`pulgar arriba\`, \`berrinche\`, \`sonrojar\`.`},
                 {name: `gif`, value:`Sirve para mostrar el gif que se desee buscar\n> Mostrara un gif aleatorio de \`tenor.com\``},
             ) 
             .setThumbnail(`https://i.imgur.com/s2lV0y5.png`);
@@ -98,9 +96,7 @@ module.exports = {
             components: [row]
         });
 
-        await interaction.reply('<:dudas:1061075189347123271> Lista de comandos');
-
-        const collector = embed_help.createMessageComponentCollector({time: 30e3});  
+        const collector = embed_help.createMessageComponentCollector({time: 60e3});  
         
         collector.on("collect", async (i) => {
             if(i?.user.id != interaction.user.id){

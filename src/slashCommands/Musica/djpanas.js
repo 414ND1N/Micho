@@ -17,24 +17,24 @@ module.exports = {
     ),
     async execute(client, interaction, prefix){
         try{
-            let args = interaction.options.getString("tipo");
-            let mezclar = interaction.options.getBoolean('mezclar')
+            let tipo = interaction.options.getString("tipo");
             let opcion = "Clásico";
+            let args = 'https://www.youtube.com/playlist?list=PLtzt-E5Aq1-kGOPEbker6rjCQH6ZtKNz9'
     
             const voicechannel = interaction.member.voice.channel;
+
             //comprobaciones previas :o
-            
             if (!voicechannel) {
                 return interaction.reply({
                     embeds: [
                         new EmbedBuilder()
-                            .setColor(process.env.COLOR)
+                            .setColor(process.env.COLOR_ERROR)
                             .setDescription(`Tienes que estar en un canal de voz para ejecutar el comando 🤨`)
                     ],
                     ephemeral: true
                 })
             }
-            switch(args?.toLowerCase()){
+            switch(tipo){
                 case "kanako":{
                     opcion = "Kanako ito";
                     args = 'https://www.youtube.com/playlist?list=PLtzt-E5Aq1-l_IGzZag1apUv0IA1SKgd7';
@@ -65,9 +65,7 @@ module.exports = {
                     args = 'https://www.youtube.com/playlist?list=PLcEg5PtMSB3d5ROEIBnldmOS3ohWKGMLw';
                 }
                     break;
-                default:{
-                    args = 'https://www.youtube.com/playlist?list=PLtzt-E5Aq1-kGOPEbker6rjCQH6ZtKNz9';
-                }   
+                default: 
                     break;
             }
 

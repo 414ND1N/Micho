@@ -130,3 +130,7 @@ dist
 .pnp.*
 Toffu.exe
 .vscode/sftp.json
+
+#
+/src/slashCommands/Musica dividida/
+/src/comandos/Musica dividida/

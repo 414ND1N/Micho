@@ -1,23 +1,25 @@
-# TOFFU
-## Onanībando
+# TOFFU - Onanībando
 
 [![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
 
-
-Bot de discord con un prefix de *tf.* para los comandos, tambien compatible con los comandos slash.
+###### DISCORD JS
+Bot de discord con un prefix de *tf.* para los comandos, también compatible con los comandos slash.
 
 ### Funciones
 * Sistema de bienvenida
 * Anticrash
-* distube (para música)
+* distube (manejo de música)
+* Manejo canal de mensajes
+* Mensajes privados a usuarios
+* Cambio presencia/estado del bot
 
-### Comandos Generales
+### Comandos de información
 * ping
 * pagina
 * codigo
 * help
 
-### Comandos Variados
+### Comandos variedad
 * decir <*texto*>
 * elegir <*opcion1, opcion2, ...*>
 * 8ball <*pregunta*>
@@ -25,18 +27,29 @@ Bot de discord con un prefix de *tf.* para los comandos, tambien compatible con 
 * accion <*usuario*> <*accion*>
 * gif <*busqueda*>
 
-### Comandos Música
+### Comandos de música
 * djpanas <*tipo*>
-* play
-* pause
-* skip
-* previous
-* stop
-* resume
+
+#### Subcomandos
+
+##### Control :
+* resumir
+* pausar
+* siguiente
+* anterior
+* mezclar
+* detener
+
+##### Lista :
+* lista
+
+##### Volumen :
 * volume <*numero*>
-* shuffle
-* queue
+
+##### Saltar :
 * jump <*numero*>
+
+<br>
 
 
 ![Toffu bot discord](https://i.imgur.com/0qZPVzN.png "Toffu")
