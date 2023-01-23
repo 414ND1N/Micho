@@ -2,7 +2,7 @@ const {EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle} = require('di
 const axios = require('axios');
 
 module.exports = {
-    ALIASES: ['musica'],
+    ALIASES: ['music','m'],
     DESCRIPTION: "Sirve para controlar la reproducción de música",
     
     async execute(client, message, args, prefix){
