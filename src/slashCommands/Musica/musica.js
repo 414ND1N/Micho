@@ -55,14 +55,11 @@ module.exports = {
     ),
     
     async execute(client, interaction, prefix){
-        
         //constantes
         const SUB = interaction.options.getSubcommand();
-        const VOICE_CHANNEL = interaction.member.voice.channel;
-        const QUEUE = client.distube.getQueue(VOICE_CHANNEL);
 
         //Comprobaciones previas
-        if (!VOICE_CHANNEL) {
+        if (!interaction.member.voice?.channel) {
             return interaction.reply({
                 embeds: [
                     new EmbedBuilder()
@@ -72,6 +69,10 @@ module.exports = {
                 ephemeral: true
             })
         };
+        //constantes
+        const VOICE_CHANNEL = interaction.member.voice.channel;
+        const QUEUE = client.distube.getQueue(VOICE_CHANNEL);
+
         if (!QUEUE && SUB != 'play'){
             return interaction.reply({
                 embeds: [

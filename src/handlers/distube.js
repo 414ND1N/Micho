@@ -65,7 +65,7 @@ module.exports = (client, Discord) => {
     client.distube.on("empty", (queue)=>{
         
         embed = new EmbedBuilder()
-            .setTitle('Finalización música')
+            .setTitle('Canal de voz vacio')
             .setColor(process.env.COLOR)
             .setDescription(`No hay nadie en la sala de voz,\nprocedo a salirme lentamente ...`)
             .setThumbnail('https://i.imgur.com/L8cJ1fZ.gif')

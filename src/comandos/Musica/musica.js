@@ -8,10 +8,6 @@ module.exports = {
     async execute(client, message, args, prefix){
         //constantes
         const SUB = args[0].toLowerCase();
-        const VOICE_CHANNEL = message.member.voice?.channel;
-        const QUEUE = client.distube.getQueue(VOICE_CHANNEL);
-        
-        //let OPCION = args.slice(1).join(" ");
 
         //Comprobaciones previas
         if (!SUB) {
@@ -23,8 +19,8 @@ module.exports = {
                 ]
             })
         }
-        if (!VOICE_CHANNEL) {
-            return interaction.reply({
+        if (!message.member.voice?.channel) {
+            return message.reply({
                 embeds: [
                     new EmbedBuilder()
                         .setColor(process.env.COLOR_ERROR)
@@ -32,8 +28,13 @@ module.exports = {
                 ]
             })
         };
+        //constantes
+        const VOICE_CHANNEL = message.member.voice.channel;
+        const QUEUE = client.distube.getQueue(VOICE_CHANNEL);
+
+
         if (!QUEUE && SUB != 'play' && SUB != 'reproducir' ){
-            return interaction.reply({
+            return message.reply({
                 embeds: [
                     new EmbedBuilder()
                         .setColor(process.env.COLOR_ERROR)
