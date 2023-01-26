@@ -2,6 +2,7 @@ const { DisTube } = require('distube');
 const {SpotifyPlugin} = require('@distube/spotify');
 const {SoundCloudPlugin} = require('@distube/soundcloud');
 const { EmbedBuilder } = require('discord.js');
+const { YtDlpPlugin } = require("@distube/yt-dlp");
 
 module.exports = (client, Discord) => {
     console.log(`Módulo de música cargado`.red)
@@ -18,21 +19,22 @@ module.exports = (client, Discord) => {
         emptyCooldown: 60,
         ytdlOptions: {
             highWaterMark: 1024 * 1024 * 64,
-            quality: "highestaudio",
+            quality: "134",
             format: "audioonly",
             liveBuffer: 20000,
             dlChunkSize: 1024 * 1024 * 4,
         },
         
         plugins: [
+            new YtDlpPlugin({ 
+                update: true 
+            }),
             new SpotifyPlugin({
                 parallel: true,
                 emitEventsAfterFetching: true,
             }),
-            new SoundCloudPlugin()
+            new SoundCloudPlugin(),
         ],
-
-
     });
 
     //eventos de distube
