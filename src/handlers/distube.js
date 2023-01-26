@@ -18,7 +18,7 @@ module.exports = (client, Discord) => {
         emptyCooldown: 60,
         ytdlOptions: {
             highWaterMark: 1024 * 1024 * 64,
-            quality: "135",
+            quality: "highestaudio",
             format: "audioonly",
             liveBuffer: 20000,
             dlChunkSize: 1024 * 1024 * 4,
