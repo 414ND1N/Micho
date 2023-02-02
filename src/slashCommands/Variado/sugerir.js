@@ -21,6 +21,7 @@ module.exports = {
         
         mensaje.react(`👍`);
         mensaje.react(`👎`);
+        mensaje.react(`🧐`);
         mensaje.react(`🏳️‍🌈`);
     }
 } 

@@ -74,6 +74,7 @@ module.exports = {
                 {name: `▪  volumen`, value:`Sirve para indicar el volumen de la canción.\n> Admite de \`0%\` a \`200%\`.`},
                 {name: `▪  lista`, value:`Sirve para ver la lista de canciones.\n> Muestra un menú con botones de navegación.`},
                 {name: `▪  saltar`, value:`Sirve para saltar a una canción de la lista en reproducción.\n> El número de canción se puede ver en la queue.`},
+                {name: `▪  repetir`, value:`Sirve para cambiar el modo de repetición de la música en reproducción\n> Puede ser \`desactivado\`, \`canción actual\`, \`lista completa\`.`}
             ) 
             .setThumbnail(`https://i.imgur.com/GLPfwSa.jpg`);
 

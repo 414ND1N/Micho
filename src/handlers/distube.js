@@ -69,12 +69,11 @@ module.exports = (client, Discord) => {
         embed = new EmbedBuilder()
             .setTitle('Canal de voz vacio')
             .setColor(process.env.COLOR)
-            .setDescription(`No hay nadie en la sala de voz,\nprocedo a salirme lentamente ...`)
+            .addFields({name: `Canal de voz vacio`, value:`procedo a salirme lentamente ...`})
             .setThumbnail('https://i.imgur.com/L8cJ1fZ.gif')
         
         queue.textChannel.send({ embeds: [embed] })
     });
-
     client.distube.on("finish", (queue)=>{
         
         embed = new EmbedBuilder()
@@ -84,27 +83,25 @@ module.exports = (client, Discord) => {
             .setThumbnail('https://i.imgur.com/PKBROBp.gif')
         queue.textChannel.send({ embeds: [embed] })
     }); 
-
     client.distube.on("initQueue", queue => {
-        queue.volume = 75;
+        queue.volume = 50;
     });
-
     client.distube.on("disconnect", (queue)=>{
         
         embed = new EmbedBuilder()
             .setTitle('Finalización música')
             .setColor(process.env.COLOR)
-            .addFields({name: `Saliendo del canal ...`, value:`Hasta la próxima 😊`})
+            .addFields({name: `Saliendo del canal de voz ...`, value:`Hasta la próxima 😊`})
             .setThumbnail('https://i.imgur.com/lIs9ZAg.gif')
         
         queue.textChannel.send({ embeds: [embed] })
     });
-
     client.distube.on("noRelated", (queue) => {
-        queue.textChannel.send("No se encontró un video similar para reproducir")
+        queue.textChannel.send("No se encontró un mpusica similar para reproducir")
     });
+    
     client.distube.on("searchInvalidAnswer", (message) => {
-        message.channel.send(`la busqueda ingresada no es valida 🤔`)
+        message.channel.send(`la busqueda no es valida`)
     });
 
     client.distube.on("searchNoResult", (message, query) =>{
@@ -112,7 +109,7 @@ module.exports = (client, Discord) => {
     });
 
     client.distube.on('error', (channel, e) => {
-        console.log(`Error encontrado 💀`);
+        console.log(`Error encontrado en distube`.red);
     });
 
     /*

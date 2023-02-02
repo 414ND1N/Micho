@@ -1,5 +1,5 @@
 const {EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle} = require('discord.js');
-const axios = require('axios');
+const { RepeatMode } = require("distube");
 
 module.exports = {
     ALIASES: ['music','m'],
@@ -30,18 +30,18 @@ module.exports = {
         };
         //constantes
         const VOICE_CHANNEL = message.member.voice.channel;
-        const QUEUE = client.distube.getQueue(VOICE_CHANNEL);
-
-
-        if (!QUEUE && SUB != 'play' && SUB != 'reproducir' ){
+        const COM_NO_QUEUE = ['play','reproducir'];
+        if (!client.distube.getQueue(VOICE_CHANNEL) && !COM_NO_QUEUE.includes(SUB) && !COM_NO_QUEUE.includes(args.slice(1).join(" "))){
             return message.reply({
                 embeds: [
                     new EmbedBuilder()
                         .setColor(process.env.COLOR_ERROR)
-                        .setDescription(`No hay música reproduciendose`)
+                        .setDescription(`No hay música en reproducción para ejecutar este comando`)
                 ]
             })
         }
+        //constantes
+        const QUEUE = await client.distube.getQueue(VOICE_CHANNEL);
 
         switch (SUB){
             case 'play':
@@ -63,6 +63,8 @@ module.exports = {
                     member: message.member,
                     textChannel: message.channel,
                     message
+                }).catch(err => {
+                    console.log('Error con la reproducción de la música'.red);
                 });
                 
                 return message.reply({
@@ -103,6 +105,15 @@ module.exports = {
             }
             case 'skip':
             case 'siguiente':{
+                if(!QUEUE.autoplay && QUEUE.songs.length <= 1){
+                    return message.reply({
+                        embeds: [
+                            new EmbedBuilder()
+                                .setColor(process.env.COLOR_ERROR)
+                                .setDescription(`No hay más música en la lista para reproducir`)
+                        ]
+                    });
+                };
                 client.distube.skip(message);
                 return message.reply({
                     embeds: [
@@ -142,10 +153,11 @@ module.exports = {
             }
             case 'detener':
             case 'stop':{
-                client.distube.stop(message);
+                client.distube.stop(message).catch(err => {});
                 break;
             }
-            case 'volumen':{
+            case 'volumen':
+            case 'volume':{
                 let porcentaje = Number(args[1]);
 
                 //Comprobaciones previas
@@ -176,6 +188,54 @@ module.exports = {
                             .setColor(process.env.COLOR)
                             .addFields({name:`Se cambió el volúmen a \`${porcentaje} %\``, value:`🔈🔉 🔊`})
                             .setThumbnail('https://i.imgur.com/IPLiduk.gif')
+                    ]
+                });
+            }
+            case 'repetir':
+            case 'repeat':{
+                let tipo = parseInt(args[1]);
+                let modo;
+                //Comprobaciones previas
+                if (isNaN(tipo)) {
+                    
+                    return message.reply({
+                        embeds: [
+                            new EmbedBuilder()
+                                .setColor(process.env.COLOR_ERROR)
+                                .setDescription(`Tienes que especificar el módo a repetir`)
+                        ]
+                    })
+                }
+                if (tipo < 0 || tipo > 2){
+                    return message.reply({
+                        embeds: [
+                            new EmbedBuilder()
+                                .setColor(process.env.COLOR_ERROR)
+                                .setDescription(`Los tipos de repetición válidos son: `)
+                                .addFields({name:`0`, value:`Repetición desactivada`})
+                                .addFields({name:`1`, value:`Repetición canción actual`})
+                                .addFields({name:`2`, value:`Repetición lista completa`})
+                        ]
+                    })
+                };
+                switch(client.distube.setRepeatMode(VOICE_CHANNEL, tipo)) {
+                    case RepeatMode.DISABLED:
+                        modo = "desactivado";
+                        break;
+                    case RepeatMode.SONG:
+                        modo = "canción actual";
+                        break;
+                    case RepeatMode.QUEUE:
+                        modo = "lista completa";
+                        break;
+                };
+                return message.reply({
+                    embeds: [
+                        new EmbedBuilder()
+                            .setTitle('Repetición música')
+                            .setColor(process.env.COLOR)
+                            .addFields({name:`Se cambió la repetición a \`${modo}\``, value:`🔄 🎶 🎵`})
+                            .setThumbnail('https://i.imgur.com/Cm5hy47.gif')
                     ]
                 });
             }
@@ -328,8 +388,7 @@ module.exports = {
                 }
             }
             case 'saltar':
-            case 'jump':
-            case 'avanzar':{
+            case 'jump':{
                 let num_cancion = Number(args[1]);
 
                 //Comprobaciones previas
@@ -360,6 +419,7 @@ module.exports = {
                         ]
                     })
                 };
+
                 client.distube.jump(message, num_cancion-1);
                 return message.reply({
                     embeds: [

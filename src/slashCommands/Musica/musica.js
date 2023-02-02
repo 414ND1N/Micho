@@ -1,4 +1,5 @@
 const {SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle} = require('discord.js');
+const { RepeatMode } = require("distube");
 module.exports = {
     CMD: new SlashCommandBuilder()
     .setDescription("Sirve para controlar la reproducción de música")
@@ -19,12 +20,12 @@ module.exports = {
                 .setDescription('Acción que deseas realizar con la música en reproducción')
                 .setRequired(true)
                 .addChoices(
-                    {name: '⏯ Resumir', value: 'resume'},
-                    {name: '⏸ Pausar', value: 'pause'},
-                    {name: '⏭ Siguiente', value: 'skip'},
-                    {name: '⏮ Anterior', value: 'previous'},
-                    {name: '🔀 Mezclar', value: 'shuffle'},
-                    {name: '⏹ Detener', value: 'stop'}
+                    {name: '⏯ Resumir reproducción', value: 'resume'},
+                    {name: '⏸ Pausar reproducción', value: 'pause'},
+                    {name: '⏭ Siguiente canción', value: 'skip'},
+                    {name: '⏮ Anterior canción', value: 'previous'},
+                    {name: '🔀 Mezclar lista música', value: 'shuffle'},
+                    {name: '⏹ Detener reproducción', value: 'stop'}
                 )
         )
     )
@@ -52,6 +53,20 @@ module.exports = {
                 .setRequired(true)
                 .setMinValue(2)
         )
+    )
+    .addSubcommand(subcommand => 
+        subcommand.setName('repetir')
+        .setDescription('Repetir la música en reproducción')
+        .addNumberOption(option =>
+            option.setName('tipo')
+                .setDescription('Tipo de repetición para la música')
+                .setRequired(true)
+                .addChoices(
+                    {name: '🔂 Canción actual', value: 1},
+                    {name: '🔁 Lista completa', value: 2},
+                    {name: '❌ Desactivar', value: 0}
+                )
+        )
     ),
     
     async execute(client, interaction, prefix){
@@ -71,18 +86,20 @@ module.exports = {
         };
         //constantes
         const VOICE_CHANNEL = interaction.member.voice.channel;
-        const QUEUE = client.distube.getQueue(VOICE_CHANNEL);
+        const COM_NO_QUEUE = ['play'];
 
-        if (!QUEUE && SUB != 'play'){
+        if (!client.distube.getQueue(VOICE_CHANNEL) && !COM_NO_QUEUE.includes(SUB) && !COM_NO_QUEUE.includes(interaction.options.getString('accion'))){
             return interaction.reply({
                 embeds: [
                     new EmbedBuilder()
                         .setColor(process.env.COLOR_ERROR)
-                        .setDescription(`No hay música reproduciendose`)
+                        .setDescription(`No hay música en reproducción para ejecutar este comando`)
                 ],
                 ephemeral: true
             })
         }
+        //constantes
+        const QUEUE = await client.distube.getQueue(VOICE_CHANNEL);
 
         // Accion a realizar segun el subcomando
         switch (SUB){
@@ -92,7 +109,9 @@ module.exports = {
                 client.distube.play(VOICE_CHANNEL, cancion,{
                     member: interaction.member,
                     textChannel: interaction.channel
-                });
+                }).catch(err => {
+                    console.log('Error con la reproducción de la música'.red);
+                });;
                 return interaction.reply({
                     embeds: [
                         new EmbedBuilder()
@@ -128,6 +147,15 @@ module.exports = {
                             ]
                         });
                     case 'skip':
+                        if(!QUEUE.autoplay && QUEUE.songs.length <= 1){
+                            return interaction.reply({
+                                embeds: [
+                                    new EmbedBuilder()
+                                        .setColor(process.env.COLOR_ERROR)
+                                        .setDescription(`No hay más música en la lista para reproducir`)
+                                ]
+                            });
+                        };
                         client.distube.skip(VOICE_CHANNEL);
                         return interaction.reply({
                             embeds: [
@@ -162,9 +190,33 @@ module.exports = {
                         });
                     case 'stop':
                         await interaction.deferReply();
-                        client.distube.stop(VOICE_CHANNEL);
+                        await client.distube.stop(VOICE_CHANNEL);
                         await interaction.deleteReply();
+                        return ;
                 };
+            case 'repetir':
+                let tipo = interaction.options.getNumber('tipo');
+                let modo;
+                switch(client.distube.setRepeatMode(VOICE_CHANNEL, tipo)) {
+                    case RepeatMode.DISABLED:
+                        modo = "desactivado";
+                        break;
+                    case RepeatMode.SONG:
+                        modo = "canción actual";
+                        break;
+                    case RepeatMode.QUEUE:
+                        modo = "lista completa";
+                        break;
+                };
+                return interaction.reply({
+                    embeds: [
+                        new EmbedBuilder()
+                            .setTitle('Repetición música')
+                            .setColor(process.env.COLOR)
+                            .addFields({name:`Se cambió la repetición a \`${modo}\``, value:`🔄 🎶 🎵`})
+                            .setThumbnail('https://i.imgur.com/Cm5hy47.gif')
+                    ]
+                });
             case 'volumen':
                 let porcentaje = interaction.options.getNumber('porcentaje');
                 client.distube.setVolume(VOICE_CHANNEL, porcentaje);
@@ -328,7 +380,7 @@ module.exports = {
                 let poscicion = interaction.options.getNumber('poscicion');
 
                 //Comprobaciones previas
-                if (poscicion > (QUEUE.songs.length)-1) {
+                if (poscicion > (QUEUE.songs.length)) {
                     return interaction.reply({
                         embeds: [
                             new EmbedBuilder()
@@ -339,14 +391,13 @@ module.exports = {
                     })
                 };
                 
-                client.distube.jump(VOICE_CHANNEL, poscicion);
-            
+                client.distube.jump(VOICE_CHANNEL, poscicion-1);
                 return interaction.reply({
                     embeds: [
                         new EmbedBuilder()
                             .setTitle('Salto en lista de música')
                             .setThumbnail('https://i.imgur.com/bDO4VTw.gif')
-                            .setColor(process.env.COLOR_ERROR)
+                            .setColor(process.env.COLOR)
                             .addFields({name: `Se saltó a la canción número \`${poscicion}\``, value:`🐱‍🏍 🎶🎵`})
                     ]
                 });

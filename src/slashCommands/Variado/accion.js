@@ -34,8 +34,6 @@ module.exports = {
 
         let texto_busqueda = 'hello';
         let opcion = 'saludó';
-        let descripciones = ['Y somos amigos (〃￣︶￣)人(￣︶￣〃)',`Tremendo csm ╰（‵□′）╯`, `Día troste （︶^︶）`, `¿Qué hacen estos dos? 😳`];
-        let descripcion = descripciones[0]
 
         switch(busqueda){
             case "cuddle":{
@@ -46,13 +44,11 @@ module.exports = {
             case "kiss":{
                 texto_busqueda = 'kiss';
                 opcion = 'besó'
-                descripcion = descripciones[3]
             }
                 break;
             case "punch":{
                 texto_busqueda = 'punch';
                 opcion = 'golpeó'
-                descripcion = descripciones[1]
             }
                 break;
             case "pat":{
@@ -68,25 +64,21 @@ module.exports = {
             case "slap":{
                 texto_busqueda = 'slap';
                 opcion = 'abofeteó'
-                descripcion = descripciones[1]
             }
                 break;
             case "poke":{
                 texto_busqueda = 'poke';
                 opcion = 'dió toques'
-                descripcion = descripciones[1]
             }
                 break;
             case "smug":{
                 texto_busqueda = 'smug';
                 opcion = 'presumió'
-                descripcion = descripciones[1]
             }
                 break;
             case "lick":{
                 texto_busqueda = 'lick';
                 opcion = 'lamió'
-                descripcion = descripciones[3]
             }
                 break;
             case "thumbsup":{
@@ -97,19 +89,17 @@ module.exports = {
             case "pout":{
                 texto_busqueda = 'pout';
                 opcion = 'hizó un berrinche'
-                descripcion = descripciones[2]
             }
                 break;
             case "blush":{
                 texto_busqueda = 'blush';
                 opcion = 'le sonrojó'
-                descripcion = descripciones[3]
             }
                 break;
             
         }
 
-        let url_api = `https://tenor.googleapis.com/v2/search?q=anime-${texto_busqueda}&key=${process.env.TENOR_API_KEY}&client_key=my_test_app&limit=25`;
+        let url_api = `https://tenor.googleapis.com/v2/search?q=anime-${texto_busqueda}&key=${process.env.TENOR_API_KEY}&client_key=my_test_app&limit=30`;
         
         const response = await axios.get(url_api);
         let randomIndex = Math.floor(Math.random() * response.data.results.length);
@@ -119,7 +109,6 @@ module.exports = {
             embeds: [
                 new EmbedBuilder()
                     .setTitle(`\`${interaction.user?.username} ${opcion} a ${user.username}\``)
-                    .setDescription(`${descripcion}`)
                     .setColor(process.env.COLOR)
                     .setImage(gif_url)
             ]
