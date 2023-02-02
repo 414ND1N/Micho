@@ -153,8 +153,8 @@ module.exports = {
             }
             case 'detener':
             case 'stop':{
-                client.distube.stop(message).catch(err => {});
-                break;
+                client.distube.stop(message);
+                return ;
             }
             case 'volumen':
             case 'volume':{
