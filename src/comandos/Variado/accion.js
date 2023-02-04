@@ -46,6 +46,19 @@ module.exports = {
         let opcion = 'saludó';
 
         switch(busqueda){
+            case "congratulation":
+            case "felicitar":{
+                texto_busqueda = 'congratulation';
+                opcion = 'felicitó'
+            }
+                break;
+            case "surprised":
+            case "surprise":
+            case "sorprender":{
+                texto_busqueda = 'surprised';
+                opcion = 'sorprendió'
+            }
+                break;
             case "cuddle":
             case "hug":
             case "abrazar":{
@@ -123,13 +136,12 @@ module.exports = {
             default:{
             }   
                 break;
-            
-        }
+        };
 
         const tipos = ['peppo', 'anime', 'adventure time'];
         const randomIndexOpts = Math.floor(Math.random() * tipos.length);
         const tipo_busqueda = tipos[randomIndexOpts];
-        let url_api = `https://tenor.googleapis.com/v2/search?q=${tipo_busqueda}-${texto_busqueda}&key=${process.env.TENOR_API_KEY}&client_key=my_test_app&limit=30`;
+        let url_api = `https://tenor.googleapis.com/v2/search?q=${tipo_busqueda} ${texto_busqueda}&key=${process.env.TENOR_API_KEY}&client_key=my_test_app&limit=35`;
         
         const response = await axios.get(url_api);
         let randomIndex = Math.floor(Math.random() * response.data.results.length);
@@ -142,7 +154,6 @@ module.exports = {
                     .setColor(process.env.COLOR)
                     .setImage(gif_url)
             ]
-        })
-        
+        });
     } 
 } 
