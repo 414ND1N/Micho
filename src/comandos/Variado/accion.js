@@ -139,7 +139,7 @@ module.exports = {
                 break;
         };
 
-        const tipo_busqueda = type;
+        let tipo_busqueda = type;
         if (!tipo_busqueda){
             const tipos = ['peppo', 'anime'];
             const randomIndexOpts = Math.floor(Math.random() * tipos.length);
