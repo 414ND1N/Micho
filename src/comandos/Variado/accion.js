@@ -9,6 +9,7 @@ module.exports = {
         //comprobaciones previas :o
         const userID = args[0]
         const busqueda = args[1].toLowerCase();
+        const type = args.slice(2).join(" ");
 
         if (!userID) {
             return message.reply({
@@ -42,7 +43,7 @@ module.exports = {
             })
         }
         
-        let texto_busqueda = 'hello';
+        let texto_busqueda = 'waving';
         let opcion = 'saludó';
 
         switch(busqueda){
@@ -138,9 +139,13 @@ module.exports = {
                 break;
         };
 
-        const tipos = ['peppo', 'anime', 'adventure time'];
-        const randomIndexOpts = Math.floor(Math.random() * tipos.length);
-        const tipo_busqueda = tipos[randomIndexOpts];
+        const tipo_busqueda = type;
+        if (!tipo_busqueda){
+            const tipos = ['peppo', 'anime'];
+            const randomIndexOpts = Math.floor(Math.random() * tipos.length);
+            tipo_busqueda = tipos[randomIndexOpts];
+        }
+        
         let url_api = `https://tenor.googleapis.com/v2/search?q=${tipo_busqueda} ${texto_busqueda}&key=${process.env.TENOR_API_KEY}&client_key=my_test_app&limit=35`;
         
         const response = await axios.get(url_api);

@@ -12,7 +12,7 @@ module.exports = {
         option.setName('accion')
             .setDescription('Acción que se desea realizar')
             .addChoices(
-                {name: "Saludar", value:"hello"},
+                {name: "Saludar", value:"waving"},
                 {name: "Felicitar", value:"congratulation"},
                 {name: "Sorprender", value:"surprise"},
                 {name: "Abrazar", value:"cuddle"},
@@ -29,11 +29,16 @@ module.exports = {
                 {name: "Sonrojar", value:"blush"}
             )
             .setRequired(true)
+    )
+    .addStringOption(option =>
+        option.setName('tipo')
+            .setDescription('Tipo de imagenes para enviar')
     ),
     
     async execute(client, interaction, prefix){
         const user = interaction.options.getUser('usuario');
         const busqueda = interaction.options.getString('accion');
+        const type = interaction.options.getString('tipo');
 
         let texto_busqueda = busqueda;
         let opcion = 'saludó';
@@ -97,9 +102,13 @@ module.exports = {
                 break;
         };
 
-        const tipos = ['peppo', 'anime', 'adventure time'];
-        const randomIndexOpts = Math.floor(Math.random() * tipos.length);
-        const tipo_busqueda = tipos[randomIndexOpts];
+        const tipo_busqueda = type;
+        if (!tipo_busqueda){
+            const tipos = ['peppo', 'anime'];
+            const randomIndexOpts = Math.floor(Math.random() * tipos.length);
+            tipo_busqueda = tipos[randomIndexOpts];
+        }
+        
         let url_api = `https://tenor.googleapis.com/v2/search?q=${tipo_busqueda}-${texto_busqueda}&key=${process.env.TENOR_API_KEY}&client_key=my_test_app&limit=35`;
         
         const response = await axios.get(url_api);
