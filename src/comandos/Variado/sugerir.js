@@ -1,4 +1,4 @@
-const {SlashCommandBuilder, EmbedBuilder} = require('discord.js');
+const {EmbedBuilder} = require('discord.js');
 module.exports = {
     ALIASES: ["sugerir","suggest","suggestion"],
     DESCRIPTION: "Sirve para dar una sugerencia para poder votar",
@@ -6,6 +6,8 @@ module.exports = {
     async execute(client, message, args, prefix){
         try{
             let pregunta = args[0]
+            const channel = client.channels.cache.get('1074130218224197695');
+            
             if (!pregunta) {
                 return message.reply({
                     embeds: [
@@ -22,14 +24,23 @@ module.exports = {
                 .setDescription(`\`${msg}\``)
                 .setColor(process.env.COLOR)
                 .setTimestamp()
-                .setThumbnail(`https://i.imgur.com/rIPXKFQ.png`);
+                .setThumbnail(`https://i.imgur.com/t6AR3RO.gif`);
 
-            const mensaje = await message.reply({embeds: [embed_sug], fetchReply: true});
-        
+            const mensaje = await channel.send({ embeds: [embed_sug], fetchReply: true });
             mensaje.react(`👍`);
             mensaje.react(`👎`);
-            mensaje.react(`🧐`);
-            mensaje.react(`🏳️‍🌈`);
+
+            message.reply({ embeds: [
+                new EmbedBuilder()
+                    .setTitle(`Sugerencia realizada`)
+                    .setDescription(`Se envió tu sugerencia al canal de \'sugerencias\'`)
+                    .setColor(process.env.COLOR)
+                    .setTimestamp()
+                    .setThumbnail(`https://i.imgur.com/X3E6BAy.gif`)
+            ]}).then(msg => {
+                setTimeout(() => msg.delete(), 5000)
+            }).catch(/*Error*/);
+            
 
         }catch(e){
             message.reply({content: `**Ha ocurrido un error en sugerencia**\nMira la consola para mas detalle :P`});
