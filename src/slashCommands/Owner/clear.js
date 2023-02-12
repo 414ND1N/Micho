@@ -32,6 +32,7 @@ module.exports = {
                 }
             });
             interaction.channel.bulkDelete(messagesToDelete, true).then((messages) => {
+                console.log(`🧹 Se han eliminado una cantidad de ${mensajes.size} mensajes de ${user.username}`.blue);
                 let ClearCommandembed = new EmbedBuilder()
                     .setTitle('🧹 __CLEAR__ 🧹')
                     .setColor(process.env.COLOR)
@@ -42,6 +43,7 @@ module.exports = {
                 setTimeout(() => interaction.deleteReply(), 10000)
             });
         }else{
+            console.log(`🧹 Se han eliminado una cantidad de ${mensajes.size} mensajes`.blue);
             interaction.channel.bulkDelete(valor, true).then((messages) => {
                 let ClearCommandembed = new EmbedBuilder()
                     .setTitle('🧹 __CLEAR__ 🧹')

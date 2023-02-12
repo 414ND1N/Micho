@@ -1,3 +1,4 @@
+const {EmbedBuilder} = require('discord.js');
 module.exports = {
     ALIASES: ["msg"],
     DESCRIPTION: "Toffu envía un mensaje privado al usuario indicado",
@@ -16,7 +17,16 @@ module.exports = {
             
             user.send(mensaje);
             
-            console.log(`Mensaje envíado a ${user.username} \n > ${mensaje}`.blue);
+            await message.reply({
+                embeds: [
+                    new EmbedBuilder()
+                        .setColor(process.env.COLOR)
+                        .setDescription(`Mensaje envíado a ${user} \n > ${mensaje}`)
+                ]
+            }).then(msg => {
+                setTimeout(() => msg.delete(), 5000)
+            }).catch(/*Error*/);
+
             message.delete();
             
         }catch(e){

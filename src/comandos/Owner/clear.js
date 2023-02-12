@@ -1,3 +1,4 @@
+const { EmbedBuilder} = require('discord.js')
 module.exports = {
     DESCRIPTION: "Elimina los mensajes indicados del canal",
     ALIASES: ["limpiar"], 
@@ -24,10 +25,30 @@ module.exports = {
             message.channel.bulkDelete(messagesToDelete, true).then((mensajes) => {
                 console.log(`🧹 Se han eliminado una cantidad de ${mensajes.size} mensajes de ${user.username}`.blue);
             });
+            await message.reply({ embeds: [
+                new EmbedBuilder()
+                    .setTitle('🧹 __CLEAR__ 🧹')
+                    .setColor(process.env.COLOR)
+                    .setDescription(`Se han eliminado mensajes de \`${user.username}\``)
+                    .setThumbnail("https://i.imgur.com/7bj9r36.gif")
+            ]}).
+            then(msg => {
+                setTimeout(() => msg.delete(), 5000)
+            }).catch(/*Error*/);
         }else{
             message.channel.bulkDelete(valor, true).then((mensajes) => {
-                console.log(`🧹 Se han eliminado una cantidad de ${mensajes.size} mensajes`.blue);
-            }); 
+                console.log(`🧹 Se han eliminado una cantidad de ${mensajes.size-1} mensajes`.blue);
+            });
+            await message.reply({ embeds: [
+                new EmbedBuilder()
+                    .setTitle('🧹 __CLEAR__ 🧹')
+                    .setColor(process.env.COLOR)
+                    .setDescription(`Se han eliminado mensajes`)
+                    .setThumbnail("https://i.imgur.com/7bj9r36.gif")
+            ]}).
+            then(msg => {
+                setTimeout(() => msg.delete(), 5000)
+            }).catch(/*Error*/);
         }
     }   
 } 

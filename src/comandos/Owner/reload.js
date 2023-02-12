@@ -1,3 +1,4 @@
+const {EmbedBuilder} = require('discord.js');
 module.exports = {
     ALIASES: ["recargar"],
     DESCRIPTION: "Recarga los archivos del bot",
@@ -46,6 +47,16 @@ module.exports = {
                 }   
                     break;
             }
+            await message.reply({
+                embeds: [
+                    new EmbedBuilder()
+                    .addFields({name: `✅ ${opcion} recargados`, value:`> *Okay!*`})
+                    .setColor(process.env.COLOR)
+                ]
+            }).then(msg => {
+                setTimeout(() => msg.delete(), 5000)
+            }).catch(/*Error*/);
+
             console.log(`✅ ${opcion} recargados`.yellow);
             message.delete();
             

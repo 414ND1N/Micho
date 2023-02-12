@@ -1,4 +1,4 @@
-const {ActivityType} = require('discord.js');
+const {ActivityType,EmbedBuilder} = require('discord.js');
 
 module.exports = {
     ALIASES: ['presence'],
@@ -58,7 +58,18 @@ module.exports = {
                         break;
                 }
         }
+
+        await message.reply({
+            embeds: [
+                new EmbedBuilder()
+                    .setTitle('Cambio de presencia de Toffu')
+                    .setColor(process.env.COLOR)
+                    .setDescription(`Se cambió ${sub} a \`${tipo}\`.`)
+                    .setThumbnail("https://i.imgur.com/lIs9ZAg.gif")
+            ]
+        }).then(msg => {
+            setTimeout(() => msg.delete(), 5000)
+        }).catch(/*Error*/);
         message.delete();
-        return console.log(`Se cambió ${sub} a ${tipo}.`.blue) 
     } 
 }
