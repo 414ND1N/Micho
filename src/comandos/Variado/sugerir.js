@@ -6,7 +6,7 @@ module.exports = {
     async execute(client, message, args, prefix){
         try{
             let pregunta = args[0]
-            const channel = client.channels.cache.get('1074130218224197695');
+            const channel = client.channels.cache.get(process.env.ID_CANAL_SUGERENCIAS);
             
             if (!pregunta) {
                 return message.reply({

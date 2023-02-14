@@ -72,6 +72,7 @@ module.exports = {
     async execute(client, interaction, prefix){
         //constantes
         const SUB = interaction.options.getSubcommand();
+        const CANAL_DISCO = client.channels.cache.get(process.env.ID_CANAL_DISCO);
 
         //Comprobaciones previas
         if (!interaction.member.voice?.channel) {
@@ -108,7 +109,7 @@ module.exports = {
 
                 client.distube.play(VOICE_CHANNEL, cancion,{
                     member: interaction.member,
-                    textChannel: interaction.channel
+                    textChannel: CANAL_DISCO
                 }).catch(err => {
                     console.log('Error con la reproducción de la música'.red);
                 });;

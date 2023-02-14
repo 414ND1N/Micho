@@ -8,6 +8,7 @@ module.exports = {
     async execute(client, message, args, prefix){
         //constantes
         const SUB = args[0].toLowerCase();
+        const CANAL_DISCO = client.channels.cache.get(process.env.ID_CANAL_DISCO);
 
         //Comprobaciones previas
         if (!SUB) {
@@ -61,7 +62,7 @@ module.exports = {
                 
                 client.distube.play(VOICE_CHANNEL, cancion,{
                     member: message.member,
-                    textChannel: message.channel,
+                    textChannel: CANAL_DISCO,
                     message
                 }).catch(err => {
                     console.log('Error con la reproducción de la música'.red);

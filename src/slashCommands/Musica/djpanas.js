@@ -22,6 +22,7 @@ module.exports = {
             let args = 'https://www.youtube.com/playlist?list=PLtzt-E5Aq1-kGOPEbker6rjCQH6ZtKNz9'
     
             const voicechannel = interaction.member.voice.channel;
+            const CANAL_DISCO = client.channels.cache.get(process.env.ID_CANAL_DISCO);
 
             //comprobaciones previas :o
             if (!voicechannel) {
@@ -71,7 +72,7 @@ module.exports = {
 
             client.distube.play(voicechannel, args,{
                 member: interaction.member,
-                textChannel: interaction.channel
+                textChannel: CANAL_DISCO
             });
 
             return interaction.reply({

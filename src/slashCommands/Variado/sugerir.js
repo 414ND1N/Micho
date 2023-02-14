@@ -9,7 +9,7 @@ module.exports = {
     ),
     async execute(client, interaction, prefix){
         let pregunta = interaction.options.getString("sugerencia");
-        const channel = client.channels.cache.get('1074130218224197695');
+        const channel = client.channels.cache.get(process.env.ID_CANAL_SUGERENCIAS);
         
         const mensaje = await channel.send({ embeds: [
             new EmbedBuilder()

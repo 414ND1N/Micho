@@ -5,6 +5,7 @@ module.exports = {
         try{
             //CONSTANTES
             const VOICE_CHANNEL = message.member.voice?.channel;
+            const CANAL_DISCO = client.channels.cache.get(process.env.ID_CANAL_DISCO);
 
             //VARIABLES
             let opcion = "Clásico";
@@ -72,7 +73,7 @@ module.exports = {
 
             client.distube.play(VOICE_CHANNEL, args,{
                 member: message.member,
-                textChannel: message.channel,
+                textChannel: CANAL_DISCO,
                 message
             });
 
