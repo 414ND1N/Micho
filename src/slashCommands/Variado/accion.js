@@ -37,13 +37,13 @@ module.exports = {
     
     async execute(client, interaction, prefix){
         const user = interaction.options.getUser('usuario');
-        const busqueda = interaction.options.getString('accion');
+        const accion = interaction.options.getString('accion');
         const type = interaction.options.getString('tipo');
 
-        let texto_busqueda = busqueda;
+        let texto_accion = accion;
         let opcion = 'saludó';
 
-        switch(busqueda){
+        switch(accion){
             case "congratulation":{
                 opcion = 'felicitó'
             }
@@ -109,7 +109,7 @@ module.exports = {
             tipo_busqueda = tipos[randomIndexOpts];
         }
         
-        let url_api = `https://tenor.googleapis.com/v2/search?q=${tipo_busqueda}-${texto_busqueda}&key=${process.env.TENOR_API_KEY}&client_key=my_test_app&limit=35`;
+        let url_api = `https://tenor.googleapis.com/v2/search?q=${tipo_busqueda} ${texto_accion}&key=${process.env.TENOR_API_KEY}&client_key=my_test_app&limit=35`;
         
         const response = await axios.get(url_api);
         let randomIndex = Math.floor(Math.random() * response.data.results.length);
