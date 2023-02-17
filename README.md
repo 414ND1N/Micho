@@ -7,6 +7,7 @@
 
 Bot de discord con un prefix de `tf.` para los comandos, también compatible con los comandos slash `/`.
 > 👤 *Creado por **`414ND1N`***
+
 > 👤 *Basado [**`handler de Dew`**](https://github.com/dewstouh/handler-v14)*
 
 ### 🔧 Funciones
@@ -54,5 +55,5 @@ Bot de discord con un prefix de `tf.` para los comandos, también compatible con
 <br>
 
 <div align="center">
-<a href="" target="_blank"><img src="https://i.imgur.com/0qZPVzN.png"/ style="width:20rem"></a>
+<a href="" target="_blank"><img src="https://i.imgur.com/SbS2aQm.png"/ style="width:20rem"></a>
 </div>
