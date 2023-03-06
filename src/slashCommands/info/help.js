@@ -71,12 +71,14 @@ module.exports = {
                 {name: `**SUBCOMANDOS**`, value:`Estos comandos son subcomandos del comando principal \`music\`.`},
                 {name: `▪  play`, value:`Sirve para reproducir una canción dada (link o nombre).\n
                     > Admite links de \`YouTube\`, \`Spotify\` y \`Soundcloud\`.`},
+                {name: `▪  stop`, value:`Detiene la reproducción de la canción actual.`},
                 {name: `▪  control`, value:`Entre las acciones que cuenta estan: \n
-                    > \`Resumir\`, \`Pausar\`, \`Siguiente\`, \`Anterior\`, \`Mezclar\`, \`Detener\`.`},
+                    > \`Resumir\`, \`Pausar\`, \`Siguiente\`, \`Anterior\`, \`Mezclar\`.`},
                 {name: `▪  volumen`, value:`Sirve para indicar el volumen de la canción.\n
                     > Admite de \`0%\` a \`200%\`.`},
                 {name: `▪  lista`, value:`Sirve para ver la lista de canciones.\n
                     > Muestra un menú con botones de navegación.`},
+                {name: `▪  nowplaying`, value:`Muestra la duración que esta en reproducción`},
                 {name: `▪  saltar`, value:`Sirve para saltar a una canción de la lista en reproducción.\n
                     > El número de canción se puede ver en la queue.`},
                 {name: `▪  repetir`, value:`Sirve para cambiar el modo de repetición de la música en reproducción.\n

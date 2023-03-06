@@ -1,5 +1,24 @@
 const {SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle} = require('discord.js');
 const { RepeatMode } = require("distube");
+
+function buildProgressBar(timeElapsed, totalTime, length) {
+    const percentage = timeElapsed / totalTime;
+    const progressLength = Math.floor(length * percentage);
+    const emptyLength = length - progressLength;
+  
+    const progressBar = '▬'.repeat(progressLength) + '🔘' + '▬'.repeat(emptyLength);
+  
+    return progressBar;
+}
+
+function getTimeString(time) {
+    const minutes = Math.floor(time / 60);
+    const seconds = Math.round(time % 60);
+    const timeString = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    return timeString;
+}
+
+
 module.exports = {
     CMD: new SlashCommandBuilder()
     .setDescription("Sirve para controlar la reproducción de música")
@@ -11,6 +30,10 @@ module.exports = {
                 .setDescription('Canción a reproducir (link o nombre)')
                 .setRequired(true)
         )
+    )
+    .addSubcommand(subcommand => 
+        subcommand.setName('stop')
+        .setDescription('Detiene la reproducción de la música')
     )
     .addSubcommand(subcommand => 
         subcommand.setName('control')
@@ -25,7 +48,7 @@ module.exports = {
                     {name: '⏭ Siguiente canción', value: 'skip'},
                     {name: '⏮ Anterior canción', value: 'previous'},
                     {name: '🔀 Mezclar lista música', value: 'shuffle'},
-                    {name: '⏹ Detener reproducción', value: 'stop'}
+                    //{name: '⏹ Detener reproducción', value: 'stop'}
                 )
         )
     )
@@ -53,6 +76,10 @@ module.exports = {
                 .setRequired(true)
                 .setMinValue(2)
         )
+    )
+    .addSubcommand(subcommand => 
+        subcommand.setName('nowplaying')
+        .setDescription('Muestra la canción que actualmente está en reproducción')
     )
     .addSubcommand(subcommand => 
         subcommand.setName('repetir')
@@ -122,6 +149,13 @@ module.exports = {
                             .setDescription(`Buscando \`${cancion}\` ...`)
                     ]
                 });
+            case 'stop':
+
+                await interaction.deferReply();
+                await client.distube.stop(VOICE_CHANNEL);
+                await interaction.deleteReply();
+                return ;
+            
             case 'control':
                 let control = interaction.options.getString('accion');
                 switch(control){
@@ -189,11 +223,13 @@ module.exports = {
                                     .addFields({name: `Se mezcló la lista de música`, value:`🎶 😎👍`})
                             ]
                         });
+                    /*
                     case 'stop':
-                        await interaction.deferReply();
-                        await client.distube.stop(VOICE_CHANNEL);
-                        await interaction.deleteReply();
-                        return ;
+                    await interaction.deferReply();
+                    await client.distube.stop(VOICE_CHANNEL);
+                    await interaction.deleteReply();
+                    return ;
+                    */
                 };
             case 'repetir':
                 let tipo = interaction.options.getNumber('tipo');
@@ -377,6 +413,24 @@ module.exports = {
                         await interaction.deleteReply();
                     });
                 };
+            case 'nowplaying':
+                await interaction.deferReply();
+                const currentSong = QUEUE.songs[0];
+                const timeElapsed = QUEUE.currentTime;
+                const totalTime = currentSong.duration;
+
+                const progressBar = buildProgressBar(timeElapsed, totalTime, 10);
+
+                await interaction.reply({
+                    embeds: [
+                        new EmbedBuilder()
+                            .setTitle(`:musical_note: ${currentSong.name}`)
+                            .setDescription(`**${getTimeString(timeElapsed)}** ${progressBar} **${getTimeString(totalTime)}**`)
+                            .setThumbnail(currentSong.thumbnail)
+                            .setColor(process.env.COLOR)
+                    ]
+                }).setTimeout(() => interaction.deleteReply(), 20000);
+                return 
             case 'saltar':
                 let poscicion = interaction.options.getNumber('poscicion');
 
