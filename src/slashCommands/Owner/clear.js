@@ -31,29 +31,31 @@ module.exports = {
                     i++
                 }
             });
-            interaction.channel.bulkDelete(messagesToDelete, true).then((messages) => {
-                console.log(`🧹 Se han eliminado una cantidad de ${mensajes.size} mensajes de ${user.username}`.blue);
+            interaction.channel.bulkDelete(messagesToDelete, true).then(async (messages) => {
+                console.log(`🧹 Se han eliminado una cantidad de ${valor} mensajes de ${user.username}`.blue);
                 let ClearCommandembed = new EmbedBuilder()
                     .setTitle('🧹 __CLEAR__ 🧹')
                     .setColor(process.env.COLOR)
                     .setDescription(`Se han eliminado una cantidad de \`${messages.size}\` mensajes de \`${user.username}\``)
                     .setThumbnail("https://i.imgur.com/7bj9r36.gif")
 
-                interaction.reply({ embeds: [ClearCommandembed]});
+                await interaction.reply({ embeds: [ClearCommandembed]});
                 setTimeout(() => interaction.deleteReply(), 10000)
             });
         }else{
-            console.log(`🧹 Se han eliminado una cantidad de ${mensajes.size} mensajes`.blue);
-            interaction.channel.bulkDelete(valor, true).then((messages) => {
+            console.log(`🧹 Se han eliminado una cantidad de ${valor} mensajes`.blue);
+            interaction.channel.bulkDelete(valor, true).then(async (messages) => {
                 let ClearCommandembed = new EmbedBuilder()
                     .setTitle('🧹 __CLEAR__ 🧹')
                     .setColor(process.env.COLOR)
                     .setDescription(`Se han eliminado una cantidad de \`${messages.size}\` mensajes`)
                     .setThumbnail("https://i.imgur.com/7bj9r36.gif")
-
-                interaction.reply({ embeds: [ClearCommandembed]});
-                setTimeout(() => interaction.deleteReply(), 10000)
+                
+                await interaction.reply({ embeds: [ClearCommandembed]});
+                setTimeout(() => interaction.deleteReply(), 10000);
             });
+
+            
         }
     }
 }   

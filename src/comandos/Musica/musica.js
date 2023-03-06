@@ -557,7 +557,7 @@ module.exports = {
             ],
           })
           .then((msg) => {
-            setTimeout(() => msg.delete(), 20000);
+            setTimeout(() => msg.delete(), 10000);
           })
           .catch(/*Error*/);
 

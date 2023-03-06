@@ -411,26 +411,23 @@ module.exports = {
                         embedpaginas.edit({content: "El tiempo ha expirado ⏳, utiliza denuevo el comando queue  😊", components:[]}).catch(() => {});
                         embedpaginas.suppressEmbeds(true);
                         await interaction.deleteReply();
+                        return 
                     });
                 };
             case 'nowplaying':
-                await interaction.deferReply();
                 const currentSong = QUEUE.songs[0];
                 const timeElapsed = QUEUE.currentTime;
                 const totalTime = currentSong.duration;
 
                 const progressBar = buildProgressBar(timeElapsed, totalTime, 10);
 
-                await interaction.reply({
-                    embeds: [
-                        new EmbedBuilder()
-                            .setTitle(`:musical_note: ${currentSong.name}`)
-                            .setDescription(`**${getTimeString(timeElapsed)}** ${progressBar} **${getTimeString(totalTime)}**`)
-                            .setThumbnail(currentSong.thumbnail)
-                            .setColor(process.env.COLOR)
-                    ]
-                }).setTimeout(() => interaction.deleteReply(), 20000);
-                return 
+                let elEmbed  =  new EmbedBuilder()
+                    .setTitle(`:musical_note: ${currentSong.name}`)
+                    .setDescription(`**${getTimeString(timeElapsed)}** ${progressBar} **${getTimeString(totalTime)}**`)
+                    .setThumbnail(currentSong.thumbnail)
+                    .setColor(process.env.COLOR)
+
+                return interaction.reply({ embeds: [elEmbed], ephemeral:true});
             case 'saltar':
                 let poscicion = interaction.options.getNumber('poscicion');
 
