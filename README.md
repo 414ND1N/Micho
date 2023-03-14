@@ -25,23 +25,28 @@ Bot de discord con un prefix de `tf.` para los comandos, también compatible con
 - help
 
 ### 💱 Comandos variedad
+
+- 8ball `pregunta`
+- accion `usuario` `accion`
 - decir `texto`
 - elegir `opcion1, opcion2, ...`
-- 8ball `pregunta`
-- sugerir `sugerencia`
+- gif `busqueda`
 - preguntar `pregunta`
-- accion `usuario` `accion`
+- sugerir `sugerencia`
+
+
 - gif `busqueda`
 
 ### 🎵 Comandos de música
 - djpanas `tipo`
+- play
+- stop
 - Control
     - resumir
     - pausar
     - siguiente
     - anterior
     - mezclar
-    - detener
 - lista
 - volume `numero`
 - jump `numero`
