@@ -91,6 +91,8 @@ module.exports = {
             .setDescription(`Comandos para funciónes miscelaneo`)
             .setColor(`#0c6bc2`)
             .addFields(
+                {name: `buscaminas`, value:`Sirve para jugar al buscaminas.
+                    > Se indica el número de \`columnas\`, \`filas\` y \`minas\` (en ese orden 😊).`},
                 {name: `decir`, value:`Sirve para que Toffu diga el texto dado.`},
                 {name: `elegir`, value:`Sirve para que Toffu eliga entre las opciones dadas.\n
                     > Las opciones se dan separadas por coma \`,\`.`},
