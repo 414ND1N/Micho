@@ -88,19 +88,19 @@ module.exports = {
                 .setDescription(`Comandos para funciónes miscelaneo`)
                 .setColor(`#0c6bc2`)
                 .addFields(
+                    {name: `8ball`, value:`Sirve para que la bola 8 de una respuesta a una pregunta.`},
+                    {name: `accion`, value:`Sirve para hacer una acción a otro usuario.\n
+                    > Entre las acciones esta \`saludar\`, \`felicitar\`, \`sorprender\`, \`abrazar\`, \`besar\`, \`golpear\`, \`dar palmadas\`, \`mirar fijamente\`, \`bofetear\`, \`dar toques\`, \`presumir\`, \`lamer\`, \`pulgar arriba\`, \`berrinche\`, \`sonrojar\`.\n
+                    _Puedes indicar que tipo de imagen buscar_.`},
                     {name: `buscaminas`, value:`Sirve para jugar al buscaminas.
                         > Se indica el número de \`columnas\`, \`filas\` y \`minas\` (en ese orden 😊).`},
                     {name: `decir`, value:`Sirve para que Toffu diga el texto dado.`},
                     {name: `elegir`, value:`Sirve para que Toffu eliga entre las opciones dadas.\n
                         > Las opciones se dan separadas por coma \`,\`.`},
-                    {name: `8ball`, value:`Sirve para que la bola 8 de una respuesta a una pregunta.`},
-                    {name: `pregunta`, value:`Sirve para realizar una pregunta.`},
-                    {name: `sugerir`, value:`Sirve para dar una sugerencia al canal de sugerencias.`},
-                    {name: `accion`, value:`Sirve para hacer una acción a otro usuario.\n
-                        > Entre las acciones esta \`saludar\`, \`felicitar\`, \`sorprender\`, \`abrazar\`, \`besar\`, \`golpear\`, \`dar palmadas\`, \`mirar fijamente\`, \`bofetear\`, \`dar toques\`, \`presumir\`, \`lamer\`, \`pulgar arriba\`, \`berrinche\`, \`sonrojar\`.\n
-                        _Puedes indicar que tipo de imagen buscar_.`},
                     {name: `gif`, value:`Sirve para mostrar el gif que se desee buscar.\n
                         > Mostrara un gif aleatorio de \`tenor.com\`.`},
+                    {name: `pregunta`, value:`Sirve para realizar una pregunta.`},
+                    {name: `sugerir`, value:`Sirve para dar una sugerencia al canal de sugerencias.`},   
                 )
                 .setThumbnail(`https://i.imgur.com/s2lV0y5.png`);
 

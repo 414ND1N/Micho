@@ -26,9 +26,9 @@ Bot de discord con un prefix de `tf.` para los comandos, también compatible con
 
 ### 💱 Comandos variedad
 
-- buscaminas `columna, fila, minas`
 - 8ball `pregunta`
 - accion `usuario` `accion`
+- buscaminas `columna, fila, minas`
 - decir `texto`
 - elegir `opcion1, opcion2, ...`
 - gif `busqueda`
