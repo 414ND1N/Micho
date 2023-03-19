@@ -96,7 +96,7 @@ module.exports = {
                     > Entre las acciones esta \`saludar\`, \`felicitar\`, \`sorprender\`, \`abrazar\`, \`besar\`, \`golpear\`, \`dar palmadas\`, \`mirar fijamente\`, \`bofetear\`, \`dar toques\`, \`presumir\`, \`lamer\`, \`pulgar arriba\`, \`berrinche\`, \`sonrojar\`.\n
                     _Puedes indicar que tipo de imagen buscar_.`},
                 {name: `buscaminas`, value:`Sirve para jugar al buscaminas.
-                    > Se indica el número de \`columnas\`, \`filas\` y \`minas\` (en ese orden 😊).`},
+                    > Se indica el número de \`columnas\`, \`filas\` y la \`dificultad\` (en ese orden 😊).`},
                 {name: `decir`, value:`Sirve para que Toffu diga el texto dado.`},
                 {name: `elegir`, value:`Sirve para que Toffu eliga entre las opciones dadas.\n
                     > Las opciones se dan separadas por coma \`,\`.`},

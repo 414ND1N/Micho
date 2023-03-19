@@ -111,16 +111,15 @@ module.exports = {
             tablero[c] = tablero[c].join(" ");
         }
         tablero = tablero.join("\n");
-        console.log(tablero)
         return tablero;
         };
 
         try {
             const columnas = args[0]
             const filas = args[1];
-            const minas = args[2];
+            const dificultad = args[2];
             
-            if (!columnas | !filas | !minas) {
+            if (!columnas | !filas | !dificultad) {
                 return  message.reply({
                     embeds: [
                         new EmbedBuilder()
@@ -140,20 +139,36 @@ module.exports = {
                 })
             }
 
-            if(isNaN(minas)) {
+            if(isNaN(dificultad)) {
                 return  message.reply({
                     embeds: [
                         new EmbedBuilder()
                             .setColor(process.env.COLOR_ERROR)
-                            .setDescription(`Debes de ingresar unicamente números, máximo 40 minas`)
+                            .setDescription(`Debes de ingresar unicamente números, 0 = fácil, 1 = intermedio, 2 = dificil`)
                     ]
                 })
             }
 
             if (columnas>9) {columnas=9}
             if (filas>9) {filas=9}
-            if (minas>40) {minas=40}
 
+            let minas = 0
+            let textoDificultad = ""
+
+            switch (dificultad) {
+                case 0:
+                    minas = Math.round(filas*columnas* 0.25)
+                    textoDificultad = "fácil"
+                    break;
+                case 2:
+                    minas = Math.round(filas*columnas* 0.65)
+                    textoDificultad = "díficil 💀"
+                    break;
+                default:
+                    minas = Math.round(filas*columnas* 0.40)
+                    textoDificultad = "intermedio"
+                    break;
+            }
 
             let tablero = generarTablero(columnas, filas, minas);
             
@@ -161,10 +176,9 @@ module.exports = {
                 embeds: [
                     new EmbedBuilder()
                         .setColor(process.env.COLOR)
-                        .setTitle(`:bomb: Buscaminas de ${columnas}x${filas} con ${minas} minas.`)
+                        .setTitle(`:bomb: Buscaminas de ${columnas}x${filas} con dificultad ${textoDificultad}.`)
                         .setDescription(tablero)
                 ]
-                
             })
 
         } catch (error) {

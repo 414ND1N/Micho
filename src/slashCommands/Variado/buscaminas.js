@@ -19,13 +19,16 @@ module.exports = {
         .setMinValue(1)
         .setMaxValue(9)
     )
-    .addNumberOption((option) =>
+    .addStringOption((option) =>
       option
-        .setName("minas")
-        .setDescription("Cantidad de minas en el tablero")
+        .setName("dificultad")
+        .setDescription("Dificultad (Número de minas)")
         .setRequired(true)
-        .setMinValue(1)
-        .setMaxValue(40)
+        .addChoices(
+            {name: "Fácil", value:"0"},
+            {name: "Intermedio", value:"1"},
+            {name: "Difícil", value:"2"},
+        )
     ),
 
     async execute(client, interaction, prefix){
@@ -133,13 +136,29 @@ module.exports = {
             tablero[c] = tablero[c].join(" ");
         }
         tablero = tablero.join("\n");
-        console.log(tablero)
         return tablero;
         };
 
         const columnas = interaction.options.getNumber("columnas");
         const filas = interaction.options.getNumber("filas");
-        const minas = interaction.options.getNumber("minas");
+        const dificultad = interaction.options.getString("dificultad");
+        let minas = 0
+        let textoDificultad = ""
+
+        switch (dificultad) {
+            case "0":
+                minas = Math.round(filas*columnas* 0.25)
+                textoDificultad = "fácil"
+                break;
+            case "2":
+                minas = Math.round(filas*columnas* 0.65)
+                textoDificultad = "díficil 💀"
+                break;
+            default:
+                minas = Math.round(filas*columnas* 0.40)
+                textoDificultad = "intermedio"
+                break;
+        }
 
         let tablero = generarTablero(columnas, filas, minas);
         
@@ -147,7 +166,7 @@ module.exports = {
             embeds: [
                 new EmbedBuilder()
                     .setColor(process.env.COLOR)
-                    .setTitle(`:bomb: Buscaminas de ${columnas}x${filas} con ${minas} minas.`)
+                    .setTitle(`:bomb: Buscaminas de ${columnas}x${filas} con dificultad ${textoDificultad}.`)
                     .setDescription(tablero)
             ]
         })
