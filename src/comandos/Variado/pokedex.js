@@ -182,8 +182,7 @@ module.exports = {
                 });
                 collector.on("end", async () => {
                     //desactivamos botones y editamos el mensaje
-                    embedpaginas.edit({content: "El tiempo ha expirado ⏳, utiliza denuevo el comando pokedéx 😊", components:[]}).catch(() => {});
-                    embedpaginas.suppressEmbeds(true);
+                    embedpaginas.edit({content:"", components:[]}).catch(() => {});
                 });
             }
         }catch(e){
