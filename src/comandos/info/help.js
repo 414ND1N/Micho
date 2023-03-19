@@ -99,6 +99,8 @@ module.exports = {
                         > Las opciones se dan separadas por coma \`,\`.`},
                     {name: `gif`, value:`Sirve para mostrar el gif que se desee buscar.\n
                         > Mostrara un gif aleatorio de \`tenor.com\`.`},
+                    {name: `pokedex`, value:`Sirve para mostrar información de un pokemón según su id\n
+                        > Disponible desde el pokemón \`1\` al \`1010\`.`},
                     {name: `pregunta`, value:`Sirve para realizar una pregunta.`},
                     {name: `sugerir`, value:`Sirve para dar una sugerencia al canal de sugerencias.`},   
                 )
@@ -152,7 +154,7 @@ module.exports = {
             });
 
         }catch(e){
-            message.reply({content: `**Ha ocurrido un error con help**\nMira la consola para mas detalle :P`});
+            message.reply({content: `**Ha ocurrido un error con help**`});
             return console.log(e);
         }
     }

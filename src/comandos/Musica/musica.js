@@ -359,8 +359,7 @@ module.exports = {
           if (embeds.length === 1) {
             row = new ActionRowBuilder().addComponents(btn_salir);
 
-            embedpaginas = await message.channel
-              .send({
+            embedpaginas = await message.channel.send({
                 embeds: [embeds[0]],
                 components: [row],
               })
