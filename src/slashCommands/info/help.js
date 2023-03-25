@@ -102,6 +102,7 @@ module.exports = {
                     > Las opciones se dan separadas por coma \`,\`.`},
                 {name: `gif`, value:`Sirve para mostrar el gif que se desee buscar.\n
                     > Mostrara un gif aleatorio de \`tenor.com\`.`},
+                {name: `micho`, value:`Sirve para mandar la imágen aleatoria de un gato.`},
                 {name: `pokedex`, value:`Sirve para mostrar información de un pokemón según su id\n
                     > Disponible desde el pokemón \`1\` al \`1010\`.`},
                 {name: `pregunta`, value:`Sirve para realizar una pregunta.`},

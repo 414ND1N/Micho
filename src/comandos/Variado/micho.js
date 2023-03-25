@@ -2,7 +2,7 @@ const {EmbedBuilder} = require('discord.js');
 const axios = require('axios');
 
 module.exports = {
-    ALIASES: ["cat","micho","michi"],
+    ALIASES: ["cat","gato","michi"],
     DESCRIPTION: "Sirve para mostrar una foto aleatoria de un gato",
     
     async execute(client, message, args, prefix){

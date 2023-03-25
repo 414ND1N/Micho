@@ -32,12 +32,10 @@ Bot de discord con un prefix de `tf.` para los comandos, también compatible con
 - decir `texto`
 - elegir `opcion1, opcion2, ...`
 - gif `busqueda`
+- micho
 - pokedex `id-pokemon`
 - preguntar `pregunta`
 - sugerir `sugerencia`
-
-
-- gif `busqueda`
 
 ### 🎵 Comandos de música
 - djpanas `tipo`
