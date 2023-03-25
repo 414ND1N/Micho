@@ -29,7 +29,7 @@ module.exports = {
         message.reply({
             embeds: [
                 new EmbedBuilder()
-                    .setTitle(`GIF por \`${message.author.username}\``)
+                    .setTitle(`\`${message.author.username}\`  envió un GIF`)
                     .setDescription(`\`${busqueda}\``)
                     .setColor(process.env.COLOR)
                     .setImage(gif_url)
