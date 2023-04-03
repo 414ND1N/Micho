@@ -2,7 +2,7 @@ const {SlashCommandBuilder, EmbedBuilder} = require('discord.js');
 const axios = require('axios');
 module.exports = {
     CMD: new SlashCommandBuilder()
-    .setDescription("Sirve para mostrar una foto aleatoria de un gato"),
+    .setDescription("Mostrar foto aleatoria de un gato"),
 
     async execute(client, interaction, prefix){
 

@@ -5,7 +5,7 @@
 
 </div>
 
-Bot de discord con un prefix de `tf.` para los comandos, también compatible con los comandos slash `/`.
+Bot de discord compatible con los comandos slash `/`.
 > 👤 *Creado por **`414ND1N`***
 
 > 👤 *Basado [**`handler de Dew`**](https://github.com/dewstouh/handler-v14)*

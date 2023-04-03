@@ -2,7 +2,7 @@ const {SlashCommandBuilder, EmbedBuilder} = require('discord.js');
 const axios = require('axios');
 module.exports = {
     CMD: new SlashCommandBuilder()
-    .setDescription("Sirve para mostrar el gif que se desee buscar")
+    .setDescription("Busqueda de gifs en tenor")
     .addStringOption(option =>
         option.setName("busqueda")
         .setDescription('Gif que deseas buscar 🔍')

@@ -1,7 +1,7 @@
 const {SlashCommandBuilder, EmbedBuilder} = require('discord.js')
 module.exports = {
     CMD: new SlashCommandBuilder()
-    .setDescription("Sirve para que la bola 8 de una respuesta a una pregunta")
+    .setDescription("Bola 8 de una respuesta a una pregunta")
     .addStringOption(option =>
         option.setName("pregunta")
         .setDescription('Pregunta que deseas que la bola te responda')

@@ -2,7 +2,7 @@ const {SlashCommandBuilder, EmbedBuilder,} = require('discord.js')
 const { ActionRowBuilder, ButtonBuilder, ButtonStyle} = require('discord.js');
 module.exports = {
     CMD: new SlashCommandBuilder()
-    .setDescription("Sirve para ver los comandos disponibles"),
+    .setDescription("Listar los comandos disponibles de Toffu"),
     async execute(client, interaction, prefix){
 
         await interaction.deferReply();

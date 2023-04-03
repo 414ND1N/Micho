@@ -21,7 +21,7 @@ function getTimeString(time) {
 
 module.exports = {
     CMD: new SlashCommandBuilder()
-    .setDescription("Sirve para controlar la reproducción de música")
+    .setDescription("Control de la reproducción de música")
     .addSubcommand(subcommand => 
         subcommand.setName('play')
         .setDescription('Reproduce una canción')

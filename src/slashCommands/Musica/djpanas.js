@@ -1,7 +1,7 @@
 const {SlashCommandBuilder, EmbedBuilder,} = require('discord.js')
 module.exports = {
     CMD: new SlashCommandBuilder()
-    .setDescription("Sirve para reproducir DJPANAS")
+    .setDescription("Reproducir DJ-PANAS")
     .addStringOption(option =>
         option.setName("tipo")
         .setDescription("Tipo de contenido")

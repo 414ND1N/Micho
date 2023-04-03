@@ -1,7 +1,7 @@
 const {SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits, ActivityType} = require('discord.js');
 module.exports = {
     CMD: new SlashCommandBuilder()
-    .setDescription("Sirve para actualizar la presencia de Toffu")
+    .setDescription("Actualizar la presencia de Toffu")
     .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
     .addSubcommand(subcommand => 
         subcommand.setName('actividad')

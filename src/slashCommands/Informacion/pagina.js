@@ -1,9 +1,10 @@
-const {EmbedBuilder} = require('discord.js')
+const { SlashCommandBuilder,EmbedBuilder} = require('discord.js')
 module.exports = {
-    ALIASES: ["panapagina", "page"],
-    DESCRIPTION: "Muestra el link de la pana página",
-    async execute(client, message, args, prefix){
-        return message.reply({
+    CMD: new SlashCommandBuilder()
+    .setDescription("Enlace de la pana página"),
+
+    async execute(client, interaction, prefix){
+        return interaction.reply({
             embeds: [
                 new EmbedBuilder()
                     .setColor(process.env.COLOR)
@@ -12,4 +13,4 @@ module.exports = {
             ]
         })
     }
-}
+} 

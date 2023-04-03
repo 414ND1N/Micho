@@ -1,7 +1,7 @@
 const { SlashCommandBuilder,EmbedBuilder} = require('discord.js')
 module.exports = {
     CMD: new SlashCommandBuilder()
-    .setDescription("Muestra el repositorio de mi código ☺"),
+    .setDescription("Repositorio de mi código ☺"),
 
     async execute(client, interaction, prefix){
         return interaction.reply({

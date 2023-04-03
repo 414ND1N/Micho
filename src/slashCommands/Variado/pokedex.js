@@ -3,10 +3,10 @@ const { ActionRowBuilder, ButtonBuilder, ButtonStyle} = require('discord.js');
 const axios = require('axios');
 module.exports = {
     CMD: new SlashCommandBuilder()
-    .setDescription("Sirve para mostrar información de un pokemón según su id")
+    .setDescription("Mostrar información de un pokemón según su id en la pokedéx")
     .addNumberOption(option =>
         option.setName("id")
-        .setDescription('Gif que deseas buscar 🔍')
+        .setDescription('Pokemón que deseas buscar 🔍')
         .setRequired(true)
         .setMinValue(1)
         .setMaxValue(1010)
@@ -45,7 +45,7 @@ module.exports = {
                 {name: `Tipos`, value: `${pokemonType}`},
             )
             .setTimestamp();
-
+        
         const EmbedShiny = new EmbedBuilder()
             .setTitle(`Pokedéx | \`${pokemonName} shiny\``)
             .setColor(process.env.COLOR)
@@ -68,7 +68,6 @@ module.exports = {
         return paginacion();
 
         async function paginacion(){
-            let pag_actual = 0
             let embedpaginas = null;
             let row = null;
 
@@ -90,17 +89,17 @@ module.exports = {
             
             //Si el numero de embeds es mayor a 1 ponemos los botones de paginacion
             }else{
-                let btn_atras =  new ButtonBuilder()
-                    .setCustomId('atras')
+                let btn_normal =  new ButtonBuilder()
+                    .setCustomId('normal')
                     .setStyle(ButtonStyle.Success)
-                    .setEmoji(`⬅`);
-                let btn_siguiente =  new ButtonBuilder()
-                    .setCustomId('siguiente')
+                    .setLabel('Normal');
+                let btn_shiny =  new ButtonBuilder()
+                    .setCustomId('shiny')
                     .setStyle(ButtonStyle.Success)
-                    .setEmoji(`➡`);
+                    .setLabel('Shiny');
 
 
-                row = new ActionRowBuilder().addComponents(btn_atras, btn_siguiente, btn_salir);
+                row = new ActionRowBuilder().addComponents(btn_normal, btn_shiny, btn_salir);
 
                 embedpaginas = await interaction.channel.send({
                     content: `**Navega con los _botones_ en el menú**`,
@@ -114,41 +113,20 @@ module.exports = {
 
             collector.on("collect", async action => {
                 switch (action?.customId) {
-                    case 'atras':{
+                    case 'normal':{
                         collector.resetTimer();
-                        //Si la pagina a retroceder no es igual a la primera pagina entonces retrocedemos
-                        if(pag_actual !== 0){
-                            pag_actual -= 1
-                            //Editamos el embed
-                            await embedpaginas.edit({embeds: [embeds[pag_actual]], components: [embedpaginas.components[0]]}).catch(() => {});
-                            await action?.deferUpdate();
-                        } else{
-                            //Reseteamos la cantidad de embeds -1
-                            pag_actual = embeds.length-1
-                            //Editamos el embed
-                            await embedpaginas.edit({embeds: [embeds[pag_actual]], components: [embedpaginas.components[0]]}).catch(() => {});
-                            await action?.deferUpdate();
 
-                        }
+                        await embedpaginas.edit({embeds: [embeds[0]], components: [embedpaginas.components[0]]}).catch(() => {});
+                        await action?.deferUpdate();
+ 
                     }
                         break;
-                    case 'siguiente':{
+                    case 'shiny':{
                         collector.resetTimer();
-                        //Si la pagina a avanzar es mayor a las paginas actuales regresamos al inicio
-                        if(pag_actual < embeds.length - 1){
-                            //Aumentamos el valor de la pagina actual +1
-                            pag_actual ++;
-                            //Editamos el embed
-                            await embedpaginas.edit({embeds: [embeds[pag_actual]], components: [embedpaginas.components[0]]}).catch(() => {});
-                            await action?.deferUpdate();
-                        } else{
-                            //Reseteamos la cantidad al inicio
-                            pag_actual = 0;
-                            //Editamos el embed
-                            await embedpaginas.edit({embeds: [embeds[pag_actual]], components: [embedpaginas.components[0]]}).catch(() => {});
-                            await action?.deferUpdate();
+                        
+                        await embedpaginas.edit({embeds: [embeds[1]], components: [embedpaginas.components[0]]}).catch(() => {});
+                        await action?.deferUpdate();
 
-                        }
                     }
                         break;
                     case 'exit':{

@@ -2,7 +2,7 @@ const {SlashCommandBuilder, EmbedBuilder} = require('discord.js');
 const axios = require('axios');
 module.exports = {
     CMD: new SlashCommandBuilder()
-    .setDescription("Sirve para hacer una acción a otro usuario")
+    .setDescription("Acción a otro usuario")
     .addUserOption(option => 
         option.setName('usuario')
             .setDescription('Usuario al que se desea hacer acción 🧐')

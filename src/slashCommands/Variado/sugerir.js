@@ -1,7 +1,7 @@
 const {SlashCommandBuilder, EmbedBuilder} = require('discord.js');
 module.exports = {
     CMD: new SlashCommandBuilder()
-    .setDescription("Sirve para dar una sugerencia para poder votar")
+    .setDescription("Dar sugerencia a votación")
     .addStringOption(option =>
       option.setName("sugerencia")
         .setDescription('Sugerencia para la votación')
