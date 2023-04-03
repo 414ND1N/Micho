@@ -40,13 +40,14 @@ module.exports = class extends Client {
     async start() {
         await this.loadEvents();
         await this.loadHandlers();
-        await this.loadCommands();
+        //await this.loadCommands();
         await this.loadSlashCommands();
 
         this.login(process.env.BOT_TOKEN)
 
     }
 
+    //Funcion eliminada (comandos prefix)
     async loadCommands() {
         console.log(`(${process.env.PREFIX}) Cargando comandos`.yellow);
         await this.commands.clear();

@@ -41,7 +41,7 @@ module.exports = {
 
         const embed_menu = new EmbedBuilder()
             .setTitle('Menú')
-            .setDescription(`Los comandos compatibles con **Toffu**, tanto con \`/\` o con \`tf.\``)
+            .setDescription(`Los comandos slash compatibles con **Toffu**, \`/\``)
             .setColor(process.env.COLOR)
             .addFields(
                 {name: `\`Información\``, value: `Comandos que brindan información del bot y/o servidor.`},
@@ -153,7 +153,7 @@ module.exports = {
         });
         collector.on("end", async () => {
             //desactivamos botones y editamos el mensaje
-            embed_help.edit({content: "El tiempo ha expirado ⏳, utiliza denuevo el comando help  😊", components:[], ephemeral: true}).catch(() => {});
+            embed_help.edit({content: "El tiempo ha expirado ⏳, utiliza denuevo el comando help 😊", components:[], ephemeral: true}).catch(() => {});
             embed_help.suppressEmbeds(true);
             await interaction.deleteReply();
         });
