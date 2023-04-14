@@ -8,7 +8,7 @@ module.exports = {
             embeds: [
                 new EmbedBuilder()
                     .setColor(process.env.COLOR)
-                    .setDescription('La pana página esta disponible en:\n **https://www.onanibando.ml/**')
+                    .setDescription(`La pana página esta disponible en:\n **${process.env.URL_PAGINA}**`)
                     .setThumbnail('https://i.imgur.com/9Kvn6Ym.png')
             ]
         })

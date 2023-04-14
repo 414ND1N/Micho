@@ -8,7 +8,7 @@ module.exports = {
             embeds: [
                 new EmbedBuilder()
                     .setColor(process.env.COLOR)
-                    .setDescription('Puedes encontrar mi código fuente en:\n https://github.com/414ND1N/Toffu.git')
+                    .setDescription(`Puedes encontrar mi código fuente en:\n ${process.env.URL_REPO}`)
                     .setThumbnail('https://i.imgur.com/zMV9yIP.png')
             ]
         })
