@@ -60,5 +60,5 @@ Bot de discord compatible con los comandos slash `/`.
 <br>
 
 <div align="center">
-<a href="" target="_blank"><img src="https://i.imgur.com/SbS2aQm.png"/ style="width:20rem"></a>
+<a href="" target="_blank"><img src="https://i.imgur.com/xYnk7Me.jpg"/ style="width:20rem"></a>
 </div>
