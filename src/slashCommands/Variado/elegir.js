@@ -13,6 +13,8 @@ module.exports = {
         const randomIndex = Math.floor(Math.random() * opciones.length);
         const item = opciones[randomIndex];
 
+        await interaction.channel.sendTyping();
+        
         return interaction.reply({
             embeds: [
                 new EmbedBuilder()

@@ -10,6 +10,7 @@ module.exports = {
     async execute(client, interaction, prefix){
         await interaction.deferReply();
         let args = interaction.options.getString("texto");
+        await interaction.channel.sendTyping();
         interaction.channel.send(args)
         return await interaction.deleteReply();
     }

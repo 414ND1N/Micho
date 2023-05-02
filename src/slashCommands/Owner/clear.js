@@ -1,9 +1,9 @@
 const {SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits} = require('discord.js')
 module.exports = {
     CMD: new SlashCommandBuilder()
-    .setDescription("Elimina los mensajes indicados del canal")
-    .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
-    .setDMPermission(false)
+        .setDescription("Elimina los mensajes indicados del canal")
+        .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
+        .setDMPermission(false)
     .addNumberOption(option =>
         option.setName("mensajes")
         .setDescription("Número de mensajes a eliminar")
