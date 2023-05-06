@@ -15,7 +15,7 @@ module.exports = {
         await interaction.deferReply();
 
         const configuration = new Configuration({
-            organization: "org-XPXdh8kCWpGs72QGGRqZbKSR",
+            organization: process.env.OPENAI_ORG,
             apiKey: process.env.OPENAI_API_KEY,
         });
         const openai = new OpenAIApi(configuration);
@@ -25,13 +25,13 @@ module.exports = {
         }];
 
         await interaction.channel.sendTyping();
-
+        
         //MENSAJES PREVIOS
-        let prevMessages = await interaction.channel.messages.fetch({ limit: 10 });
+        let prevMessages = await interaction.channel.messages.fetch({ limit: 5 });
         prevMessages.reverse();
 
         prevMessages.forEach((msg) => {
-            if (msg.author.id !== interaction.author.id) return;
+            if (msg.author.id !== interaction.user.id) return;
 
             conversationLog.push({
                 role: 'user',
@@ -39,6 +39,7 @@ module.exports = {
             });
         });
         
+
         //MENSAJE ENTRANTE
         const mensajeEntrante = interaction.options.getString("mensaje");
         conversationLog.push({
