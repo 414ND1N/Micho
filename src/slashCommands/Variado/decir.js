@@ -1,7 +1,7 @@
 const {SlashCommandBuilder} = require('discord.js')
 module.exports = {
     CMD: new SlashCommandBuilder()
-    .setDescription("Toffu diga el texto dado")
+    .setDescription("Toffu dirá el texto que le digas")
     .addStringOption(option =>
         option.setName("texto")
         .setDescription('Texto que deseas que diga 😊')

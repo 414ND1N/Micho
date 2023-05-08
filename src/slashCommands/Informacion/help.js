@@ -97,6 +97,8 @@ module.exports = {
                     _Puedes indicar que tipo de imagen buscar_.`},
                 {name: `buscaminas`, value:`Sirve para jugar al buscaminas.
                     > Se indica el número de \`columnas\`, \`filas\` y la \`dificultad\` (en ese orden 😊).`},
+                {name: `conversar`, value:`Sirve para conversa con Toffu.
+                    > Te respondera con su inteligencia artificial.`},
                 {name: `decir`, value:`Sirve para que Toffu diga el texto dado.`},
                 {name: `elegir`, value:`Sirve para que Toffu eliga entre las opciones dadas.\n
                     > Las opciones se dan separadas por coma \`,\`.`},
@@ -105,7 +107,7 @@ module.exports = {
                 {name: `micho`, value:`Sirve para mandar la imágen aleatoria de un gato.`},
                 {name: `pokedex`, value:`Sirve para mostrar información de un pokemón según su id\n
                     > Disponible desde el pokemón \`1\` al \`1010\`.`},
-                {name: `pregunta`, value:`Sirve para realizar una pregunta.`},
+                {name: `pregunta`, value:`Sirve para que destaque tu pregunta en el servidor.`},
                 {name: `sugerir`, value:`Sirve para dar una sugerencia al canal de sugerencias.`},
             )
             .setThumbnail(`https://i.imgur.com/s2lV0y5.png`);

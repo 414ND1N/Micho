@@ -29,6 +29,7 @@ Bot de discord compatible con los comandos slash `/`.
 - 8ball `pregunta`
 - accion `usuario` `accion`
 - buscaminas `columna, fila, dificultad`
+- conversar `Conversa con Toffu :D`
 - decir `texto`
 - elegir `opcion1, opcion2, ...`
 - gif `busqueda`

@@ -3,7 +3,7 @@ const { ActionRowBuilder, ButtonBuilder, ButtonStyle} = require('discord.js');
 const axios = require('axios');
 module.exports = {
     CMD: new SlashCommandBuilder()
-    .setDescription("Mostrar información de un pokemón según su id en la pokedéx")
+    .setDescription("Mostrar información de la pokedéx de tu pokemón preferido")
     .addNumberOption(option =>
         option.setName("id")
         .setDescription('Pokemón que deseas buscar 🔍')

@@ -3,8 +3,7 @@ const { Configuration, OpenAIApi } = require("openai");
 
 module.exports = {
     CMD: new SlashCommandBuilder()
-        .setDescription("Conversa con Toffu")
-        .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
+        .setDescription("Conversa con Toffu a traves de su inteligencia artificial")
         .addStringOption(option =>
             option.setName("mensaje")
                 .setDescription('Mensaje que deseas realizar')

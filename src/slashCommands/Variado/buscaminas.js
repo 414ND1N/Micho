@@ -2,7 +2,7 @@ const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 
 module.exports = {
   CMD: new SlashCommandBuilder()
-    .setDescription("Juega al buscaminas")
+    .setDescription("Juega al buscaminas con emojis")
     .addNumberOption((option) =>
       option
         .setName("columnas")
@@ -22,7 +22,7 @@ module.exports = {
     .addStringOption((option) =>
       option
         .setName("dificultad")
-        .setDescription("Dificultad (Número de minas)")
+        .setDescription("Dificultad del juego")
         .setRequired(true)
         .addChoices(
             {name: "Fácil", value:"0"},

@@ -1,7 +1,7 @@
 const {SlashCommandBuilder, EmbedBuilder} = require('discord.js');
 module.exports = {
     CMD: new SlashCommandBuilder()
-    .setDescription("Mostrar pregunta y reacciones")
+    .setDescription("Destacar tu pregunta en el servidor.")
     .addStringOption(option =>
       option.setName("pregunta")
         .setDescription('Pregunta que deseas realizar')
