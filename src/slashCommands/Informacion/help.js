@@ -95,6 +95,8 @@ module.exports = {
                 {name: `accion`, value:`Sirve para hacer una acción a otro usuario.\n
                     > Entre las acciones esta \`saludar\`, \`felicitar\`, \`sorprender\`, \`abrazar\`, \`besar\`, \`golpear\`, \`dar palmadas\`, \`mirar fijamente\`, \`bofetear\`, \`dar toques\`, \`presumir\`, \`lamer\`, \`pulgar arriba\`, \`berrinche\`, \`sonrojar\`.\n
                     _Puedes indicar que tipo de imagen buscar_.`},
+                {name: `amiibo`, value:`Sirve para mostrar información de amiibos
+                    > Se indica el \`nombre\` del personaje a buscar.`},
                 {name: `buscaminas`, value:`Sirve para jugar al buscaminas.
                     > Se indica el número de \`columnas\`, \`filas\` y la \`dificultad\` (en ese orden 😊).`},
                 {name: `conversar`, value:`Sirve para conversa con Toffu.

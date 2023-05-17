@@ -13,19 +13,34 @@ module.exports = {
     ),
     async execute(client, interaction, prefix){
 
+        //USO DE LA API pokeapi.co
+
         await interaction.deferReply();
 
-        let busqueda = interaction.options.getNumber("id");
+        const busqueda = interaction.options.getNumber("id")
+        const url_api = `https://pokeapi.co/api/v2/pokemon/${busqueda}`
+        let response = null
 
-        let url_api = `https://pokeapi.co/api/v2/pokemon/${busqueda}`;
-        
-        const response = await axios.get(url_api);
+        //Verificar si existe el pokemón
+        try {
+            response = await axios.get(url_api);
+        } catch (error) {
+            interaction.channel.send({
+                embeds: [
+                    new EmbedBuilder()
+                        .setColor(process.env.COLOR)
+                        .setDescription(`No se encontró ningún pokemón con el id \`${busqueda}\``)
+                ],
+                ephemeral: true
+            });
+            await interaction.deleteReply();
+        }
+
         const pokemonData = response.data;
         const pokemonName = pokemonData.name;
         const pokemonHeight = (pokemonData.height / 3.281).toFixed(2);
         const pokemonWeight = pokemonData.weight;
         const pokemonTypes = pokemonData.types.map(tipo => tipo.type.name);
-        const pokemonType = pokemonTypes.join(", ");
         const defaultSpriteUrl = pokemonData.sprites.front_default;
         const shinySpriteUrl = pokemonData.sprites.front_shiny;
         const officialArtworDefaultSpriteUrl = pokemonData.sprites.other["official-artwork"].front_default
@@ -37,12 +52,12 @@ module.exports = {
         const EmbedDefault = new EmbedBuilder()
             .setTitle(`Pokedéx | \`${pokemonName}\``)
             .setColor(process.env.COLOR)
-            .setDescription(`${interaction.user?.username} buscó al pokemón No. \`${busqueda}\``)
             .setImage(officialArtworDefaultSpriteUrl)
             .setThumbnail(defaultSpriteUrl)
             .addFields(
-                {name: `Tamaño`, value: ` Peso: \`${pokemonWeight} kg\`,  Altura: \`${pokemonHeight} m\``},
-                {name: `Tipos`, value: `${pokemonType}`},
+                {name: `Peso`, value: `${pokemonWeight} kg`, inline: true},
+                {name: `Altura`, value: `${pokemonHeight} m`, inline: true},
+                {name: `Tipos`, value: `${pokemonTypes.join(", ")}`},
             )
             .setTimestamp();
         
@@ -53,8 +68,9 @@ module.exports = {
             .setImage(shinyArtworDefaultSpriteUrl)
             .setThumbnail(shinySpriteUrl)
             .addFields(
-                {name: `Tamaño`, value: ` Peso: \`${pokemonWeight} kg\`,  Altura: \`${pokemonHeight} m\``},
-                {name: `Tipos`, value: `${pokemonType}`},
+                {name: `Peso`, value: `${pokemonWeight} kg`, inline: true},
+                {name: `Altura`, value: `${pokemonHeight} m`, inline: true},
+                {name: `Tipos`, value: `${pokemonTypes.join(", ")}`},
             )
             .setTimestamp();
         
@@ -139,7 +155,7 @@ module.exports = {
             });
             collector.on("end", async () => {
                 //desactivamos botones y editamos el mensaje
-                embedpaginas.edit({content:"", components:[]}).catch(() => {});
+                embedpaginas.edit({content:`${interaction.user?.username} buscó un pokemón`, components:[]}).catch(() => {});
                 await interaction.deleteReply();   
             });
         }
