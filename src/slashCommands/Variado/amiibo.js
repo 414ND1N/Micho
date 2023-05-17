@@ -51,7 +51,7 @@ module.exports = {
                     { name: `Videojuego`, value: `${amiibo.gameSeries}`, inline: true},
                     { name: `Tipo`, value: `${amiibo.type}` },
                     { name: 'Lanzamientos', value: '\u200B' },
-                    { name: `AU:`, value: `\`${amiibo.release.au}\``, inline: true},
+                    { name: `AU`, value: `\`${amiibo.release.au}\``, inline: true},
                     { name: 'EU', value: `\`${amiibo.release.eu}\``, inline: true},
                     { name: 'JP', value: ` \`${amiibo.release.jp}\``, inline: true},
                     { name: 'NA', value: ` \`${amiibo.release.na}\``, inline: true},
