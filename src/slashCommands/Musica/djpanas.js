@@ -17,24 +17,7 @@ module.exports = {
         ),
     async execute(client, interaction, prefix) {
         try {
-            let tipo = interaction.options.getString("tipo");
-            let args = 'https://www.youtube.com/playlist?list=PLtzt-E5Aq1-kGOPEbker6rjCQH6ZtKNz9'
 
-            let DJ_PANAS = JSON.parse(process.env.DJ_PANAS);
-
-            // itera sobre la lista DJ_PANAS
-            for (let key in DJ_PANAS) {
-                if (key === tipo) { // si el nombre coincide con el objeto actual
-                    args = DJ_PANAS[key]; // asigna el URL correspondiente
-                    break; // sale del bucle, ya se encontró el objeto
-                }
-            }
-
-            // muestra el URL correspondiente (o un mensaje si no se encontró el objeto)
-            if (args == '') {
-                args = DJ_PANAS['Clasico']
-            }
-            
             const voicechannel = interaction.member.voice.channel;
             const CANAL_DISCO = client.channels.cache.get(process.env.ID_CANAL_DISCO);
 
@@ -50,6 +33,25 @@ module.exports = {
                 })
             }
 
+            let tipo = interaction.options.getString("tipo");
+            let args = 'https://www.youtube.com/playlist?list=PLtzt-E5Aq1-kGOPEbker6rjCQH6ZtKNz9'
+
+            let DJ_PANAS = JSON.parse(process.env.DJ_PANAS);
+
+            // itera sobre la lista DJ_PANAS
+            for (let key in DJ_PANAS) {
+
+                //Si no se eligió un tipo toma el tipo clasico por defecto
+                if(tipo == null){
+                    tipo = "Clasico"
+                }
+
+                if (key === tipo) { // si el nombre coincide con el objeto actual
+                    args = DJ_PANAS[key]; // asigna el URL correspondiente
+                    break; // sale del bucle, ya se encontró el objeto
+                }
+            }
+            
             client.distube.play(voicechannel, args, {
                 member: interaction.member,
                 textChannel: CANAL_DISCO
@@ -66,7 +68,7 @@ module.exports = {
             })
 
         } catch (e) {
-            interaction.reply({ content: `**Ha ocurrido un error al recargar el bot**\nMira la consola para mas detalle :P`, ephemeral: true });
+            interaction.reply({ content: `**Ha ocurrido un error con comando DJPANAS**`, ephemeral: true });
             return console.log(e);
         }
     }
