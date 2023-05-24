@@ -15,21 +15,18 @@ module.exports = {
         
         let btn_info =  new ButtonBuilder()
             .setCustomId('info')
-            .setLabel('Info')
-            .setStyle(ButtonStyle.Primary)
-            .setEmoji(`<:facts:1061057414876639292>`);
+            .setLabel('Información')
+            .setStyle(ButtonStyle.Primary);
 
         let btn_music =  new ButtonBuilder()
             .setCustomId('music')
             .setLabel('Música')
-            .setStyle(ButtonStyle.Primary)
-            .setEmoji(`<:rolas:1051012560054407219>`);
+            .setStyle(ButtonStyle.Primary);
 
         let btn_var =  new ButtonBuilder()
             .setCustomId('var')
             .setLabel('Variedad')
-            .setStyle(ButtonStyle.Primary)
-            .setEmoji(`<:sus:1061064541179486218>`);
+            .setStyle(ButtonStyle.Primary);
 
         let btn_salir =  new ButtonBuilder()
             .setCustomId('exit')
@@ -68,7 +65,7 @@ module.exports = {
             .setColor(`#c72a2a`)
             .addFields(
                 {name: `djpanas`, value:`Sirve para reproducir DJPANAS.\n> Se puede elegir entre las distintas variaciones.`},
-                {name: `**SUBCOMANDOS**`, value:`Estos comandos son subcomandos del comando principal \`music\`.`},
+                {name: `\u200b`, value:`Estos comandos son subcomandos del comando principal \`music\`:`},
                 {name: `▪  play`, value:`Sirve para reproducir una canción dada (link o nombre).\n
                     > Admite links de \`YouTube\`, \`Spotify\` y \`Soundcloud\`.`},
                 {name: `▪  stop`, value:`Detiene la reproducción de la canción actual.`},
@@ -84,7 +81,7 @@ module.exports = {
                 {name: `▪  repetir`, value:`Sirve para cambiar el modo de repetición de la música en reproducción.\n
                     > Puede ser \`desactivado\`, \`canción actual\`, \`lista completa\`.`}
             )  
-            .setThumbnail(`https://i.imgur.com/GLPfwSa.jpg`);
+            .setThumbnail(`https://i.imgur.com/9PzViPP.jpg`);
 
         const embed_menu3 = new EmbedBuilder()
             .setTitle('Variedad')
