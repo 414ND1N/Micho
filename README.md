@@ -14,7 +14,6 @@
     💬 Bot de discord compatible con los comandos slash <b>/</b>
     <br>
   </p>
-  <br>
 </div>
 
 > 👤 \*Creado por **`414ND1N`\***
