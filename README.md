@@ -7,13 +7,14 @@
 </div>
 
 <div>
-  <img width="220" align="left" src="https://i.imgur.com/oim2Ycs.jpg"/>
+  <img width="200" align="left" src="https://i.ibb.co/9qct1t3/Toffu-V3-Icon.png"/>
   <br>
   <h1>TOFFU</h1>
   <p>
     💬 Bot de discord compatible con los comandos slash <b>/</b>
-    <br>
   </p>
+  <br>
+  <br>
 </div>
 
 > 👤 \*Creado por **`414ND1N`\***
