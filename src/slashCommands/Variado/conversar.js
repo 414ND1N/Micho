@@ -59,6 +59,7 @@ module.exports = {
             });
 
         if(result){
+            interaction.channel.send(`\`${interaction.user.username}: ${mensajeEntrante}\``)
             interaction.channel.send(result.data.choices[0].message)
         }
         return await interaction.deleteReply();

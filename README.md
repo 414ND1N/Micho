@@ -8,12 +8,10 @@
 
 <div>
   <img width="200" align="left" src="https://i.ibb.co/9qct1t3/Toffu-V3-Icon.png"/>
-  <br>
   <h1>TOFFU</h1>
   <p>
     💬 Bot de discord compatible con los comandos slash <b>/</b>
   </p>
-  <br>
   <br>
 </div>
 
