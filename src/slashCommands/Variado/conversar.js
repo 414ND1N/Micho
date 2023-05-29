@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, PermissionFlagsBits} = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder} = require('discord.js');
 const { Configuration, OpenAIApi } = require("openai");
 
 module.exports = {
@@ -10,11 +10,24 @@ module.exports = {
                 .setRequired(true)
         ),
     async execute(client, interaction, prefix) {
+        
+        const channel = client.channels.cache.get(process.env.ID_CANAL_CHATBOT); //ID del canal de chatbot
+
+        //Si el canal no es el de chatbot se envia un mensaje de error
+        if (interaction.channel != channel) {
+            return interaction.reply({ 
+                embeds: [
+                    new EmbedBuilder()
+                        .setColor(process.env.COLOR_ERROR)
+                        .setDescription(`Utiliza el comando en el canal ${channel}`)
+                ],
+                ephemeral: true
+            })
+        }
 
         await interaction.deferReply();
 
         const configuration = new Configuration({
-            organization: process.env.OPENAI_ORG,
             apiKey: process.env.OPENAI_API_KEY,
         });
         const openai = new OpenAIApi(configuration);
@@ -26,24 +39,37 @@ module.exports = {
         await interaction.channel.sendTyping();
         
         //MENSAJES PREVIOS
-        let prevMessages = await interaction.channel.messages.fetch({ limit: 5 });
+        let prevMessages = await interaction.channel.messages.fetch({ limit: 8 });
         prevMessages.reverse();
 
+        //Leer los mensajes anteriores
         prevMessages.forEach((msg) => {
-            if (msg.author.id !== interaction.user.id) return;
 
-            conversationLog.push({
-                role: 'user',
-                content: msg.content,
-            });
+            let indexUsername = msg.content.indexOf(":"); // Busqueda del username en el mensaje enviado por el bot
+
+            if (indexUsername != -1){ //Si existe un username
+                let userName = msg.content.substring(1, indexUsername);//Obtener el nombre del usuario del mensaje
+
+                //Verificar que el mensaje sea del bot y el mensaje recibido sea del usuario que hablo
+                if (userName == interaction.user.username && msg.author.id == process.env.BOT_ID ) {
+                    conversationLog.push({
+                        role: 'user',
+                        content: msg.content.substring(indexUsername+1, msg.content.length-1), //Eliminar el nombre del usuario y las comillas simples del formato
+                        name: userName
+                            .replace(/\s+/g, '_')
+                            .replace(/[^\w\s]/gi, ''),
+                    });
+                }
+
+            }
         });
         
-
-        //MENSAJE ENTRANTE
+        //Enviar mensaje entrante del comando
         const mensajeEntrante = interaction.options.getString("mensaje");
         conversationLog.push({
             role: 'user',
             content: mensajeEntrante,
+            name: interaction.user.username
         });
 
         //LLAMADA API
