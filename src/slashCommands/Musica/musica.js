@@ -146,7 +146,7 @@ module.exports = {
                             .setTitle('Reproducción música')
                             .setThumbnail('https://i.imgur.com/WHCwA6t.gif')
                             .setColor(process.env.COLOR)
-                            .setDescription(`Buscando \`${cancion}\` ...`)
+                            .setDescription(`Mira la lista en el canal ${channel}`)
                     ]
                 });
             case 'stop':
@@ -223,13 +223,6 @@ module.exports = {
                                     .addFields({name: `Se mezcló la lista de música`, value:`🎶 😎👍`})
                             ]
                         });
-                    /*
-                    case 'stop':
-                    await interaction.deferReply();
-                    await client.distube.stop(VOICE_CHANNEL);
-                    await interaction.deleteReply();
-                    return ;
-                    */
                 };
             case 'repetir':
                 let tipo = interaction.options.getNumber('tipo');

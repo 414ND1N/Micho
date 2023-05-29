@@ -19,7 +19,7 @@ module.exports = {
         try {
 
             const voicechannel = interaction.member.voice.channel;
-            const CANAL_DISCO = client.channels.cache.get(process.env.ID_CANAL_DISCO);
+            const channel = client.channels.cache.get(process.env.ID_CANAL_DISCO);
 
             //comprobaciones previas :o
             if (!voicechannel) {
@@ -54,7 +54,7 @@ module.exports = {
             
             client.distube.play(voicechannel, args, {
                 member: interaction.member,
-                textChannel: CANAL_DISCO
+                textChannel: channel
             });
 
             return interaction.reply({
@@ -63,7 +63,8 @@ module.exports = {
                         .setTitle('Reproducción DJ PANAS')
                         .setThumbnail("https://i.imgur.com/vMaawHJ.gif")
                         .setColor(process.env.COLOR)
-                        .addFields({ name: `**Se agregó DJ PANAS \`${tipo}\` a la lista**`, value: `😎  🔊 🎶` })
+                        .setDescription(`**Se agregó DJ PANAS \`${tipo}\` a la lista**`)
+                        .addFields({ name: `Mira la lista en el canal ${channel}`, value: `😎  🔊 🎶` })
                 ]
             })
 
