@@ -15,7 +15,7 @@ module.exports = {
         const channel_pruebas = client.channels.cache.get(process.env.ID_CANAL_PRUEBAS); //ID del canal de pruebas
 
         //Si el canal no es el de chatbot ó el canal de pruebas se envia un mensaje de error
-        if (interaction.channel != channel || interaction.channel != channel_pruebas) {
+        if (interaction.channel != channel && interaction.channel != channel_pruebas) {
             return interaction.reply({ 
                 embeds: [
                     new EmbedBuilder()
