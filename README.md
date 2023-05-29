@@ -66,7 +66,7 @@
 - jump `numero`
 
 ### 🤓 Comandos de administrador
-
+- avatar `url` 
 - clear `usuario*` `numero mensajes`
 - dm `usuario` `mensaje`
 - presencia `estado` | `actividad` `tipo`

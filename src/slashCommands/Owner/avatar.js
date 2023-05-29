@@ -1,0 +1,27 @@
+const {SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits, ActivityType} = require('discord.js');
+module.exports = {
+    CMD: new SlashCommandBuilder()
+    .setDescription("Actualizar el avatar de Toffu")
+    .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
+    .addStringOption(option =>
+        option.setName('url')
+            .setDescription('Enlace de la imagen a setear como avatar')
+            .setRequired(true)
+    ),
+    
+    async execute(client, interaction, prefix){
+       
+        const url = interaction.options.getString('url');
+        client.user.setAvatar(url);
+
+        return interaction.reply({
+            embeds: [
+                new EmbedBuilder()
+                    .setTitle('Cambio de avatar de toffu')
+                    .setColor(process.env.COLOR)
+                    .setImage(url)
+            ],
+            ephemeral: true
+        });
+    }
+}  
