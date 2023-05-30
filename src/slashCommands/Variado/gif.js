@@ -12,7 +12,7 @@ module.exports = {
 
         let busqueda = interaction.options.getString("busqueda");
 
-        let url_api = `https://tenor.googleapis.com/v2/search?q=${busqueda}&key=${process.env.TENOR_API_KEY}&client_key=my_test_app&limit=15`;
+        let url_api = `https://tenor.googleapis.com/v2/search?q=${new URLSearchParams({busqueda})}&key=${process.env.TENOR_API_KEY}&client_key=my_test_app&limit=15`;
         
         const response = await axios.get(url_api);
         let randomIndex = Math.floor(Math.random() * response.data.results.length);
@@ -21,7 +21,7 @@ module.exports = {
         return interaction.reply({
             embeds: [
                 new EmbedBuilder()
-                    .setTitle(`${interaction.user?.username} envió un GIF`)
+                    .setTitle(`${interaction.user?.username} envió un GIF.`)
                     .setColor(process.env.COLOR)
                     .setDescription(`\`${busqueda}\``)
                     .setImage(gif_url)

@@ -38,7 +38,6 @@ module.exports = {
         let user = interaction.options.getUser('usuario');
         const accion = interaction.options.getString('accion');
         const type = interaction.options.getString('tipo');
-
         
         let texto_accion = accion;
         let opcion = 'saludó';
@@ -109,11 +108,12 @@ module.exports = {
             tipo_busqueda = tipos[randomIndexOpts];
         }
         
-        let url_api = `https://tenor.googleapis.com/v2/search?q=${tipo_busqueda} ${texto_accion}&key=${process.env.TENOR_API_KEY}&client_key=my_test_app&limit=35`;
+        const query = tipo_busqueda+' '+texto_accion;
+        const url_api = `https://tenor.googleapis.com/v2/search?q=${new URLSearchParams({query})}&key=${process.env.TENOR_API_KEY}&client_key=my_test_app&limit=20`;
         
         const response = await axios.get(url_api);
-        let randomIndex = Math.floor(Math.random() * response.data.results.length);
-        let gif_url = response.data.results[randomIndex]["media_formats"]["mediumgif"]["url"];
+        const randomIndex = Math.floor(Math.random() * response.data.results.length);
+        const gif_url = response.data.results[randomIndex]["media_formats"]["mediumgif"]["url"];
         
         if(user == undefined) {
             return interaction.reply({

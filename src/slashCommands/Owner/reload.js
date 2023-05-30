@@ -23,6 +23,7 @@ module.exports = {
                     opcion = "Comandos";
                     await client.loadSlashCommands();
                 }
+                    break;
                 case "events":{
                     opcion = "Eventos";
                     await client.loadEvents();
@@ -48,7 +49,7 @@ module.exports = {
                 ],
                 ephemeral: true
             });
-            console.log(`✅ ${opcion} recargados`.yellow);
+            console.log(`✅ ${opcion} recargados\n`.yellow);
         }catch(e){
             interaction.reply({content: `**Ha ocurrido un error al recargar el bot**\nMira la consola para mas detalle :P`});
             console.log(e);

@@ -52,10 +52,11 @@ module.exports = {
             .setDescription(`Comandos que brindan información del bot y/o servidor`)
             .setColor(`#3a7c21`)
             .addFields(
+                {name: `codigo`, value:`Muestra el link del repositorio con el código de \`Toffu\`.`},
+                {name: `diccionario`, value:`Definición de un \`término\` del diccionario urbano.`},
                 {name: `help`, value:`Sirve para ver el menú de ayuda con los comandos.`},
                 {name: `ping`, value:`Sirve para ver el ping en ms de \`Toffu\`.`},
                 {name: `pagina`, value:`Muestra el link de la pana página.`},
-                {name: `codigo`, value:`Muestra el link del repositorio con el código de \`Toffu\`.`}
             )  
             .setThumbnail(`https://i.imgur.com/Ud2cXN5.jpg`);
 
