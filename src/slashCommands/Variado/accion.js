@@ -108,7 +108,7 @@ module.exports = {
             tipo_busqueda = tipos[randomIndexOpts];
         }
         
-        const query = tipo_busqueda+' '+texto_accion;
+        const query = texto_accion+' '+tipo_busqueda;
         const url_api = `https://tenor.googleapis.com/v2/search?q=${new URLSearchParams({query})}&key=${process.env.TENOR_API_KEY}&client_key=my_test_app&limit=20`;
         
         const response = await axios.get(url_api);

@@ -100,9 +100,11 @@ module.exports = {
         //constantes
         const SUB = interaction.options.getSubcommand();
         const channel = client.channels.cache.get(process.env.ID_CANAL_DISCO);
+        const COM_NO_QUEUE = ['play']; //Comandos que no necesitan una cola de reproducción
+        const COM_NO_VOICECHANNEL = ['stop']; //Comandos que no necesitan un canal de voz
 
         //Comprobaciones previas
-        if (!interaction.member.voice?.channel) {
+        if (!interaction.member.voice?.channel && !COM_NO_VOICECHANNEL.includes(SUB)) {
             return interaction.reply({
                 embeds: [
                     new EmbedBuilder()
@@ -114,7 +116,7 @@ module.exports = {
         };
         //constantes
         const VOICE_CHANNEL = interaction.member.voice.channel;
-        const COM_NO_QUEUE = ['play'];
+        
 
         if (!client.distube.getQueue(VOICE_CHANNEL) && !COM_NO_QUEUE.includes(SUB) && !COM_NO_QUEUE.includes(interaction.options.getString('accion'))){
             return interaction.reply({

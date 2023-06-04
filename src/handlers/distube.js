@@ -84,7 +84,7 @@ module.exports = (client, Discord) => {
         queue.textChannel.send({ embeds: [embed] })
     }); 
     client.distube.on("initQueue", queue => {
-        queue.volume = 50;
+        queue.volume = 40;
     });
     client.distube.on("disconnect", (queue)=>{
         

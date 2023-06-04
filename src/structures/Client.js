@@ -42,7 +42,7 @@ module.exports = class extends Client {
         await this.loadHandlers();
         //await this.loadCommands();
         await this.loadSlashCommands();
-
+        await this.loadContextMenus();
         this.login(process.env.BOT_TOKEN)
 
     }
@@ -101,6 +101,39 @@ module.exports = class extends Client {
         if (this?.application?.commands) {
             this.application.commands.set(this.slashArray);
             console.log(`(/) ${this.slashCommands.size} Comandos Publicados!`.green);
+        }
+    }
+
+    async loadContextMenus() {
+        console.log(`(*) Cargando context menus`.yellow);
+        await this.slashCommands.clear();
+
+        this.slashArray = [];
+
+        const RUTA_ARCHIVOS = await this.utils.loadFiles("/src/contextMenus");
+
+        if (RUTA_ARCHIVOS.length) {
+            RUTA_ARCHIVOS.forEach((rutaArchivo) => {
+                try {
+                    const COMANDO = require(rutaArchivo);
+                    const NOMBRE_COMANDO = rutaArchivo.split('\\').pop().split('/').pop().split(".")[0];
+                    COMANDO.CMD.name = NOMBRE_COMANDO;
+
+                    if (NOMBRE_COMANDO) this.slashCommands.set(NOMBRE_COMANDO, COMANDO);
+                    
+                    this.slashArray.push(COMANDO.CMD.toJSON());
+                } catch (e) {
+                    console.log(`(*) ERROR AL CARGAR EL CONTEXT MENU ${rutaArchivo}`.red);
+                    console.log(e);
+                }
+            })
+        }
+
+        console.log(`(*) ${this.slashCommands.size} Context menus cargados`.green);
+
+        if (this?.application?.commands) {
+            this.application.commands.set(this.slashArray);
+            console.log(`(/) ${this.slashCommands.size} Context menus Publicados!`.green);
         }
     }
 
