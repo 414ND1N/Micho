@@ -27,6 +27,7 @@
 - Manejo canal de mensajes
 - Mensajes privados a usuarios
 - Manejo bot
+- Comandos context menu
 
 ### 💬 Comandos de información
 
@@ -71,3 +72,9 @@
 - dm `usuario` `mensaje`
 - presencia `estado` | `actividad` `tipo`
 - reload `archivo*`
+
+### 👀 Context Menu
+- accion
+  - abrazar
+  - golpear
+  - saludar

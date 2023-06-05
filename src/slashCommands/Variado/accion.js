@@ -35,91 +35,90 @@ module.exports = {
     ),
     
     async execute(client, interaction, prefix){
-        let user = interaction.options.getUser('usuario');
+        const user = interaction.options.getUser('usuario');
         const accion = interaction.options.getString('accion');
         const type = interaction.options.getString('tipo');
         
-        let texto_accion = accion;
-        let opcion = 'saludó';
+        let texto_accion = 'saludó';
 
         switch(accion){
             case "congratulation":{
-                opcion = 'felicitó'
+                texto_accion = 'felicitó'
             }
                 break;
             case "surprise":{
-                opcion = 'sorprendió'
+                texto_accion = 'sorprendió'
             }
                 break;
             case "cuddle":{
-                opcion = 'abrazó'
+                texto_accion = 'abrazó'
             }
                 break;
             case "kiss":{
-                opcion = 'besó'
+                texto_accion = 'besó'
             }
                 break;
             case "punch":{
-                opcion = 'golpeó'
+                texto_accion = 'golpeó'
             }
                 break;
             case "pat":{
-                opcion = 'dió palmadas'
+                texto_accion = 'dió palmadas'
             }
                 break;
             case "stare":{
-                opcion = 'miró fijamente'
+                texto_accion = 'miró fijamente'
             }
                 break;
             case "slap":{
-                opcion = 'abofeteó'
+                texto_accion = 'abofeteó'
             }
                 break;
             case "poke":{
-                opcion = 'dió toques'
+                texto_accion = 'dió toques'
             }
                 break;
             case "smug":{
-                opcion = 'presumió'
+                texto_accion = 'presumió'
             }
                 break;
             case "lick":{
-                opcion = 'lamió'
+                texto_accion = 'lamió'
             }
                 break;
             case "thumbsup":{
-                opcion = 'dió un pulgar arriba'
+                texto_accion = 'dió un pulgar arriba'
             }
                 break;
             case "pout":{
-                opcion = 'hizó un berrinche'
+                texto_accion = 'hizó un berrinche'
             }
                 break;
             case "blush":{
-                opcion = 'le sonrojó'
+                texto_accion = 'le sonrojó'
             }
                 break;
         };
 
         let tipo_busqueda = type;
         if (!tipo_busqueda){
-            const tipos = ['peppo', 'anime'];
+            const tipos = ['zelda','pokemon','anime', 'adventure time', 'regular show'];
             const randomIndexOpts = Math.floor(Math.random() * tipos.length);
             tipo_busqueda = tipos[randomIndexOpts];
         }
         
-        const query = texto_accion+' '+tipo_busqueda;
-        const url_api = `https://tenor.googleapis.com/v2/search?q=${new URLSearchParams({query})}&key=${process.env.TENOR_API_KEY}&client_key=my_test_app&limit=20`;
+        const query = `${tipo_busqueda} ${accion}`;
+        const url_api = `https://tenor.googleapis.com/v2/search?q=${new URLSearchParams({query})}&key=${process.env.TENOR_API_KEY}&client_key=my_test_app&limit=15`;
         
         const response = await axios.get(url_api);
         const randomIndex = Math.floor(Math.random() * response.data.results.length);
         const gif_url = response.data.results[randomIndex]["media_formats"]["mediumgif"]["url"];
-        
+
         if(user == undefined) {
             return interaction.reply({
                 embeds: [
                     new EmbedBuilder()
-                        .setTitle(`\`${interaction.user?.username} ${opcion}\``)
+                        .setTitle(`\`${interaction.user.username} ${texto_accion} a todos.\``)
                         .setColor(process.env.COLOR)
                         .setImage(gif_url)
                 ]
@@ -128,7 +127,7 @@ module.exports = {
         return interaction.reply({
             embeds: [
                 new EmbedBuilder()
-                    .setTitle(`\`${interaction.user?.username} ${opcion} a ${user.username}\``)
+                    .setTitle(`\`${interaction.user.username} ${texto_accion} a ${user.username}.\``)
                     .setColor(process.env.COLOR)
                     .setImage(gif_url)
             ]

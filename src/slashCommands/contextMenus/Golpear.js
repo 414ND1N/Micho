@@ -8,10 +8,10 @@ module.exports = {
     async execute(client, interaction, prefix){
 
         const { username } = interaction.targetUser;
-        const tipos = ['peppo', 'anime'];
+        const tipos = ['zelda','pokemon','anime', 'adventure time', 'regular show'];
         const randomIndexOpts = Math.floor(Math.random() * tipos.length);
 
-        const query = 'punch '+ tipos[randomIndexOpts];
+        const query = `punch ${tipos[randomIndexOpts]}`;
         const url_api = `https://tenor.googleapis.com/v2/search?q=${new URLSearchParams({query})}&key=${process.env.TENOR_API_KEY}&client_key=my_test_app&limit=15`;
         
         const response = await axios.get(url_api);
