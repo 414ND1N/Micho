@@ -35,6 +35,9 @@ module.exports = {
     ),
     
     async execute(client, interaction, prefix){
+
+        await interaction.deferReply(); // Defer para respuestas de más de 3 segundos
+
         const user = interaction.options.getUser('usuario');
         const accion = interaction.options.getString('accion');
         const type = interaction.options.getString('tipo');
@@ -115,7 +118,7 @@ module.exports = {
         const gif_url = response.data.results[randomIndex]["media_formats"]["mediumgif"]["url"];
 
         if(user == undefined) {
-            return interaction.reply({
+            return interaction.editReply({
                 embeds: [
                     new EmbedBuilder()
                         .setTitle(`\`${interaction.user.username} ${texto_accion} a todos.\``)
@@ -124,7 +127,7 @@ module.exports = {
                 ]
             });
         }
-        return interaction.reply({
+        return interaction.editReply({
             embeds: [
                 new EmbedBuilder()
                     .setTitle(`\`${interaction.user.username} ${texto_accion} a ${user.username}.\``)

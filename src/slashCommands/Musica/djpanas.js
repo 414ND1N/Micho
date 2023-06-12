@@ -16,61 +16,58 @@ module.exports = {
                 )
         ),
     async execute(client, interaction, prefix) {
-        try {
 
-            const voicechannel = interaction.member.voice.channel;
-            const channel = client.channels.cache.get(process.env.ID_CANAL_DISCO);
+        const voicechannel = interaction.member.voice.channel;
+        const channel = client.channels.cache.get(process.env.ID_CANAL_DISCO);
 
-            //comprobaciones previas :o
-            if (!voicechannel) {
-                return interaction.reply({
-                    embeds: [
-                        new EmbedBuilder()
-                            .setColor(process.env.COLOR_ERROR)
-                            .setDescription(`Tienes que estar en un canal de voz para ejecutar el comando 🤨`)
-                    ],
-                    ephemeral: true
-                })
-            }
-
-            let tipo = interaction.options.getString("tipo");
-            let args = 'https://www.youtube.com/playlist?list=PLtzt-E5Aq1-kGOPEbker6rjCQH6ZtKNz9'
-
-            let DJ_PANAS = JSON.parse(process.env.DJ_PANAS);
-
-            // itera sobre la lista DJ_PANAS
-            for (let key in DJ_PANAS) {
-
-                //Si no se eligió un tipo toma el tipo clasico por defecto
-                if(tipo == null){
-                    tipo = "Clasico"
-                }
-
-                if (key === tipo) { // si el nombre coincide con el objeto actual
-                    args = DJ_PANAS[key]; // asigna el URL correspondiente
-                    break; // sale del bucle, ya se encontró el objeto
-                }
-            }
-            
-            client.distube.play(voicechannel, args, {
-                member: interaction.member,
-                textChannel: channel
-            });
-
+        //comprobaciones previas
+        if (!voicechannel) {
             return interaction.reply({
                 embeds: [
                     new EmbedBuilder()
-                        .setTitle('Reproducción DJ PANAS')
-                        .setThumbnail("https://i.imgur.com/vMaawHJ.gif")
-                        .setColor(process.env.COLOR)
-                        .setDescription(`**Se agregó DJ PANAS \`${tipo}\` a la lista**`)
-                        .addFields({ name: `Mira la lista en el canal ${channel}`, value: `😎  🔊 🎶` })
-                ]
+                        .setColor(process.env.COLOR_ERROR)
+                        .setDescription(`Tienes que estar en un canal de voz para ejecutar el comando 🤨`)
+                ],
+                ephemeral: true
             })
-
-        } catch (e) {
-            interaction.reply({ content: `**Ha ocurrido un error con comando DJPANAS**`, ephemeral: true });
-            return console.log(e);
         }
+
+        await interaction.deferReply(); // Defer para respuestas de más de 3 segundos
+
+        let tipo = interaction.options.getString("tipo");
+        let args = 'https://www.youtube.com/playlist?list=PLtzt-E5Aq1-kGOPEbker6rjCQH6ZtKNz9'
+
+        let DJ_PANAS = JSON.parse(process.env.DJ_PANAS);
+
+        // itera sobre la lista DJ_PANAS
+        for (let key in DJ_PANAS) {
+
+            //Si no se eligió un tipo toma el tipo clasico por defecto
+            if (tipo == null) {
+                tipo = "Clasico"
+            }
+
+            if (key === tipo) { // si el nombre coincide con el objeto actual
+                args = DJ_PANAS[key]; // asigna el URL correspondiente
+                break; // sale del bucle, ya se encontró el objeto
+            }
+        }
+
+        client.distube.play(voicechannel, args, {
+            member: interaction.member,
+            textChannel: channel
+        });
+
+        return interaction.editReply({
+            embeds: [
+                new EmbedBuilder()
+                    .setTitle('Reproducción DJ PANAS')
+                    .setThumbnail("https://i.imgur.com/vMaawHJ.gif")
+                    .setColor(process.env.COLOR)
+                    .setDescription(`**Se agregó DJ PANAS \`${tipo}\` a la lista**`)
+                    .addFields({ name: `Mira la lista en el canal ${channel}`, value: `😎  🔊 🎶` })
+            ]
+        })
+
     }
 }

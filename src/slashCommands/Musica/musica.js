@@ -1,24 +1,6 @@
 const {SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle} = require('discord.js');
 const { RepeatMode } = require("distube");
 
-function buildProgressBar(timeElapsed, totalTime, length) {
-    const percentage = timeElapsed / totalTime;
-    const progressLength = Math.floor(length * percentage);
-    const emptyLength = length - progressLength;
-  
-    const progressBar = '▬'.repeat(progressLength) + '🔘' + '▬'.repeat(emptyLength);
-  
-    return progressBar;
-}
-
-function getTimeString(time) {
-    const minutes = Math.floor(time / 60);
-    const seconds = Math.round(time % 60);
-    const timeString = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-    return timeString;
-}
-
-
 module.exports = {
     CMD: new SlashCommandBuilder()
     .setDescription("Control de la reproducción de música")
@@ -78,10 +60,6 @@ module.exports = {
         )
     )
     .addSubcommand(subcommand => 
-        subcommand.setName('nowplaying')
-        .setDescription('Muestra la canción que actualmente está en reproducción')
-    )
-    .addSubcommand(subcommand => 
         subcommand.setName('repetir')
         .setDescription('Repetir la música en reproducción')
         .addNumberOption(option =>
@@ -103,7 +81,7 @@ module.exports = {
         const COM_NO_QUEUE = ['play']; //Comandos que no necesitan una cola de reproducción
         const COM_NO_VOICECHANNEL = ['stop']; //Comandos que no necesitan un canal de voz
 
-        //Comprobaciones previas
+        //Comprobaciones previas y que no sea un comando que no lo necesite
         if (!interaction.member.voice?.channel && !COM_NO_VOICECHANNEL.includes(SUB)) {
             return interaction.reply({
                 embeds: [
@@ -114,10 +92,11 @@ module.exports = {
                 ephemeral: true
             })
         };
-        //constantes
+
+        //constante del canal de voz
         const VOICE_CHANNEL = interaction.member.voice.channel;
         
-
+        //Verificar si hay una cola de reproducción y que no sea un comando que no lo necesite
         if (!client.distube.getQueue(VOICE_CHANNEL) && !COM_NO_QUEUE.includes(SUB) && !COM_NO_QUEUE.includes(interaction.options.getString('accion'))){
             return interaction.reply({
                 embeds: [
@@ -128,13 +107,16 @@ module.exports = {
                 ephemeral: true
             })
         }
-        //constantes
+        //constante de la cola de reproducción
         const QUEUE = await client.distube.getQueue(VOICE_CHANNEL);
+
+        await interaction.deferReply(); // Defer para respuestas de más de 3 segundos
 
         // Accion a realizar segun el subcomando
         switch (SUB){
             case 'play':
-                let cancion = interaction.options.getString('cancion');
+
+                const cancion = interaction.options.getString('cancion');
 
                 client.distube.play(VOICE_CHANNEL, cancion,{
                     member: interaction.member,
@@ -142,7 +124,7 @@ module.exports = {
                 }).catch(err => {
                     console.log('Error con la reproducción de la música'.red);
                 });;
-                return interaction.reply({
+                return interaction.editReply({
                     embeds: [
                         new EmbedBuilder()
                             .setTitle('Reproducción música')
@@ -152,18 +134,15 @@ module.exports = {
                     ]
                 });
             case 'stop':
-
-                await interaction.deferReply();
                 await client.distube.stop(VOICE_CHANNEL);
                 await interaction.deleteReply();
                 return ;
-            
             case 'control':
-                let control = interaction.options.getString('accion');
+                const control = interaction.options.getString('accion');
                 switch(control){
                     case 'resume':
                         client.distube.resume(VOICE_CHANNEL);
-                        return interaction.reply({
+                        return interaction.editReply({
                             embeds: [
                                 new EmbedBuilder()
                                     .setTitle('Resumen música')
@@ -174,7 +153,7 @@ module.exports = {
                         });
                     case 'pause':
                         client.distube.pause(VOICE_CHANNEL);
-                        return interaction.reply({
+                        return interaction.editReply({
                             embeds: [
                                 new EmbedBuilder()
                                     .setTitle('Pausar música')
@@ -185,7 +164,7 @@ module.exports = {
                         });
                     case 'skip':
                         if(!QUEUE.autoplay && QUEUE.songs.length <= 1){
-                            return interaction.reply({
+                            return interaction.editReply({
                                 embeds: [
                                     new EmbedBuilder()
                                         .setColor(process.env.COLOR_ERROR)
@@ -194,7 +173,7 @@ module.exports = {
                             });
                         };
                         client.distube.skip(VOICE_CHANNEL);
-                        return interaction.reply({
+                        return interaction.editReply({
                             embeds: [
                                 new EmbedBuilder()
                                     .setTitle('Siguiente música')
@@ -205,7 +184,7 @@ module.exports = {
                         });
                     case 'previous':
                         client.distube.previous(VOICE_CHANNEL);
-                        return interaction.reply({
+                        return interaction.editReply({
                             embeds: [
                                 new EmbedBuilder()
                                     .setTitle('Música anterior')
@@ -216,7 +195,7 @@ module.exports = {
                         });  
                     case 'shuffle':
                         client.distube.shuffle(VOICE_CHANNEL);
-                        return interaction.reply({
+                        return interaction.editReply({
                             embeds: [
                                 new EmbedBuilder()
                                     .setTitle('Mezcla lista música')
@@ -227,7 +206,7 @@ module.exports = {
                         });
                 };
             case 'repetir':
-                let tipo = interaction.options.getNumber('tipo');
+                const tipo = interaction.options.getNumber('tipo');
                 let modo;
                 switch(client.distube.setRepeatMode(VOICE_CHANNEL, tipo)) {
                     case RepeatMode.DISABLED:
@@ -240,7 +219,7 @@ module.exports = {
                         modo = "lista completa";
                         break;
                 };
-                return interaction.reply({
+                return interaction.editReply({
                     embeds: [
                         new EmbedBuilder()
                             .setTitle('Repetición música')
@@ -252,7 +231,7 @@ module.exports = {
             case 'volumen':
                 let porcentaje = interaction.options.getNumber('porcentaje');
                 client.distube.setVolume(VOICE_CHANNEL, porcentaje);
-                return interaction.reply({
+                return interaction.editReply({
                     embeds: [
                         new EmbedBuilder()
                             .setTitle('Volúmen música')
@@ -262,7 +241,6 @@ module.exports = {
                     ]
                 });
             case 'lista':
-                await interaction.deferReply()
                 let listaqueue = []; //Array vació donde estaran las canciones
                 var maxsongs = 10; //Número de canciones que se mostraran por página del embed
 
@@ -409,26 +387,12 @@ module.exports = {
                         return 
                     });
                 };
-            case 'nowplaying':
-                const currentSong = QUEUE.songs[0];
-                const timeElapsed = QUEUE.currentTime;
-                const totalTime = currentSong.duration;
-
-                const progressBar = buildProgressBar(timeElapsed, totalTime, 10);
-
-                let elEmbed  =  new EmbedBuilder()
-                    .setTitle(`:musical_note: ${currentSong.name}`)
-                    .setDescription(`**${getTimeString(timeElapsed)}** ${progressBar} **${getTimeString(totalTime)}**`)
-                    .setThumbnail(currentSong.thumbnail)
-                    .setColor(process.env.COLOR)
-
-                return interaction.reply({ embeds: [elEmbed], ephemeral:true});
             case 'saltar':
                 let poscicion = interaction.options.getNumber('poscicion');
 
                 //Comprobaciones previas
                 if (poscicion > (QUEUE.songs.length)) {
-                    return interaction.reply({
+                    return interaction.editReply({
                         embeds: [
                             new EmbedBuilder()
                                 .setColor(process.env.COLOR_ERROR)
@@ -439,7 +403,7 @@ module.exports = {
                 };
                 
                 client.distube.jump(VOICE_CHANNEL, poscicion-1);
-                return interaction.reply({
+                return interaction.editReply({
                     embeds: [
                         new EmbedBuilder()
                             .setTitle('Salto en lista de música')

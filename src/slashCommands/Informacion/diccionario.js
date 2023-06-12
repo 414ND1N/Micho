@@ -9,6 +9,9 @@ module.exports = {
                 .setRequired(true)
         ),
     async execute(client, interaction, prefix) {
+
+        await interaction.deferReply(); // Defer para respuestas de más de 3 segundos
+
         const term = interaction.options.getString("term");
         const query = new URLSearchParams({ term });
         const url_api = `https://api.urbandictionary.com/v0/define?${query}`;
@@ -17,7 +20,7 @@ module.exports = {
         const { list } = await response.data;
 
         if (!list.length) {
-            return interaction.reply({
+            return interaction.editReply({
                 embeds: [
                     new EmbedBuilder()
                         .setColor(process.env.COLOR_ERROR)
@@ -30,7 +33,7 @@ module.exports = {
 
         const [answer] = list;
 
-        interaction.reply({ embeds: [
+        interaction.editReply({ embeds: [
             new EmbedBuilder()
                 .setColor(process.env.COLOR)
                 .setTitle(answer.word)
@@ -38,7 +41,7 @@ module.exports = {
                 .addFields(
                     { name: 'Definición', value: answer.definition.substring(0, 1024) }, 
                     { name: 'Ejemplo', value: answer.example.substring(0, 1024)}, 
-                    { name: 'Valoración', value: `${answer.thumbs_up} pulgar arriba. ${answer.thumbs_down} pulgar abajo.` })
+                    { name: 'Valoración', value: `${answer.thumbs_up} 👍 - ${answer.thumbs_down} 👎` })
                 .setThumbnail("https://i.imgur.com/LwPfwE5.jpg")
             ] 
         });

@@ -6,12 +6,13 @@ module.exports = {
 
     async execute(client, interaction, prefix){
 
+        await interaction.deferReply(); // Defer para respuestas de más de 3 segundos
 
-        let url_api = `https://api.thecatapi.com/v1/images/search`;
+        const url_api = `https://api.thecatapi.com/v1/images/search`;
         const response = await axios.get(url_api);
-        let img_url = response.data[0].url;
+        const img_url = response.data[0].url;
         
-        return interaction.reply({
+        return interaction.editReply({
             embeds: [
                 new EmbedBuilder()
                     .setTitle(`${interaction.user?.username} envió un GATO`)

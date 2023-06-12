@@ -11,6 +11,7 @@ module.exports = {
         ),
     async execute(client, interaction, prefix) {
         
+        
         const channel = client.channels.cache.get(process.env.ID_CANAL_CHATBOT); //ID del canal de chatbot
         const channel_pruebas = client.channels.cache.get(process.env.ID_CANAL_PRUEBAS); //ID del canal de pruebas
 
@@ -26,7 +27,7 @@ module.exports = {
             })
         }
 
-        await interaction.deferReply();
+        await interaction.deferReply(); // Defer para respuestas de más de 3 segundos
 
         const configuration = new Configuration({
             apiKey: process.env.OPENAI_API_KEY,
@@ -89,6 +90,7 @@ module.exports = {
             interaction.channel.send(`\`${interaction.user.username}: ${mensajeEntrante}\``)
             interaction.channel.send(result.data.choices[0].message)
         }
+        
         return await interaction.deleteReply();
     }
 } 
