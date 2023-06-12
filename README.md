@@ -34,6 +34,7 @@
 - ping
 - pagina
 - codigo
+- diccionario `palabra`
 - help
 
 ### 💱 Comandos variedad
@@ -46,10 +47,13 @@
 - decir `texto`
 - elegir `opcion 1, opcion 2, ...`
 - gif `busqueda`
+- image `texto`
 - micho
+- minecraft skin `usuario` `tipo`
 - pokedex `id pokemon`
 - preguntar `pregunta`
 - sugerir `sugerencia`
+
 
 ### 🎵 Comandos de música
 
