@@ -107,6 +107,8 @@ module.exports = {
                 {name: `image`, value:`Genera una imagen con el texto que reciba.\n
                     > Genera una imagen con un retraso de 5 segundos utilizando \`pollinations.ai\`.`},
                 {name: `micho`, value:`Sirve para mandar la imágen aleatoria de un gato.`},
+                {name: `minecraft skin`, value:`Visualiza la skin de un jugador en específico\n
+                    > Los tipos de mostrar la skin son \`cuerpo\`, \`cabeza\`, \`busto\` o \`skin\`.`},
                 {name: `pokedex`, value:`Sirve para mostrar información de un pokemón según su id\n
                     > Disponible desde el pokemón \`1\` al \`1010\`.`},
                 {name: `pregunta`, value:`Sirve para que destaque tu pregunta en el servidor.`},

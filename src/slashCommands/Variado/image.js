@@ -11,7 +11,8 @@ module.exports = {
 
     async execute(client, interaction, prefix) {
 
-        await interaction.deferReply();
+        await interaction.deferReply(); // Defer si la respuesta tarda más de 3 segundos
+        
         const wait = require('node:timers/promises').setTimeout;
 
         const prompt = interaction.options.getString("entrada");
