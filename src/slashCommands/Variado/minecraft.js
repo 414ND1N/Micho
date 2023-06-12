@@ -1,7 +1,4 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js')
-const { PermissionFlagsBits } = require('discord.js')
-const { AttachmentBuilder } = require('discord.js');
-const { Buffer } = require('buffer');
 
 module.exports = {
     CMD: new SlashCommandBuilder()
