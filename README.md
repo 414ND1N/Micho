@@ -50,6 +50,7 @@
 - image `texto`
 - micho
 - minecraft skin `usuario` `tipo`
+- minecraft servidor
 - pokedex `id pokemon`
 - preguntar `pregunta`
 - sugerir `sugerencia`

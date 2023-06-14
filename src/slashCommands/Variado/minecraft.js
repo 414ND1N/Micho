@@ -1,4 +1,5 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js')
+const axios = require('axios');
 
 module.exports = {
     CMD: new SlashCommandBuilder()
@@ -21,12 +22,15 @@ module.exports = {
                             { name: 'Skin', value: 'skin' }
                         )
                 )
+        )
+        .addSubcommand(subcommand =>
+            subcommand.setName('servidor')
+                .setDescription('Mira información del servidor de Pana Land')
         ),
 
     async execute(client, interaction, prefix) {
 
         await interaction.deferReply(); // Defer si la respuesta tarda más de 3 segundos
-        const wait = require('node:timers/promises').setTimeout;
 
         //constantes
         const SUB = interaction.options.getSubcommand();
@@ -53,12 +57,59 @@ module.exports = {
                     ]
                 })
 
+            case 'servidor':
+                //USO DE API: api.mcsrvstat.us
+
+                const url_api = `https://api.mcsrvstat.us/2/${process.env.MINECRAFT_IP}`;
+                const response = await axios.get(url_api);
+
+                //Si el servidor está online
+                if(response.data.online){ 
+                    return interaction.editReply({
+                        embeds: [
+                            new EmbedBuilder()
+                                .setColor(process.env.COLOR)
+                                .setTitle(`Minecraft | \`Panaserver\``)
+                                .setDescription(`El servidor está online ✅`)
+                                .addFields(
+                                    { name: 'Version', value: `${response.data.version} | ${response.data.software}`, inline: true},
+                                    { name: `Jugadores`, value: `${response.data.players.online} / ${response.data.players.max}`, inline: true},
+                                    { name: 'Motd', value: `${response.data.motd.clean[0]}`},
+                                    { name: `IP Java`, value: `${process.env.MINECRAFT_IP}`},
+                                    { name: `IP y PORT Bedrock`, value: `${response.data.ip} - ${response.data.port}`},
+                                    
+                                )
+                                .setThumbnail('https://i.imgur.com/hLOfOwk.png')
+                                .setURL('https://server.pro/server/20458930')
+                        ]
+                    })
+
+                }
+
+                //Si el servidor está offline
+                return interaction.editReply({
+                    embeds: [
+                        new EmbedBuilder()
+                            .setColor(process.env.COLOR_ERROR)
+                            .setTitle(`Minecraft | \`Panaserver\``)
+                            .setDescription(`El servidor está offline ❌`)
+                            .addFields(
+                                { name: 'Version', value: `${response.data.version} | ${response.data.software}`, inline: true},
+                                { name: `IP Java`, value: `${process.env.MINECRAFT_IP}`},
+                                { name: `IP y PORT Bedrock`, value: `${response.data.ip} - ${response.data.port}`},
+                            )
+                            .setThumbnail('https://i.imgur.com/hLOfOwk.png')
+                            .setURL('https://server.pro/server/20458930')
+                    ]
+                })
+                
+
             default:
                 return interaction.editReply({
                     embeds: [
                         new EmbedBuilder()
                             .setColor(process.env.COLOR_ERROR)
-                            .setTitle(`Subcomando no encontrado 💀`)
+                            .setTitle(`Subcomando no encontrado`)
                     ]
                 })
 
