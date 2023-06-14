@@ -80,7 +80,7 @@ module.exports = {
                                     
                                 )
                                 .setThumbnail('https://i.imgur.com/hLOfOwk.png')
-                                .setURL('https://server.pro/server/20458930')
+                                .setURL(process.env.MINECRAFT_SERVER_PAGE)
                         ]
                     })
 
@@ -99,7 +99,7 @@ module.exports = {
                                 { name: `IP y PORT Bedrock`, value: `${response.data.ip} - ${response.data.port}`},
                             )
                             .setThumbnail('https://i.imgur.com/hLOfOwk.png')
-                            .setURL('https://server.pro/server/20458930')
+                            .setURL(process.env.MINECRAFT_SERVER_PAGE)
                     ]
                 })
                 
