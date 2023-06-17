@@ -11,7 +11,7 @@ module.exports = {
         ),
     async execute(client, interaction, prefix) {
         
-        
+        /*
         const channel = client.channels.cache.get(process.env.ID_CANAL_CHATBOT); //ID del canal de chatbot
         const channel_pruebas = client.channels.cache.get(process.env.ID_CANAL_PRUEBAS); //ID del canal de pruebas
 
@@ -26,6 +26,7 @@ module.exports = {
                 ephemeral: true
             })
         }
+        */
 
         await interaction.deferReply(); // Defer para respuestas de más de 3 segundos
 
@@ -35,7 +36,7 @@ module.exports = {
         const openai = new OpenAIApi(configuration);
 
         let conversationLog = [{
-            role: 'system', content: process.env.OPENAI_BOT_CONTENT //Ej: "The following is a conversation with an AI assistant. The assistant is helpful, creative, clever, and very friendly"
+            role: 'system', content: process.env.OPENAI_BOT_CONTENT //Ej:
         }];
 
         await interaction.channel.sendTyping();
@@ -45,6 +46,7 @@ module.exports = {
         prevMessages.reverse();
 
         //Leer los mensajes anteriores
+        /*
         prevMessages.forEach((msg) => {
 
             let indexUsername = msg.content.indexOf(":"); // Busqueda del username en el mensaje enviado por el bot
@@ -65,7 +67,8 @@ module.exports = {
 
             }
         });
-        
+        */
+
         //Enviar mensaje entrante del comando
         const mensajeEntrante = interaction.options.getString("mensaje");
         conversationLog.push({
