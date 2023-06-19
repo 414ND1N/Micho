@@ -5,7 +5,7 @@ module.exports = {
     CMD: new SlashCommandBuilder()
     .setDescription("Control de la reproducción de música")
     .addSubcommand(subcommand => 
-        subcommand.setName('play')
+        subcommand.setName('reproducir')
         .setDescription('Reproduce una canción')
         .addStringOption(option =>
             option.setName('cancion')
@@ -14,7 +14,7 @@ module.exports = {
         )
     )
     .addSubcommand(subcommand => 
-        subcommand.setName('stop')
+        subcommand.setName('detener')
         .setDescription('Detiene la reproducción de la música')
     )
     .addSubcommand(subcommand => 
@@ -30,7 +30,7 @@ module.exports = {
                     {name: '⏭ Siguiente canción', value: 'skip'},
                     {name: '⏮ Anterior canción', value: 'previous'},
                     {name: '🔀 Mezclar lista música', value: 'shuffle'},
-                    //{name: '⏹ Detener reproducción', value: 'stop'}
+                    {name: '⏹ Detener reproducción', value: 'stop'}
                 )
         )
     )
@@ -46,8 +46,8 @@ module.exports = {
         )
     )
     .addSubcommand(subcommand => 
-        subcommand.setName('lista')
-        .setDescription('Lista de la música en reproducción')
+        subcommand.setName('cola')
+        .setDescription('Lista la música que está en la cola de reproducción')
     )
     .addSubcommand(subcommand => 
         subcommand.setName('saltar')
@@ -78,11 +78,13 @@ module.exports = {
         //constantes
         const SUB = interaction.options.getSubcommand();
         const channel = client.channels.cache.get(process.env.ID_CANAL_DISCO);
-        const COM_NO_QUEUE = ['play']; //Comandos que no necesitan una cola de reproducción
-        const COM_NO_VOICECHANNEL = ['stop']; //Comandos que no necesitan un canal de voz
+        const COM_NO_QUEUE = ['detener','reproducir']; //Comandos que no necesitan una cola de reproducción
+        const COM_NO_VOICECHANNEL = ['detener']; //Comandos que no necesitan un canal de voz
+        const VOICE_CHANNEL = interaction.member.voice.channel; //Canal de voz
+
 
         //Comprobaciones previas y que no sea un comando que no lo necesite
-        if (!interaction.member.voice?.channel && !COM_NO_VOICECHANNEL.includes(SUB)) {
+        if (!VOICE_CHANNEL && !COM_NO_VOICECHANNEL.includes(SUB)) {
             return interaction.reply({
                 embeds: [
                     new EmbedBuilder()
@@ -93,11 +95,8 @@ module.exports = {
             })
         };
 
-        //constante del canal de voz
-        const VOICE_CHANNEL = interaction.member.voice.channel;
-        
         //Verificar si hay una cola de reproducción y que no sea un comando que no lo necesite
-        if (!client.distube.getQueue(VOICE_CHANNEL) && !COM_NO_QUEUE.includes(SUB) && !COM_NO_QUEUE.includes(interaction.options.getString('accion'))){
+        if (!client.distube.getQueue(VOICE_CHANNEL) && !COM_NO_QUEUE.includes(SUB) ){
             return interaction.reply({
                 embeds: [
                     new EmbedBuilder()
@@ -107,19 +106,20 @@ module.exports = {
                 ephemeral: true
             })
         }
+
         //constante de la cola de reproducción
         const QUEUE = await client.distube.getQueue(VOICE_CHANNEL);
 
-        await interaction.deferReply(); // Defer para respuestas de más de 3 segundos
+        await interaction.deferReply(); // Defer para respuestas de más de 30 segundos
 
         // Accion a realizar segun el subcomando
         switch (SUB){
-            case 'play':
+            case 'reproducir':
 
                 const cancion = interaction.options.getString('cancion');
 
                 client.distube.play(VOICE_CHANNEL, cancion,{
-                    member: interaction.member,
+                    member: interaction.member?? undefined,
                     textChannel: channel
                 }).catch(err => {
                     console.log('Error con la reproducción de la música'.red);
@@ -133,81 +133,95 @@ module.exports = {
                             .setDescription(`Mira la lista en el canal ${channel}`)
                     ]
                 });
-            case 'stop':
+            case 'detener':
                 await client.distube.stop(VOICE_CHANNEL);
-                await interaction.deleteReply();
-                return ;
+                return await interaction.deleteReply();
             case 'control':
                 const control = interaction.options.getString('accion');
-                switch(control){
-                    case 'resume':
-                        client.distube.resume(VOICE_CHANNEL);
-                        return interaction.editReply({
-                            embeds: [
-                                new EmbedBuilder()
-                                    .setTitle('Resumen música')
-                                    .setThumbnail('https://i.imgur.com/Zqg98ma.gif')
-                                    .setColor(process.env.COLOR)
-                                    .addFields({name: `Se resumió la reproducción`, value:`🐱‍🏍 🎶🎵`})
-                            ]
-                        });
-                    case 'pause':
-                        client.distube.pause(VOICE_CHANNEL);
-                        return interaction.editReply({
-                            embeds: [
-                                new EmbedBuilder()
-                                    .setTitle('Pausar música')
-                                    .setThumbnail('https://i.imgur.com/kY0gh91.gif')
-                                    .setColor(process.env.COLOR)
-                                    .addFields({name: `Se pausó la música`, value:`🚦🛑`})
-                            ]
-                        });
-                    case 'skip':
-                        if(!QUEUE.autoplay && QUEUE.songs.length <= 1){
+                try {
+                    switch(control){
+                        case 'resume':
+                            client.distube.resume(VOICE_CHANNEL);
                             return interaction.editReply({
                                 embeds: [
                                     new EmbedBuilder()
-                                        .setColor(process.env.COLOR_ERROR)
-                                        .setDescription(`No hay más música en la lista para reproducir`)
+                                        .setTitle('Resumen música')
+                                        .setThumbnail('https://i.imgur.com/Zqg98ma.gif')
+                                        .setColor(process.env.COLOR)
+                                        .addFields({name: `Se resumió la reproducción`, value:`🐱‍🏍 🎶🎵`})
                                 ]
                             });
-                        };
-                        client.distube.skip(VOICE_CHANNEL);
-                        return interaction.editReply({
-                            embeds: [
-                                new EmbedBuilder()
-                                    .setTitle('Siguiente música')
-                                    .setThumbnail('https://i.imgur.com/9fBJ0s7.gif')
-                                    .setColor(process.env.COLOR)
-                                    .addFields({name: `Se saltó a la siguiente música`, value:`⏭ ⏭ ⏭ `})
-                            ]
-                        });
-                    case 'previous':
-                        client.distube.previous(VOICE_CHANNEL);
-                        return interaction.editReply({
-                            embeds: [
-                                new EmbedBuilder()
-                                    .setTitle('Música anterior')
-                                    .setThumbnail('https://i.imgur.com/9fBJ0s7.gif')
-                                    .setColor(process.env.COLOR)
-                                    .addFields({name: `Se saltó a la canción anterior`, value:`⏮ ⏮ ⏮`})
-                            ]
-                        });  
-                    case 'shuffle':
-                        client.distube.shuffle(VOICE_CHANNEL);
-                        return interaction.editReply({
-                            embeds: [
-                                new EmbedBuilder()
-                                    .setTitle('Mezcla lista música')
-                                    .setThumbnail('https://i.imgur.com/8L4WreH.gif')
-                                    .setColor(process.env.COLOR)
-                                    .addFields({name: `Se mezcló la lista de música`, value:`🎶 😎👍`})
-                            ]
-                        });
-                };
+                        case 'pause':
+                            client.distube.pause(VOICE_CHANNEL);
+                            return interaction.editReply({
+                                embeds: [
+                                    new EmbedBuilder()
+                                        .setTitle('Pausar música')
+                                        .setThumbnail('https://i.imgur.com/kY0gh91.gif')
+                                        .setColor(process.env.COLOR)
+                                        .addFields({name: `Se pausó la música`, value:`🚦🛑`})
+                                ]
+                            });
+                        case 'skip':
+                            if((!QUEUE.autoplay && QUEUE.songs.length <= 1) || QUEUE.songs.length <= 1){ //Si no hay más canciones en la lista y no está activado el autoplay
+                                return interaction.editReply({
+                                    embeds: [
+                                        new EmbedBuilder()
+                                            .setColor(process.env.COLOR_ERROR)
+                                            .setDescription(`No hay más música en la lista para reproducir`)
+                                    ]
+                                });
+                            };
+                            client.distube.skip(VOICE_CHANNEL);
+                            return interaction.editReply({
+                                embeds: [
+                                    new EmbedBuilder()
+                                        .setTitle('Siguiente música')
+                                        .setThumbnail('https://i.imgur.com/9fBJ0s7.gif')
+                                        .setColor(process.env.COLOR)
+                                        .addFields({name: `Se saltó a la siguiente música`, value:`⏭ ⏭ ⏭ `})
+                                ]
+                            });
+                        case 'previous':
+                            client.distube.previous(VOICE_CHANNEL);
+                            return interaction.editReply({
+                                embeds: [
+                                    new EmbedBuilder()
+                                        .setTitle('Música anterior')
+                                        .setThumbnail('https://i.imgur.com/9fBJ0s7.gif')
+                                        .setColor(process.env.COLOR)
+                                        .addFields({name: `Se saltó a la canción anterior`, value:`⏮ ⏮ ⏮`})
+                                ]
+                            });  
+                        case 'shuffle':
+                            client.distube.shuffle(VOICE_CHANNEL);
+                            return interaction.editReply({
+                                embeds: [
+                                    new EmbedBuilder()
+                                        .setTitle('Mezcla lista música')
+                                        .setThumbnail('https://i.imgur.com/8L4WreH.gif')
+                                        .setColor(process.env.COLOR)
+                                        .addFields({name: `Se mezcló la lista de música`, value:`🎶 😎👍`})
+                                ]
+                            });
+                        case 'stop':
+                            await client.distube.stop(VOICE_CHANNEL);
+                            return await interaction.deleteReply();
+                    };
+                } catch (error) {
+                    return interaction.reply({
+                        embeds: [
+                            new EmbedBuilder()
+                                .setColor(process.env.COLOR_ERROR)
+                                .setDescription(`Ops! Algo salió mal 😓`)
+                                .setThumbnail('https://i.imgur.com/MHasiWy.gifv')
+                        ],
+                        ephemeral: true
+                    })
+                };          
             case 'repetir':
                 const tipo = interaction.options.getNumber('tipo');
-                let modo;
+                let modo = '';
                 switch(client.distube.setRepeatMode(VOICE_CHANNEL, tipo)) {
                     case RepeatMode.DISABLED:
                         modo = "desactivado";
@@ -229,7 +243,7 @@ module.exports = {
                     ]
                 });
             case 'volumen':
-                let porcentaje = interaction.options.getNumber('porcentaje');
+                const porcentaje = interaction.options.getNumber('porcentaje');
                 client.distube.setVolume(VOICE_CHANNEL, porcentaje);
                 return interaction.editReply({
                     embeds: [
@@ -240,7 +254,7 @@ module.exports = {
                             .setThumbnail('https://i.imgur.com/IPLiduk.gif')
                     ]
                 });
-            case 'lista':
+            case 'cola':
                 let listaqueue = []; //Array vació donde estaran las canciones
                 var maxsongs = 10; //Número de canciones que se mostraran por página del embed
 
@@ -388,7 +402,7 @@ module.exports = {
                     });
                 };
             case 'saltar':
-                let poscicion = interaction.options.getNumber('poscicion');
+                const poscicion = interaction.options.getNumber('poscicion');
 
                 //Comprobaciones previas
                 if (poscicion > (QUEUE.songs.length)) {
@@ -412,7 +426,6 @@ module.exports = {
                             .addFields({name: `Se saltó a la canción número \`${poscicion}\``, value:`🐱‍🏍 🎶🎵`})
                     ]
                 });
-
         }
     }
 }  

@@ -59,14 +59,15 @@
 ### 🎵 Comandos de música
 
 - djpanas `tipo`
-- play
-- stop
+- reproducir
+- detener
 - Control
   - `resumir`
   - `pausar`
   - `siguiente`
   - `anterior`
   - `mezclar`
+  - `detener`
 - lista
 - volume `numero`
 - jump `numero`

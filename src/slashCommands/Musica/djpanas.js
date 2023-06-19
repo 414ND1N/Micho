@@ -32,20 +32,15 @@ module.exports = {
             })
         }
 
-        await interaction.deferReply(); // Defer para respuestas de más de 3 segundos
+        await interaction.deferReply(); // Defer para respuestas de más de 30 segundos
 
-        let tipo = interaction.options.getString("tipo");
+        let tipo = interaction.options.getString("tipo") ?? 'Clasico'; //Si no se eligió un tipo toma el tipo clasico por defecto
         let args = 'https://www.youtube.com/playlist?list=PLtzt-E5Aq1-kGOPEbker6rjCQH6ZtKNz9'
 
         let DJ_PANAS = JSON.parse(process.env.DJ_PANAS);
 
         // itera sobre la lista DJ_PANAS
         for (let key in DJ_PANAS) {
-
-            //Si no se eligió un tipo toma el tipo clasico por defecto
-            if (tipo == null) {
-                tipo = "Clasico"
-            }
 
             if (key === tipo) { // si el nombre coincide con el objeto actual
                 args = DJ_PANAS[key]; // asigna el URL correspondiente
@@ -54,7 +49,7 @@ module.exports = {
         }
 
         client.distube.play(voicechannel, args, {
-            member: interaction.member,
+            member: interaction.member ?? undefined,
             textChannel: channel
         });
 

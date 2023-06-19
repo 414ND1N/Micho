@@ -1,7 +1,7 @@
 const { DisTube } = require('distube');
 const {SpotifyPlugin} = require('@distube/spotify');
 const {SoundCloudPlugin} = require('@distube/soundcloud');
-const { EmbedBuilder } = require('discord.js');
+const { EmbedBuilder, ActivityType } = require('discord.js');
 const { YtDlpPlugin } = require("@distube/yt-dlp");
 
 module.exports = (client, Discord) => {
@@ -17,6 +17,7 @@ module.exports = (client, Discord) => {
         searchSongs: 0,
         nsfw: true,
         emptyCooldown: 60,
+        joinNewVoiceChannel: false,
         ytdlOptions: {
             highWaterMark: 1024 * 1024 * 64,
             quality: "134",
@@ -40,6 +41,8 @@ module.exports = (client, Discord) => {
     //eventos de distube
     client.distube.on("playSong", (queue, song)=>{
         
+        client.user.setActivity(song.name, {type: ActivityType.Listening}); //cambia la actividad del bot a escuchando
+
         embed = new EmbedBuilder()
             .setColor(process.env.COLOR)
             .setTitle('Reproducción 🔈 🎶')
@@ -76,6 +79,8 @@ module.exports = (client, Discord) => {
     });
     client.distube.on("finish", (queue)=>{
         
+        client.user.setActivity('manga', {type: ActivityType.Watching}); //cambia la actividad del bot a viendo
+
         embed = new EmbedBuilder()
             .setTitle('Lista completada')
             .setColor(process.env.COLOR)
@@ -88,6 +93,8 @@ module.exports = (client, Discord) => {
     });
     client.distube.on("disconnect", (queue)=>{
         
+        client.user.setActivity('manga', {type: ActivityType.Watching}); //cambia la actividad del bot a viendo
+
         embed = new EmbedBuilder()
             .setTitle('Finalización música')
             .setColor(process.env.COLOR)
@@ -97,11 +104,11 @@ module.exports = (client, Discord) => {
         queue.textChannel.send({ embeds: [embed] })
     });
     client.distube.on("noRelated", (queue) => {
-        queue.textChannel.send("No se encontró un mpusica similar para reproducir")
+        queue.textChannel.send("No se encontró un música similar para reproducir")
     });
     
     client.distube.on("searchInvalidAnswer", (message) => {
-        message.channel.send(`la busqueda no es valida`)
+        message.channel.send(`La busqueda no es valida`)
     });
 
     client.distube.on("searchNoResult", (message, query) =>{
