@@ -57,6 +57,10 @@ module.exports = {
                 {name: `help`, value:`Sirve para ver el menú de ayuda con los comandos.`},
                 {name: `ping`, value:`Sirve para ver el ping en ms de \`Toffu\`.`},
                 {name: `pagina`, value:`Muestra el link de la pana página.`},
+                {name: `pregunta grupo`, value:`Sirve para que destaque tu pregunta en el servidor.
+                    > Podran reaccionar a tu pregunta.`},
+                {name: `pregunta toffu`, value:`Sirve para realizar una pregunta a Toffu.
+                    > Te respondera con su inteligencia artificial.`},
             )  
             .setThumbnail(`https://i.imgur.com/Ud2cXN5.jpg`);
 
@@ -74,7 +78,7 @@ module.exports = {
                     > \`Resumir\`, \`Pausar\`, \`Siguiente\`, \`Anterior\`, \`Mezclar\`,\`Detener\`.`},
                 {name: `▪  volumen`, value:`Sirve para indicar el volumen de la canción.\n
                     > Admite de \`0%\` a \`200%\`.`},
-                {name: `▪  lista`, value:`Sirve para ver la lista de canciones.\n
+                {name: `▪  cola`, value:`Sirve para ver la lista la música que está en la cola de reproducción.\n
                     > Muestra un menú con botones de navegación.`},
                 {name: `▪  saltar`, value:`Sirve para saltar a una canción de la lista en reproducción.\n
                     > El número de canción se puede ver en la queue.`},
@@ -96,8 +100,6 @@ module.exports = {
                     > Se indica el \`nombre\` del personaje a buscar.`},
                 {name: `buscaminas`, value:`Sirve para jugar al buscaminas.
                     > Se indica el número de \`columnas\`, \`filas\` y la \`dificultad\` (en ese orden 😊).`},
-                {name: `conversar`, value:`Sirve para conversa con Toffu.
-                    > Te respondera con su inteligencia artificial.`},
                 {name: `decir`, value:`Sirve para que Toffu diga el texto dado.`},
                 {name: `elegir`, value:`Sirve para que Toffu eliga entre las opciones dadas.\n
                     > Las opciones se dan separadas por coma \`,\`.`},
@@ -106,13 +108,12 @@ module.exports = {
                 {name: `image`, value:`Genera una imagen con el texto que reciba.\n
                     > Genera una imagen con un retraso de 5 segundos utilizando \`pollinations.ai\`.`},
                 {name: `micho`, value:`Sirve para mandar la imágen aleatoria de un gato.`},
-                {name: `minecraft servidor`, value:`Muestra informacion del panaserver.`},
-                {name: `minecraft skin`, value:`Visualiza la skin de un jugador en específico\n
+                {name: `minecraft servidor`, value:`Muestra informacion del \`panaserver\`.`},
+                {name: `minecraft skin`, value:`Visualiza la skin de un jugador en específico.\n
                     > Los tipos de mostrar la skin son \`cuerpo\`, \`cabeza\`, \`busto\` o \`skin\`.`},
                 {name: `pokedex`, value:`Sirve para mostrar información de un pokemón según su id\n
                     > Disponible desde el pokemón \`1\` al \`1010\`.`},
-                {name: `pregunta`, value:`Sirve para que destaque tu pregunta en el servidor.`},
-                {name: `sugerir`, value:`Sirve para dar una sugerencia al canal de sugerencias.`},
+                {name: `sugerir`, value:`Sirve para dar una sugerencia al \`canal de sugerencias\`.`},
             )
             .setThumbnail(`https://i.imgur.com/s2lV0y5.png`);
 
