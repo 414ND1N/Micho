@@ -104,7 +104,7 @@ module.exports = {
                     .setLabel('Normal');
                 const btn_shiny =  new ButtonBuilder()
                     .setCustomId('shiny')
-                    .setStyle(ButtonStyle.Success)
+                    .setStyle(ButtonStyle.Primary)
                     .setLabel('Shiny');
 
                 row = new ActionRowBuilder().addComponents(btn_normal, btn_shiny, btn_salir); //Agregamos los botones de navegacion

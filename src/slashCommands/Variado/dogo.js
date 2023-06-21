@@ -8,14 +8,14 @@ module.exports = {
 
         await interaction.deferReply(); // Defer para respuestas de más de 3 segundos
 
-        const url_api = `https://api.thecatapi.com/v1/images/search`;
+        const url_api = `https://dog.ceo/api/breeds/image/random`;
         const response = await axios.get(url_api);
-        const img_url = response.data[0].url;
+        const img_url = response.data[0].message;
         
         return interaction.editReply({
             embeds: [
                 new EmbedBuilder()
-                    .setTitle(`${interaction.user?.username} envió un GATO 🐱`)
+                    .setTitle(`${interaction.user?.username} envió un PERRO 🐶`)
                     .setColor(process.env.COLOR)
                     .setImage(img_url)
             ]

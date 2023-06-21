@@ -63,6 +63,17 @@ module.exports = {
                 const url_api = `https://api.mcsrvstat.us/2/${process.env.MINECRAFT_IP}`;
                 const response = await axios.get(url_api);
 
+                if(response.data.length == 0){ // Si no se encuentra ningún anime con el nombre, se envía un mensaje de error
+                    return interaction.editReply({
+                        embeds: [
+                            new EmbedBuilder()
+                            .setColor(process.env.COLOR_ERROR)
+                            .setDescription(`No se encontró información del servidor.`)
+                            .setThumbnail('https://i.imgur.com/rIPXKFQ.png')
+                        ]
+                    })
+                }
+
                 //Si el servidor está online
                 if(response.data.online){ 
                     return interaction.editReply({
@@ -103,7 +114,6 @@ module.exports = {
                     ]
                 })
                 
-
             default:
                 return interaction.editReply({
                     embeds: [
@@ -112,8 +122,6 @@ module.exports = {
                             .setTitle(`Subcomando no encontrado`)
                     ]
                 })
-
-                break;
         }
     }
 }

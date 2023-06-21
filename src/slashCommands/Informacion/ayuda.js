@@ -25,6 +25,7 @@ module.exports = {
             .setColor(`#3a7c21`)
             .addFields(
                 {name: `ayuda`, value:`Sirve para ver el menú de ayuda con los comandos.`},
+                {name: `anime informacion`, value:`Sirve para ver la información de un anime dado.`},
                 {name: `codigo`, value:`Muestra el link del repositorio con el código de \`Toffu\`.`},
                 {name: `diccionario`, value:`Definición de un \`término\` del diccionario urbano.`},
                 {name: `ping`, value:`Sirve para ver el ping en ms de \`Toffu\`.`},
@@ -73,6 +74,7 @@ module.exports = {
                 {name: `buscaminas`, value:`Sirve para jugar al buscaminas.
                     > Se indica el número de \`columnas\`, \`filas\` y la \`dificultad\` (en ese orden 😊).`},
                 {name: `decir`, value:`Sirve para que Toffu diga el texto dado.`},
+                {name: `dogo`, value:`Sirve para mandar la imágen aleatoria de un perro.`},
                 {name: `elegir`, value:`Sirve para que Toffu eliga entre las opciones dadas.\n
                     > Las opciones se dan separadas por coma \`,\`.`},
                 {name: `gif`, value:`Sirve para mostrar el gif que se desee buscar.\n

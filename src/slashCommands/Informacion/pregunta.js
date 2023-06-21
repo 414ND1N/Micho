@@ -81,13 +81,11 @@ module.exports = {
                     embeds: [
                         new EmbedBuilder()
                             .setTitle(`Pregunta de **${interaction.user?.username}**: \`${PREGUNTA}\``)
-                            .setDescription(respuesta?.content.length <= 4096 ? respuesta?.content?? 'No tengo respuesta a tu pregunta 😓' : respuesta?.content.slice(0, 4093) + '...')
+                            .setDescription(respuesta?.content.length <= 1024 ? respuesta?.content?? 'No tengo respuesta a tu pregunta 😓' : respuesta?.content.slice(0, 1020) + ' ...')
                             .setColor(process.env.COLOR)
                             .setFooter({ text: 'Respuesta de Toffu con ChatGPT-3.5'})
                     ]
-                })
-            
-                break;
+                });
         }
         
     }
