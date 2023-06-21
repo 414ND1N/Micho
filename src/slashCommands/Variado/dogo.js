@@ -10,7 +10,6 @@ module.exports = {
 
         const url_api = `https://dog.ceo/api/breeds/image/random`;
         const response = await axios.get(url_api);
-        console.log(response.data);
         const img_url = response.data.message;
         
         return interaction.editReply({
