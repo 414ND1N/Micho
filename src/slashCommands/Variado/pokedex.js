@@ -47,10 +47,10 @@ module.exports = {
         const shinyArtworDefaultSpriteUrl = pokemonData.sprites.other["official-artwork"].front_shiny
 
         //Páginas
-        var embeds = [];
+        var embeds_pokedex = [];
 
         const EmbedDefault = new EmbedBuilder()
-            .setTitle(`Pokedéx | \`${pokemonName}\``)
+            .setTitle(`Pokedéx | \`${busqueda}\` - \`${pokemonName}\``)
             .setColor(process.env.COLOR)
             .setImage(officialArtworDefaultSpriteUrl)
             .setThumbnail(defaultSpriteUrl)
@@ -60,87 +60,70 @@ module.exports = {
                 {name: `Tipos`, value: `${pokemonTypes.join(", ")}`},
             )
             .setTimestamp();
-        
-        const EmbedShiny = new EmbedBuilder()
-            .setTitle(`Pokedéx | \`${pokemonName} shiny\``)
-            .setColor(process.env.COLOR)
-            .setDescription(`${interaction.user?.username} buscó a al pokemón No.\`${busqueda}\``)
-            .setImage(shinyArtworDefaultSpriteUrl)
-            .setThumbnail(shinySpriteUrl)
-            .addFields(
-                {name: `Peso`, value: `${pokemonWeight} kg`, inline: true},
-                {name: `Altura`, value: `${pokemonHeight} m`, inline: true},
-                {name: `Tipos`, value: `${pokemonTypes.join(", ")}`},
-            )
-            .setTimestamp();
-        
-        await embeds.push(EmbedDefault);
 
-        //Si no hay imagen shiny no se el segundo embed
+        await embeds_pokedex.push(EmbedDefault); //Agregamos el embed a la lista de embeds
+
+        //Verificar existencia shiny a pokemon indicado
         if (shinyArtworDefaultSpriteUrl) {
-            await embeds.push(EmbedShiny);
+
+            const EmbedShiny = new EmbedBuilder() //Creacion embed con informacion de la variante shiny
+                .setTitle(`Pokedéx | \`${busqueda}\` - \`${pokemonName} shiny\``)
+                .setColor(process.env.COLOR)
+                .setDescription(`${interaction.user?.username} buscó a al pokemón No.\`${busqueda}\``)
+                .setImage(shinyArtworDefaultSpriteUrl)
+                .setThumbnail(shinySpriteUrl)
+                .addFields(
+                    {name: `Peso`, value: `${pokemonWeight} kg`, inline: true},
+                    {name: `Altura`, value: `${pokemonHeight} m`, inline: true},
+                    {name: `Tipos`, value: `${pokemonTypes.join(", ")}`},
+                )
+                .setTimestamp();
+
+            await embeds_pokedex.push(EmbedShiny); //Agregamos el embed a la lista de embeds
         }
 
         return paginacion();
 
         async function paginacion(){
-            let embedpaginas = null;
             let row = null;
 
             //Creacion boton salir para el menú
-            let btn_salir =  new ButtonBuilder()
+            const btn_salir =  new ButtonBuilder()
                 .setCustomId('exit')
                 .setLabel('❌ Salir')
                 .setStyle(ButtonStyle.Danger);
 
-            //Si solo hay 1 embed enviamos el mensaje sin botones de navegacion
-            if (embeds.length === 1) {
+            if (embeds_pokedex.length === 1) { //Si solo hay 1 embed enviamos el mensaje sin botones de navegacion
 
-                row = new ActionRowBuilder().addComponents(btn_salir);
+                row = new ActionRowBuilder().addComponents(btn_salir); //Agregamos el boton de salir
 
-                embedpaginas = await interaction.channel.send({
-                    embeds: [embeds[0]],
-                    components: [row]
-                }).catch(() => {});
-            
-            //Si el numero de embeds es mayor a 1 ponemos los botones de paginacion
-            }else{
-                let btn_normal =  new ButtonBuilder()
+            } else {  //Si el numero de embeds es mayor a 1 ponemos los botones de paginacion
+                const btn_normal =  new ButtonBuilder()
                     .setCustomId('normal')
                     .setStyle(ButtonStyle.Success)
                     .setLabel('Normal');
-                let btn_shiny =  new ButtonBuilder()
+                const btn_shiny =  new ButtonBuilder()
                     .setCustomId('shiny')
                     .setStyle(ButtonStyle.Success)
                     .setLabel('Shiny');
 
+                row = new ActionRowBuilder().addComponents(btn_normal, btn_shiny, btn_salir); //Agregamos los botones de navegacion
 
-                row = new ActionRowBuilder().addComponents(btn_normal, btn_shiny, btn_salir);
-
-                embedpaginas = await interaction.channel.send({
-                    content: `**Navega con los _botones_ en el menú**`,
-                    embeds: [embeds[0]],
-                    components: [row]
-                });
             }
 
+            let embedpaginas = await interaction.channel.send({
+                embeds: [embeds_pokedex[0]],
+                components: [row]
+            }).catch(() => {});
+
             //Creación collector y se filtra que el usuario que de click sea la misma que ha puesto el comando, y el autor del mensaje sea el cliente (Toffu)
-            const collector = embedpaginas.createMessageComponentCollector({filter: i => i?.isButton() && i?.user && i?.user.id == interaction.user.id && i?.message.author.id  == client.user.id, time: 100e3});
+            const collector = embedpaginas.createMessageComponentCollector({filter: i => i?.isButton() && i?.user && i?.user.id == interaction.user.id && i?.message.author.id  == client.user.id, time: 90e3});
 
             collector.on("collect", async action => {
                 switch (action?.customId) {
-                    case 'normal':{
-                        collector.resetTimer();
-
-                        await embedpaginas.edit({embeds: [embeds[0]], components: [embedpaginas.components[0]]}).catch(() => {});
-                        await action?.deferUpdate();
- 
-                    }
-                        break;
                     case 'shiny':{
                         collector.resetTimer();
-                        
-                        await embedpaginas.edit({embeds: [embeds[1]], components: [embedpaginas.components[0]]}).catch(() => {});
+                        await embedpaginas.edit({embeds: [embeds_pokedex[1]], components: [embedpaginas.components[0]]}).catch(() => {});
                         await action?.deferUpdate();
 
                     }
@@ -149,13 +132,19 @@ module.exports = {
                         collector.stop();
                     }
                         break;
-                    default:
+                    default:{// Si no es ninguno de los botones de navegacion, se muestra el pokemon normal
+                        collector.resetTimer();
+                        await embedpaginas.edit({embeds: [embeds_pokedex[0]], components: [embedpaginas.components[0]]}).catch(() => {});
+                        await action?.deferUpdate();
+                    }
                         break;
                 }
             });
+
             collector.on("end", async () => {
                 //desactivamos botones y editamos el mensaje
-                embedpaginas.edit({content:`${interaction.user?.username} buscó un pokemón`, components:[]}).catch(() => {});
+                embedpaginas.edit({content:`Búsqueda del pokemón \`${busqueda}\` en la pokedex.`, components:[]}).catch(() => {});
+                
                 await interaction.deleteReply();   
             });
         }

@@ -69,9 +69,9 @@ module.exports = {
             let row = null;
 
             //Creacion boton salir para el menú
-            let btn_salir = new ButtonBuilder()
+            const btn_salir = new ButtonBuilder()
                 .setCustomId('exit')
-                .setLabel('❌ Salir')
+                .setLabel('❌')
                 .setStyle(ButtonStyle.Danger);
 
             //Si solo hay 1 embed enviamos el mensaje sin botones de navegacion
@@ -86,26 +86,24 @@ module.exports = {
 
                 //Si el numero de embeds es mayor a 1 ponemos los botones de paginacion
             } else {
-                let btn_atras =  new ButtonBuilder()
+                const btn_atras =  new ButtonBuilder()
                     .setCustomId('atras')
                     .setStyle(ButtonStyle.Success)
                     .setEmoji(`⬅`);
                 
-                let btn_siguiente =  new ButtonBuilder()
+                const btn_siguiente =  new ButtonBuilder()
                     .setCustomId('siguiente')
                     .setStyle(ButtonStyle.Success)
                     .setEmoji(`➡`);
 
-                let btn_inicio = new ButtonBuilder()
+                const btn_inicio = new ButtonBuilder()
                     .setCustomId('inicio')
-                    .setLabel('Inicio')
                     .setStyle(ButtonStyle.Primary)
                     .setEmoji(`🏠`);
 
                 row = new ActionRowBuilder().addComponents(btn_inicio, btn_atras, btn_siguiente, btn_salir);
 
                 embedpaginas = await interaction.channel.send({
-                    content: `**Navega con los _botones_ en el menú**`,
                     embeds: [embeds[0].setFooter({text: `Página ${pag_actual+1} / ${embeds.length}`})],
                     components: [row]
                 });
@@ -153,25 +151,23 @@ module.exports = {
                         }
                     }
                         break;
-                    case 'inicio':{
+                    case 'exit': {
+                        collector.stop();
+                    }
+                        break;
+                    default:{ // Si no es ninguno de los botones de navegacion entonces es el boton de inicio
                         collector.resetTimer();
-                        //Si la pagina a retroceder no es igual a la primera pagina entonces retrocedemos
+                        //Se retrocede a la pagina 0
                         pag_actual = 0;
                         await embedpaginas.edit({embeds: [embeds[pag_actual].setFooter({text: `Página ${pag_actual+1} / ${embeds.length}`})], components: [embedpaginas.components[0]]}).catch(() => {});
                         await action?.deferUpdate();
                     }
                         break;
-                    case 'exit': {
-                        collector.stop();
-                    }
-                        break;
-                    default:
-                        break;
                 }
             });
             collector.on("end", async () => {
                 //desactivamos botones y editamos el mensaje
-                embedpaginas.edit({ content: `${interaction.user?.username} buscó un amiibo`, components: [] }).catch(() => { });
+                embedpaginas.edit({ content: `Búsqueda del amiibo \`${character}\`.`, components: [] }).catch(() => { });
                 await interaction.deleteReply();
             });
         }

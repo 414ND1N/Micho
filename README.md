@@ -31,12 +31,13 @@
 
 ### 💬 Comandos de información
 
+- ayuda
 - ping
 - pagina
 - preguntar grupo|toffu `tu pregunta`
 - codigo
 - diccionario `palabra`
-- help
+
 
 ### 💱 Comandos variedad
 

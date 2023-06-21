@@ -1,60 +1,32 @@
 const {SlashCommandBuilder, EmbedBuilder,} = require('discord.js')
-const { ActionRowBuilder, ButtonBuilder, ButtonStyle} = require('discord.js');
+const { StringSelectMenuBuilder, StringSelectMenuOptionBuilder, ActionRowBuilder} = require('discord.js');
 module.exports = {
     CMD: new SlashCommandBuilder()
     .setDescription("Listar los comandos disponibles de Toffu"),
     async execute(client, interaction, prefix){
 
-        await interaction.deferReply();
+        await interaction.deferReply(); // Respuestas mayores a 3 segundos
 
-        let btn_menu = new ButtonBuilder()
-            .setCustomId('menu')
-            .setLabel('Menú')
-            .setStyle(ButtonStyle.Success)
-            .setEmoji(`🏠`);
-        
-        let btn_info =  new ButtonBuilder()
-            .setCustomId('info')
-            .setLabel('Información')
-            .setStyle(ButtonStyle.Primary);
-
-        let btn_music =  new ButtonBuilder()
-            .setCustomId('music')
-            .setLabel('Música')
-            .setStyle(ButtonStyle.Primary);
-
-        let btn_var =  new ButtonBuilder()
-            .setCustomId('var')
-            .setLabel('Variedad')
-            .setStyle(ButtonStyle.Primary);
-
-        let btn_salir =  new ButtonBuilder()
-            .setCustomId('exit')
-            .setLabel('❌ Salir')
-            .setStyle(ButtonStyle.Danger);
-
-
-        const row = new ActionRowBuilder().addComponents(btn_menu,btn_info,btn_music,btn_var,btn_salir);    
-
+        //Creacion de los embed
         const embed_menu = new EmbedBuilder()
             .setTitle('Menú')
-            .setDescription(`Los comandos slash compatibles con **Toffu**, \`/\``)
+            .setDescription(`Selecciona una categoría para ver los comandos disponibles`)
             .setColor(process.env.COLOR)
             .addFields(
-                {name: `\`Información\``, value: `Comandos que brindan información del bot y/o servidor.`},
-                {name: `\`Música\``, value: `Comandos para reproducir música en el canal de voz que te encuentres conectado.`},
-                {name: `\`Variedad\``, value: `Comandos para funciónes miscelaneo.`}
-            ) 
+                {name: `\`Información\``, value: `Comandos para pedir informacion sobre el bot o al grupo.`},
+                {name: `\`Música\``, value: `Comandos para reproducir música en el canal de voz.`},
+                {name: `\`Variedad\``, value: `Comandos para funciónes variadas.`}
+            )
             .setThumbnail("https://i.imgur.com/xbzkVJh.gif");
 
-        const embed_menu1 = new EmbedBuilder()
+        const embed_menu_informacion = new EmbedBuilder()
             .setTitle('Información')
             .setDescription(`Comandos que brindan información del bot y/o servidor`)
             .setColor(`#3a7c21`)
             .addFields(
+                {name: `ayuda`, value:`Sirve para ver el menú de ayuda con los comandos.`},
                 {name: `codigo`, value:`Muestra el link del repositorio con el código de \`Toffu\`.`},
                 {name: `diccionario`, value:`Definición de un \`término\` del diccionario urbano.`},
-                {name: `help`, value:`Sirve para ver el menú de ayuda con los comandos.`},
                 {name: `ping`, value:`Sirve para ver el ping en ms de \`Toffu\`.`},
                 {name: `pagina`, value:`Muestra el link de la pana página.`},
                 {name: `pregunta grupo`, value:`Sirve para que destaque tu pregunta en el servidor.
@@ -64,9 +36,9 @@ module.exports = {
             )  
             .setThumbnail(`https://i.imgur.com/Ud2cXN5.jpg`);
 
-        const embed_menu2 = new EmbedBuilder()
+        const embed_menu_musica = new EmbedBuilder()
             .setTitle('Música')
-            .setDescription(`Comandos para reproducir música en el canal de voz en el que te encuentres conectado`)
+            .setDescription(`Comandos para reproducir música.`)
             .setColor(`#c72a2a`)
             .addFields(
                 {name: `djpanas`, value:`Sirve para reproducir DJPANAS.\n> Se puede elegir entre las distintas variaciones.`},
@@ -87,9 +59,9 @@ module.exports = {
             )  
             .setThumbnail(`https://i.imgur.com/9PzViPP.jpg`);
 
-        const embed_menu3 = new EmbedBuilder()
+        const embed_menu_variedad = new EmbedBuilder()
             .setTitle('Variedad')
-            .setDescription(`Comandos para funciónes miscelaneo`)
+            .setDescription(`Comandos de variedad.`)
             .setColor(`#0c6bc2`)
             .addFields(
                 {name: `8ball`, value:`Sirve para que la bola 8 de una respuesta a una pregunta.`},
@@ -116,51 +88,84 @@ module.exports = {
                 {name: `sugerir`, value:`Sirve para dar una sugerencia al \`canal de sugerencias\`.`},
             )
             .setThumbnail(`https://i.imgur.com/s2lV0y5.png`);
+        
+        //Creacion del dropdown para seleccionar el menu
+        const select = new StringSelectMenuBuilder()
+			.setCustomId('help-menu')
+			.setPlaceholder('Selecciona una categoría')
+			.addOptions(
+                new StringSelectMenuOptionBuilder()
+					.setLabel('Menú')
+					.setDescription('Menú principal.')
+					.setValue('menu')
+                    .setEmoji(`🏠`),
+				new StringSelectMenuOptionBuilder()
+					.setLabel('información')
+					.setDescription('Comandos que brindan información sobre el bot o el grupo.')
+					.setValue('info')
+                    .setEmoji(`💬`),
+				new StringSelectMenuOptionBuilder()
+					.setLabel('Música	')
+					.setDescription('Comandos para reproducir música en el canal de voz.')
+					.setValue('music')
+                    .setEmoji(`🎶`),
+				new StringSelectMenuOptionBuilder()
+					.setLabel('Variedad')
+					.setDescription('Comandos para funciones variadas.')
+					.setValue('var')
+                    .setEmoji(`✨`),
+                new StringSelectMenuOptionBuilder()
+					.setLabel('Salir')
+					.setDescription('Cerrar el menú de ayuda.')
+					.setValue('exit')
+                    .setEmoji(`❌`),
+			);
 
+        const row = new ActionRowBuilder().addComponents(select); 
+        
+        //Creacion del Embed principal
         let embed_help = await interaction.channel.send({
-            content: `**Navega con los _botones_ en el menú**`,
             embeds: [embed_menu],
-            components: [row]
+            components: [row],
+            ephemeral: true
         });
 
         const collector = embed_help.createMessageComponentCollector({time: 60e3});  
         
         collector.on("collect", async (i) => {
             if(i?.user.id != interaction.user.id){
-                return await i.reply({content: `❌ Solo quien uso el comando de queue puede navegar entre páginas`, ephemeral: true});
+                return await i.reply({content: `❌ Solo quien uso el comando puede navegar entre categorías.`, ephemeral: true});
             }
-            switch (i?.customId){
-                case 'menu':{
-                    collector.resetTimer();
-                    await i.update({embeds: [embed_menu], components:[row]})
-                }
-                    break;
+            switch (i?.values[0]){
                 case 'info':{
                     collector.resetTimer();
-                    await i.update({embeds: [embed_menu1], components:[row]})
+                    await i.update({embeds: [embed_menu_informacion], components:[row]})
                 }
                     break;
                 case 'music':{
                     collector.resetTimer();
-                    await i.update({embeds: [embed_menu2], components:[row]})
+                    await i.update({embeds: [embed_menu_musica], components:[row]})
                 }
                     break;
                 case 'var':{
                     collector.resetTimer();
-                    await i.update({embeds: [embed_menu3], components:[row]})
+                    await i.update({embeds: [embed_menu_variedad], components:[row]})
                 }
                     break;
                 case 'exit':{
                     collector.stop();
                 }
                     break;
-                default:
+                default: {//Si no es ninguna de las opciones anteriores se envia el menu principal
+                    collector.resetTimer();
+                    await i.update({embeds: [embed_menu], components:[row]})
+                }
                     break;
             }
         });
         collector.on("end", async () => {
-            //desactivamos botones y editamos el mensaje
-            embed_help.edit({content: "El tiempo ha expirado ⏳, utiliza denuevo el comando help 😊", components:[], ephemeral: true}).catch(() => {});
+            //borramos los embed y los componentes, se deja un mensaje de que el tiempo ha expirado
+            embed_help.edit({content: "El tiempo ha expirado ⏳, utiliza denuevo el comando ayuda 😊", components:[], ephemeral: true}).catch(() => {});
             embed_help.suppressEmbeds(true);
             await interaction.deleteReply();
         });
