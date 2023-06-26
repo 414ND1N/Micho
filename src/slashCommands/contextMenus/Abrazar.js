@@ -21,7 +21,7 @@ module.exports = {
         const randomIndex = Math.floor(Math.random() * response.data.results.length);
         const gif_url = response.data.results[randomIndex]["media_formats"]["mediumgif"]["url"];
 
-        return interaction.editReply({
+        return interaction.reply({
             embeds: [
                 new EmbedBuilder()
                     .setTitle(`\`${interaction.user.username} abrazó a ${USUARIO?.username ?? 'todos'}.\``) // Si no se especifica usuario, se indica a todos
