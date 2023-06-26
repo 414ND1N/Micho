@@ -14,7 +14,7 @@ module.exports = {
         }
 
         const USUARIO = interaction.targetUser; // Usuario al que se le hará la acción
-        const query = `${get_random_option()} saying hello`; // Busqueda en Tenor
+        const query = `${get_random_option()} congratulations`; // Busqueda en Tenor
         const url_api = `https://tenor.googleapis.com/v2/search?q=${query}&key=${process.env.TENOR_API_KEY}&client_key=my_test_app&limit=8`;
 
         const response = await axios.get(url_api);
@@ -24,7 +24,7 @@ module.exports = {
         return interaction.editReply({
             embeds: [
                 new EmbedBuilder()
-                    .setTitle(`\`${interaction.user.username} saludó a ${USUARIO?.username ?? 'todos'}.\``) // Si no se especifica usuario, se indica a todos
+                    .setTitle(`\`${interaction.user.username} felicitó a ${USUARIO?.username ?? 'todos'}.\``) // Si no se especifica usuario, se indica a todos
                     .setColor(process.env.COLOR)
                     .setImage(gif_url)
             ]

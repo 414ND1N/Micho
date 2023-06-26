@@ -81,7 +81,4 @@
 - reload `archivo*`
 
 ### 👀 Context Menu
-- accion
-  - abrazar
-  - golpear
-  - saludar
+- acciones
