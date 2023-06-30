@@ -182,7 +182,7 @@ module.exports = {
         // Usuario al que se le hará la acción
         const USUARIO = interaction.options.getUser('usuario'); // Usuario al que se le hará la acción
         const MEMBER = interaction.guild.members.cache.get(USUARIO?.id); // Objeto de miembro del usuario
-        const USERNAME = MEMBER?.nickname || USUARIO.username || 'todos'; // Apodo del usuario
+        const USERNAME = MEMBER?.nickname || USUARIO?.username || 'todos'; // Apodo del usuario
 
         // Usuario que realiza la acción
         const AUTHOR = interaction.member?.nickname?? interaction.user.username; // Si no tiene apodo, se usa el nombre de usuario
