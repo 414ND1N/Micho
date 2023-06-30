@@ -12,10 +12,12 @@ module.exports = {
         const response = await axios.get(url_api);
         const img_url = response.data[0].url;
         
+        const AUTHOR = interaction.member?.nickname?? interaction.user.username; // Si no tiene apodo, se usa el nombre de usuario
+
         return interaction.editReply({
             embeds: [
                 new EmbedBuilder()
-                    .setTitle(`${interaction.user?.username} envió un GATO 🐱`)
+                    .setTitle(`${AUTHOR} envió un GATO 🐱`)
                     .setColor(process.env.COLOR)
                     .setImage(img_url)
             ]

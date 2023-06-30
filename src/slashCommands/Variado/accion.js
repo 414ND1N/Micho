@@ -177,8 +177,15 @@ module.exports = {
         await interaction.deferReply(); // Defer para respuestas de más de 3 segundos
 
         const SUB = interaction.options.getSubcommand(); // Subcomando
-        const USUARIO = interaction.options.getUser('usuario'); // Usuario al que se le hará la acción
         const TIPO = interaction.options.getString('tipo') ?? get_random_option(); // Si no se especifica el tipo, se elige uno aleatorio
+
+        // Usuario al que se le hará la acción
+        const USUARIO = interaction.options.getUser('usuario'); // Usuario al que se le hará la acción
+        const MEMBER = interaction.guild.members.cache.get(USUARIO?.id); // Objeto de miembro del usuario
+        const USERNAME = MEMBER?.nickname || USUARIO.username || 'todos'; // Apodo del usuario
+
+        // Usuario que realiza la acción
+        const AUTHOR = interaction.member?.nickname?? interaction.user.username; // Si no tiene apodo, se usa el nombre de usuario
         
         switch(SUB){
             case 'saludar':{
@@ -192,7 +199,7 @@ module.exports = {
                 return interaction.editReply({
                     embeds: [
                         new EmbedBuilder()
-                            .setTitle(`\`${interaction.user.username} saludó a ${USUARIO?.username??'todos'}.\``) // Si no se especifica usuario, se indica a todos
+                            .setTitle(`\`${AUTHOR} saludó a ${USERNAME}.\``) // Si no se especifica usuario, se indica a todos
                             .setColor(process.env.COLOR)
                             .setImage(gif_url)
                     ]
@@ -209,7 +216,7 @@ module.exports = {
                 return interaction.editReply({
                     embeds: [
                         new EmbedBuilder()
-                            .setTitle(`\`${interaction.user.username} felicitó a ${USUARIO?.username??'todos'}.\``) // Si no se especifica usuario, se indica a todos
+                            .setTitle(`\`${AUTHOR} felicitó a ${USERNAME}.\``) // Si no se especifica usuario, se indica a todos
                             .setColor(process.env.COLOR)
                             .setImage(gif_url)
                     ]
@@ -226,7 +233,7 @@ module.exports = {
                 return interaction.editReply({
                     embeds: [
                         new EmbedBuilder()
-                            .setTitle(`\`${interaction.user.username} le dió una palamada a ${USUARIO?.username??'todos'}.\``) // Si no se especifica usuario, se indica a todos
+                            .setTitle(`\`${AUTHOR} le dió una palamada a ${USERNAME}.\``) // Si no se especifica usuario, se indica a todos
                             .setColor(process.env.COLOR)
                             .setImage(gif_url)
                     ]
@@ -243,7 +250,7 @@ module.exports = {
                 return interaction.editReply({
                     embeds: [
                         new EmbedBuilder()
-                            .setTitle(`\`${interaction.user.username} tocó a ${USUARIO?.username??'todos'}.\``) // Si no se especifica usuario, se indica a todos
+                            .setTitle(`\`${AUTHOR} tocó a ${USERNAME}.\``) // Si no se especifica usuario, se indica a todos
                             .setColor(process.env.COLOR)
                             .setImage(gif_url)
                     ]
@@ -260,7 +267,7 @@ module.exports = {
                 return interaction.editReply({
                     embeds: [
                         new EmbedBuilder()
-                            .setTitle(`\`${interaction.user.username} lamió a ${USUARIO?.username??'todos'}.\``) // Si no se especifica usuario, se indica a todos
+                            .setTitle(`\`${AUTHOR} lamió a ${USERNAME}.\``) // Si no se especifica usuario, se indica a todos
                             .setColor(process.env.COLOR)
                             .setImage(gif_url)
                     ]
@@ -277,7 +284,7 @@ module.exports = {
                 return interaction.editReply({
                     embeds: [
                         new EmbedBuilder()
-                            .setTitle(`\`${interaction.user.username} le dió un pulgar arriba a ${USUARIO?.username??'todos'}.\``) // Si no se especifica usuario, se indica a todos
+                            .setTitle(`\`${AUTHOR} le dió un pulgar arriba a ${USERNAME}.\``) // Si no se especifica usuario, se indica a todos
                             .setColor(process.env.COLOR)
                             .setImage(gif_url)
                     ]
@@ -294,7 +301,7 @@ module.exports = {
                 return interaction.editReply({
                     embeds: [
                         new EmbedBuilder()
-                            .setTitle(`\`${interaction.user.username} se sonrojó por ${USUARIO?.username??'todos'}.\``) // Si no se especifica usuario, se indica a todos
+                            .setTitle(`\`${AUTHOR} se sonrojó por ${USERNAME}.\``) // Si no se especifica usuario, se indica a todos
                             .setColor(process.env.COLOR)
                             .setImage(gif_url)
                     ]
@@ -311,7 +318,7 @@ module.exports = {
                 return interaction.editReply({
                     embeds: [
                         new EmbedBuilder()
-                            .setTitle(`\`${interaction.user.username} abrazó a ${USUARIO?.username??'todos'}.\``) // Si no se especifica usuario, se indica a todos
+                            .setTitle(`\`${AUTHOR} abrazó a ${USERNAME}.\``) // Si no se especifica usuario, se indica a todos
                             .setColor(process.env.COLOR)
                             .setImage(gif_url)
                     ]
@@ -328,7 +335,7 @@ module.exports = {
                 return interaction.editReply({
                     embeds: [
                         new EmbedBuilder()
-                            .setTitle(`\`${interaction.user.username} besó a ${USUARIO?.username??'todos'}.\``) // Si no se especifica usuario, se indica a todos
+                            .setTitle(`\`${AUTHOR} besó a ${USERNAME}.\``) // Si no se especifica usuario, se indica a todos
                             .setColor(process.env.COLOR)
                             .setImage(gif_url)
                     ]
@@ -345,7 +352,7 @@ module.exports = {
                 return interaction.editReply({
                     embeds: [
                         new EmbedBuilder()
-                            .setTitle(`\`${interaction.user.username} abofeteó a ${USUARIO?.username??'todos'}.\``) // Si no se especifica usuario, se indica a todos
+                            .setTitle(`\`${AUTHOR} abofeteó a ${USERNAME}.\``) // Si no se especifica usuario, se indica a todos
                             .setColor(process.env.COLOR)
                             .setImage(gif_url)
                     ]
@@ -362,7 +369,7 @@ module.exports = {
                 return interaction.editReply({
                     embeds: [
                         new EmbedBuilder()
-                            .setTitle(`\`${interaction.user.username} golpeó a ${USUARIO?.username??'todos'}.\``) // Si no se especifica usuario, se indica a todos
+                            .setTitle(`\`${AUTHOR} golpeó a ${USERNAME}.\``) // Si no se especifica usuario, se indica a todos
                             .setColor(process.env.COLOR)
                             .setImage(gif_url)
                     ]
@@ -379,7 +386,7 @@ module.exports = {
                 return interaction.editReply({
                     embeds: [
                         new EmbedBuilder()
-                            .setTitle(`\`${interaction.user.username} guiñó a ${USUARIO?.username??'todos'}.\``) // Si no se especifica usuario, se indica a todos
+                            .setTitle(`\`${AUTHOR} guiñó a ${USERNAME}.\``) // Si no se especifica usuario, se indica a todos
                             .setColor(process.env.COLOR)
                             .setImage(gif_url)
                     ]
@@ -396,7 +403,7 @@ module.exports = {
                 return interaction.editReply({
                     embeds: [
                         new EmbedBuilder()
-                            .setTitle(`\`${interaction.user.username} le desea la muerte a ${USUARIO?.username??'todos'}.\``) // Si no se especifica usuario, se indica a todos
+                            .setTitle(`\`${AUTHOR} le desea la muerte a ${USERNAME}.\``) // Si no se especifica usuario, se indica a todos
                             .setColor(process.env.COLOR)
                             .setImage(gif_url)
                     ]
@@ -413,7 +420,7 @@ module.exports = {
                 return interaction.editReply({
                     embeds: [
                         new EmbedBuilder()
-                            .setTitle(`\`${interaction.user.username} acarició a ${USUARIO?.username??'todos'}.\``) // Si no se especifica usuario, se indica a todos
+                            .setTitle(`\`${AUTHOR} acarició a ${USERNAME}.\``) // Si no se especifica usuario, se indica a todos
                             .setColor(process.env.COLOR)
                             .setImage(gif_url)
                     ]

@@ -11,11 +11,13 @@ module.exports = {
         const url_api = `https://dog.ceo/api/breeds/image/random`;
         const response = await axios.get(url_api);
         const img_url = response.data.message;
+
+        const AUTHOR = interaction.member?.nickname?? interaction.user.username; // Si no tiene apodo, se usa el nombre de usuario
         
         return interaction.editReply({
             embeds: [
                 new EmbedBuilder()
-                    .setTitle(`${interaction.user?.username} envió un PERRO 🐶`)
+                    .setTitle(`${AUTHOR} envió un PERRO 🐶`)
                     .setColor(process.env.COLOR)
                     .setImage(img_url)
             ]

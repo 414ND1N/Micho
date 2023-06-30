@@ -12,11 +12,13 @@ module.exports = {
         const channel = client.channels.cache.get(process.env.ID_CANAL_SUGERENCIAS); //ID del canal de sugerencias
         const channel_pruebas = client.channels.cache.get(process.env.ID_CANAL_PRUEBAS); //ID del canal de pruebas
         
+        const AUTHOR = interaction.member?.nickname?? interaction.user.username; // Si no tiene apodo, se usa el nombre de usuario
+
         //Si el canal es el de pruebas se enviará la sugerencia en el canal de pruebas
         if (interaction.channel == channel_pruebas) {
             const mensaje = await channel_pruebas.send({ embeds: [
                 new EmbedBuilder()
-                    .setTitle(`Sugerencia de \`${interaction.user?.username}\``)
+                    .setTitle(`Sugerencia de \`${AUTHOR}\``)
                     .setDescription(`\`${sugerencia}\``)
                     .setColor(process.env.COLOR)
                     .setTimestamp()
@@ -32,7 +34,7 @@ module.exports = {
         //Si el canal no es el de pruebas se enviará la sugerencia en el canal de sugerencias
         const mensaje = await channel.send({ embeds: [
             new EmbedBuilder()
-                .setTitle(`Sugerencia de \`${interaction.user?.username}\``)
+                .setTitle(`Sugerencia de \`${AUTHOR}\``)
                 .setDescription(`\`${sugerencia}\``)
                 .setColor(process.env.COLOR)
                 .setTimestamp()

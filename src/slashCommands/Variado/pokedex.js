@@ -69,7 +69,6 @@ module.exports = {
             const EmbedShiny = new EmbedBuilder() //Creacion embed con informacion de la variante shiny
                 .setTitle(`Pokedéx | \`${busqueda}\` - \`${pokemonName} shiny\``)
                 .setColor(process.env.COLOR)
-                .setDescription(`${interaction.user?.username} buscó a al pokemón No.\`${busqueda}\``)
                 .setImage(shinyArtworDefaultSpriteUrl)
                 .setThumbnail(shinySpriteUrl)
                 .addFields(

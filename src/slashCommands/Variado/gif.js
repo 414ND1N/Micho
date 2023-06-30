@@ -20,10 +20,12 @@ module.exports = {
         const randomIndex = Math.floor(Math.random() * response.data.results.length);
         const gif_url = response.data.results[randomIndex]["media_formats"]["mediumgif"]["url"];
         
+        const AUTHOR = interaction.member?.nickname?? interaction.user.username; // Si no tiene apodo, se usa el nombre de usuario
+
         return interaction.editReply({
             embeds: [
                 new EmbedBuilder()
-                    .setTitle(`${interaction.user?.username} envió un GIF.`)
+                    .setTitle(`${AUTHOR} envió un GIF.`)
                     .setColor(process.env.COLOR)
                     .setDescription(`\`${busqueda}\``)
                     .setImage(gif_url)
