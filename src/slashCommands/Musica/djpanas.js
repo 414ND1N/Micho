@@ -35,7 +35,7 @@ module.exports = {
         await interaction.deferReply(); // Defer para respuestas de más de 30 segundos
 
         let tipo = interaction.options.getString("tipo") ?? 'Clasico'; //Si no se eligió un tipo toma el tipo clasico por defecto
-        let args = 'https://www.youtube.com/playlist?list=PLtzt-E5Aq1-kGOPEbker6rjCQH6ZtKNz9'
+        let args = ''
 
         let DJ_PANAS = JSON.parse(process.env.DJ_PANAS);
 
@@ -57,7 +57,7 @@ module.exports = {
             embeds: [
                 new EmbedBuilder()
                     .setTitle('Reproducción DJ PANAS')
-                    .setThumbnail("https://i.imgur.com/vMaawHJ.gif")
+                    .setThumbnail("https://i.imgur.com/7DsybB1.gifv")
                     .setColor(process.env.COLOR)
                     .setDescription(`**Se agregó DJ PANAS \`${tipo}\` a la lista**`)
                     .addFields({ name: `Mira la lista en el canal ${channel}`, value: `😎  🔊 🎶` })
