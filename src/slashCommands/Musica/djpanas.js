@@ -63,6 +63,3 @@ module.exports = {
                     .addFields({ name: `Mira la lista en el canal ${channel}`, value: `😎  🔊 🎶` })
             ]
         })
-
-    }
-}
