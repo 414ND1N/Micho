@@ -79,8 +79,6 @@ module.exports = {
                     > Las opciones se dan separadas por coma \`,\`.`},
                 {name: `gif`, value:`Sirve para mostrar el gif que se desee buscar.\n
                     > Mostrara un gif aleatorio de \`tenor.com\`.`},
-                {name: `image`, value:`Genera una imagen con el texto que reciba.\n
-                    > Genera una imagen con un retraso de 5 segundos utilizando \`pollinations.ai\`.`},
                 {name: `micho`, value:`Sirve para mandar la imágen aleatoria de un gato.`},
                 {name: `minecraft servidor`, value:`Muestra informacion del \`panaserver\`.`},
                 {name: `minecraft skin`, value:`Visualiza la skin de un jugador en específico.\n

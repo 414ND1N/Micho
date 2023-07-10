@@ -15,15 +15,16 @@ module.exports = (client, Discord) => {
         savePreviousSongs: true,
         emitAddSongWhenCreatingQueue: false,
         searchSongs: 0,
+        searchCooldown: 60,
         nsfw: true,
         emptyCooldown: 60,
         joinNewVoiceChannel: false,
         ytdlOptions: {
             highWaterMark: 1024 * 1024 * 64,
-            quality: "134",
+            quality: "lowestaudio",
             format: "audioonly",
             liveBuffer: 20000,
-            dlChunkSize: 1024 * 1024 * 4,
+            dlChunkSize: 1024 * 1024 * 2,
         },
         
         plugins: [
