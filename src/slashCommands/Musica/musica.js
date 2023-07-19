@@ -129,6 +129,7 @@ module.exports = {
                             .setColor(process.env.COLOR)
                             .setDescription(`Mira la lista en el canal ${channel}`)
                     ]
+                    , ephemeral: true
                 });
             case 'detener':
                 await client.distube.stop(VOICE_CHANNEL);
