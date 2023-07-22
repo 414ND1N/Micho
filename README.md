@@ -62,6 +62,7 @@
 - djpanas `tipo`
 - reproducir
 - detener
+- reproduciendo
 - Control
   - `resumir`
   - `pausar`

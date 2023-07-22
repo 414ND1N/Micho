@@ -43,19 +43,20 @@ module.exports = {
             .setColor(`#c72a2a`)
             .addFields(
                 {name: `djpanas`, value:`Sirve para reproducir DJPANAS.\n> Se puede elegir entre las distintas variaciones.`},
-                {name: `\u200b`, value:`Estos comandos son subcomandos del comando principal \`music\`:`},
-                {name: `▪  reproducir`, value:`Sirve para reproducir una canción dada (link o nombre).\n
+                {name: `\u200b`, value:`\`Estos comandos son subcomandos del comando principal music:\``},
+                {name: `reproducir`, value:`Sirve para reproducir una canción dada (link o nombre).\n
                     > Admite links de \`YouTube\`, \`Spotify\` y \`Soundcloud\`.`},
-                {name: `▪  detener`, value:`Detiene la reproducción de la canción actual.`},
-                {name: `▪  control`, value:`Entre las acciones que cuenta estan: \n
+                {name: `detener`, value:`Detiene la reproducción de la canción actual.`},
+                {name: `reproduciendo`, value:`Muestra información de la canción que se está reproduciendo.`},
+                {name: `control`, value:`Entre las acciones que cuenta estan: \n
                     > \`Resumir\`, \`Pausar\`, \`Siguiente\`, \`Anterior\`, \`Mezclar\`,\`Detener\`.`},
-                {name: `▪  volumen`, value:`Sirve para indicar el volumen de la canción.\n
+                {name: `volumen`, value:`Sirve para indicar el volumen de la canción.\n
                     > Admite de \`0%\` a \`200%\`.`},
-                {name: `▪  cola`, value:`Sirve para ver la lista la música que está en la cola de reproducción.\n
+                {name: `cola`, value:`Sirve para ver la lista la música que está en la cola de reproducción.\n
                     > Muestra un menú con botones de navegación.`},
-                {name: `▪  saltar`, value:`Sirve para saltar a una canción de la lista en reproducción.\n
+                {name: `saltar`, value:`Sirve para saltar a una canción de la lista en reproducción.\n
                     > El número de canción se puede ver en la queue.`},
-                {name: `▪  repetir`, value:`Sirve para cambiar el modo de repetición de la música en reproducción.\n
+                {name: `repetir`, value:`Sirve para cambiar el modo de repetición de la música en reproducción.\n
                     > Puede ser \`desactivado\`, \`canción actual\`, \`lista completa\`.`}
             )  
             .setThumbnail(`https://i.imgur.com/9PzViPP.jpg`);

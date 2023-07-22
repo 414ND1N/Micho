@@ -18,6 +18,10 @@ module.exports = {
                 .setDescription('Detiene la reproducción de la música')
         )
         .addSubcommand(subcommand =>
+            subcommand.setName('reproduciendo')
+                .setDescription('Muestra información de la canción que se está reproduciendo')
+        )
+        .addSubcommand(subcommand =>
             subcommand.setName('control')
                 .setDescription('Controlar la música en reproducción')
                 .addStringOption(option =>
@@ -134,6 +138,33 @@ module.exports = {
             case 'detener':
                 await client.distube.stop(VOICE_CHANNEL);
                 return await interaction.deleteReply();
+            case 'reproduciendo':
+
+                function getTimeString(time) {
+                    const minutes = Math.floor(time / 60);
+                    const seconds = Math.round(time % 60);
+                    const timeString = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                    return timeString;
+                }
+
+                const cancion_actual = QUEUE.songs[0];
+                const tiempo_reproduccion = getTimeString(QUEUE.currentTime);
+                const tiempo_total = cancion_actual.formattedDuration;
+
+                return interaction.editReply({
+                    embeds: [
+                        new EmbedBuilder()
+                            .setTitle('Canción reproduciendose')
+                            .setColor(process.env.COLOR)
+                            .setDescription(`\`${cancion_actual.name}\``)
+                            .setThumbnail(cancion_actual.thumbnail)
+                            .setURL(cancion_actual.url)
+                            .addFields(
+                                { name: `👁 Vistas`, value: `\`${cancion_actual.views}\``, inline: true },
+                                { name: `⏳ Tiempo`, value: `\`${tiempo_reproduccion} / ${tiempo_total}\``, inline: true }
+                            )
+                            .setFooter({ text: `👍 ${cancion_actual.likes} / 👎 ${cancion_actual.dislikes}` })
+                    ]});
             case 'control':
                 const control = interaction.options.getString('accion');
                 try {
