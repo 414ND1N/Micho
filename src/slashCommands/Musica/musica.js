@@ -84,20 +84,21 @@ module.exports = {
         const channel = client.channels.cache.get(process.env.ID_CANAL_DISCO);
         const COM_NO_QUEUE = ['detener', 'reproducir']; //Comandos que no necesitan una cola de reproducción
         const COM_NO_VOICECHANNEL = []; //Comandos que no necesitan un canal de voz
-        const VOICE_CHANNEL = interaction.member.voice.channel; //Canal de voz
-        const QUEUE = await client.distube.getQueue(VOICE_CHANNEL) ?? undefined; //Cola de reproducción
+        const VOICE_CHANNEL = interaction.member.voice?.channel ?? null; //Canal de voz
 
         //Comprobaciones previas y que no sea un comando que no lo necesite
         if (!VOICE_CHANNEL && !COM_NO_VOICECHANNEL.includes(SUB)) {
             return interaction.reply({
                 embeds: [
                     new EmbedBuilder()
-                        .setColor(process.env.COLOR_ERROR)
+                        .setColor(process.env.COLOR_ERROR)  
                         .setDescription(`Tienes que estar en un canal de voz para ejecutar el comando 🤨`)
                 ],
                 ephemeral: true
             })
         };
+
+        const QUEUE = await client.distube.getQueue(VOICE_CHANNEL) ?? null; //Cola de reproducción
 
         //Verificar si hay una cola de reproducción y que no sea un comando que no lo necesite
         if (!QUEUE && !COM_NO_QUEUE.includes(SUB)) {
@@ -146,6 +147,8 @@ module.exports = {
                     const timeString = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
                     return timeString;
                 }
+
+                console.log(QUEUE)
 
                 const cancion_actual = QUEUE.songs[0];
                 const tiempo_reproduccion = getTimeString(QUEUE.currentTime);
