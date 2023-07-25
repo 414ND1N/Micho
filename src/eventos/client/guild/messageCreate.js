@@ -44,7 +44,7 @@ async function startChatBot( client, message){
     //Chat con CHATGPT3.5
     if(message.channel.id !== process.env.ID_CANAL_CHATBOT) return; //Si el canal no es el de chatbot, no hacer nada
 
-    if(message.content.startsWith(process.env.PREFIX_IGNORE_CHAT_API)) return;
+    if(message.content.startsWith(process.env.PREFIX_IGNORE_CHAT_API)) return; //Si inicia con "!" se ignora
 
     const configuration = new Configuration({
         apiKey: process.env.OPENAI_API_KEY,
@@ -64,23 +64,24 @@ async function startChatBot( client, message){
     
     prevMessages.forEach((msg) => {
         if(message.content.startsWith(process.env.PREFIX_IGNORE_CHAT_API)) return; // Si el mensaje empieza con el prefijo de ignorar no hacer nada
-        if(msg.author.id !== client.user.id && message.author.bot) return; //Si el mensaje no es del mismo usuario o es bot no hacer nada
-        if(msg.author.id === client.user.id ) {
-            conversationLog.push({
-                role: 'assistant',
-                content: msg.content,
-                name: msg.author.username.replace(/\s+/g, '_').replace(/[^\w\s]/gi, '')
-            });
-        };
-        if (msg.author.id == message.author.id) {
-            conversationLog.push({
-              role: 'user',
-              content: msg.content,
-              name: message.author.username
-                .replace(/\s+/g, '_')
-                .replace(/[^\w\s]/gi, ''),
-            });
-        };
+        //if(msg.author.id !== client.user.id && message.author.bot) return; //Si el mensaje no es del mismo usuario o es bot no hacer nada
+        if(message.author.bot) return; //Si el mensaje no es del mismo usuario o es bot no hacer nada
+        
+        conversationLog.push({
+            role: 'assistant',
+            content: msg.content,
+            name: msg.author.username.replace(/\s+/g, '_').replace(/[^\w\s]/gi, '')
+        });
+        
+        //if (msg.author.id == message.author.id) {
+        conversationLog.push({
+            role: 'user',
+            content: msg.content,
+            name: message.author.username
+            .replace(/\s+/g, '_')
+            .replace(/[^\w\s]/gi, ''),
+        });
+        //};
     });
     
     //LLAMADA API

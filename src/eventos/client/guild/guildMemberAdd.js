@@ -1,7 +1,7 @@
 const { EmbedBuilder } = require('discord.js')
 
 module.exports = async (client, member) => {
-    const channel = member.guild.channels.cache.get('975663250903543808');
+    const channel = member.guild.channels.cache.get(process.env.ID_CANAL_BIENVENIDA);
 
     channel.send({
         embeds: [
