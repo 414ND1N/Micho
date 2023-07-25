@@ -44,7 +44,7 @@ module.exports = {
        
         const sub = interaction.options.getSubcommand();
         const tipo = interaction.options.getString('tipo');
-        const actividad = interaction.options.getString('actividad')
+        const actividad = interaction.options.getString('actividad');
 
         switch (sub){
             case 'actividad':
@@ -71,12 +71,14 @@ module.exports = {
                 break;
         }
 
+        const texto_estado = actividad? `${tipo} ${actividad}`: tipo;
+
         return interaction.reply({
             embeds: [
                 new EmbedBuilder()
                     .setTitle('Cambio de presencia de Toffu')
                     .setColor(process.env.COLOR)
-                    .setDescription(`Se cambió ${sub} a \`${tipo}\`.`)
+                    .setDescription(`Se cambió ${sub} a \`${texto_estado}\`.`)
                     .setThumbnail("https://i.imgur.com/lIs9ZAg.gif")
             ],
             ephemeral: true
