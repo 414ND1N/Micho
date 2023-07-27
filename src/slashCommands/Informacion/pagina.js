@@ -3,13 +3,15 @@ module.exports = {
     CMD: new SlashCommandBuilder()
     .setDescription("Enlace de la pana página"),
 
-    async execute(client, interaction, prefix){
+    async execute(client, interaction){
         return interaction.reply({
             embeds: [
                 new EmbedBuilder()
                     .setColor(process.env.COLOR)
-                    .setDescription(`La pana página esta disponible en:\n **${process.env.URL_PAGINA}**`)
-                    .setThumbnail('https://i.imgur.com/9Kvn6Ym.png')
+                    .setTitle('Página de Onanībando')
+                    .setDescription(`Página con información relacionada\ncon el grupo de \`Onanībando\`.`)
+                    .setThumbnail('https://i.imgur.com/3LKKy2F.png')
+                    .setURL(process.env.URL_PAGINA)
             ]
         })
     }
