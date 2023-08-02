@@ -403,7 +403,7 @@ module.exports = {
                 return interaction.editReply({
                     embeds: [
                         new EmbedBuilder()
-                            .setTitle(`\`${AUTHOR} le desea la muerte a ${USERNAME}.\``) // Si no se especifica usuario, se indica a todos
+                            .setTitle(`\`${AUTHOR} quiere matar a ${USERNAME}.\``) // Si no se especifica usuario, se indica a todos
                             .setColor(process.env.COLOR)
                             .setImage(gif_url)
                     ]
