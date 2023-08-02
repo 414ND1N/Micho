@@ -17,6 +17,8 @@ module.exports = {
         let args = interaction.options.getString("modulo");
         let opcion = "Comandos, Eventos y Handlers";
 
+        await interaction.deferReply(); // Defer para respuestas de más de 3 segundos
+
         try{
             switch(args?.toLowerCase()){
                 case "commands":{
@@ -41,7 +43,7 @@ module.exports = {
                 }   
                     break;
             }
-            interaction.reply({
+            interaction.editReply({
                 embeds: [
                     new EmbedBuilder()
                     .addFields({name: `✅ ${opcion} recargados`, value:`> *Okay!*`})
@@ -51,7 +53,7 @@ module.exports = {
             });
             console.log(`✅ ${opcion} recargados\n`.yellow);
         }catch(e){
-            interaction.reply({content: `**Ha ocurrido un error al recargar el bot**\nMira la consola para mas detalle :P`});
+            interaction.editReply({content: `**Ha ocurrido un error al recargar el bot**\nMira la consola para mas detalle :P`});
             console.log(e);
         }
     }
