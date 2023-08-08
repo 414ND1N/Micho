@@ -83,3 +83,8 @@
 
 ### 👀 Context Menu
 - acciones
+  - Abrazar
+  - Acariciar
+  - Felicitar
+  - Golpear
+  - Saluda
