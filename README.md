@@ -80,6 +80,7 @@
 - dm `usuario` `mensaje`
 - presencia `estado` | `actividad` `tipo`
 - reload `archivo*`
+- imagenia `entrada`
 
 ### 👀 Context Menu
 - acciones

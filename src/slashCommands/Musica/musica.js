@@ -78,7 +78,7 @@ module.exports = {
                 )
         ),
 
-    async execute(client, interaction, prefix) {
+    async execute(client, interaction) {
         //constantes
         const SUB = interaction.options.getSubcommand();
         const channel = client.channels.cache.get(process.env.ID_CANAL_DISCO);
