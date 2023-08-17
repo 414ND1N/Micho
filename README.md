@@ -78,9 +78,10 @@
 - avatar `url` 
 - clear `usuario*` `numero mensajes`
 - dm `usuario` `mensaje`
+- imagenia `entrada`
 - presencia `estado` | `actividad` `tipo`
 - reload `archivo*`
-- imagenia `entrada`
+- userinfo `usuario`
 
 ### 👀 Context Menu
 - acciones

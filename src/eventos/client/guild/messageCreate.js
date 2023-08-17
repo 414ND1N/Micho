@@ -5,11 +5,10 @@ module.exports = async (client, message) => {
 
     if (message.channel.id === process.env.ID_CANAL_CHATBOT) { startChatBot( message) } // ChatBot con GPT
 
+    const args = message.content.slice(1).trim().split(/\s+/);
+    const command = args.shift()?.toLowerCase();
 
-    //obtener la hora y fecha actual
-
-
-    /* COMANDOS PREFIX*/
+    // COMANDOS PREFIX
     /*
     if(!message.content.startsWith(process.env.PREFIX)) return; // Si no empieza con el prefix, no es un comando
 
