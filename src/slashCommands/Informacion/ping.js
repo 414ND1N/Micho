@@ -1,7 +1,7 @@
 const {SlashCommandBuilder,EmbedBuilder} = require('discord.js')
 module.exports = {
     CMD: new SlashCommandBuilder()
-    .setDescription("Ping de Toffu"),
+    .setDescription(`Ping de ${process.env.BOT_NAME}`),
 
     async execute(client, interaction, prefix){
         return interaction.reply({

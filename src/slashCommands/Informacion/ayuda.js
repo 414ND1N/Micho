@@ -2,7 +2,7 @@ const {SlashCommandBuilder, EmbedBuilder,} = require('discord.js')
 const { StringSelectMenuBuilder, StringSelectMenuOptionBuilder, ActionRowBuilder} = require('discord.js');
 module.exports = {
     CMD: new SlashCommandBuilder()
-    .setDescription("Listar los comandos disponibles de Toffu"),
+    .setDescription(`Listar los comandos disponibles de ${process.env.BOT_NAME}.`),
     async execute(client, interaction, prefix){
 
         await interaction.deferReply(); // Respuestas mayores a 3 segundos
@@ -26,13 +26,13 @@ module.exports = {
             .addFields(
                 {name: `ayuda`, value:`Sirve para ver el menú de ayuda con los comandos.`},
                 {name: `anime informacion`, value:`Sirve para ver la información de un anime dado.`},
-                {name: `codigo`, value:`Muestra el link del repositorio con el código de \`Toffu\`.`},
+                {name: `codigo`, value:`Muestra el link del repositorio con el código de \`${process.env.BOT_NAME}\`.`},
                 {name: `diccionario`, value:`Definición de un \`término\` del diccionario urbano.`},
-                {name: `ping`, value:`Sirve para ver el ping en ms de \`Toffu\`.`},
+                {name: `ping`, value:`Sirve para ver el ping en ms de \`${process.env.BOT_NAME}\`.`},
                 {name: `pagina`, value:`Muestra el link de la pana página.`},
                 {name: `pregunta grupo`, value:`Sirve para que destaque tu pregunta en el servidor.
                     > Podran reaccionar a tu pregunta.`},
-                {name: `pregunta toffu`, value:`Sirve para realizar una pregunta a Toffu.
+                {name: `pregunta ${process.env.BOT_NAME.toLocaleLowerCase()}`, value:`Sirve para realizar una pregunta a ${process.env.BOT_NAME}.
                     > Te respondera con su inteligencia artificial.`},
             )  
             .setThumbnail(`https://i.imgur.com/Ud2cXN5.jpg`);
@@ -74,9 +74,9 @@ module.exports = {
                     > Se indica el \`nombre\` del personaje a buscar.`},
                 {name: `buscaminas`, value:`Sirve para jugar al buscaminas.
                     > Se indica el número de \`columnas\`, \`filas\` y la \`dificultad\` (en ese orden 😊).`},
-                {name: `decir`, value:`Sirve para que Toffu diga el texto dado.`},
+                {name: `decir`, value:`Sirve para que ${process.env.BOT_NAME} diga el texto dado.`},
                 {name: `dogo`, value:`Sirve para mandar la imágen aleatoria de un perro.`},
-                {name: `elegir`, value:`Sirve para que Toffu eliga entre las opciones dadas.\n
+                {name: `elegir`, value:`Sirve para que ${process.env.BOT_NAME} eliga entre las opciones dadas.\n
                     > Las opciones se dan separadas por coma \`,\`.`},
                 {name: `gif`, value:`Sirve para mostrar el gif que se desee buscar.\n
                     > Mostrara un gif aleatorio de \`tenor.com\`.`},

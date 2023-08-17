@@ -13,8 +13,8 @@ module.exports = {
         )
     )
     .addSubcommand(subcommand => 
-        subcommand.setName('toffu')
-        .setDescription('Realiza una pregunta a Toffu y te respondera con su sabiduria')
+        subcommand.setName(process.env.BOT_NAME.toLowerCase())
+        .setDescription(`Realiza una pregunta a ${process.env.BOT_NAME} y te respondera con su sabiduria`)
         .addStringOption(option =>
             option.setName("pregunta")
               .setDescription('Pregunta que deseas realizar')
@@ -44,7 +44,7 @@ module.exports = {
                 mensaje.react(`🏳️‍🌈`);
 
                 break;
-            case "toffu":
+            case process.env.BOT_NAME.toLowerCase():
                 await interaction.deferReply(); // Defer para respuestas con un margen de tiempo de 15 minutos
 
                 const configuration = new Configuration({
@@ -83,7 +83,7 @@ module.exports = {
                             .setTitle(`Pregunta de **${interaction.user?.username}**: \`${PREGUNTA}\``)
                             .setDescription(respuesta?.content.length <= 1024 ? respuesta?.content?? 'No tengo respuesta a tu pregunta 😓' : respuesta?.content.slice(0, 1020) + ' ...')
                             .setColor(process.env.COLOR)
-                            .setFooter({ text: 'Respuesta de Toffu con ChatGPT-3.5'})
+                            .setFooter({ text: `Respuesta de ${process.env.BOT_NAME} con ChatGPT-3.5`})
                     ]
                 });
         }

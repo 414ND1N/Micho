@@ -1,7 +1,7 @@
 const {SlashCommandBuilder, EmbedBuilder} = require('discord.js')
 module.exports = {
     CMD: new SlashCommandBuilder()
-    .setDescription("Toffu elige entre las opciones dadas")
+    .setDescription(`${process.env.BOT_NAME} elige entre las opciones dadas`)
     .addStringOption(option =>
       option.setName("elecciones")
         .setDescription('Opciones a elegir separados por coma (,)')

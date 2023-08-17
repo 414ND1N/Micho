@@ -1,11 +1,11 @@
 const {SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits, ActivityType} = require('discord.js');
 module.exports = {
     CMD: new SlashCommandBuilder()
-    .setDescription("Actualizar la presencia de Toffu")
+    .setDescription(`Actualizar la presencia de ${process.env.BOT_NAME}`)
     .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
     .addSubcommand(subcommand => 
         subcommand.setName('actividad')
-        .setDescription('Actualiza la actividad de Toffu')
+        .setDescription(`Actualiza la actividad de ${process.env.BOT_NAME}`)
         .addStringOption(option =>
             option.setName('tipo')
                 .setDescription('Tipo de actividad al cual actualizar')
@@ -26,7 +26,7 @@ module.exports = {
     )
     .addSubcommand(subcommand => 
         subcommand.setName('estado')
-        .setDescription('Actualiza el estado de Toffu')
+        .setDescription(`Actualiza el estado de ${process.env.BOT_NAME}`)
         .addStringOption(option =>
             option.setName('tipo')
                 .setDescription('Tipo de estado al cual actualizar')
@@ -76,7 +76,7 @@ module.exports = {
         return interaction.reply({
             embeds: [
                 new EmbedBuilder()
-                    .setTitle('Cambio de presencia de Toffu')
+                    .setTitle(`Cambio de presencia de ${process.env.BOT_NAME}`)
                     .setColor(process.env.COLOR)
                     .setDescription(`Se cambió ${sub} a \`${texto_estado}\`.`)
                     .setThumbnail("https://i.imgur.com/lIs9ZAg.gif")

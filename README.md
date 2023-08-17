@@ -1,4 +1,4 @@
-# TOFFU | Onanībando
+# MICHO | Discord bot
 
 <div align="center">
 
@@ -7,8 +7,8 @@
 </div>
 
 <div>
-  <img width="200" align="left" src="https://i.ibb.co/9qct1t3/Toffu-V3-Icon.png"/>
-  <h1>TOFFU</h1>
+  <img width="200" align="left" src="https://i.imgur.com/fw4Oa3n.jpg"/>
+  <h1>MICHO</h1>
   <p>
     💬 Bot de discord compatible con los comandos slash <b>/</b>
   </p>
@@ -34,7 +34,7 @@
 - ayuda
 - ping
 - pagina
-- preguntar grupo|toffu `tu pregunta`
+- preguntar grupo|micho `tu pregunta`
 - codigo
 - diccionario `palabra`
 

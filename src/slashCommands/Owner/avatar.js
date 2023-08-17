@@ -1,7 +1,7 @@
 const {SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits, ActivityType} = require('discord.js');
 module.exports = {
     CMD: new SlashCommandBuilder()
-    .setDescription("Actualizar el avatar de Toffu")
+    .setDescription(`Actualizar el avatar de ${process.env.BOT_NAME}`)
     .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
     .addStringOption(option =>
         option.setName('url')
@@ -17,7 +17,7 @@ module.exports = {
         return interaction.reply({
             embeds: [
                 new EmbedBuilder()
-                    .setTitle('Cambio de avatar de toffu')
+                    .setTitle(`Cambio de avatar de ${process.env.BOT_NAME}`)
                     .setColor(process.env.COLOR)
                     .setImage(url)
             ],
