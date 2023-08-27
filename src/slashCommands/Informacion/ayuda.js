@@ -80,6 +80,10 @@ module.exports = {
                     > Las opciones se dan separadas por coma \`,\`.`},
                 {name: `gif`, value:`Sirve para mostrar el gif que se desee buscar.\n
                     > Mostrara un gif aleatorio de \`tenor.com\`.`},
+                {name: `meme personalizado`, value:`Crea un meme con tu propia imagen\n
+                    > Se manda la \`url\` de tu imagen y los textos del meme separados por \`;\`.`},
+                {name: `meme plantillas`, value:`Crea un meme con una plantilla\n
+                > Se elige un tipo de \`plantilla\` y los textos del meme separados por \`;\`.`},
                 {name: `micho`, value:`Sirve para mandar la imágen aleatoria de un gato.`},
                 {name: `minecraft servidor`, value:`Muestra informacion del \`panaserver\`.`},
                 {name: `minecraft skin`, value:`Visualiza la skin de un jugador en específico.\n
