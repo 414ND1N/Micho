@@ -48,7 +48,7 @@
 - conversar `texto`
 - decir `texto`
 - elegir `opcion 1, opcion 2, ...`
-- gif `busqueda`
+- fortuna
 - image `texto`
 - micho
 - minecraft skin `usuario` `tipo`

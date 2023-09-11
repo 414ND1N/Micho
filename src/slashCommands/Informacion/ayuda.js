@@ -78,8 +78,7 @@ module.exports = {
                 {name: `dogo`, value:`Sirve para mandar la imágen aleatoria de un perro.`},
                 {name: `elegir`, value:`Sirve para que ${process.env.BOT_NAME} eliga entre las opciones dadas.\n
                     > Las opciones se dan separadas por coma \`,\`.`},
-                {name: `gif`, value:`Sirve para mostrar el gif que se desee buscar.\n
-                    > Mostrara un gif aleatorio de \`tenor.com\`.`},
+                {name: `fortuna`, value:`Mensaje de la galleta de la fortuna.`},
                 {name: `meme personalizado`, value:`Crea un meme con tu propia imagen\n
                     > Se manda la \`url\` de tu imagen y los textos del meme separados por \`;\`.`},
                 {name: `meme plantillas`, value:`Crea un meme con una plantilla\n
