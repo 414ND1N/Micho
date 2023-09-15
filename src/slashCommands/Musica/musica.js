@@ -124,7 +124,8 @@ module.exports = {
                     member: interaction.member ?? undefined,
                     textChannel: channel
                 }).catch(err => {
-                    console.log('Error con la reproducción de la música'.red);
+                    console.log('Error con la reproducción de la música:'.red);
+                    console.log(err)
                 });;
                 return interaction.editReply({
                     embeds: [

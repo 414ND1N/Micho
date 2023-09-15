@@ -41,8 +41,6 @@ module.exports = (client, Discord) => {
 
     //eventos de distube
     client.distube.on("playSong", (queue, song)=>{
-        
-        client.user.setActivity(song.name, {type: ActivityType.Listening}); //cambia la actividad del bot a escuchando
 
         embed = new EmbedBuilder()
             .setColor(process.env.COLOR)
@@ -79,8 +77,6 @@ module.exports = (client, Discord) => {
         queue.textChannel.send({ embeds: [embed] })
     });
     client.distube.on("finish", (queue)=>{
-        
-        client.user.setActivity(process.env.STATUS, {type: ActivityType.Watching}); //cambia la actividad del bot a viendo
 
         embed = new EmbedBuilder()
             .setTitle('Lista completada')
@@ -93,8 +89,6 @@ module.exports = (client, Discord) => {
         queue.volume = 40;
     });
     client.distube.on("disconnect", (queue)=>{
-        
-        client.user.setActivity(process.env.STATUS, {type: ActivityType.Watching}); //cambia la actividad del bot a viendo
 
         embed = new EmbedBuilder()
             .setTitle('Finalización música')
@@ -117,8 +111,8 @@ module.exports = (client, Discord) => {
     });
 
     client.distube.on('error', (channel, e) => {
-        client.user.setActivity(process.env.STATUS, {type: ActivityType.Watching}); //cambia la actividad del bot a viendo
-        console.log(`Error encontrado en distube`.red);
+        console.log(`Error encontrado en distube:`.red);
+        console.log(e)
     });
 
     /*
