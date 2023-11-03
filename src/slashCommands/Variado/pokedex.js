@@ -11,7 +11,7 @@ module.exports = {
         .setMinValue(1)
         .setMaxValue(1010)
     ),
-    async execute(client, interaction, prefix){
+    async execute(client, interaction){
 
         //USO DE LA API pokeapi.co
 
@@ -93,9 +93,7 @@ module.exports = {
                 .setStyle(ButtonStyle.Danger);
 
             if (embeds_pokedex.length === 1) { //Si solo hay 1 embed enviamos el mensaje sin botones de navegacion
-
                 row = new ActionRowBuilder().addComponents(btn_salir); //Agregamos el boton de salir
-
             } else {  //Si el numero de embeds es mayor a 1 ponemos los botones de paginacion
                 const btn_normal =  new ButtonBuilder()
                     .setCustomId('normal')
@@ -105,9 +103,7 @@ module.exports = {
                     .setCustomId('shiny')
                     .setStyle(ButtonStyle.Primary)
                     .setLabel('Shiny');
-
                 row = new ActionRowBuilder().addComponents(btn_normal, btn_shiny, btn_salir); //Agregamos los botones de navegacion
-
             }
 
             let embedpaginas = await interaction.channel.send({
@@ -124,26 +120,25 @@ module.exports = {
                         collector.resetTimer();
                         await embedpaginas.edit({embeds: [embeds_pokedex[1]], components: [embedpaginas.components[0]]}).catch(() => {});
                         await action?.deferUpdate();
-
-                    }
                         break;
+                    }
                     case 'exit':{
                         collector.stop();
-                    }
+                        embedpaginas.edit({content:`( ͡° ͜ʖ ͡°)`, components:[]}).catch(() => {});
+                        embedpaginas.suppressEmbeds(true)
                         break;
+                    }
                     default:{// Si no es ninguno de los botones de navegacion, se muestra el pokemon normal
                         collector.resetTimer();
                         await embedpaginas.edit({embeds: [embeds_pokedex[0]], components: [embedpaginas.components[0]]}).catch(() => {});
                         await action?.deferUpdate();
                     }
-                        break;
                 }
             });
 
             collector.on("end", async () => {
                 //desactivamos botones y editamos el mensaje
                 embedpaginas.edit({content:`Búsqueda del pokemón \`${busqueda}\` en la pokedex.`, components:[]}).catch(() => {});
-                
                 await interaction.deleteReply();   
             });
         }

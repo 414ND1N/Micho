@@ -7,7 +7,7 @@ module.exports = {
         .setDescription('Opciones a elegir separados por coma (,)')
         .setRequired(true)
     ),
-    async execute(client, interaction, prefix){
+    async execute(client, interaction){
         let args = interaction.options.getString("elecciones");
         let opciones = args.split(",")
         const randomIndex = Math.floor(Math.random() * opciones.length);

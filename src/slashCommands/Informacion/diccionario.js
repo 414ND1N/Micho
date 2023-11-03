@@ -8,7 +8,7 @@ module.exports = {
                 .setDescription('Término a buscar')
                 .setRequired(true)
         ),
-    async execute(client, interaction, prefix) {
+    async execute(client, interaction) {
 
         await interaction.deferReply(); // Defer para respuestas de más de 3 segundos
 

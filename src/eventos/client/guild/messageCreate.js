@@ -5,11 +5,11 @@ module.exports = async (client, message) => {
 
     if (message.channel.id === process.env.ID_CANAL_CHATBOT) { startChatBot( message) } // ChatBot con GPT
 
-    const args = message.content.slice(1).trim().split(/\s+/);
-    const command = args.shift()?.toLowerCase();
-
+    
     // COMANDOS PREFIX
     /*
+    const args = message.content.slice(1).trim().split(/\s+/);
+    const command = args.shift()?.toLowerCase();
     if(!message.content.startsWith(process.env.PREFIX)) return; // Si no empieza con el prefix, no es un comando
 
     const ARGS = message.content.slice(process.env.PREFIX.length).trim().split(/ +/);
@@ -64,7 +64,6 @@ async function startChatBot( message) {
 
     await message.channel.sendTyping(); //Simular que el bot esta escribiendo
 
-
     //Añadir mensajes anteriores
     let prevMessages = await message.channel.messages.fetch({ limit: 6 });
     prevMessages.reverse();
@@ -92,17 +91,24 @@ async function startChatBot( message) {
     });
 
     //LLAMADA API
-    const result = await openai
-        .createChatCompletion({
-            model: 'gpt-3.5-turbo',
-            messages: conversationLog,
-            // max_tokens: 256, // limit token usage
-        })
-        .catch((error) => {
-            console.log(`OPENAI ERR`);
-            console.error(error)
-        });
+    try {
+        const result = await openai
+            .createChatCompletion({
+                model: 'gpt-3.5-turbo',
+                messages: conversationLog,
+                // max_tokens: 256, // limit token usage
+            })
+            .catch((error) => {
+                console.log(`Error de OPENAI:`);
+                console.error(error)
+            });
+        
+        message.reply(result.data.choices[0].message)
+    } catch (error) {
+        console.log(`Error de OPENAI:`);
+        console.error(error)
+    }
 
-    message.reply(result.data.choices[0].message)
+    
 
 }

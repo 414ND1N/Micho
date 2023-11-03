@@ -3,7 +3,7 @@ module.exports = {
     CMD: new SlashCommandBuilder()
     .setDescription("Repositorio de mi código ☺"),
 
-    async execute(client, interaction, prefix){
+    async execute(client, interaction){
         return interaction.reply({
             embeds: [
                 new EmbedBuilder()

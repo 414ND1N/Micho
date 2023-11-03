@@ -44,7 +44,6 @@
 - 8ball `pregunta`
 - accion `usuario` `accion`
 - amiibo `personaje`
-- buscaminas `columna, fila, dificultad`
 - conversar `texto`
 - decir `texto`
 - elegir `opcion 1, opcion 2, ...`

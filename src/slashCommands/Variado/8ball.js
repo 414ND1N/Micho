@@ -7,7 +7,7 @@ module.exports = {
         .setDescription('Pregunta que deseas que la bola te responda')
         .setRequired(true)
     ),
-    async execute(client, interaction, prefix){
+    async execute(client, interaction){
         
         let pregunta = interaction.options.getString("pregunta");
 

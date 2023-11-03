@@ -28,7 +28,7 @@ module.exports = {
                 .setDescription('Mira información del servidor de Pana Land')
         ),
 
-    async execute(client, interaction, prefix) {
+    async execute(client, interaction) {
 
         await interaction.deferReply(); // Defer si la respuesta tarda más de 3 segundos
 

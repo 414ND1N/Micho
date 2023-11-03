@@ -22,7 +22,7 @@ module.exports = {
         )
     )
     ,
-    async execute(client, interaction, prefix){
+    async execute(client, interaction){
 
         const SUB = interaction.options.getSubcommand();
         const PREGUNTA = interaction.options.getString("pregunta");
@@ -43,7 +43,8 @@ module.exports = {
                 mensaje.react(`😴`);
                 mensaje.react(`🏳️‍🌈`);
 
-                break;
+                return
+                
             case process.env.BOT_NAME.toLowerCase():
                 await interaction.deferReply(); // Defer para respuestas con un margen de tiempo de 15 minutos
 

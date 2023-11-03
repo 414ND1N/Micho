@@ -5,7 +5,7 @@ module.exports = {
         .setName("Accion")
         .setType(ApplicationCommandType.User),
 
-    async execute(client, interaction, prefix){
+    async execute(client, interaction){
 
         function get_random_option() {
             const tipos = ['zelda', 'pokemon', 'anime', 'adventure time', 'regular show'];

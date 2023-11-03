@@ -15,7 +15,7 @@ module.exports = {
         option.setName("objetivo")
         .setDescription("Indica a quien se desea eliminar los mensajes")   
     ),
-    async execute(client, interaction, prefix){
+    async execute(client, interaction){
 
         const valor = interaction.options.getNumber("mensajes");
         const user = interaction.options.getUser("objetivo");
@@ -43,7 +43,6 @@ module.exports = {
                 setTimeout(() => interaction.deleteReply(), 10000)
             });
         }else{
-            console.log(`🧹 Se han eliminado una cantidad de ${valor} mensajes`.blue);
             interaction.channel.bulkDelete(valor, true).then(async (messages) => {
                 let ClearCommandembed = new EmbedBuilder()
                     .setTitle('🧹 __CLEAR__ 🧹')
@@ -54,8 +53,6 @@ module.exports = {
                 await interaction.reply({ embeds: [ClearCommandembed]});
                 setTimeout(() => interaction.deleteReply(), 10000);
             });
-
-            
         }
     }
 }   

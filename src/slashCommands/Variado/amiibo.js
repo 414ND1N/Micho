@@ -9,7 +9,7 @@ module.exports = {
                 .setDescription('Personaje a buscar amiibos 🔍')
                 .setRequired(true)
         ),
-    async execute(client, interaction, prefix) {
+    async execute(client, interaction) {
 
         //USO DE LA API github.com/N3evin/AmiiboAPI
 

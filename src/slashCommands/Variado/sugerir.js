@@ -7,7 +7,7 @@ module.exports = {
         .setDescription('Sugerencia para la votación')
         .setRequired(true)
     ),
-    async execute(client, interaction, prefix){
+    async execute(client, interaction){
         let sugerencia = interaction.options.getString("sugerencia");
         const channel = client.channels.cache.get(process.env.ID_CANAL_SUGERENCIAS); //ID del canal de sugerencias
         const channel_pruebas = client.channels.cache.get(process.env.ID_CANAL_PRUEBAS); //ID del canal de pruebas

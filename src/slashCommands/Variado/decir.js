@@ -7,7 +7,7 @@ module.exports = {
         .setDescription('Texto que deseas que diga 😊')
         .setRequired(true)
     ),
-    async execute(client, interaction, prefix){
+    async execute(client, interaction){
         await interaction.deferReply();
         let args = interaction.options.getString("texto");
         await interaction.channel.sendTyping();

@@ -148,18 +148,6 @@ module.exports = {
         )
     )
     .addSubcommand(subcommand => 
-        subcommand.setName('muerte')
-        .setDescription('Desearle la muerte a otro usuario')
-        .addUserOption(option => 
-            option.setName('usuario')
-                .setDescription('Usuario al que se desea hacer la acción')
-        )
-        .addStringOption(option =>
-            option.setName('tipo')
-                .setDescription('Tipo de imagenes para enviar')
-        )
-    )
-    .addSubcommand(subcommand => 
         subcommand.setName('acariciar')
         .setDescription('Acariciar a otro usuario')
         .addUserOption(option => 
@@ -172,10 +160,77 @@ module.exports = {
         )
     ),
     
-    async execute(client, interaction, prefix){
+    async execute(client, interaction){
 
         await interaction.deferReply(); // Defer para respuestas de más de 3 segundos
 
+        //<#> Listas de opciones
+        const lista_tipos_busqueda = [
+            'zelda','pokemon','anime','adventure time','regular show','five nights at freddys'
+        ]
+        const lista_acciones = [
+            {
+                sub: "saludar",
+                query: "saying hello",
+                mensaje: "saludó a",
+            },{
+                sub: "felicitar",
+                query: "congratulations",
+                mensaje: "felicitó a",
+            },{
+                sub: "palmada",
+                query: "pat",
+                mensaje: "le dió una palamada a",
+            },{
+                sub: "tocar",
+                query: "poke",
+                mensaje: "tocó a",
+
+            },{
+                sub: "lamer",
+                query: "lick",
+                mensaje: "lamió a",
+            },{
+                sub: "pulgar",
+                query: "thumbs up",
+                mensaje: "le dió un pulgar arriba a",
+            },{
+                sub: "sonrojar",
+                query: "blush",
+                mensaje: "se sonrojó por",
+            },{
+                sub: "abrazar",
+                query: "hug",
+                mensaje: "abrazó a",
+            },{
+                sub: "besar",
+                query: "kiss",
+                mensaje: "besó a",
+            },{
+                sub: "abofetear",
+                query: "slap",
+                mensaje: "abofeteó a",
+            },{
+                sub: "golpear",
+                query: "punch",
+                mensaje: "golpeó a",
+            },{
+                sub: "guiño",
+                query: "wink",
+                mensaje: "guiñó a",
+            },{
+                sub: "muerte",
+                query: "kill",
+                mensaje: "quiere matar a",
+            },{
+                sub: "acariciar",
+                query: "cuddle",
+                mensaje: "acarició a",
+            }
+            
+        ] 
+
+        //<#> Datos de la interacción
         const SUB = interaction.options.getSubcommand(); // Subcomando
         const TIPO = interaction.options.getString('tipo') ?? get_random_option(); // Si no se especifica el tipo, se elige uno aleatorio
 
@@ -186,262 +241,41 @@ module.exports = {
 
         // Usuario que realiza la acción
         const AUTHOR = interaction.member?.nickname?? interaction.user.username; // Si no tiene apodo, se usa el nombre de usuario
+
+        const accion_eligida = lista_acciones.find(accion => accion.sub == SUB); // Acción elegida
+
+        if (accion_eligida == undefined) { // Si no se encuentra la acción, se cancela
+            return interaction.editReply({
+                embeds: [
+                    new EmbedBuilder()
+                        .setColor(process.env.COLOR_ERROR)
+                        .setDescription(`No se encontró la acción seleccionada 🤨`)
+                ]
+            });
+        }
+
+
+        //<#> Busqueda de gif
+        const query = `${TIPO} ${accion_eligida.query}`; // Busqueda en Tenor
+        const url_api = `https://tenor.googleapis.com/v2/search?q=${query}&key=${process.env.TENOR_API_KEY}&client_key=my_test_app&limit=8`;
         
-        switch(SUB){
-            case 'saludar':{
-                const query = `${TIPO} saying hello`; // Busqueda en Tenor
-                const url_api = `https://tenor.googleapis.com/v2/search?q=${query}&key=${process.env.TENOR_API_KEY}&client_key=my_test_app&limit=8`;
-                
-                const response = await axios.get(url_api);
-                const randomIndex = Math.floor(Math.random() * response.data.results.length);
-                const gif_url = response.data.results[randomIndex]["media_formats"]["mediumgif"]["url"];
+        const response = await axios.get(url_api);
+        const randomIndex = Math.floor(Math.random() * response.data.results.length);
+        const gif_url = response.data.results[randomIndex]["media_formats"]["mediumgif"]["url"];
 
-                return interaction.editReply({
-                    embeds: [
-                        new EmbedBuilder()
-                            .setTitle(`\`${AUTHOR} saludó a ${USERNAME}.\``) // Si no se especifica usuario, se indica a todos
-                            .setColor(process.env.COLOR)
-                            .setImage(gif_url)
-                    ]
-                });
-            } break;
-            case 'felicitar':{
-                const query = `${TIPO} congratulations`; // Busqueda en Tenor
-                const url_api = `https://tenor.googleapis.com/v2/search?q=${query}&key=${process.env.TENOR_API_KEY}&client_key=my_test_app&limit=8`;
-                
-                const response = await axios.get(url_api);
-                const randomIndex = Math.floor(Math.random() * response.data.results.length);
-                const gif_url = response.data.results[randomIndex]["media_formats"]["mediumgif"]["url"];
-
-                return interaction.editReply({
-                    embeds: [
-                        new EmbedBuilder()
-                            .setTitle(`\`${AUTHOR} felicitó a ${USERNAME}.\``) // Si no se especifica usuario, se indica a todos
-                            .setColor(process.env.COLOR)
-                            .setImage(gif_url)
-                    ]
-                });
-            } break;
-            case 'palmada':{
-                const query = `${TIPO} pat`; // Busqueda en Tenor
-                const url_api = `https://tenor.googleapis.com/v2/search?q=${query}&key=${process.env.TENOR_API_KEY}&client_key=my_test_app&limit=8`;
-                
-                const response = await axios.get(url_api);
-                const randomIndex = Math.floor(Math.random() * response.data.results.length);
-                const gif_url = response.data.results[randomIndex]["media_formats"]["mediumgif"]["url"];
-
-                return interaction.editReply({
-                    embeds: [
-                        new EmbedBuilder()
-                            .setTitle(`\`${AUTHOR} le dió una palamada a ${USERNAME}.\``) // Si no se especifica usuario, se indica a todos
-                            .setColor(process.env.COLOR)
-                            .setImage(gif_url)
-                    ]
-                });
-            } break;
-            case 'tocar':{
-                const query = `${TIPO} poke`; // Busqueda en Tenor
-                const url_api = `https://tenor.googleapis.com/v2/search?q=${query}&key=${process.env.TENOR_API_KEY}&client_key=my_test_app&limit=8`;
-                
-                const response = await axios.get(url_api);
-                const randomIndex = Math.floor(Math.random() * response.data.results.length);
-                const gif_url = response.data.results[randomIndex]["media_formats"]["mediumgif"]["url"];
-
-                return interaction.editReply({
-                    embeds: [
-                        new EmbedBuilder()
-                            .setTitle(`\`${AUTHOR} tocó a ${USERNAME}.\``) // Si no se especifica usuario, se indica a todos
-                            .setColor(process.env.COLOR)
-                            .setImage(gif_url)
-                    ]
-                });
-            } break;
-            case 'lamer':{
-                const query = `${TIPO} lick`; // Busqueda en Tenor
-                const url_api = `https://tenor.googleapis.com/v2/search?q=${query}&key=${process.env.TENOR_API_KEY}&client_key=my_test_app&limit=8`;
-                
-                const response = await axios.get(url_api);
-                const randomIndex = Math.floor(Math.random() * response.data.results.length);
-                const gif_url = response.data.results[randomIndex]["media_formats"]["mediumgif"]["url"];
-
-                return interaction.editReply({
-                    embeds: [
-                        new EmbedBuilder()
-                            .setTitle(`\`${AUTHOR} lamió a ${USERNAME}.\``) // Si no se especifica usuario, se indica a todos
-                            .setColor(process.env.COLOR)
-                            .setImage(gif_url)
-                    ]
-                });
-            } break;
-            case 'pulgar':{
-                const query = `${TIPO} thumbs up`; // Busqueda en Tenor
-                const url_api = `https://tenor.googleapis.com/v2/search?q=${query}&key=${process.env.TENOR_API_KEY}&client_key=my_test_app&limit=8`;
-                
-                const response = await axios.get(url_api);
-                const randomIndex = Math.floor(Math.random() * response.data.results.length);
-                const gif_url = response.data.results[randomIndex]["media_formats"]["mediumgif"]["url"];
-
-                return interaction.editReply({
-                    embeds: [
-                        new EmbedBuilder()
-                            .setTitle(`\`${AUTHOR} le dió un pulgar arriba a ${USERNAME}.\``) // Si no se especifica usuario, se indica a todos
-                            .setColor(process.env.COLOR)
-                            .setImage(gif_url)
-                    ]
-                });
-            } break;
-            case 'sonrojar':{
-                const query = `${TIPO} blush`; // Busqueda en Tenor
-                const url_api = `https://tenor.googleapis.com/v2/search?q=${query}&key=${process.env.TENOR_API_KEY}&client_key=my_test_app&limit=8`;
-                
-                const response = await axios.get(url_api);
-                const randomIndex = Math.floor(Math.random() * response.data.results.length);
-                const gif_url = response.data.results[randomIndex]["media_formats"]["mediumgif"]["url"];
-
-                return interaction.editReply({
-                    embeds: [
-                        new EmbedBuilder()
-                            .setTitle(`\`${AUTHOR} se sonrojó por ${USERNAME}.\``) // Si no se especifica usuario, se indica a todos
-                            .setColor(process.env.COLOR)
-                            .setImage(gif_url)
-                    ]
-                });
-            } break;
-            case 'abrazar':{
-                const query = `${TIPO} hug`; // Busqueda en Tenor
-                const url_api = `https://tenor.googleapis.com/v2/search?q=${query}&key=${process.env.TENOR_API_KEY}&client_key=my_test_app&limit=8`;
-                
-                const response = await axios.get(url_api);
-                const randomIndex = Math.floor(Math.random() * response.data.results.length);
-                const gif_url = response.data.results[randomIndex]["media_formats"]["mediumgif"]["url"];
-
-                return interaction.editReply({
-                    embeds: [
-                        new EmbedBuilder()
-                            .setTitle(`\`${AUTHOR} abrazó a ${USERNAME}.\``) // Si no se especifica usuario, se indica a todos
-                            .setColor(process.env.COLOR)
-                            .setImage(gif_url)
-                    ]
-                });
-            } break;
-            case 'besar':{
-                const query = `${TIPO} kiss`; // Busqueda en Tenor
-                const url_api = `https://tenor.googleapis.com/v2/search?q=${query}&key=${process.env.TENOR_API_KEY}&client_key=my_test_app&limit=8`;
-                
-                const response = await axios.get(url_api);
-                const randomIndex = Math.floor(Math.random() * response.data.results.length);
-                const gif_url = response.data.results[randomIndex]["media_formats"]["mediumgif"]["url"];
-
-                return interaction.editReply({
-                    embeds: [
-                        new EmbedBuilder()
-                            .setTitle(`\`${AUTHOR} besó a ${USERNAME}.\``) // Si no se especifica usuario, se indica a todos
-                            .setColor(process.env.COLOR)
-                            .setImage(gif_url)
-                    ]
-                });
-            } break;
-            case 'abofetear':{
-                const query = `${TIPO} slap`; // Busqueda en Tenor
-                const url_api = `https://tenor.googleapis.com/v2/search?q=${query}&key=${process.env.TENOR_API_KEY}&client_key=my_test_app&limit=8`;
-                
-                const response = await axios.get(url_api);
-                const randomIndex = Math.floor(Math.random() * response.data.results.length);
-                const gif_url = response.data.results[randomIndex]["media_formats"]["mediumgif"]["url"];
-
-                return interaction.editReply({
-                    embeds: [
-                        new EmbedBuilder()
-                            .setTitle(`\`${AUTHOR} abofeteó a ${USERNAME}.\``) // Si no se especifica usuario, se indica a todos
-                            .setColor(process.env.COLOR)
-                            .setImage(gif_url)
-                    ]
-                });
-            } break;
-            case 'golpear':{
-                const query = `${TIPO} punch`; // Busqueda en Tenor
-                const url_api = `https://tenor.googleapis.com/v2/search?q=${query}&key=${process.env.TENOR_API_KEY}&client_key=my_test_app&limit=8`;
-                
-                const response = await axios.get(url_api);
-                const randomIndex = Math.floor(Math.random() * response.data.results.length);
-                const gif_url = response.data.results[randomIndex]["media_formats"]["mediumgif"]["url"];
-
-                return interaction.editReply({
-                    embeds: [
-                        new EmbedBuilder()
-                            .setTitle(`\`${AUTHOR} golpeó a ${USERNAME}.\``) // Si no se especifica usuario, se indica a todos
-                            .setColor(process.env.COLOR)
-                            .setImage(gif_url)
-                    ]
-                });
-            } break;
-            case 'guiño':{
-                const query = `${TIPO} wink`; // Busqueda en Tenor
-                const url_api = `https://tenor.googleapis.com/v2/search?q=${query}&key=${process.env.TENOR_API_KEY}&client_key=my_test_app&limit=8`;
-                
-                const response = await axios.get(url_api);
-                const randomIndex = Math.floor(Math.random() * response.data.results.length);
-                const gif_url = response.data.results[randomIndex]["media_formats"]["mediumgif"]["url"];
-
-                return interaction.editReply({
-                    embeds: [
-                        new EmbedBuilder()
-                            .setTitle(`\`${AUTHOR} guiñó a ${USERNAME}.\``) // Si no se especifica usuario, se indica a todos
-                            .setColor(process.env.COLOR)
-                            .setImage(gif_url)
-                    ]
-                });
-            } break;
-            case 'muerte':{
-                const query = `${TIPO} kill`; // Busqueda en Tenor
-                const url_api = `https://tenor.googleapis.com/v2/search?q=${query}&key=${process.env.TENOR_API_KEY}&client_key=my_test_app&limit=8`;
-                
-                const response = await axios.get(url_api);
-                const randomIndex = Math.floor(Math.random() * response.data.results.length);
-                const gif_url = response.data.results[randomIndex]["media_formats"]["mediumgif"]["url"];
-
-                return interaction.editReply({
-                    embeds: [
-                        new EmbedBuilder()
-                            .setTitle(`\`${AUTHOR} quiere matar a ${USERNAME}.\``) // Si no se especifica usuario, se indica a todos
-                            .setColor(process.env.COLOR)
-                            .setImage(gif_url)
-                    ]
-                });
-            } break;
-            case 'acariciar':{
-                const query = `${TIPO} cuddle`; // Busqueda en Tenor
-                const url_api = `https://tenor.googleapis.com/v2/search?q=${query}&key=${process.env.TENOR_API_KEY}&client_key=my_test_app&limit=8`;
-                
-                const response = await axios.get(url_api);
-                const randomIndex = Math.floor(Math.random() * response.data.results.length);
-                const gif_url = response.data.results[randomIndex]["media_formats"]["mediumgif"]["url"];
-
-                return interaction.editReply({
-                    embeds: [
-                        new EmbedBuilder()
-                            .setTitle(`\`${AUTHOR} acarició a ${USERNAME}.\``) // Si no se especifica usuario, se indica a todos
-                            .setColor(process.env.COLOR)
-                            .setImage(gif_url)
-                    ]
-                });
-            } break;
-            default:{
-                return interaction.editReply({
-                    embeds: [
-                        new EmbedBuilder()
-                            .setColor(process.env.COLOR_ERROR)
-                            .setTitle(`Subcomando no encontrado`)
-                    ]
-                });
-            }
-            
-        };
+        //<#> Respuesta
+        return interaction.editReply({
+            embeds: [
+                new EmbedBuilder()
+                    .setTitle(`\`${AUTHOR} ${accion_eligida.mensaje} ${USERNAME}.\``) // Si no se especifica usuario, se indica a todos
+                    .setColor(process.env.COLOR)
+                    .setImage(gif_url)
+            ]
+        });
 
         function get_random_option(){
-            const tipos = ['zelda','pokemon','anime', 'adventure time', 'regular show'];
-            const randomIndexOpts = Math.floor(Math.random() * tipos.length);
-            return tipos[randomIndexOpts];
+            const randomIndexOpts = Math.floor(Math.random() * lista_tipos_busqueda.length);
+            return lista_tipos_busqueda[randomIndexOpts];
         }
     }
 } 

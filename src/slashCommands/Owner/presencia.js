@@ -40,7 +40,7 @@ module.exports = {
         )
     ),
     
-    async execute(client, interaction, prefix){
+    async execute(client, interaction){
        
         const sub = interaction.options.getSubcommand();
         const tipo = interaction.options.getString('tipo');

@@ -3,7 +3,7 @@ module.exports = {
     CMD: new SlashCommandBuilder()
     .setDescription(`Ping de ${process.env.BOT_NAME}`),
 
-    async execute(client, interaction, prefix){
+    async execute(client, interaction){
         return interaction.reply({
             embeds: [
                 new EmbedBuilder()

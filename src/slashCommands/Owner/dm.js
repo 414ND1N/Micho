@@ -14,7 +14,7 @@ module.exports = {
     )
     .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
     
-    async execute(client, interaction, prefix){
+    async execute(client, interaction){
         const user = interaction.options.getUser('usuario');
         const mensaje = interaction.options.getString('mensaje');
 

@@ -9,7 +9,7 @@ module.exports = {
             .setRequired(true)
     ),
     
-    async execute(client, interaction, prefix){
+    async execute(client, interaction){
        
         const url = interaction.options.getString('url');
         client.user.setAvatar(url);
