@@ -54,8 +54,10 @@ module.exports = {
         
         //verificar si el canal es NSFW
         const CANAL_NSFW = client.channels.cache.get(process.env.ID_CANAL_NSFW);
-        
-        if(interaction.channel != CANAL_NSFW){
+        const sub_command = interaction.options.getSubcommand(); // Tipo de la imagen (SFW o NSFW)
+        const categoria = interaction.options.getString('categoria'); // Categoría de la imagen
+
+        if(sub_command == "nsfw" && interaction.channel != CANAL_NSFW){
             return interaction.reply({ embeds: [
                 new EmbedBuilder()
                     .setTitle(`Comando no disponible 🤐`)
@@ -68,9 +70,6 @@ module.exports = {
 
         await interaction.deferReply(); // Defer para respuestas de más de 3 segundos
         
-        const sub_command = interaction.options.getSubcommand(); // Tipo de la imagen (SFW o NSFW)
-        const categoria = interaction.options.getString('categoria'); // Categoría de la imagen
-
         const url_api = `https://waifu.pics/api/${sub_command}/${categoria}`;
         const response = await axios.get(url_api);
         const img_url = response.data.url;
