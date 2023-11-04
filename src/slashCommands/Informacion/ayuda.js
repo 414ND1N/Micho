@@ -74,8 +74,6 @@ module.exports = {
                     _Puedes indicar que tipo de imagen buscar_.`},
                 {name: `amiibo`, value:`Sirve para mostrar información de amiibos
                     > Se indica el \`nombre\` del personaje a buscar.`},
-                {name: `buscaminas`, value:`Sirve para jugar al buscaminas.
-                    > Se indica el número de \`columnas\`, \`filas\` y la \`dificultad\` (en ese orden 😊).`},
                 {name: `decir`, value:`Sirve para que ${process.env.BOT_NAME} diga el texto dado.`},
                 {name: `dogo`, value:`Sirve para mandar la imágen aleatoria de un perro.`},
                 {name: `elegir`, value:`Sirve para que ${process.env.BOT_NAME} eliga entre las opciones dadas.\n
@@ -92,6 +90,8 @@ module.exports = {
                 {name: `pokedex`, value:`Sirve para mostrar información de un pokemón según su id\n
                     > Disponible desde el pokemón \`1\` al \`1010\`.`},
                 {name: `sugerir`, value:`Sirve para dar una sugerencia al \`canal de sugerencias\`.`},
+                {name: `waifu`, value:`Sirve para mostrar la imagen de una waifu aleatoria.\n
+                    > Se indica el \`tipo\` (sfw/nsfw) y la \`categoria\` segun el tipo.`},
             )
             .setThumbnail(`https://i.imgur.com/s2lV0y5.png`);
         

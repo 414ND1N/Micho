@@ -157,7 +157,7 @@ module.exports = {
                 const embed_control = new EmbedBuilder()
                     .setTitle(`Controla la canción en reproducción`)
                     .setColor(process.env.COLOR)
-                    .setThumbnail('https://i.imgur.com/9fBJ0s7.gif')
+                    .setThumbnail('https://i.imgur.com/bDO4VTw.gif')
                     .addFields(
                         { name: `⏮ Anterior canción`, value: `Reanuda la reproducción de la música actual` },
                         { name: `⏯ Resumir - Pausar reproducción`, value: `Reanuda la reproducción de la música actual` },
@@ -316,7 +316,7 @@ module.exports = {
                 const embed_repeticion = new EmbedBuilder()
                     .setTitle(`Controla la canción en reproducción`)
                     .setColor(process.env.COLOR)
-                    .setThumbnail('https://i.imgur.com/9fBJ0s7.gif')
+                    .setThumbnail('https://i.imgur.com/bDO4VTw.gif')
                     .addFields(
                         { name: `🔂 Repetir canción actual`, value: `Repetir la canción actual` },
                         { name: `🔁 Repetir lista completa`, value: `Repetir la cola completa` },

@@ -34,7 +34,9 @@
 - ayuda
 - ping
 - pagina
-- preguntar grupo|micho `tu pregunta`
+- preguntar 
+    - grupo `tu pregunta`
+    - micho `tu pregunta`
 - codigo
 - diccionario `palabra`
 
@@ -50,10 +52,12 @@
 - fortuna
 - image `texto`
 - micho
-- minecraft skin `usuario` `tipo`
-- minecraft servidor
+- minecraft 
+    - skin `usuario` `tipo`
+    - servidor
 - pokedex `id pokemon`
 - sugerir `sugerencia`
+- waifu `tipo` `categoria`
 
 
 ### 🎵 Comandos de música
@@ -63,26 +67,29 @@
 - detener
 - reproduciendo
 - Control
+  - `anterior`
   - `resumir`
   - `pausar`
   - `siguiente`
-  - `anterior`
   - `detener`
+  - `mezclar cola`
 - lista
 - volume `numero`
 - jump `numero`
 - repeticion
-  - `mezclar cola`
   - `cancion actual`
   - `cola`
   - `desactivar`
+- 
 
 ### 🤓 Comandos de administrador
 - avatar `url` 
 - clear `usuario*` `numero mensajes`
 - dm `usuario` `mensaje`
 - imagenia `entrada`
-- presencia `estado` | `actividad` `tipo`
+- presencia 
+  - `estado`
+  - `actividad` `tipo`
 - reload `archivo*`
 - userinfo `usuario`
 
