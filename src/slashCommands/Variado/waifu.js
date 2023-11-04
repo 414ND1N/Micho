@@ -54,10 +54,12 @@ module.exports = {
         
         //verificar si el canal es NSFW
         const CANAL_NSFW = client.channels.cache.get(process.env.ID_CANAL_NSFW);
+        const CANAL_PRUEBAS = client.channels.cache.get(process.env.ID_CANAL_PRUEBAS);
+
         const sub_command = interaction.options.getSubcommand(); // Tipo de la imagen (SFW o NSFW)
         const categoria = interaction.options.getString('categoria'); // Categoría de la imagen
 
-        if(sub_command == "nsfw" && interaction.channel != CANAL_NSFW){
+        if(sub_command == "nsfw" && interaction.channel != (CANAL_NSFW && CANAL_PRUEBAS)){
             return interaction.reply({ embeds: [
                 new EmbedBuilder()
                     .setTitle(`Comando no disponible 🤐`)
