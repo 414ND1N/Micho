@@ -2,6 +2,7 @@ const {SlashCommandBuilder, EmbedBuilder} = require('discord.js');
 const axios = require('axios');
 module.exports = {
     CMD: new SlashCommandBuilder()
+    .setName("anime")
     .setDescription("Descubre sobre anime")
     .addSubcommand(subcommand =>
         subcommand.setName('informacion')

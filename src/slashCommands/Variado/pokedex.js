@@ -3,14 +3,15 @@ const { ActionRowBuilder, ButtonBuilder, ButtonStyle} = require('discord.js');
 const axios = require('axios');
 module.exports = {
     CMD: new SlashCommandBuilder()
-    .setDescription("Mostrar información de la pokedéx de tu pokemón preferido")
-    .addNumberOption(option =>
-        option.setName("id")
-        .setDescription('Pokemón que deseas buscar 🔍')
-        .setRequired(true)
-        .setMinValue(1)
-        .setMaxValue(1010)
-    ),
+        .setName("pokedex")
+        .setDescription("Mostrar información de la pokedéx de tu pokemón preferido")
+        .addNumberOption(option =>
+            option.setName("id")
+            .setDescription('Pokemón que deseas buscar 🔍')
+            .setRequired(true)
+            .setMinValue(1)
+            .setMaxValue(1010)
+        ),
     async execute(client, interaction){
 
         //USO DE LA API pokeapi.co

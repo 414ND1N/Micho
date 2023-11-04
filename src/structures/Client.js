@@ -82,10 +82,13 @@ module.exports = class extends Client {
             RUTA_ARCHIVOS.forEach((rutaArchivo) => {
                 try {
                     const COMANDO = require(rutaArchivo);
+
+                    /* MANEJO DE NOMBRES COMANDO SEGUN NOMBRE ARCHIVO
                     const NOMBRE_COMANDO = rutaArchivo.split('\\').pop().split('/').pop().split(".")[0];
                     COMANDO.CMD.name = NOMBRE_COMANDO;
-
                     if (NOMBRE_COMANDO) this.slashCommands.set(NOMBRE_COMANDO, COMANDO);
+                    */
+                    this.slashCommands.set(COMANDO.CMD.name, COMANDO);
                     
                     this.slashArray.push(COMANDO.CMD.toJSON());
                 } catch (e) {

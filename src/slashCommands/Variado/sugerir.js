@@ -1,12 +1,13 @@
 const {SlashCommandBuilder, EmbedBuilder} = require('discord.js');
 module.exports = {
     CMD: new SlashCommandBuilder()
-    .setDescription("Dar sugerencia a votación en el canal de sugerencias")
-    .addStringOption(option =>
-      option.setName("sugerencia")
-        .setDescription('Sugerencia para la votación')
-        .setRequired(true)
-    ),
+        .setName("sugerir")
+        .setDescription("Dar sugerencia a votación en el canal de sugerencias")
+        .addStringOption(option =>
+        option.setName("sugerencia")
+            .setDescription('Sugerencia para la votación')
+            .setRequired(true)
+        ),
     async execute(client, interaction){
         let sugerencia = interaction.options.getString("sugerencia");
         const channel = client.channels.cache.get(process.env.ID_CANAL_SUGERENCIAS); //ID del canal de sugerencias

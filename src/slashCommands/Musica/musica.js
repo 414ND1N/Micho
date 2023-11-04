@@ -2,6 +2,7 @@ const { SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, ButtonBuilder, Butt
 
 module.exports = {
     CMD: new SlashCommandBuilder()
+        .setName("musica")
         .setDescription("Control de la reproducción de música")
         .addSubcommand(subcommand =>
             subcommand.setName('reproducir')

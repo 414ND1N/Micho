@@ -2,163 +2,164 @@ const {SlashCommandBuilder, EmbedBuilder} = require('discord.js');
 const axios = require('axios');
 module.exports = {
     CMD: new SlashCommandBuilder()
-    .setDescription("Acción a otro usuario")
-    .addSubcommand(subcommand => 
-        subcommand.setName('saludar')
-        .setDescription('Saluda a otro usuario')
-        .addUserOption(option => 
-            option.setName('usuario')
-                .setDescription('Usuario al que se desea hacer la acción')
+        .setName("accion")
+        .setDescription("Acción a otro usuario")
+        .addSubcommand(subcommand => 
+            subcommand.setName('saludar')
+            .setDescription('Saluda a otro usuario')
+            .addUserOption(option => 
+                option.setName('usuario')
+                    .setDescription('Usuario al que se desea hacer la acción')
+            )
+            .addStringOption(option =>
+                option.setName('tipo')
+                    .setDescription('Tipo de imagenes para enviar')
+            )
         )
-        .addStringOption(option =>
-            option.setName('tipo')
-                .setDescription('Tipo de imagenes para enviar')
+        .addSubcommand(subcommand => 
+            subcommand.setName('felicitar')
+            .setDescription('Felicita a otro usuario')
+            .addUserOption(option => 
+                option.setName('usuario')
+                    .setDescription('Usuario al que se desea hacer la acción')
+            )
+            .addStringOption(option =>
+                option.setName('tipo')
+                    .setDescription('Tipo de imagenes para enviar')
+            )
         )
-    )
-    .addSubcommand(subcommand => 
-        subcommand.setName('felicitar')
-        .setDescription('Felicita a otro usuario')
-        .addUserOption(option => 
-            option.setName('usuario')
-                .setDescription('Usuario al que se desea hacer la acción')
+        .addSubcommand(subcommand => 
+            subcommand.setName('palmada')
+            .setDescription('Dale palmadas a otro usuario')
+            .addUserOption(option => 
+                option.setName('usuario')
+                    .setDescription('Usuario al que se desea hacer la acción')
+            )
+            .addStringOption(option =>
+                option.setName('tipo')
+                    .setDescription('Tipo de imagenes para enviar')
+            )
         )
-        .addStringOption(option =>
-            option.setName('tipo')
-                .setDescription('Tipo de imagenes para enviar')
+        .addSubcommand(subcommand => 
+            subcommand.setName('tocar')
+            .setDescription('Darle toques a otro usuario')
+            .addUserOption(option => 
+                option.setName('usuario')
+                    .setDescription('Usuario al que se desea hacer la acción')
+            )
+            .addStringOption(option =>
+                option.setName('tipo')
+                    .setDescription('Tipo de imagenes para enviar')
+            )
         )
-    )
-    .addSubcommand(subcommand => 
-        subcommand.setName('palmada')
-        .setDescription('Dale palmadas a otro usuario')
-        .addUserOption(option => 
-            option.setName('usuario')
-                .setDescription('Usuario al que se desea hacer la acción')
+        .addSubcommand(subcommand => 
+            subcommand.setName('lamer')
+            .setDescription('Lamer a otro usuario')
+            .addUserOption(option => 
+                option.setName('usuario')
+                    .setDescription('Usuario al que se desea hacer la acción')
+            )
+            .addStringOption(option =>
+                option.setName('tipo')
+                    .setDescription('Tipo de imagenes para enviar')
+            )
         )
-        .addStringOption(option =>
-            option.setName('tipo')
-                .setDescription('Tipo de imagenes para enviar')
+        .addSubcommand(subcommand => 
+            subcommand.setName('pulgar')
+            .setDescription('Dale un pulgar arriba a otro usuario')
+            .addUserOption(option => 
+                option.setName('usuario')
+                    .setDescription('Usuario al que se desea hacer la acción')
+            )
+            .addStringOption(option =>
+                option.setName('tipo')
+                    .setDescription('Tipo de imagenes para enviar')
+            )
         )
-    )
-    .addSubcommand(subcommand => 
-        subcommand.setName('tocar')
-        .setDescription('Darle toques a otro usuario')
-        .addUserOption(option => 
-            option.setName('usuario')
-                .setDescription('Usuario al que se desea hacer la acción')
+        .addSubcommand(subcommand => 
+            subcommand.setName('sonrojar')
+            .setDescription('Sonrojate por otro usuario')
+            .addUserOption(option => 
+                option.setName('usuario')
+                    .setDescription('Usuario al que se desea hacer la acción')
+            )
+            .addStringOption(option =>
+                option.setName('tipo')
+                    .setDescription('Tipo de imagenes para enviar')
+            )
         )
-        .addStringOption(option =>
-            option.setName('tipo')
-                .setDescription('Tipo de imagenes para enviar')
+        .addSubcommand(subcommand => 
+            subcommand.setName('abrazar')
+            .setDescription('Dale un abrazo a otro usuario')
+            .addUserOption(option => 
+                option.setName('usuario')
+                    .setDescription('Usuario al que se desea hacer la acción')
+            )
+            .addStringOption(option =>
+                option.setName('tipo')
+                    .setDescription('Tipo de imagenes para enviar')
+            )
         )
-    )
-    .addSubcommand(subcommand => 
-        subcommand.setName('lamer')
-        .setDescription('Lamer a otro usuario')
-        .addUserOption(option => 
-            option.setName('usuario')
-                .setDescription('Usuario al que se desea hacer la acción')
+        .addSubcommand(subcommand => 
+            subcommand.setName('besar')
+            .setDescription('Dale un beso a otro usuario')
+            .addUserOption(option => 
+                option.setName('usuario')
+                    .setDescription('Usuario al que se desea hacer la acción')
+            )
+            .addStringOption(option =>
+                option.setName('tipo')
+                    .setDescription('Tipo de imagenes para enviar')
+            )
         )
-        .addStringOption(option =>
-            option.setName('tipo')
-                .setDescription('Tipo de imagenes para enviar')
+        .addSubcommand(subcommand => 
+            subcommand.setName('abofetear')
+            .setDescription('Dale una bofetada a otro usuario')
+            .addUserOption(option => 
+                option.setName('usuario')
+                    .setDescription('Usuario al que se desea hacer la acción')
+            )
+            .addStringOption(option =>
+                option.setName('tipo')
+                    .setDescription('Tipo de imagenes para enviar')
+            )
         )
-    )
-    .addSubcommand(subcommand => 
-        subcommand.setName('pulgar')
-        .setDescription('Dale un pulgar arriba a otro usuario')
-        .addUserOption(option => 
-            option.setName('usuario')
-                .setDescription('Usuario al que se desea hacer la acción')
+        .addSubcommand(subcommand => 
+            subcommand.setName('golpear')
+            .setDescription('Dale un golpe a otro usuario')
+            .addUserOption(option => 
+                option.setName('usuario')
+                    .setDescription('Usuario al que se desea hacer la acción')
+            )
+            .addStringOption(option =>
+                option.setName('tipo')
+                    .setDescription('Tipo de imagenes para enviar')
+            )
         )
-        .addStringOption(option =>
-            option.setName('tipo')
-                .setDescription('Tipo de imagenes para enviar')
+        .addSubcommand(subcommand => 
+            subcommand.setName('guiño')
+            .setDescription('Dale un guiño a otro usuario')
+            .addUserOption(option => 
+                option.setName('usuario')
+                    .setDescription('Usuario al que se desea hacer la acción')
+            )
+            .addStringOption(option =>
+                option.setName('tipo')
+                    .setDescription('Tipo de imagenes para enviar')
+            )
         )
-    )
-    .addSubcommand(subcommand => 
-        subcommand.setName('sonrojar')
-        .setDescription('Sonrojate por otro usuario')
-        .addUserOption(option => 
-            option.setName('usuario')
-                .setDescription('Usuario al que se desea hacer la acción')
-        )
-        .addStringOption(option =>
-            option.setName('tipo')
-                .setDescription('Tipo de imagenes para enviar')
-        )
-    )
-    .addSubcommand(subcommand => 
-        subcommand.setName('abrazar')
-        .setDescription('Dale un abrazo a otro usuario')
-        .addUserOption(option => 
-            option.setName('usuario')
-                .setDescription('Usuario al que se desea hacer la acción')
-        )
-        .addStringOption(option =>
-            option.setName('tipo')
-                .setDescription('Tipo de imagenes para enviar')
-        )
-    )
-    .addSubcommand(subcommand => 
-        subcommand.setName('besar')
-        .setDescription('Dale un beso a otro usuario')
-        .addUserOption(option => 
-            option.setName('usuario')
-                .setDescription('Usuario al que se desea hacer la acción')
-        )
-        .addStringOption(option =>
-            option.setName('tipo')
-                .setDescription('Tipo de imagenes para enviar')
-        )
-    )
-    .addSubcommand(subcommand => 
-        subcommand.setName('abofetear')
-        .setDescription('Dale una bofetada a otro usuario')
-        .addUserOption(option => 
-            option.setName('usuario')
-                .setDescription('Usuario al que se desea hacer la acción')
-        )
-        .addStringOption(option =>
-            option.setName('tipo')
-                .setDescription('Tipo de imagenes para enviar')
-        )
-    )
-    .addSubcommand(subcommand => 
-        subcommand.setName('golpear')
-        .setDescription('Dale un golpe a otro usuario')
-        .addUserOption(option => 
-            option.setName('usuario')
-                .setDescription('Usuario al que se desea hacer la acción')
-        )
-        .addStringOption(option =>
-            option.setName('tipo')
-                .setDescription('Tipo de imagenes para enviar')
-        )
-    )
-    .addSubcommand(subcommand => 
-        subcommand.setName('guiño')
-        .setDescription('Dale un guiño a otro usuario')
-        .addUserOption(option => 
-            option.setName('usuario')
-                .setDescription('Usuario al que se desea hacer la acción')
-        )
-        .addStringOption(option =>
-            option.setName('tipo')
-                .setDescription('Tipo de imagenes para enviar')
-        )
-    )
-    .addSubcommand(subcommand => 
-        subcommand.setName('acariciar')
-        .setDescription('Acariciar a otro usuario')
-        .addUserOption(option => 
-            option.setName('usuario')
-                .setDescription('Usuario al que se desea hacer la acción')
-        )
-        .addStringOption(option =>
-            option.setName('tipo')
-                .setDescription('Tipo de imagenes para enviar')
-        )
-    ),
+        .addSubcommand(subcommand => 
+            subcommand.setName('acariciar')
+            .setDescription('Acariciar a otro usuario')
+            .addUserOption(option => 
+                option.setName('usuario')
+                    .setDescription('Usuario al que se desea hacer la acción')
+            )
+            .addStringOption(option =>
+                option.setName('tipo')
+                    .setDescription('Tipo de imagenes para enviar')
+            )
+        ),
     
     async execute(client, interaction){
 

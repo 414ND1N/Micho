@@ -1,20 +1,21 @@
 const {SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits} = require('discord.js')
 module.exports = {
     CMD: new SlashCommandBuilder()
+        .setName("clear")
         .setDescription("Elimina los mensajes indicados del canal")
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
         .setDMPermission(false)
-    .addNumberOption(option =>
-        option.setName("mensajes")
-        .setDescription("Número de mensajes a eliminar")
-        .setRequired(true)
-        .setMinValue(1)
-        .setMaxValue(100)
-    )
-    .addUserOption(option =>
-        option.setName("objetivo")
-        .setDescription("Indica a quien se desea eliminar los mensajes")   
-    ),
+        .addNumberOption(option =>
+            option.setName("mensajes")
+            .setDescription("Número de mensajes a eliminar")
+            .setRequired(true)
+            .setMinValue(1)
+            .setMaxValue(100)
+        )
+        .addUserOption(option =>
+            option.setName("objetivo")
+            .setDescription("Indica a quien se desea eliminar los mensajes")   
+        ),
     async execute(client, interaction){
 
         const valor = interaction.options.getNumber("mensajes");

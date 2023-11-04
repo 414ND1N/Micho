@@ -1,17 +1,18 @@
 const {SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits} = require('discord.js')
 module.exports = {
     CMD: new SlashCommandBuilder()
-    .setDescription("Recarga los archivos del bot")
-    .addStringOption(option =>
-        option.setName("modulo")
-        .setDescription("Módulo a recargar")
-        .addChoices(
-            {name: "Comandos", value:"commands"},
-            {name: "Eventos", value:"events"},
-            {name: "Handlers", value:"handlers"},
+        .setName("reload")
+        .setDescription("Recarga los archivos del bot")
+        .addStringOption(option =>
+            option.setName("modulo")
+            .setDescription("Módulo a recargar")
+            .addChoices(
+                {name: "Comandos", value:"commands"},
+                {name: "Eventos", value:"events"},
+                {name: "Handlers", value:"handlers"},
+            )
         )
-    )
-    .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
+        .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
 
     async execute(client, interaction){
         let args = interaction.options.getString("modulo");

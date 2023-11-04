@@ -2,6 +2,7 @@ const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 const axios = require('axios');
 module.exports = {
     CMD: new SlashCommandBuilder()
+        .setName("diccionario")
         .setDescription("Definición de un término del diccionario urbano.")
         .addStringOption(option =>
             option.setName("term")

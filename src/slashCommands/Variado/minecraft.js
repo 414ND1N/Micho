@@ -3,6 +3,7 @@ const axios = require('axios');
 
 module.exports = {
     CMD: new SlashCommandBuilder()
+        .setName("minecraft")
         .setDescription("Obtiene información de Minecraft")
         .addSubcommand(subcommand =>
             subcommand.setName('skin')

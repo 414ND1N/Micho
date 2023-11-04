@@ -3,6 +3,7 @@ const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 const axios = require('axios');
 module.exports = {
     CMD: new SlashCommandBuilder()
+        .setName("amiibo")
         .setDescription("Mostrar información de amiibos")
         .addStringOption(option =>
             option.setName("personaje")

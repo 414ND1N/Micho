@@ -1,44 +1,45 @@
 const {SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits, ActivityType} = require('discord.js');
 module.exports = {
     CMD: new SlashCommandBuilder()
-    .setDescription(`Actualizar la presencia de ${process.env.BOT_NAME}`)
-    .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
-    .addSubcommand(subcommand => 
-        subcommand.setName('actividad')
-        .setDescription(`Actualiza la actividad de ${process.env.BOT_NAME}`)
-        .addStringOption(option =>
-            option.setName('tipo')
-                .setDescription('Tipo de actividad al cual actualizar')
-                .setRequired(true)
-                .addChoices(
-                    {name: 'Playing', value: 'Playing'},
-                    {name: 'Streaming', value: 'Streaming'},
-                    {name: 'Listening', value: 'Listening'},
-                    {name: 'Watching', value: 'Watching'},
-                    {name: 'Competing', value: 'Competing'}
-                )
+        .setName("presencia")
+        .setDescription(`Actualizar la presencia de ${process.env.BOT_NAME}`)
+        .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
+        .addSubcommand(subcommand => 
+            subcommand.setName('actividad')
+            .setDescription(`Actualiza la actividad de ${process.env.BOT_NAME}`)
+            .addStringOption(option =>
+                option.setName('tipo')
+                    .setDescription('Tipo de actividad al cual actualizar')
+                    .setRequired(true)
+                    .addChoices(
+                        {name: 'Playing', value: 'Playing'},
+                        {name: 'Streaming', value: 'Streaming'},
+                        {name: 'Listening', value: 'Listening'},
+                        {name: 'Watching', value: 'Watching'},
+                        {name: 'Competing', value: 'Competing'}
+                    )
+            )
+            .addStringOption(option =>
+                option.setName('actividad')
+                    .setDescription('Setear la actividad actual')
+                    .setRequired(true)    
+            )
         )
-        .addStringOption(option =>
-            option.setName('actividad')
-                .setDescription('Setear la actividad actual')
-                .setRequired(true)    
-        )
-    )
-    .addSubcommand(subcommand => 
-        subcommand.setName('estado')
-        .setDescription(`Actualiza el estado de ${process.env.BOT_NAME}`)
-        .addStringOption(option =>
-            option.setName('tipo')
-                .setDescription('Tipo de estado al cual actualizar')
-                .setRequired(true)
-                .addChoices(
-                    {name: 'Online', value: 'online'},
-                    {name: 'Idle', value: 'idle'},
-                    {name: 'Do not disturb', value: 'dnd'},
-                    {name: 'Invisible', value: 'invisible'}
-                )
-        )
-    ),
+        .addSubcommand(subcommand => 
+            subcommand.setName('estado')
+            .setDescription(`Actualiza el estado de ${process.env.BOT_NAME}`)
+            .addStringOption(option =>
+                option.setName('tipo')
+                    .setDescription('Tipo de estado al cual actualizar')
+                    .setRequired(true)
+                    .addChoices(
+                        {name: 'Online', value: 'online'},
+                        {name: 'Idle', value: 'idle'},
+                        {name: 'Do not disturb', value: 'dnd'},
+                        {name: 'Invisible', value: 'invisible'}
+                    )
+            )
+        ),
     
     async execute(client, interaction){
        

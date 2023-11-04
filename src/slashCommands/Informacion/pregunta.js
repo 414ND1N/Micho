@@ -2,25 +2,26 @@ const {SlashCommandBuilder, EmbedBuilder} = require('discord.js');
 const { Configuration, OpenAIApi } = require("openai");
 module.exports = {
     CMD: new SlashCommandBuilder()
-    .setDescription("Realiza una pregunta")
-    .addSubcommand(subcommand => 
-        subcommand.setName('grupo')
-        .setDescription('Realiza una pregunta al grupo y podran reaccionar')
-        .addStringOption(option =>
-            option.setName("pregunta")
-              .setDescription('Pregunta que deseas realizar')
-              .setRequired(true)
+        .setName("pregunta")
+        .setDescription("Realiza una pregunta")
+        .addSubcommand(subcommand => 
+            subcommand.setName('grupo')
+            .setDescription('Realiza una pregunta al grupo y podran reaccionar')
+            .addStringOption(option =>
+                option.setName("pregunta")
+                .setDescription('Pregunta que deseas realizar')
+                .setRequired(true)
+            )
         )
-    )
-    .addSubcommand(subcommand => 
-        subcommand.setName(process.env.BOT_NAME.toLowerCase())
-        .setDescription(`Realiza una pregunta a ${process.env.BOT_NAME} y te respondera con su sabiduria`)
-        .addStringOption(option =>
-            option.setName("pregunta")
-              .setDescription('Pregunta que deseas realizar')
-              .setRequired(true)
+        .addSubcommand(subcommand => 
+            subcommand.setName(process.env.BOT_NAME.toLowerCase())
+            .setDescription(`Realiza una pregunta a ${process.env.BOT_NAME} y te respondera con su sabiduria`)
+            .addStringOption(option =>
+                option.setName("pregunta")
+                .setDescription('Pregunta que deseas realizar')
+                .setRequired(true)
+            )
         )
-    )
     ,
     async execute(client, interaction){
 

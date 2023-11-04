@@ -1,6 +1,7 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 module.exports = {
     CMD: new SlashCommandBuilder()
+        .setName("meme")
         .setDescription("Genera tu propio meme con plantillas")
         .addSubcommand(subcommand =>
             subcommand.setName('plantillas')

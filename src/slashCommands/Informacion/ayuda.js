@@ -2,7 +2,8 @@ const {SlashCommandBuilder, EmbedBuilder,} = require('discord.js')
 const { StringSelectMenuBuilder, StringSelectMenuOptionBuilder, ActionRowBuilder} = require('discord.js');
 module.exports = {
     CMD: new SlashCommandBuilder()
-    .setDescription(`Listar los comandos disponibles de ${process.env.BOT_NAME}.`),
+        .setName("ayuda")
+        .setDescription(`Listar los comandos disponibles de ${process.env.BOT_NAME}.`),
     async execute(client, interaction){
 
         await interaction.deferReply(); // Respuestas mayores a 3 segundos

@@ -1,6 +1,7 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js')
 module.exports = {
     CMD: new SlashCommandBuilder()
+        .setName("fortuna")
         .setDescription("Mensaje de la galleta de la fortuna"),
     async execute(client, interaction) {
         

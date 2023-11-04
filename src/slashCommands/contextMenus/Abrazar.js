@@ -2,7 +2,7 @@ const { EmbedBuilder, ContextMenuCommandBuilder, ApplicationCommandType } = requ
 const axios = require('axios');
 module.exports = {
     CMD: new ContextMenuCommandBuilder()
-        .setName("Accion")
+        .setName("Abrazar")
         .setType(ApplicationCommandType.User),
 
     async execute(client, interaction) {

@@ -2,6 +2,7 @@ const { SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits } = require('disc
 
 module.exports = {
     CMD: new SlashCommandBuilder()
+        .setName("userinfo")
         .setDescription("Muestra información de un usuario.")
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
         .addUserOption((option) => 

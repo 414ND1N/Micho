@@ -1,12 +1,13 @@
 const {SlashCommandBuilder, EmbedBuilder} = require('discord.js')
 module.exports = {
     CMD: new SlashCommandBuilder()
-    .setDescription("Bola 8 te dará la respuesta a tu pregunta")
-    .addStringOption(option =>
-        option.setName("pregunta")
-        .setDescription('Pregunta que deseas que la bola te responda')
-        .setRequired(true)
-    ),
+        .setName("8ball")
+        .setDescription("Bola 8 te dará la respuesta a tu pregunta")
+        .addStringOption(option =>
+            option.setName("pregunta")
+            .setDescription('Pregunta que deseas que la bola te responda')
+            .setRequired(true)
+        ),
     async execute(client, interaction){
         
         let pregunta = interaction.options.getString("pregunta");

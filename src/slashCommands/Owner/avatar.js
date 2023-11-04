@@ -1,13 +1,14 @@
 const {SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits, ActivityType} = require('discord.js');
 module.exports = {
     CMD: new SlashCommandBuilder()
-    .setDescription(`Actualizar el avatar de ${process.env.BOT_NAME}`)
-    .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
-    .addStringOption(option =>
-        option.setName('url')
-            .setDescription('Enlace de la imagen a setear como avatar')
-            .setRequired(true)
-    ),
+        .setName("avatar")
+        .setDescription(`Actualizar el avatar de ${process.env.BOT_NAME}`)
+        .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
+        .addStringOption(option =>
+            option.setName('url')
+                .setDescription('Enlace de la imagen a setear como avatar')
+                .setRequired(true)
+        ),
     
     async execute(client, interaction){
        
