@@ -67,11 +67,15 @@
   - `pausar`
   - `siguiente`
   - `anterior`
-  - `mezclar`
   - `detener`
 - lista
 - volume `numero`
 - jump `numero`
+- repeticion
+  - `mezclar cola`
+  - `cancion actual`
+  - `cola`
+  - `desactivar`
 
 ### 🤓 Comandos de administrador
 - avatar `url` 

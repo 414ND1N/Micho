@@ -49,15 +49,15 @@ module.exports = {
                 {name: `detener`, value:`Detiene la reproducción de la canción actual.`},
                 {name: `reproduciendo`, value:`Muestra información de la canción que se está reproduciendo.`},
                 {name: `control`, value:`Entre las acciones que cuenta estan: \n
-                    > \`Resumir\`, \`Pausar\`, \`Siguiente\`, \`Anterior\`, \`Mezclar\`,\`Detener\`.`},
+                    > \`Resumir\`, \`Pausar\`, \`Siguiente\`, \`Anterior\`, \`Detener\`, \`Mezclar\`.`},
                 {name: `volumen`, value:`Sirve para indicar el volumen de la canción.\n
                     > Admite de \`0%\` a \`200%\`.`},
                 {name: `cola`, value:`Sirve para ver la lista la música que está en la cola de reproducción.\n
                     > Muestra un menú con botones de navegación.`},
                 {name: `saltar`, value:`Sirve para saltar a una canción de la lista en reproducción.\n
                     > El número de canción se puede ver en la queue.`},
-                {name: `repetir`, value:`Sirve para cambiar el modo de repetición de la música en reproducción.\n
-                    > Puede ser \`desactivado\`, \`canción actual\`, \`lista completa\`.`}
+                {name: `repeticion`, value:`Sirve para cambiar el modo de repetición de la cola en reproducción.\n
+                    > \`Cancion actual\`, \`Cola actual\`, \`Detener repéticion\`.`},
             )  
             .setThumbnail(`https://i.imgur.com/9PzViPP.jpg`);
 
@@ -68,7 +68,8 @@ module.exports = {
             .addFields(
                 {name: `8ball`, value:`Sirve para que la bola 8 de una respuesta a una pregunta.`},
                 {name: `accion`, value:`Sirve para hacer una acción a otro usuario.\n
-                    > Entre las acciones esta \`saludar\`, \`felicitar\`, \`tocar\`, \`abrazar\`, \`besar\`, \`golpear\`, \`dar palmadas\`, \`abofetear\`, \`lamer\`, \`pulgar arriba\`, \`sonrojar\`, \`guiñar\`, \`desear muerte\`, \`acariciar\`.\n
+                    > Entre las acciones esta \`saludar\`, \`felicitar\`, \`tocar\`, \`abrazar\`, \`besar\`, \`golpear\`,
+                    \`dar palmadas\`, \`abofetear\`, \`lamer\`, \`pulgar arriba\`, \`sonrojar\`, \`guiñar\`, \`acariciar\`.\n
                     _Puedes indicar que tipo de imagen buscar_.`},
                 {name: `amiibo`, value:`Sirve para mostrar información de amiibos
                     > Se indica el \`nombre\` del personaje a buscar.`},

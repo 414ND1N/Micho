@@ -1,5 +1,4 @@
 const { SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
-const { RepeatMode } = require("distube");
 
 module.exports = {
     CMD: new SlashCommandBuilder()
@@ -22,21 +21,8 @@ module.exports = {
                 .setDescription('Muestra información de la canción que se está reproduciendo')
         )
         .addSubcommand(subcommand =>
-            subcommand.setName('control')
+            subcommand.setName('controlar')
                 .setDescription('Controlar la música en reproducción')
-                .addStringOption(option =>
-                    option.setName('accion')
-                        .setDescription('Acción que deseas realizar con la música en reproducción')
-                        .setRequired(true)
-                        .addChoices(
-                            { name: '⏯ Resumir reproducción', value: 'resume' },
-                            { name: '⏸ Pausar reproducción', value: 'pause' },
-                            { name: '⏭ Siguiente canción', value: 'skip' },
-                            { name: '⏮ Anterior canción', value: 'previous' },
-                            { name: '🔀 Mezclar lista música', value: 'shuffle' },
-                            { name: '⏹ Detener reproducción', value: 'stop' }
-                        )
-                )
         )
         .addSubcommand(subcommand =>
             subcommand.setName('volumen')
@@ -64,18 +50,8 @@ module.exports = {
                 )
         )
         .addSubcommand(subcommand =>
-            subcommand.setName('repetir')
-                .setDescription('Repetir la música en reproducción')
-                .addNumberOption(option =>
-                    option.setName('tipo')
-                        .setDescription('Tipo de repetición para la música')
-                        .setRequired(true)
-                        .addChoices(
-                            { name: '🔂 Canción actual', value: 1 },
-                            { name: '🔁 Lista completa', value: 2 },
-                            { name: '❌ Desactivar', value: 0 }
-                        )
-                )
+            subcommand.setName('repeticion')
+                .setDescription('Controlar el comportamiento de la cola de reproducción')
         ),
 
     async execute(client, interaction) {
@@ -139,7 +115,15 @@ module.exports = {
                 });
             case 'detener':
                 await client.distube.stop(VOICE_CHANNEL);
-                return await interaction.deleteReply();
+                return interaction.editReply({
+                    embeds: [
+                        new EmbedBuilder()
+                            .setTitle('Detener música')
+                            .setThumbnail('https://i.imgur.com/WnsPmQz.gif')
+                            .setColor(process.env.COLOR)
+                            .setDescription(`Se detuvo la reproducción de música`)
+                    ]
+                });
             case 'reproduciendo':
 
                 function getTimeString(time) {
@@ -148,8 +132,6 @@ module.exports = {
                     const timeString = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
                     return timeString;
                 }
-
-                console.log(QUEUE)
 
                 const cancion_actual = QUEUE.songs[0];
                 const tiempo_reproduccion = getTimeString(QUEUE.currentTime);
@@ -169,86 +151,67 @@ module.exports = {
                             )
                             .setFooter({ text: `👍 ${cancion_actual.likes} / 👎 ${cancion_actual.dislikes}` })
                     ]});
-            case 'control':
-                const control = interaction.options.getString('accion');
-                try {
-                    switch (control) {
-                        case 'resume':
-                            if (QUEUE.playing) {
-                                return interaction.editReply({
-                                    embeds: [
-                                        new EmbedBuilder()
-                                            .setTitle('La música ya está reproduciendose')
-                                            .setColor(process.env.COLOR_ERROR)
-                                    ]
-                                });
-                            }
+            case 'controlar':
+                // Creacion de los embed
+                const embed_control = new EmbedBuilder()
+                    .setTitle(`Controla la canción en reproducción`)
+                    .setColor(process.env.COLOR)
+                    .setThumbnail('https://i.imgur.com/9fBJ0s7.gif')
+                    .addFields(
+                        { name: `⏮ Anterior canción`, value: `Reanuda la reproducción de la música actual` },
+                        { name: `⏯ Resumir - Pausar reproducción`, value: `Reanuda la reproducción de la música actual` },
+                        { name: `⏹ Detener reproducción`, value: `Detiene la reproducción de la música actual` },
+                        { name: `🔀 Mezclar cola música`, value: `Mezcla la cola de reproducción` },
+                        { name: `⏭ Siguiente canción`, value: `Reanuda la reproducción de la música actual` },
+                    )
+                
+                // Botones
+                const row_control = new ActionRowBuilder().addComponents(
+                    new ButtonBuilder()
+                        .setEmoji('⏮')
+                        .setCustomId('anterior')
+                        .setStyle(ButtonStyle.Primary)
+                    ,
+                    new ButtonBuilder()
+                        .setEmoji('⏯')
+                        .setCustomId('play')
+                        .setStyle(ButtonStyle.Success)
+                    ,
+                    new ButtonBuilder()
+                        .setEmoji('⏹')
+                        .setCustomId('detener')
+                        .setStyle(ButtonStyle.Danger)
+                    ,
+                    new ButtonBuilder()
+                        .setEmoji('🔀')
+                        .setCustomId('mezclar')
+                        .setStyle(ButtonStyle.Success)
+                    ,
+                    new ButtonBuilder()
+                        .setEmoji('⏭')
+                        .setCustomId('siguiente')
+                        .setStyle(ButtonStyle.Primary)
+                    
+                ); 
+                
+                //Creacion del Embed principal
+                let embed_music_control = await interaction.channel.send({
+                    embeds: [embed_control],
+                    components: [row_control],
+                    ephemeral: true
+                });
 
-                            client.distube.resume(VOICE_CHANNEL);
-                            return interaction.editReply({
-                                embeds: [
-                                    new EmbedBuilder()
-                                        .setTitle('Resumen música')
-                                        .setThumbnail('https://i.imgur.com/Zqg98ma.gif')
-                                        .setColor(process.env.COLOR)
-                                        .addFields({ name: `Se resumió la reproducción`, value: `🐱‍🏍 🎶🎵` })
-                                ]
-                            });
-                        case 'pause':
-                            if (QUEUE.paused) {
-                                return interaction.editReply({
-                                    embeds: [
-                                        new EmbedBuilder()
-                                            .setTitle('La música ya está en pausa')
-                                            .setColor(process.env.COLOR_ERROR)
-                                    ]
-                                });
-                            }
-
-                            client.distube.pause(VOICE_CHANNEL);
-                            return interaction.editReply({
-                                embeds: [
-                                    new EmbedBuilder()
-                                        .setTitle('Pausar música')
-                                        .setThumbnail('https://i.imgur.com/kY0gh91.gif')
-                                        .setColor(process.env.COLOR)
-                                        .addFields({ name: `Se pausó la música`, value: `🚦🛑` })
-                                ]
-                            });
-                        case 'skip':
-                            if ((!QUEUE.autoplay && QUEUE.songs.length <= 1) || QUEUE.songs.length <= 1) { //Si no hay más canciones en la lista y no está activado el autoplay
-                                return interaction.editReply({
-                                    embeds: [
-                                        new EmbedBuilder()
-                                            .setColor(process.env.COLOR_ERROR)
-                                            .setDescription(`No hay más música en la lista para reproducir`)
-                                    ]
-                                });
-                            };
-                            client.distube.skip(VOICE_CHANNEL);
-                            return interaction.editReply({
-                                embeds: [
-                                    new EmbedBuilder()
-                                        .setTitle('Siguiente música')
-                                        .setThumbnail('https://i.imgur.com/9fBJ0s7.gif')
-                                        .setColor(process.env.COLOR)
-                                        .addFields({ name: `Se saltó a la siguiente música`, value: `⏭ ⏭ ⏭ ` })
-                                ]
-                            });
-                        case 'previous':
-                            client.distube.previous(VOICE_CHANNEL);
-                            return interaction.editReply({
-                                embeds: [
-                                    new EmbedBuilder()
-                                        .setTitle('Música anterior')
-                                        .setThumbnail('https://i.imgur.com/9fBJ0s7.gif')
-                                        .setColor(process.env.COLOR)
-                                        .addFields({ name: `Se saltó a la canción anterior`, value: `⏮ ⏮ ⏮` })
-                                ]
-                            });
-                        case 'shuffle':
+                //Creacion del collector
+                const collector_control = embed_music_control.createMessageComponentCollector({time: 15e3}); //15 segundos de tiempo de espera
+                collector_control.on("collect", async (i) => {
+                    if(i?.user.id != interaction.user.id){
+                        return await i.reply({content: `❌ Solo quien uso el comando puede navegar entre categorías.`, ephemeral: true});
+                    }
+                    switch (i?.customId){
+                        case 'mezclar':
                             client.distube.shuffle(VOICE_CHANNEL);
-                            return interaction.editReply({
+                            collector_control.resetTimer();
+                            interaction.editReply({
                                 embeds: [
                                     new EmbedBuilder()
                                         .setTitle('Mezcla lista música')
@@ -257,44 +220,199 @@ module.exports = {
                                         .addFields({ name: `Se mezcló la lista de música`, value: `🎶 😎👍` })
                                 ]
                             });
-                        case 'stop':
+                            await i?.deferUpdate();
+                            break
+                        case 'play':{
+                            let accion_usada = 'resumió'
+                            if (QUEUE.paused) {
+                                client.distube.resume(VOICE_CHANNEL);
+                            }else{
+                                accion_usada = 'pausó'
+                                client.distube.pause(VOICE_CHANNEL);
+                            }
+
+                            collector_control.resetTimer();
+                            interaction.editReply({
+                                embeds: [
+                                    new EmbedBuilder()
+                                        .setTitle(`Se ${accion_usada} la música`)
+                                        .setThumbnail('https://i.imgur.com/kY0gh91.gif')
+                                        .setColor(process.env.COLOR)
+                                        .addFields({ name: `Se pausó la música`, value: `🚦🛑` })
+                                ]
+                            });
+                            await i?.deferUpdate();
+                            break
+                        }   
+                        case 'detener':{
                             await client.distube.stop(VOICE_CHANNEL);
-                            return await interaction.deleteReply();
-                    };
-                } catch (error) {
-                    return interaction.reply({
-                        embeds: [
-                            new EmbedBuilder()
-                                .setColor(process.env.COLOR_ERROR)
-                                .setDescription(`Ops! Algo salió mal 😓`)
-                                .setThumbnail('https://i.imgur.com/MHasiWy.gifv')
-                        ],
-                        ephemeral: true
-                    })
-                };
-            case 'repetir':
-                const tipo = interaction.options.getNumber('tipo');
-                let modo = '';
-                switch (client.distube.setRepeatMode(VOICE_CHANNEL, tipo)) {
-                    case RepeatMode.DISABLED:
-                        modo = "desactivado";
-                        break;
-                    case RepeatMode.SONG:
-                        modo = "canción actual";
-                        break;
-                    case RepeatMode.QUEUE:
-                        modo = "lista completa";
-                        break;
-                };
-                return interaction.editReply({
-                    embeds: [
-                        new EmbedBuilder()
-                            .setTitle('Repetición música')
-                            .setColor(process.env.COLOR)
-                            .addFields({ name: `Se cambió la repetición a \`${modo}\``, value: `🔄 🎶 🎵` })
-                            .setThumbnail('https://i.imgur.com/Cm5hy47.gif')
-                    ]
+                            collector_control.resetTimer();
+                            interaction.editReply({
+                                embeds: [
+                                    new EmbedBuilder()
+                                        .setTitle('Detener música')
+                                        .setThumbnail('https://i.imgur.com/WnsPmQz.gif')
+                                        .setColor(process.env.COLOR)
+                                        .setDescription(`Se detuvo la reproducción de música`)
+                                ]
+                            });
+                            await i?.deferUpdate();
+                            break
+                        }
+                        case 'siguiente':{
+                            if ((!QUEUE.autoplay && QUEUE.songs.length <= 1) || QUEUE.songs.length <= 1) { //Si no hay más canciones en la lista y no está activado el autoplay
+                                interaction.editReply({
+                                    embeds: [
+                                        new EmbedBuilder()
+                                            .setColor(process.env.COLOR_ERROR)
+                                            .setDescription(`No hay más música en la lista para reproducir`)
+                                    ]
+                                });
+                                break
+                            };
+                            client.distube.skip(VOICE_CHANNEL);
+                            collector_control.resetTimer();
+                            interaction.editReply({
+                                embeds: [
+                                    new EmbedBuilder()
+                                        .setTitle('Siguiente música')
+                                        .setThumbnail('https://i.imgur.com/9fBJ0s7.gif')
+                                        .setColor(process.env.COLOR)
+                                        .addFields({ name: `Se saltó a la siguiente música`, value: `⏭ ⏭ ⏭ ` })
+                                ]
+                            });
+                            await i?.deferUpdate();
+                            break
+                        }
+                        case 'anterior':{
+                            client.distube.previous(VOICE_CHANNEL);
+                            collector_control.resetTimer();
+                            interaction.editReply({
+                                embeds: [
+                                    new EmbedBuilder()
+                                        .setTitle('Música anterior')
+                                        .setThumbnail('https://i.imgur.com/9fBJ0s7.gif')
+                                        .setColor(process.env.COLOR)
+                                        .addFields({ name: `Se saltó a la canción anterior`, value: `⏮ ⏮ ⏮` })
+                                ]
+                            });
+                            await i?.deferUpdate();
+                            break
+                        }
+                    }
+
                 });
+                collector_control.on("end", async () => {
+                    //borramos los embed y los componentes, se deja un mensaje de que se realizó la acción
+                    embed_music_control.edit({content: "El tiempo ha expirado ⏳, utiliza denuevo el comando control 😊", components:[], ephemeral: true}).catch(() => {});
+                    embed_music_control.suppressEmbeds(true);
+                    await interaction.deleteReply();
+                    return
+                });
+                break
+            case 'repeticion':
+                // Creacion de los embed
+                const embed_repeticion = new EmbedBuilder()
+                    .setTitle(`Controla la canción en reproducción`)
+                    .setColor(process.env.COLOR)
+                    .setThumbnail('https://i.imgur.com/9fBJ0s7.gif')
+                    .addFields(
+                        { name: `🔂 Repetir canción actual`, value: `Repetir la canción actual` },
+                        { name: `🔁 Repetir lista completa`, value: `Repetir la cola completa` },
+                        { name: `❌ Desactivar repetición`, value: `Desactiva la repetición de la música o cola` },
+                        { name: `🚪 Salir`, value: `Cerrar el menú de control` },
+                    )
+                
+                // Botones
+
+                const row_repeticion = new ActionRowBuilder().addComponents(
+                    new ButtonBuilder()
+                        .setEmoji('🔂')
+                        .setCustomId('rep_actual')
+                        .setStyle(ButtonStyle.Primary)
+                    ,
+                    new ButtonBuilder()
+                        .setEmoji('🔁')
+                        .setCustomId('rep_lista')
+                        .setStyle(ButtonStyle.Primary)
+                    ,
+                    new ButtonBuilder()
+                        .setEmoji('❌')
+                        .setCustomId('rep_no')
+                        .setStyle(ButtonStyle.Danger)
+                    ,
+                    new ButtonBuilder()
+                        .setEmoji('🚪')
+                        .setCustomId('exit')
+                        .setStyle(ButtonStyle.Success)
+                    
+                ); 
+                
+                //Creacion del Embed principal
+                let embed_music_repeticion = await interaction.channel.send({
+                    embeds: [embed_repeticion],
+                    components: [row_repeticion],
+                    ephemeral: true
+                });
+
+                //Creacion del collector
+                const collector_repeticion = embed_music_repeticion.createMessageComponentCollector({time: 18e3}); //18 segundos de tiempo de espera
+                collector_repeticion.on("collect", async (b) => {
+                    if(b?.user.id != interaction.user.id){
+                        return await b.reply({content: `❌ Solo quien uso el comando puede navegar entre categorías.`, ephemeral: true});
+                    }
+
+                    switch (b.customId){
+                        case 'rep_actual':
+                        case 'rep_lista':
+                        case 'rep_no':
+                            let repeticion_value = 0
+                            let modo_rep = '';
+                            switch (b?.customId) {
+                                case 'rep_actual':
+                                    repeticion_value = 1
+                                    modo_rep = "cancion actual";
+                                    break;
+                                case 'rep_lista':
+                                    repeticion_value = 2
+                                    modo_rep = "lista completa";
+                                    break;
+                                case 'rep_no':
+                                    repeticion_value = 0
+                                    modo_rep = "desactivado";
+                                    break;
+                            };
+
+                            client.distube.setRepeatMode(VOICE_CHANNEL, repeticion_value)
+                            collector_repeticion.resetTimer();
+                        
+                            interaction.editReply({
+                                embeds: [
+                                    new EmbedBuilder()
+                                        .setTitle('Repetición cola música')
+                                        .setColor(process.env.COLOR)
+                                        .addFields({ name: `Se cambió la repetición a \`${modo_rep}\``, value: `🔄 🎶 🎵` })
+                                        .setThumbnail('https://i.imgur.com/Cm5hy47.gif')
+                                ]
+                            });
+                            await b?.deferUpdate();
+                            break
+                        
+                        case 'exit':
+                            // Finalizar el collector
+                            collector_repeticion.stop();
+                        
+                    }
+
+                });
+                collector_repeticion.on("end", async () => {
+                    //borramos los embed y los componentes, se deja un mensaje de que se realizó la acción
+                    embed_music_repeticion.edit({content: "El tiempo ha expirado ⏳, utiliza denuevo el comando repetir 😊", components:[], ephemeral: true}).catch(() => {});
+                    embed_music_repeticion.suppressEmbeds(true);
+                    await interaction.deleteReply();
+                    return
+                });
+                break
             case 'volumen':
                 const porcentaje = interaction.options.getNumber('porcentaje');
                 const volumen_previo = QUEUE.volume;
@@ -397,7 +515,7 @@ module.exports = {
 
                         switch (b?.customId) {
                             case 'atras': {
-                                collector.resetTimer();
+                                
                                 //Si la pagina a retroceder no es igual a la primera pagina entonces retrocedemos
                                 if (pag_actual !== 0) {
                                     pag_actual -= 1
@@ -451,7 +569,7 @@ module.exports = {
                     });
                     collector.on("end", async () => {
                         //desactivamos botones y editamos el mensaje
-                        embedpaginas.edit({ content: "El tiempo ha expirado ⏳, utiliza denuevo el comando queue  😊", components: [] }).catch(() => { });
+                        embedpaginas.edit({ content: "El tiempo ha expirado ⏳, utiliza denuevo el comando lista 😊", components: [] }).catch(() => { });
                         embedpaginas.suppressEmbeds(true);
                         await interaction.deleteReply();
                         return
