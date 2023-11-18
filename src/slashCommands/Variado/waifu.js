@@ -58,8 +58,9 @@ module.exports = {
 
         const sub_command = interaction.options.getSubcommand(); // Tipo de la imagen (SFW o NSFW)
         const categoria = interaction.options.getString('categoria'); // Categoría de la imagen
+        const canales_permitidos = [CANAL_NSFW, CANAL_PRUEBAS]
 
-        if(sub_command == "nsfw" && interaction.channel != (CANAL_NSFW && CANAL_PRUEBAS)){
+        if(sub_command == "nsfw" && !canales_permitidos.includes(interaction.channel)){
             return interaction.reply({ embeds: [
                 new EmbedBuilder()
                     .setTitle(`Comando no disponible 🤐`)
