@@ -1,8 +1,9 @@
-const {SlashCommandBuilder} = require('discord.js')
+const {SlashCommandBuilder, PermissionFlagsBits} = require('discord.js')
 module.exports = {
     CMD: new SlashCommandBuilder()
         .setName("decir")
         .setDescription(`${process.env.BOT_NAME} dirá el texto que le digas`)
+        .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
         .addStringOption(option =>
             option.setName("texto")
             .setDescription('Texto que deseas que diga 😊')

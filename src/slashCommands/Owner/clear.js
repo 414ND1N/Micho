@@ -1,7 +1,7 @@
 const {SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits} = require('discord.js')
 module.exports = {
     CMD: new SlashCommandBuilder()
-        .setName("clear")
+        .setName("limpiar")
         .setDescription("Elimina los mensajes indicados del canal")
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
         .setDMPermission(false)
