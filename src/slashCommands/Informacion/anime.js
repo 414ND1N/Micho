@@ -4,12 +4,21 @@ module.exports = {
     CMD: new SlashCommandBuilder()
     .setName("anime")
     .setDescription("Descubre sobre anime")
+    .setDescriptionLocalizations({
+        "en-US": "Discover about anime"
+    })
     .addSubcommand(subcommand =>
         subcommand.setName('informacion')
             .setDescription('Información de un anime')
+            .setDescriptionLocalizations({
+                "en-US": "Anime information"
+            })
             .addStringOption(option =>
                 option.setName('nombre')
                     .setDescription('Nombre del anime a buscar')
+                    .setDescriptionLocalizations({
+                        "en-US": 'Anime name to search'
+                    })
                     .setRequired(true)
             )
     ),

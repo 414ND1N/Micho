@@ -3,34 +3,61 @@ const { SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, ButtonBuilder, Butt
 module.exports = {
     CMD: new SlashCommandBuilder()
         .setName("musica")
+        .setNameLocalizations({
+            "en-US": "music"
+        })
         .setDescription("Control de la reproducción de música")
+        .setDescriptionLocalizations({
+            "en-US": "Music playback control"
+        })
         .addSubcommand(subcommand =>
             subcommand.setName('reproducir')
                 .setDescription('Reproduce una canción')
+                .setDescriptionLocalizations({
+                    "en-US": 'Play a song'
+                })
                 .addStringOption(option =>
                     option.setName('cancion')
-                        .setDescription('Canción a reproducir (link o nombre)')
+                        .setDescription('Canción a reproducir (url o nombre)')
+                        .setDescriptionLocalizations({
+                            "en-US": 'Song to play (url or name)'
+                        })
                         .setRequired(true)
                 )
         )
         .addSubcommand(subcommand =>
             subcommand.setName('detener')
                 .setDescription('Detiene la reproducción de la música')
+                .setDescriptionLocalizations({
+                    "en-US": 'Stop music playback'
+                })
         )
         .addSubcommand(subcommand =>
             subcommand.setName('reproduciendo')
                 .setDescription('Muestra información de la canción que se está reproduciendo')
+                .setDescriptionLocalizations({
+                    "en-US": 'Show information about the song that is playing'
+                })
         )
         .addSubcommand(subcommand =>
             subcommand.setName('controlar')
                 .setDescription('Controlar la música en reproducción')
+                .setDescriptionLocalizations({
+                    "en-US": 'Control the music playing'
+                })
         )
         .addSubcommand(subcommand =>
             subcommand.setName('volumen')
                 .setDescription('Volumen para la música en reproducción')
+                .setDescriptionLocalizations({
+                    "en-US": 'Volume for music playback'
+                })
                 .addNumberOption(option =>
                     option.setName('porcentaje')
                         .setDescription('Porcentaje para la música en reproducción')
+                        .setDescriptionLocalizations({
+                            "en-US": 'Percentage for music playback'
+                        })
                         .setRequired(true)
                         .setMinValue(0)
                         .setMaxValue(200)
@@ -39,13 +66,22 @@ module.exports = {
         .addSubcommand(subcommand =>
             subcommand.setName('cola')
                 .setDescription('Lista la música que está en la cola de reproducción')
+                .setDescriptionLocalizations({
+                    "en-US": 'List the music that is in the playback queue'
+                })
         )
         .addSubcommand(subcommand =>
             subcommand.setName('saltar')
                 .setDescription('Saltar a una canción de la lista en reproducción')
+                .setDescriptionLocalizations({
+                    "en-US": 'Skip to a song on the playback list'
+                })
                 .addNumberOption(option =>
                     option.setName('poscicion')
                         .setDescription('Número de la canción en la lista')
+                        .setDescriptionLocalizations({
+                            "en-US": 'Song number on the list'
+                        })
                         .setRequired(true)
                         .setMinValue(2)
                 )
@@ -53,6 +89,9 @@ module.exports = {
         .addSubcommand(subcommand =>
             subcommand.setName('repeticion')
                 .setDescription('Controlar el comportamiento de la cola de reproducción')
+                .setDescriptionLocalizations({
+                    "en-US": 'Control the behavior of the playback queue'
+                })
         ),
 
     async execute(client, interaction) {

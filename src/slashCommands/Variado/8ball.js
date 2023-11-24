@@ -1,11 +1,20 @@
 const {SlashCommandBuilder, EmbedBuilder} = require('discord.js')
 module.exports = {
     CMD: new SlashCommandBuilder()
-        .setName("8ball")
+        .setName("bola8")
+        .setNameLocalizations({
+            "en-US": "8ball"
+        })
         .setDescription("Bola 8 te dará la respuesta a tu pregunta")
+        .setDescriptionLocalizations({
+            "en-US": "8ball will give you the answer to your question"
+        })
         .addStringOption(option =>
             option.setName("pregunta")
             .setDescription('Pregunta que deseas que la bola te responda')
+            .setDescriptionLocalizations({
+                "en-US": "Question you want the ball to answer"
+            })
             .setRequired(true)
         ),
     async execute(client, interaction){

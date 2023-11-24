@@ -3,41 +3,75 @@ const axios = require('axios');
 module.exports = {
     CMD: new SlashCommandBuilder()
         .setName("accion")
+        .setNameLocalizations({
+            "en-US": "action"
+        })
         .setDescription("Acción a otro usuario")
+        .setDescriptionLocalizations({
+            "en-US": "Action to another user"
+        })
         .addSubcommand(subcommand => 
             subcommand.setName('saludar')
             .setDescription('Saluda a otro usuario')
+            .setDescriptionLocalizations({
+                "en-US": "Greet another user"
+            })
             .addUserOption(option => 
                 option.setName('usuario')
                     .setDescription('Usuario al que se desea hacer la acción')
+                    .setDescriptionLocalizations({
+                        "en-US": 'User to whom you want to do the action'
+                    })
             )
             .addStringOption(option =>
                 option.setName('tipo')
                     .setDescription('Tipo de imagenes para enviar')
+                    .setDescriptionLocalizations({
+                        "en-US": 'Type of images to send'
+                    })
             )
         )
         .addSubcommand(subcommand => 
             subcommand.setName('felicitar')
             .setDescription('Felicita a otro usuario')
+            .setDescriptionLocalizations({
+                "en-US": "Congratulate another user"
+            })
             .addUserOption(option => 
                 option.setName('usuario')
                     .setDescription('Usuario al que se desea hacer la acción')
+                    .setDescriptionLocalizations({
+                        "en-US": 'User to whom you want to do the action'
+                    })
+
             )
             .addStringOption(option =>
                 option.setName('tipo')
                     .setDescription('Tipo de imagenes para enviar')
+                    .setDescriptionLocalizations({
+                        "en-US": 'Type of images to send'
+                    })
             )
         )
         .addSubcommand(subcommand => 
             subcommand.setName('palmada')
             .setDescription('Dale palmadas a otro usuario')
+            .setDescriptionLocalizations({
+                "en-US": "Pat another user"
+            })
             .addUserOption(option => 
                 option.setName('usuario')
                     .setDescription('Usuario al que se desea hacer la acción')
+                    .setDescriptionLocalizations({
+                        "en-US": 'User to whom you want to do the action'
+                    })
             )
             .addStringOption(option =>
                 option.setName('tipo')
                     .setDescription('Tipo de imagenes para enviar')
+                    .setDescriptionLocalizations({
+                        "en-US": 'Type of images to send'
+                    })
             )
         )
         .addSubcommand(subcommand => 
@@ -46,10 +80,17 @@ module.exports = {
             .addUserOption(option => 
                 option.setName('usuario')
                     .setDescription('Usuario al que se desea hacer la acción')
+                    .setDescriptionLocalizations({
+                        "en-US": 'User to whom you want to do the action'
+                    })
+
             )
             .addStringOption(option =>
                 option.setName('tipo')
                     .setDescription('Tipo de imagenes para enviar')
+                    .setDescriptionLocalizations({
+                        "en-US": 'Type of images to send'
+                    })
             )
         )
         .addSubcommand(subcommand => 
@@ -58,10 +99,17 @@ module.exports = {
             .addUserOption(option => 
                 option.setName('usuario')
                     .setDescription('Usuario al que se desea hacer la acción')
+                    .setDescriptionLocalizations({
+                        "en-US": 'User to whom you want to do the action'
+                    })
+
             )
             .addStringOption(option =>
                 option.setName('tipo')
                     .setDescription('Tipo de imagenes para enviar')
+                    .setDescriptionLocalizations({
+                        "en-US": 'Type of images to send'
+                    })
             )
         )
         .addSubcommand(subcommand => 
@@ -70,10 +118,17 @@ module.exports = {
             .addUserOption(option => 
                 option.setName('usuario')
                     .setDescription('Usuario al que se desea hacer la acción')
+                    .setDescriptionLocalizations({
+                        "en-US": 'User to whom you want to do the action'
+                    })
+
             )
             .addStringOption(option =>
                 option.setName('tipo')
                     .setDescription('Tipo de imagenes para enviar')
+                    .setDescriptionLocalizations({
+                        "en-US": 'Type of images to send'
+                    })
             )
         )
         .addSubcommand(subcommand => 
@@ -82,10 +137,17 @@ module.exports = {
             .addUserOption(option => 
                 option.setName('usuario')
                     .setDescription('Usuario al que se desea hacer la acción')
+                    .setDescriptionLocalizations({
+                        "en-US": 'User to whom you want to do the action'
+                    })
+
             )
             .addStringOption(option =>
                 option.setName('tipo')
                     .setDescription('Tipo de imagenes para enviar')
+                    .setDescriptionLocalizations({
+                        "en-US": 'Type of images to send'
+                    })
             )
         )
         .addSubcommand(subcommand => 
@@ -94,10 +156,17 @@ module.exports = {
             .addUserOption(option => 
                 option.setName('usuario')
                     .setDescription('Usuario al que se desea hacer la acción')
+                    .setDescriptionLocalizations({
+                        "en-US": 'User to whom you want to do the action'
+                    })
+
             )
             .addStringOption(option =>
                 option.setName('tipo')
                     .setDescription('Tipo de imagenes para enviar')
+                    .setDescriptionLocalizations({
+                        "en-US": 'Type of images to send'
+                    })
             )
         )
         .addSubcommand(subcommand => 
@@ -106,10 +175,17 @@ module.exports = {
             .addUserOption(option => 
                 option.setName('usuario')
                     .setDescription('Usuario al que se desea hacer la acción')
+                    .setDescriptionLocalizations({
+                        "en-US": 'User to whom you want to do the action'
+                    })
+
             )
             .addStringOption(option =>
                 option.setName('tipo')
                     .setDescription('Tipo de imagenes para enviar')
+                    .setDescriptionLocalizations({
+                        "en-US": 'Type of images to send'
+                    })
             )
         )
         .addSubcommand(subcommand => 
@@ -118,10 +194,17 @@ module.exports = {
             .addUserOption(option => 
                 option.setName('usuario')
                     .setDescription('Usuario al que se desea hacer la acción')
+                    .setDescriptionLocalizations({
+                        "en-US": 'User to whom you want to do the action'
+                    })
+
             )
             .addStringOption(option =>
                 option.setName('tipo')
                     .setDescription('Tipo de imagenes para enviar')
+                    .setDescriptionLocalizations({
+                        "en-US": 'Type of images to send'
+                    })
             )
         )
         .addSubcommand(subcommand => 
@@ -130,10 +213,17 @@ module.exports = {
             .addUserOption(option => 
                 option.setName('usuario')
                     .setDescription('Usuario al que se desea hacer la acción')
+                    .setDescriptionLocalizations({
+                        "en-US": 'User to whom you want to do the action'
+                    })
+
             )
             .addStringOption(option =>
                 option.setName('tipo')
                     .setDescription('Tipo de imagenes para enviar')
+                    .setDescriptionLocalizations({
+                        "en-US": 'Type of images to send'
+                    })
             )
         )
         .addSubcommand(subcommand => 
@@ -142,10 +232,17 @@ module.exports = {
             .addUserOption(option => 
                 option.setName('usuario')
                     .setDescription('Usuario al que se desea hacer la acción')
+                    .setDescriptionLocalizations({
+                        "en-US": 'User to whom you want to do the action'
+                    })
+
             )
             .addStringOption(option =>
                 option.setName('tipo')
                     .setDescription('Tipo de imagenes para enviar')
+                    .setDescriptionLocalizations({
+                        "en-US": 'Type of images to send'
+                    })
             )
         )
         .addSubcommand(subcommand => 
@@ -154,10 +251,17 @@ module.exports = {
             .addUserOption(option => 
                 option.setName('usuario')
                     .setDescription('Usuario al que se desea hacer la acción')
+                    .setDescriptionLocalizations({
+                        "en-US": 'User to whom you want to do the action'
+                    })
+
             )
             .addStringOption(option =>
                 option.setName('tipo')
                     .setDescription('Tipo de imagenes para enviar')
+                    .setDescriptionLocalizations({
+                        "en-US": 'Type of images to send'
+                    })
             )
         ),
     

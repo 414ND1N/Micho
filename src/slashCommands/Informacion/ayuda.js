@@ -3,7 +3,13 @@ const { StringSelectMenuBuilder, StringSelectMenuOptionBuilder, ActionRowBuilder
 module.exports = {
     CMD: new SlashCommandBuilder()
         .setName("ayuda")
-        .setDescription(`Listar los comandos disponibles de ${process.env.BOT_NAME}.`),
+        .setNameLocalizations({
+            "en-US": "help"
+        })
+        .setDescription(`Listar los comandos disponibles de ${process.env.BOT_NAME}`)
+        .setDescriptionLocalizations({
+            "en-US": `List the available commands of ${process.env.BOT_NAME}`
+        }),
     async execute(client, interaction){
 
         await interaction.deferReply(); // Respuestas mayores a 3 segundos

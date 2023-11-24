@@ -3,11 +3,16 @@ const { ActionRowBuilder, ButtonBuilder, ButtonStyle} = require('discord.js');
 module.exports = {
     CMD: new SlashCommandBuilder()
         .setName("verificar")
+        .setNameLocalizations({ "en-US": "verify" })
         .setDescription(`Mensaje de verificación`)
+        .setDescriptionLocalizations({ "en-US": "Verification message" })
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
         .addChannelOption(option =>
             option.setName('canal')
                 .setDescription('Canal donde se enviará el mensaje de verificación')
+                .setDescriptionLocalizations({
+                    "en-US": "Channel where the verification message will be sent",
+                })
                 .setRequired(true)
                 .addChannelTypes(ChannelType.GuildText)
         ),

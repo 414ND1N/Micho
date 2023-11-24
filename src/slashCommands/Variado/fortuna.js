@@ -2,7 +2,13 @@ const { SlashCommandBuilder, EmbedBuilder } = require('discord.js')
 module.exports = {
     CMD: new SlashCommandBuilder()
         .setName("fortuna")
-        .setDescription("Mensaje de la galleta de la fortuna"),
+        .setNameLocalizations({
+            "en-US": "fortune"
+        })
+        .setDescription("Mensaje de la galleta de la fortuna")
+        .setDescriptionLocalizations({
+            "en-US": "Fortune cookie message"
+        }),
     async execute(client, interaction) {
         
         // frase de la galleta de la suerte

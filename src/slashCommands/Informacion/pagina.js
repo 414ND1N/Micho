@@ -2,8 +2,14 @@ const { SlashCommandBuilder,EmbedBuilder} = require('discord.js')
 module.exports = {
     CMD: new SlashCommandBuilder()
         .setName("pagina")
-        .setDescription("Enlace de la pana página"),
-
+        .setNameLocalizations({
+            "en-US": "page"
+        })
+        .setDescription("Enlace de la pana página")
+        .setDescriptionLocalizations({
+            "en-US": "Link to the pana page"
+        })
+    ,
     async execute(client, interaction){
         return interaction.reply({
             embeds: [

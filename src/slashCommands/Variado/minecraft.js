@@ -5,6 +5,9 @@ module.exports = {
     CMD: new SlashCommandBuilder()
         .setName("minecraft")
         .setDescription("Obtiene información de Minecraft")
+        .setDescriptionLocalizations({
+            "en-US": "Get Minecraft information"
+        })
         .addSubcommand(subcommand =>
             subcommand.setName('skin')
                 .setDescription('Visualiza la skin de un jugador en específico')

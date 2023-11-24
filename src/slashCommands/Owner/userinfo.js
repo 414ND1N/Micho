@@ -3,11 +3,14 @@ const { SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits } = require('disc
 module.exports = {
     CMD: new SlashCommandBuilder()
         .setName("userinfo")
-        .setDescription("Muestra información de un usuario.")
+        .setNameLocalizations({ "en-US": "userinfo" })
+        .setDescription("Muestra información de un usuario")
+        .setDescriptionLocalizations({ "en-US": "Show user information" })
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
         .addUserOption((option) => 
             option.setName('usuario')
-            .setDescription('Usuario del cual mostrar información.')
+            .setDescription('Usuario del cual mostrar información')
+            .setDescriptionLocalizations({ "en-US": 'User of which to show information' })
         ),
 
     execute(client, interaction) {

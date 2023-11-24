@@ -5,9 +5,15 @@ module.exports = {
     CMD: new SlashCommandBuilder()
         .setName("pokedex")
         .setDescription("Mostrar información de la pokedéx de tu pokemón preferido")
+        .setDescriptionLocalizations({
+            "en-US": "Show information from your favorite pokemon"
+        })
         .addNumberOption(option =>
             option.setName("id")
             .setDescription('Pokemón que deseas buscar 🔍')
+            .setDescriptionLocalizations({
+                "en-US": 'Pokemon you want to search 🔍'
+            })
             .setRequired(true)
             .setMinValue(1)
             .setMaxValue(1010)

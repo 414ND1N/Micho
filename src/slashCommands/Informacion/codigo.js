@@ -2,8 +2,14 @@ const { SlashCommandBuilder,EmbedBuilder} = require('discord.js')
 module.exports = {
     CMD: new SlashCommandBuilder()
         .setName("codigo")
-        .setDescription("Repositorio de mi código ☺"),
-
+        .setNameLocalizations({
+            "en-US": "code"
+        })
+        .setDescription("Repositorio de mi código ☺")
+        .setDescriptionLocalizations({
+            "en-US": "My code repository ☺"
+        })
+    ,
     async execute(client, interaction){
         return interaction.reply({
             embeds: [

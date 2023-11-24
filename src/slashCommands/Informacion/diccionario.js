@@ -3,19 +3,27 @@ const axios = require('axios');
 module.exports = {
     CMD: new SlashCommandBuilder()
         .setName("diccionario")
+        .setNameLocalizations({
+            "en-US": "dictionary"
+        })
         .setDescription("Definición de un término del diccionario urbano.")
+        .setDescriptionLocalizations({
+            "en-US": "Definition of a term from the urban dictionary."
+        })
         .addStringOption(option =>
             option.setName("term")
                 .setDescription('Término a buscar')
+                .setDescriptionLocalizations({
+                    "en-US": 'Term to search'
+                })
                 .setRequired(true)
         ),
     async execute(client, interaction) {
 
         await interaction.deferReply(); // Defer para respuestas de más de 3 segundos
 
-        const term = interaction.options.getString("term");
-        const query = new URLSearchParams({ term });
-        const url_api = `https://api.urbandictionary.com/v0/define?${query}`;
+        const query = interaction.options.getString("term");
+        const url_api = `https://api.urbandictionary.com/v0/define?term=${query}`;
         const response = await axios.get(url_api);
 
         const { list } = await response.data;

@@ -3,7 +3,13 @@ const axios = require('axios');
 module.exports = {
     CMD: new SlashCommandBuilder()
         .setName("micho")
-        .setDescription("Foto aleatoria de un gato"),
+        .setNameLocalizations({
+            "en-US": "michi"
+        })
+        .setDescription("Foto aleatoria de un gato")
+        .setDescriptionLocalizations({
+            "en-US": "Random cat photo"
+        }),
 
     async execute(client, interaction){
 

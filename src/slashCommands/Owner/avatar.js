@@ -2,11 +2,16 @@ const {SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits, ActivityType} = r
 module.exports = {
     CMD: new SlashCommandBuilder()
         .setName("avatar")
+        .setNameLocalizations({  "en-US": "avatar" })
         .setDescription(`Actualizar el avatar de ${process.env.BOT_NAME}`)
+        .setDescriptionLocalizations({
+            "en-US": `Update ${process.env.BOT_NAME}'s avatar`
+        })
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
         .addStringOption(option =>
             option.setName('url')
                 .setDescription('Enlace de la imagen a setear como avatar')
+                .setDescriptionLocalizations({ "en-US": "Image link to set as avatar" })
                 .setRequired(true)
         ),
     

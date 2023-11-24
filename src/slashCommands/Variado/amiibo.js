@@ -4,10 +4,19 @@ const axios = require('axios');
 module.exports = {
     CMD: new SlashCommandBuilder()
         .setName("amiibo")
+        .setNameLocalizations({
+            "en-US": "amiibo"
+        })
         .setDescription("Mostrar información de amiibos")
+        .setDescriptionLocalizations({
+            "en-US": "Show amiibo information"
+        })
         .addStringOption(option =>
             option.setName("personaje")
                 .setDescription('Personaje a buscar amiibos 🔍')
+                .setDescriptionLocalizations({
+                    "en-US": "Character to search for amiibos 🔍"
+                })
                 .setRequired(true)
         ),
     async execute(client, interaction) {

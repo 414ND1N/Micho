@@ -3,12 +3,21 @@ module.exports = {
     CMD: new SlashCommandBuilder()
         .setName("meme")
         .setDescription("Genera tu propio meme con plantillas")
+        .setDescriptionLocalizations({
+            "en-US": "Generate your own meme with templates"
+        })
         .addSubcommand(subcommand =>
             subcommand.setName('plantillas')
                 .setDescription('Crea un meme con una plantilla')
+                .setDescriptionLocalizations({
+                    "en-US": "Create a meme with a template"
+                })
                 .addStringOption(option =>
                     option.setName('plantilla')
                         .setDescription('Tipo de plantilla que se usara')
+                        .setDescriptionLocalizations({
+                            "en-US": "Type of template to use"
+                        })
                         .setRequired(true)
                         .addChoices(
                             { name: 'Change My Mind', value: "cmm" },
@@ -40,20 +49,32 @@ module.exports = {
                 .addStringOption(option =>
                     option.setName('textos')
                         .setDescription('Texto que se pondra en la plantilla del meme separado por comas (;)')
+                        .setDescriptionLocalizations({
+                            "en-US": 'Text to be placed on the meme template separated by commas (;)'
+                        })
                         .setRequired(true)
                 )
         )
         .addSubcommand(subcommand =>
             subcommand.setName('personalizado')
                 .setDescription('Crea un meme con tu propia imagen')
+                .setDescriptionLocalizations({
+                    "en-US": "Create a meme with your own image"
+                })
                 .addStringOption(option =>
                     option.setName('imagen')
                         .setDescription('URL de la imagen que se usara')
+                        .setDescriptionLocalizations({
+                            "en-US": "Image URL to use"
+                        })
                         .setRequired(true)
                 )
                 .addStringOption(option =>
                     option.setName('textos')
                         .setDescription('Texto que se pondra separado por comas (;)')
+                        .setDescriptionLocalizations({
+                            "en-US": 'Text to be placed separated by commas (;)'
+                        })
                         .setRequired(true)
                 )
         )

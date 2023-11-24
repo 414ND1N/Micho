@@ -2,10 +2,19 @@ const {SlashCommandBuilder, EmbedBuilder} = require('discord.js');
 module.exports = {
     CMD: new SlashCommandBuilder()
         .setName("sugerir")
+        .setNameLocalizations({
+            "en-US": "suggest"
+        })
         .setDescription("Dar sugerencia a votación en el canal de sugerencias")
+        .setDescriptionLocalizations({
+            "en-US": "Give suggestion to vote in the suggestions channel"
+        })
         .addStringOption(option =>
         option.setName("sugerencia")
             .setDescription('Sugerencia para la votación')
+            .setDescriptionLocalizations({
+                "en-US": "Suggestion for voting"
+            })
             .setRequired(true)
         ),
     async execute(client, interaction){

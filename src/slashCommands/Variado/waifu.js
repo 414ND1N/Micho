@@ -4,12 +4,21 @@ module.exports = {
     CMD: new SlashCommandBuilder()
         .setName("waifu")
         .setDescription("Imagen aleatoria de una mona china")
+        .setDescriptionLocalizations({
+            "en-US": "Random waifu photo"
+        })
         .addSubcommand(subcommand =>
             subcommand.setName('sfw')
                 .setDescription('Imagen SFW (Safe For Work)')
+                .setDescriptionLocalizations({
+                    "en-US": "SFW (Safe For Work) image"
+                })
                 .addStringOption(option =>
                     option.setName('categoria')
                         .setDescription('Categoría de la imagen')
+                        .setDescriptionLocalizations({
+                            "en-US": 'Image category'
+                        })
                         .addChoices(
                             { name: 'Waifu', value: 'waifu' },
                             { name: 'Gato', value: 'neko' },
@@ -39,9 +48,15 @@ module.exports = {
         .addSubcommand(subcommand =>
             subcommand.setName('nsfw')
                 .setDescription('Imagen NSFW (Not Safe For Work)')
+                .setDescriptionLocalizations({
+                    "en-US": "NSFW (Not Safe For Work) image"
+                })
                 .addStringOption(option =>
                     option.setName('categoria')
                         .setDescription('Categoría de la imagen')
+                        .setDescriptionLocalizations({
+                            "en-US": 'Image category'
+                        })
                         .addChoices(
                             { name: 'Waifu', value: 'waifu' },
                             { name: 'Gato', value: 'neko' }

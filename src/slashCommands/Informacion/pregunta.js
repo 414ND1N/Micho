@@ -3,22 +3,40 @@ const { Configuration, OpenAIApi } = require("openai");
 module.exports = {
     CMD: new SlashCommandBuilder()
         .setName("pregunta")
+        .setNameLocalizations({
+            "en-US": "question"
+        })
         .setDescription("Realiza una pregunta")
+        .setDescriptionLocalizations({
+            "en-US": "Ask a question"
+        })
         .addSubcommand(subcommand => 
             subcommand.setName('grupo')
             .setDescription('Realiza una pregunta al grupo y podran reaccionar')
+            .setDescriptionLocalizations({
+                "en-US": "Ask a question to the group and they can react"
+            })
             .addStringOption(option =>
                 option.setName("pregunta")
                 .setDescription('Pregunta que deseas realizar')
+                .setDescriptionLocalizations({
+                    "en-US": "Question you want to ask"
+                })
                 .setRequired(true)
             )
         )
         .addSubcommand(subcommand => 
             subcommand.setName(process.env.BOT_NAME.toLowerCase())
             .setDescription(`Realiza una pregunta a ${process.env.BOT_NAME} y te respondera con su sabiduria`)
+            .setDescriptionLocalizations({
+                "en-US": `Ask ${process.env.BOT_NAME} a question and he will answer you with his wisdom`
+            })
             .addStringOption(option =>
                 option.setName("pregunta")
                 .setDescription('Pregunta que deseas realizar')
+                .setDescriptionLocalizations({
+                    "en-US": "Question you want to ask"
+                })
                 .setRequired(true)
             )
         )

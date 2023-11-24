@@ -2,14 +2,24 @@ const {SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits, ActivityType} = r
 module.exports = {
     CMD: new SlashCommandBuilder()
         .setName("presencia")
+        .setNameLocalizations({ "en-US": "presence" })
         .setDescription(`Actualizar la presencia de ${process.env.BOT_NAME}`)
+        .setDescriptionLocalizations({
+            "en-US": `Update ${process.env.BOT_NAME}'s presence`
+        })
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
         .addSubcommand(subcommand => 
             subcommand.setName('actividad')
             .setDescription(`Actualiza la actividad de ${process.env.BOT_NAME}`)
+            .setDescriptionLocalizations({
+                "en-US": `Update ${process.env.BOT_NAME}'s activity`
+            })
             .addStringOption(option =>
                 option.setName('tipo')
                     .setDescription('Tipo de actividad al cual actualizar')
+                    .setDescriptionLocalizations({
+                        "en-US": 'Type of activity to update'
+                    })
                     .setRequired(true)
                     .addChoices(
                         {name: 'Playing', value: 'Playing'},
@@ -22,15 +32,24 @@ module.exports = {
             .addStringOption(option =>
                 option.setName('actividad')
                     .setDescription('Setear la actividad actual')
+                    .setDescriptionLocalizations({
+                        "en-US": 'Set the current activity'
+                    })
                     .setRequired(true)    
             )
         )
         .addSubcommand(subcommand => 
             subcommand.setName('estado')
             .setDescription(`Actualiza el estado de ${process.env.BOT_NAME}`)
+            .setDescriptionLocalizations({
+                "en-US": `Update ${process.env.BOT_NAME}'s status`
+            })
             .addStringOption(option =>
                 option.setName('tipo')
                     .setDescription('Tipo de estado al cual actualizar')
+                    .setDescriptionLocalizations({
+                        "en-US": 'Type of status to update'
+                    })
                     .setRequired(true)
                     .addChoices(
                         {name: 'Online', value: 'online'},

@@ -2,19 +2,29 @@ const {SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits} = require('discor
 module.exports = {
     CMD: new SlashCommandBuilder()
         .setName("limpiar")
+        .setNameLocalizations({ "en-US": "clear" })
         .setDescription("Elimina los mensajes indicados del canal")
+        .setDescriptionLocalizations({
+            "en-US": "Deletes the indicated messages from the channel",
+        })
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
         .setDMPermission(false)
         .addNumberOption(option =>
             option.setName("mensajes")
             .setDescription("Número de mensajes a eliminar")
+            .setDescriptionLocalizations({
+                "en-US": "Number of messages to delete",
+            })
             .setRequired(true)
             .setMinValue(1)
             .setMaxValue(100)
         )
         .addUserOption(option =>
             option.setName("objetivo")
-            .setDescription("Indica a quien se desea eliminar los mensajes")   
+            .setDescription("Indica a quien se desea eliminar los mensajes")
+            .setDescriptionLocalizations({
+                "en-US": "Indicates who you want to delete the messages",
+            })
         ),
     async execute(client, interaction){
 
@@ -48,7 +58,7 @@ module.exports = {
                 let ClearCommandembed = new EmbedBuilder()
                     .setTitle('🧹 __CLEAR__ 🧹')
                     .setColor(process.env.COLOR)
-                    .setDescription(`Se han eliminado una cantidad de \`${messages.size}\` mensajes`)
+                    .setDescription(`Se han eliminado una cantidad de \`${messages.size}\` mensajes 🧹`)
                     .setThumbnail("https://i.imgur.com/7bj9r36.gif")
                 
                 await interaction.reply({ embeds: [ClearCommandembed]});

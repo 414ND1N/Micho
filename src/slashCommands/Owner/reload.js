@@ -2,10 +2,15 @@ const {SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits} = require('discor
 module.exports = {
     CMD: new SlashCommandBuilder()
         .setName("reload")
+        .setNameLocalizations({ "en-US": "reload" })
         .setDescription("Recarga los archivos del bot")
+        .setDescriptionLocalizations({
+            "en-US": "Reload bot files"
+        })
         .addStringOption(option =>
             option.setName("modulo")
             .setDescription("Módulo a recargar")
+            .setDescriptionLocalizations({ "en-US": "Module to reload" })
             .addChoices(
                 {name: "Comandos", value:"commands"},
                 {name: "Eventos", value:"events"},
