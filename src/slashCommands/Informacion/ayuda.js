@@ -82,8 +82,10 @@ module.exports = {
                 {name: `amiibo`, value:`Sirve para mostrar información de amiibos
                     > Se indica el \`nombre\` del personaje a buscar.`},
                 {name: `dogo`, value:`Sirve para mandar la imágen aleatoria de un perro.`},
-                {name: `elegir`, value:`Sirve para que ${process.env.BOT_NAME} eliga entre las opciones dadas.\n
+                {name: `elegir opciones`, value:`Sirve para eligir entre las opciones dadas.\n
                     > Las opciones se dan separadas por coma \`,\`.`},
+                {name: `elegir numero`, value:`Sirve paraeligir entre un rango dado.\n
+                    >  Se indica rango inferior (si no se da se tomará como 0) y rango máximo.`},
                 {name: `fortuna`, value:`Mensaje de la galleta de la fortuna.`},
                 {name: `meme personalizado`, value:`Crea un meme con tu propia imagen\n
                     > Se manda la \`url\` de tu imagen y los textos del meme separados por \`;\`.`},
