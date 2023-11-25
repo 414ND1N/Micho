@@ -10,7 +10,7 @@
   <img width="200" align="left" src="https://i.imgur.com/fw4Oa3n.jpg"/>
   <h1>MICHO</h1>
   <p>
-    💬 Bot de discord compatible con los comandos slash <b>/</b>
+    💬 Bot de discord compatible con los comandos slash, comandos con localizacion (español e inglés) <b>/</b>
   </p>
   <br>
 </div>
