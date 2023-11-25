@@ -80,7 +80,6 @@ module.exports = {
                     _Puedes indicar que tipo de imagen buscar_.`},
                 {name: `amiibo`, value:`Sirve para mostrar información de amiibos
                     > Se indica el \`nombre\` del personaje a buscar.`},
-                {name: `decir`, value:`Sirve para que ${process.env.BOT_NAME} diga el texto dado.`},
                 {name: `dogo`, value:`Sirve para mandar la imágen aleatoria de un perro.`},
                 {name: `elegir`, value:`Sirve para que ${process.env.BOT_NAME} eliga entre las opciones dadas.\n
                     > Las opciones se dan separadas por coma \`,\`.`},
