@@ -19,6 +19,11 @@
 
 > 👤 _Basado [**`handler de Dew`**](https://github.com/dewstouh/handler-v14)_
 
+### 📝 Requisitos
+- [Node.js](https://nodejs.org/es/) v16.20.2 
+- [Discord.js](https://discord.js.org/#/) v13.1.0 ó superior
+- [DisTube](https://distube.js.org/#/docs/DisTube/stable/general/welcome) v4.1.0 ó superior
+
 ### 🔧 Funciones
 
 - Sistema de bienvenida
@@ -47,7 +52,9 @@
 - accion `usuario` `accion`
 - amiibo `personaje`
 - conversar `texto`
-- elegir `opcion 1, opcion 2, ...`
+- elegir 
+    - opcion `opcion 1, opcion 2, ...`
+    - numeros `min` `max`
 - fortuna
 - image `texto`
 - micho

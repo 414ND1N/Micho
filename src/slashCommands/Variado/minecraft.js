@@ -11,6 +11,9 @@ module.exports = {
         .addSubcommand(subcommand =>
             subcommand.setName('skin')
                 .setDescription('Visualiza la skin de un jugador en específico')
+                .setDescriptionLocalizations({
+                    "en-US": "Visualize the skin of a specific player"
+                })
                 .addStringOption(option =>
                     option.setName('nombre')
                         .setDescription('Nombre del jugador')
@@ -19,6 +22,9 @@ module.exports = {
                 .addStringOption(option =>
                     option.setName('tipo')
                         .setDescription('Tipo en la que se visualizará la skin')
+                        .setDescriptionLocalizations({
+                            "en-US": "Type in which the skin will be displayed"
+                        })
                         .addChoices(
                             { name: 'Cuerpo', value: 'body' },
                             { name: 'Cabeza', value: 'helm' },
@@ -30,6 +36,9 @@ module.exports = {
         .addSubcommand(subcommand =>
             subcommand.setName('servidor')
                 .setDescription('Mira información del servidor de Pana Land')
+                .setDescriptionLocalizations({
+                    "en-US": "Get information from Pana Land server"
+                })
         ),
 
     async execute(client, interaction) {
