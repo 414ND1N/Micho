@@ -87,9 +87,9 @@ module.exports = {
                 {name: `elegir numero | choose number`, value:`Sirve paraeligir entre un rango dado.\n
                     >  Se indica rango inferior (si no se da se tomará como 0) y rango máximo.`},
                 {name: `fortuna | fortune`, value:`Mensaje de la galleta de la fortuna.`},
-                {name: `meme personalizado`, value:`Crea un meme con tu propia imagen\n
+                {name: `meme personalizado | meme custom`, value:`Crea un meme con tu propia imagen\n
                     > Se manda la \`url\` de tu imagen y los textos del meme separados por \`;\`.`},
-                {name: `meme plantillas`, value:`Crea un meme con una plantilla\n
+                {name: `meme predefinido | meme predifined`, value:`Crea un meme con una plantilla\n
                 > Se elige un tipo de \`plantilla\` y los textos del meme separados por \`;\`.`},
                 {name: `micho | michi`, value:`Sirve para mandar la imágen aleatoria de un gato.`},
                 {name: `minecraft servidor | minecraft server`, value:`Muestra informacion del \`panaserver\`.`},
