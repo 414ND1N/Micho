@@ -47,7 +47,6 @@
 - accion `usuario` `accion`
 - amiibo `personaje`
 - conversar `texto`
-- decir `texto`
 - elegir `opcion 1, opcion 2, ...`
 - fortuna
 - image `texto`
@@ -85,6 +84,7 @@
 ### 🤓 Comandos de administrador
 - avatar `url` 
 - clear `usuario*` `numero mensajes`
+- decir `texto`
 - dm `usuario` `mensaje`
 - imagenia `entrada`
 - presencia 
