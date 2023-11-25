@@ -24,7 +24,7 @@ module.exports = {
             "Hoy es el momento de explorar: no temas.",
             "Muy pronto serás incluido en muchas reuniones, fiestas y tertulias.",
             "Cuando busques lo que más deseas, recuerda hacer tu mejor esfuerzo.",
-            "Tienes por delante un maravilloso día para triunfar; disfrútalo y compártelo.",
+            "Tienes por delante un maravilloso día para triunfar disfrútalo y compártelo.",
             "Hoy serás reconocido por tus dones especiales y lograrás ser feliz por muchas horas.",
             "Tu corazón estallará de alegría con la llegada de buenas noticias.",
             "Mañana puede ser muy tarde para disfrutar lo que tienes hoy.",
@@ -44,8 +44,8 @@ module.exports = {
             "Siente la felicidad que espera por ti y no olvides atraparla para mantenerla contigo."
         ]
 
-        const randomIndex = Math.floor(Math.random() * opciones.length);
-        const item = opciones[randomIndex];
+        const randomIndex = Math.floor(Math.random() * opciones.length)
+        const item = opciones[randomIndex]
 
         return interaction.reply({
             embeds: [

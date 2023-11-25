@@ -37,6 +37,7 @@ module.exports = {
                 })
                 .addIntegerOption(option =>
                     option.setName("maximo")
+                        .setNameLocalizations({"en-US": 'maximum'})
                         .setDescription('Número máximo')
                         .setDescriptionLocalizations({
                             "en-US": 'Maximum number'
@@ -45,6 +46,7 @@ module.exports = {
                 )
                 .addIntegerOption(option =>
                     option.setName("minimo")
+                        .setNameLocalizations({"en-US": 'minimum'})
                         .setDescription('Número mínimo')
                         .setDescriptionLocalizations({
                             "en-US": 'Minimum number'
@@ -54,17 +56,17 @@ module.exports = {
     async execute(client, interaction){
 
         //constantes
-        const SUB = interaction.options.getSubcommand();
-        let args, opciones, rIndex;
+        const SUB = interaction.options.getSubcommand()
+        let args, opciones, rIndex
 
         switch (SUB) {
             case 'opciones':
             case 'options':
                 args = interaction.options.getString("elecciones")
                 opciones = args.split(",")
-                rIndex = Math.floor(Math.random() * opciones.length);
+                rIndex = Math.floor(Math.random() * opciones.length)
 
-                await interaction.channel.sendTyping();
+                await interaction.channel.sendTyping()
                 
                 return interaction.reply({
                     embeds: [
@@ -75,12 +77,12 @@ module.exports = {
                 })
             case 'numeros':
             case 'numbers':
-                args = interaction.options.getString("elecciones");
+                args = interaction.options.getString("elecciones")
                 let min = interaction.options.getInteger("minimo") || 0 //si no viene el minimo, poner 0
                 let max = interaction.options.getInteger("maximo") // valor maximo siempre viene
-                rIndex = Math.floor(Math.random() * (max - min + 1)) + min; //random entre el rango dado
+                rIndex = Math.floor(Math.random() * (max - min + 1)) + min //random entre el rango dado
 
-                await interaction.channel.sendTyping();
+                await interaction.channel.sendTyping()
                 
                 return interaction.reply({
                     embeds: [

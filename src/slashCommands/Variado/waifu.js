@@ -1,5 +1,6 @@
 const {SlashCommandBuilder, EmbedBuilder} = require('discord.js');
 const axios = require('axios');
+
 module.exports = {
     CMD: new SlashCommandBuilder()
         .setName("waifu")
@@ -15,6 +16,9 @@ module.exports = {
                 })
                 .addStringOption(option =>
                     option.setName('categoria')
+                        .setNameLocalizations({
+                            "en-US": "category"
+                        })
                         .setDescription('Categoría de la imagen')
                         .setDescriptionLocalizations({
                             "en-US": 'Image category'
@@ -53,6 +57,9 @@ module.exports = {
                 })
                 .addStringOption(option =>
                     option.setName('categoria')
+                        .setNameLocalizations({
+                            "en-US": "category"
+                        })
                         .setDescription('Categoría de la imagen')
                         .setDescriptionLocalizations({
                             "en-US": 'Image category'
@@ -68,11 +75,11 @@ module.exports = {
     async execute(client, interaction){
         
         //verificar si el canal es NSFW
-        const CANAL_NSFW = client.channels.cache.get(process.env.ID_CANAL_NSFW);
-        const CANAL_PRUEBAS = client.channels.cache.get(process.env.ID_CANAL_PRUEBAS);
+        const CANAL_NSFW = client.channels.cache.get(process.env.ID_CANAL_NSFW)
+        const CANAL_PRUEBAS = client.channels.cache.get(process.env.ID_CANAL_PRUEBAS)
 
-        const sub_command = interaction.options.getSubcommand(); // Tipo de la imagen (SFW o NSFW)
-        const categoria = interaction.options.getString('categoria'); // Categoría de la imagen
+        const sub_command = interaction.options.getSubcommand() // Tipo de la imagen (SFW o NSFW)
+        const categoria = interaction.options.getString('categoria') // Categoría de la imagen
         const canales_permitidos = [CANAL_NSFW, CANAL_PRUEBAS]
 
         if(sub_command == "nsfw" && !canales_permitidos.includes(interaction.channel)){
@@ -86,13 +93,13 @@ module.exports = {
             ], ephemeral: true })
         }
 
-        await interaction.deferReply(); // Defer para respuestas de más de 3 segundos
+        await interaction.deferReply() // Defer para respuestas de más de 3 segundos
         
-        const url_api = `https://waifu.pics/api/${sub_command}/${categoria}`;
-        const response = await axios.get(url_api);
-        const img_url = response.data.url;
+        const url_api = `https://waifu.pics/api/${sub_command}/${categoria}`
+        const response = await axios.get(url_api)
+        const img_url = response.data.url
 
-        const AUTHOR = interaction.member?.nickname?? interaction.user.username; // Si no tiene apodo, se usa el nombre de usuario
+        const AUTHOR = interaction.member?.nickname?? interaction.user.username // Si no tiene apodo, se usa el nombre de usuario
     
         return interaction.editReply({
             embeds: [

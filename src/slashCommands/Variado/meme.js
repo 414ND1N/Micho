@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder } = require('discord.js')
 module.exports = {
     CMD: new SlashCommandBuilder()
         .setName("meme")
@@ -7,13 +7,19 @@ module.exports = {
             "en-US": "Generate your own meme with templates"
         })
         .addSubcommand(subcommand =>
-            subcommand.setName('plantillas')
+            subcommand.setName('predefinido')
+                .setNameLocalizations({
+                    "en-US": "predefined"
+                })
                 .setDescription('Crea un meme con una plantilla')
                 .setDescriptionLocalizations({
                     "en-US": "Create a meme with a template"
                 })
                 .addStringOption(option =>
                     option.setName('plantilla')
+                        .setNameLocalizations({
+                            "en-US": "template"
+                        })
                         .setDescription('Tipo de plantilla que se usara')
                         .setDescriptionLocalizations({
                             "en-US": "Type of template to use"
@@ -48,15 +54,21 @@ module.exports = {
                 )
                 .addStringOption(option =>
                     option.setName('textos')
-                        .setDescription('Texto que se pondra en la plantilla del meme separado por comas (;)')
+                        .setNameLocalizations({
+                            "en-US": "texts"
+                        })
+                        .setDescription('Texto que se pondra en la plantilla del meme separado por comas ()')
                         .setDescriptionLocalizations({
-                            "en-US": 'Text to be placed on the meme template separated by commas (;)'
+                            "en-US": 'Text to be placed on the meme template separated by commas ()'
                         })
                         .setRequired(true)
                 )
         )
         .addSubcommand(subcommand =>
             subcommand.setName('personalizado')
+                .setNameLocalizations({
+                    "en-US": "custom"
+                })
                 .setDescription('Crea un meme con tu propia imagen')
                 .setDescriptionLocalizations({
                     "en-US": "Create a meme with your own image"
@@ -71,9 +83,9 @@ module.exports = {
                 )
                 .addStringOption(option =>
                     option.setName('textos')
-                        .setDescription('Texto que se pondra separado por comas (;)')
+                        .setDescription('Texto que se pondra separado por comas ()')
                         .setDescriptionLocalizations({
-                            "en-US": 'Text to be placed separated by commas (;)'
+                            "en-US": 'Text to be placed separated by commas ()'
                         })
                         .setRequired(true)
                 )
@@ -82,10 +94,10 @@ module.exports = {
 
     async execute(client, interaction) {
 
-        await interaction.deferReply(); // Defer para respuestas de más de 3 segundos
-        const SUB = interaction.options.getSubcommand(); //Subcomando
+        await interaction.deferReply() // Defer para respuestas de más de 3 segundos
+        const SUB = interaction.options.getSubcommand() //Subcomando
 
-        const TEXTO_ENTRADA = interaction.options.getString('textos'); //Texto de entrada
+        const TEXTO_ENTRADA = interaction.options.getString('textos') //Texto de entrada
 
         const remplazos = {
             "?": "~q",
@@ -97,24 +109,24 @@ module.exports = {
             "<": "~l",
             ">": "~g",
             "\"": "''''",
-        };
+        }
         
-        const textoSeparados = TEXTO_ENTRADA.split(';');
-        const textoProcesado = textoSeparados.map(text => (
-            text.replace(/[\?&%#\/\\<>"]/g, match => remplazos[match]).replace(/\s/g, "_")
-        ));
+        const textoSeparados = TEXTO_ENTRADA.split(';') //Separar el texto por ;
+        const textoProcesado = textoSeparados.map(text => ( //Remplazar caracteres especiales 
+            text.replace(/[\?&%#\/\\<>"]/g, match => remplazos[match]).replace(/\s/g, "_") 
+        ))
         
-        const TEXTO_FORMATEADO = textoProcesado.join('/');
+        const TEXTO_FORMATEADO = textoProcesado.join('/')
 
-        const AUTHOR = interaction.member?.nickname?? interaction.user.username; // Si no tiene apodo, se usa el nombre de usuario
+        const AUTHOR = interaction.member?.nickname?? interaction.user.username // Si no tiene apodo, se usa el nombre de usuario
 
 
         switch (SUB) {
-            case 'plantillas':
+            case 'predefinido':
 
-                const ID_PLANTILLA = interaction.options.getString('plantilla');
+                const ID_PLANTILLA = interaction.options.getString('plantilla')
 
-                img_url = `https://api.memegen.link/images/${ID_PLANTILLA}/${TEXTO_FORMATEADO}.png`;
+                img_url = `https://api.memegen.link/images/${ID_PLANTILLA}/${TEXTO_FORMATEADO}.png`
         
                 return interaction.editReply({
                     embeds: [
@@ -127,9 +139,9 @@ module.exports = {
                 })
             case 'personalizado':
 
-                const BACKGROUND_IMG = interaction.options.getString('imagen');
+                const BACKGROUND_IMG = interaction.options.getString('imagen')
                 
-                img_url = `https://api.memegen.link/images/custom/${TEXTO_FORMATEADO}.png?background=${BACKGROUND_IMG}`;
+                img_url = `https://api.memegen.link/images/custom/${TEXTO_FORMATEADO}.png?background=${BACKGROUND_IMG}`
 
                 return interaction.editReply({
                     embeds: [

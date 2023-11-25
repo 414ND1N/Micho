@@ -1,5 +1,6 @@
 const {SlashCommandBuilder, EmbedBuilder,} = require('discord.js')
-const { StringSelectMenuBuilder, StringSelectMenuOptionBuilder, ActionRowBuilder} = require('discord.js');
+const { StringSelectMenuBuilder, StringSelectMenuOptionBuilder, ActionRowBuilder} = require('discord.js')
+
 module.exports = {
     CMD: new SlashCommandBuilder()
         .setName("ayuda")
@@ -12,7 +13,7 @@ module.exports = {
         }),
     async execute(client, interaction){
 
-        await interaction.deferReply(); // Respuestas mayores a 3 segundos
+        await interaction.deferReply() // Respuestas mayores a 3 segundos
 
         //Creacion de los embed
         const embed_menu = new EmbedBuilder()
@@ -24,7 +25,7 @@ module.exports = {
                 {name: `\`Música\``, value: `Comandos para reproducir música en el canal de voz.`},
                 {name: `\`Variedad\``, value: `Comandos para funciónes variadas.`}
             )
-            .setThumbnail("https://i.imgur.com/xbzkVJh.gif");
+            .setThumbnail("https://i.imgur.com/xbzkVJh.gif")
 
         const embed_menu_informacion = new EmbedBuilder()
             .setTitle('Información')
@@ -42,7 +43,7 @@ module.exports = {
                 {name: `pregunta ${process.env.BOT_NAME.toLocaleLowerCase()}`, value:`Sirve para realizar una pregunta a ${process.env.BOT_NAME}.
                     > Te respondera con su inteligencia artificial.`},
             )  
-            .setThumbnail(`https://i.imgur.com/Ud2cXN5.jpg`);
+            .setThumbnail(`https://i.imgur.com/Ud2cXN5.jpg`)
 
         const embed_menu_musica = new EmbedBuilder()
             .setTitle('Música')
@@ -66,7 +67,7 @@ module.exports = {
                 {name: `repeticion`, value:`Sirve para cambiar el modo de repetición de la cola en reproducción.\n
                     > \`Cancion actual\`, \`Cola actual\`, \`Detener repéticion\`.`},
             )  
-            .setThumbnail(`https://i.imgur.com/9PzViPP.jpg`);
+            .setThumbnail(`https://i.imgur.com/9PzViPP.jpg`)
 
         const embed_menu_variedad = new EmbedBuilder()
             .setTitle('Variedad')
@@ -98,7 +99,7 @@ module.exports = {
                 {name: `waifu`, value:`Sirve para mostrar la imagen de una waifu aleatoria.\n
                     > Se indica el \`tipo\` (sfw/nsfw) y la \`categoria\` segun el tipo.`},
             )
-            .setThumbnail(`https://i.imgur.com/s2lV0y5.png`);
+            .setThumbnail(`https://i.imgur.com/s2lV0y5.png`)
         
         //Creacion del dropdown para seleccionar el menu
         const select = new StringSelectMenuBuilder()
@@ -130,55 +131,55 @@ module.exports = {
 					.setDescription('Cerrar el menú de ayuda.')
 					.setValue('exit')
                     .setEmoji(`❌`),
-			);
+			)
 
-        const row = new ActionRowBuilder().addComponents(select); 
+        const row = new ActionRowBuilder().addComponents(select) 
         
         //Creacion del Embed principal
         let embed_help = await interaction.channel.send({
             embeds: [embed_menu],
             components: [row],
             ephemeral: true
-        });
+        })
 
-        const collector = embed_help.createMessageComponentCollector({time: 60e3});  
+        const collector = embed_help.createMessageComponentCollector({time: 60e3})  
         
         collector.on("collect", async (i) => {
             if(i?.user.id != interaction.user.id){
-                return await i.reply({content: `❌ Solo quien uso el comando puede navegar entre categorías.`, ephemeral: true});
+                return await i.reply({content: `❌ Solo quien uso el comando puede navegar entre categorías.`, ephemeral: true})
             }
             switch (i?.values[0]){
                 case 'info':{
-                    collector.resetTimer();
+                    collector.resetTimer()
                     await i.update({embeds: [embed_menu_informacion], components:[row]})
                 }
-                    break;
+                    break
                 case 'music':{
-                    collector.resetTimer();
+                    collector.resetTimer()
                     await i.update({embeds: [embed_menu_musica], components:[row]})
                 }
-                    break;
+                    break
                 case 'var':{
-                    collector.resetTimer();
+                    collector.resetTimer()
                     await i.update({embeds: [embed_menu_variedad], components:[row]})
                 }
-                    break;
+                    break
                 case 'exit':{
-                    collector.stop();
+                    collector.stop()
                 }
-                    break;
+                    break
                 default: {//Si no es ninguna de las opciones anteriores se envia el menu principal
-                    collector.resetTimer();
+                    collector.resetTimer()
                     await i.update({embeds: [embed_menu], components:[row]})
                 }
-                    break;
+                    break
             }
-        });
+        })
         collector.on("end", async () => {
             //borramos los embed y los componentes, se deja un mensaje de que el tiempo ha expirado
-            embed_help.edit({content: "El tiempo ha expirado ⏳, utiliza denuevo el comando ayuda 😊", components:[], ephemeral: true}).catch(() => {});
-            embed_help.suppressEmbeds(true);
-            await interaction.deleteReply();
-        });
+            embed_help.edit({content: "El tiempo ha expirado ⏳, utiliza denuevo el comando ayuda 😊", components:[], ephemeral: true}).catch(() => {})
+            embed_help.suppressEmbeds(true)
+            await interaction.deleteReply()
+        })
     }
 }

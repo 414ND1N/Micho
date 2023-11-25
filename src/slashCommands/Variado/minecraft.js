@@ -16,11 +16,17 @@ module.exports = {
                 })
                 .addStringOption(option =>
                     option.setName('nombre')
+                        .setNameLocalizations({
+                            "en-US": "name"
+                        })
                         .setDescription('Nombre del jugador')
                         .setRequired(true)
                 )
                 .addStringOption(option =>
                     option.setName('tipo')
+                        .setNameLocalizations({
+                            "en-US": "type"
+                        })
                         .setDescription('Tipo en la que se visualizará la skin')
                         .setDescriptionLocalizations({
                             "en-US": "Type in which the skin will be displayed"
@@ -35,6 +41,9 @@ module.exports = {
         )
         .addSubcommand(subcommand =>
             subcommand.setName('servidor')
+                .setNameLocalizations({
+                    "en-US": "server"
+                })
                 .setDescription('Mira información del servidor de Pana Land')
                 .setDescriptionLocalizations({
                     "en-US": "Get information from Pana Land server"

@@ -1,5 +1,6 @@
-const {SlashCommandBuilder, EmbedBuilder} = require('discord.js');
-const { Configuration, OpenAIApi } = require("openai");
+const {SlashCommandBuilder, EmbedBuilder} = require('discord.js')
+const { Configuration, OpenAIApi } = require("openai")
+
 module.exports = {
     CMD: new SlashCommandBuilder()
         .setName("pregunta")
@@ -43,8 +44,8 @@ module.exports = {
     ,
     async execute(client, interaction){
 
-        const SUB = interaction.options.getSubcommand();
-        const PREGUNTA = interaction.options.getString("pregunta");
+        const SUB = interaction.options.getSubcommand()
+        const PREGUNTA = interaction.options.getString("pregunta")
         switch(SUB){
             case "grupo":
                 const embed_sug = new EmbedBuilder()
@@ -52,36 +53,36 @@ module.exports = {
                     .setDescription(`\`${PREGUNTA}\``)
                     .setColor(process.env.COLOR)
                     .setTimestamp()
-                    .setThumbnail(`https://i.imgur.com/2BF8HEc.gif`);
+                    .setThumbnail(`https://i.imgur.com/2BF8HEc.gif`)
 
-                const mensaje = await interaction.reply({embeds: [embed_sug], fetchReply: true});
+                const mensaje = await interaction.reply({embeds: [embed_sug], fetchReply: true})
                 
-                mensaje.react(`👍`);
-                mensaje.react(`👎`);
-                mensaje.react(`🤨`);
-                mensaje.react(`😴`);
-                mensaje.react(`🏳️‍🌈`);
+                mensaje.react(`👍`)
+                mensaje.react(`👎`)
+                mensaje.react(`🤨`)
+                mensaje.react(`😴`)
+                mensaje.react(`🏳️‍🌈`)
 
                 return
                 
             case process.env.BOT_NAME.toLowerCase():
-                await interaction.deferReply(); // Defer para respuestas con un margen de tiempo de 15 minutos
+                await interaction.deferReply() // Defer para respuestas con un margen de tiempo de 15 minutos
 
                 const configuration = new Configuration({
                     apiKey: process.env.OPENAI_API_KEY,
-                });
-                const openai = new OpenAIApi(configuration);
+                })
+                const openai = new OpenAIApi(configuration)
 
                 let conversationLog = [{
                     role: 'system', content: process.env.OPENAI_BOT_CONTENT //Configuracion comportamiento bot
-                }];
+                }]
 
                 //Enviar mensaje entrante del comando
                 conversationLog.push({
                     role: 'user',
                     content: PREGUNTA,
                     name: interaction.user.username ?? undefined
-                });
+                })
 
                 //LLAMADA API
                 const result = await openai
@@ -91,11 +92,11 @@ module.exports = {
                         // max_tokens: 256, // limit token usage
                     })
                     .catch((error) => {
-                        console.log(`OPENAI ERR`);
+                        console.log(`OPENAI ERR`)
                         console.error(error)
-                    });
+                    })
                 
-                const respuesta = result?.data.choices[0].message;
+                const respuesta = result?.data.choices[0].message
 
                 return interaction.editReply({
                     embeds: [
@@ -105,7 +106,7 @@ module.exports = {
                             .setColor(process.env.COLOR)
                             .setFooter({ text: `Respuesta de ${process.env.BOT_NAME} con ChatGPT-3.5`})
                     ]
-                });
+                })
         }
         
     }

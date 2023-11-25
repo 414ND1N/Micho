@@ -1,4 +1,5 @@
 const {SlashCommandBuilder,EmbedBuilder} = require('discord.js')
+
 module.exports = {
     CMD: new SlashCommandBuilder()
         .setName("ping")
@@ -6,7 +7,7 @@ module.exports = {
         .setDescriptionLocalizations({
             "en-US": `Ping of ${process.env.BOT_NAME}`
         })
-        ,
+    ,
     async execute(client, interaction){
         return interaction.reply({
             embeds: [

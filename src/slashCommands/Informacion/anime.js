@@ -1,5 +1,6 @@
-const {SlashCommandBuilder, EmbedBuilder} = require('discord.js');
-const axios = require('axios');
+const {SlashCommandBuilder, EmbedBuilder} = require('discord.js')
+const axios = require('axios')
+
 module.exports = {
     CMD: new SlashCommandBuilder()
     .setName("anime")
@@ -9,12 +10,14 @@ module.exports = {
     })
     .addSubcommand(subcommand =>
         subcommand.setName('informacion')
+            .setNameLocalizations({ "en-US": "information" })
             .setDescription('Información de un anime')
             .setDescriptionLocalizations({
                 "en-US": "Anime information"
             })
             .addStringOption(option =>
                 option.setName('nombre')
+                    .setNameLocalizations({ "en-US": "name" })
                     .setDescription('Nombre del anime a buscar')
                     .setDescriptionLocalizations({
                         "en-US": 'Anime name to search'
@@ -25,18 +28,18 @@ module.exports = {
 
     async execute(client, interaction){
 
-        await interaction.deferReply(); // Defer para respuestas de más de 3 segundos
+        await interaction.deferReply() // Defer para respuestas de más de 3 segundos
 
         //constantes
-        const SUB = interaction.options.getSubcommand();
+        const SUB = interaction.options.getSubcommand()
 
         switch(SUB){
 
             case 'informacion':{
                 
-                const nombreAnime = interaction.options.getString('nombre');
-                const url_api = `https://api.jikan.moe/v4/anime?q=${nombreAnime}&sfw`;
-                const response = await axios.get(url_api);
+                const nombreAnime = interaction.options.getString('nombre')
+                const url_api = `https://api.jikan.moe/v4/anime?q=${nombreAnime}&sfw`
+                const response = await axios.get(url_api)
 
                 if(response.data.data.length == 0){ // Si no se encuentra ningún anime con el nombre, se envía un mensaje de error
                     return interaction.editReply({
@@ -48,22 +51,22 @@ module.exports = {
                         ]
                     })
                 }
-                const title = response.data.data[0].title;
-                const title_japanese = response.data.data[0].title_japanese;
-                const url_anime = response.data.data[0].url;
-                const rank = response.data.data[0].rank;
-                const episodes = response.data.data[0].episodes;
-                const year = response.data.data[0].year;
-                const status = response.data.data[0].status;
-                const source = response.data.data[0].source;
-                const rating = response.data.data[0].rating;
-                const synopsis = response.data.data[0].synopsis;
-                const synopsisFormated = synopsis?.length <= 1000 ? synopsis : synopsis.slice(0, 1000) + ' ...'; // Si la sinopsis es mayor a 1024 caracteres, se corta y se agrega '...'
-                const genres = response.data.data[0].genres.map(genre => genre.name).join(', ');
-                const themes = response.data.data[0].themes.map(theme => theme.name).join(', ');
-                const score = response.data.data[0].score;
-                const scored_by = response.data.data[0].scored_by;
-                const image = response.data.data[0].images.webp.image_url;
+                const title = response.data.data[0].title
+                const title_japanese = response.data.data[0].title_japanese
+                const url_anime = response.data.data[0].url
+                const rank = response.data.data[0].rank
+                const episodes = response.data.data[0].episodes
+                const year = response.data.data[0].year
+                const status = response.data.data[0].status
+                const source = response.data.data[0].source
+                const rating = response.data.data[0].rating
+                const synopsis = response.data.data[0].synopsis
+                const synopsisFormated = synopsis?.length <= 1000 ? synopsis : synopsis.slice(0, 1000) + ' ...' // Si la sinopsis es mayor a 1024 caracteres, se corta y se agrega '...'
+                const genres = response.data.data[0].genres.map(genre => genre.name).join(', ')
+                const themes = response.data.data[0].themes.map(theme => theme.name).join(', ')
+                const score = response.data.data[0].score
+                const scored_by = response.data.data[0].scored_by
+                const image = response.data.data[0].images.webp.image_url
 
                 return interaction.editReply({
                     embeds: [
@@ -94,7 +97,7 @@ module.exports = {
                             .setColor(process.env.COLOR_ERROR)
                             .setTitle(`Subcomando no encontrado`)
                     ]
-                });
+                })
         }
 
 

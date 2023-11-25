@@ -1,4 +1,5 @@
-const {SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits} = require('discord.js');
+const {SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits} = require('discord.js')
+
 module.exports = {
     CMD: new SlashCommandBuilder()
         .setName("dm")
@@ -9,6 +10,7 @@ module.exports = {
         })
         .addUserOption(option => 
             option.setName('usuario')
+                .setNameLocalizations({ "en-US": 'user' })
                 .setDescription('Usuario al que se desea enviar el mensaje privado 🧐')
                 .setDescriptionLocalizations({
                     "en-US": 'User to whom you want to send the private message 🧐'
@@ -17,6 +19,7 @@ module.exports = {
         )
         .addStringOption(option =>
             option.setName('mensaje')
+                .setNameLocalizations({ "en-US": 'message' })
                 .setDescription('Mensaje que se desea enviar')
                 .setDescriptionLocalizations({ "en-US": 'Message to send' })
                 .setRequired(true)
@@ -24,12 +27,12 @@ module.exports = {
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
     
     async execute(client, interaction){
-        const user = interaction.options.getUser('usuario');
-        const mensaje = interaction.options.getString('mensaje');
+        const user = interaction.options.getUser('usuario')
+        const mensaje = interaction.options.getString('mensaje')
 
-        if(!user) return interaction.reply("No se encontró destinario, vuelve a intentarlo");
+        if(!user) return interaction.reply("No se encontró destinario, vuelve a intentarlo")
 
-        user.send(mensaje);
+        user.send(mensaje)
 
         interaction.reply({
             embeds: [
@@ -38,6 +41,6 @@ module.exports = {
                     .setDescription(`Mensaje envíado a ${user} \n> ${mensaje}`)
             ],
             ephemeral: true
-        });
+        })
     }
 }                   

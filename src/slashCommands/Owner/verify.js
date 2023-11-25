@@ -9,6 +9,7 @@ module.exports = {
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
         .addChannelOption(option =>
             option.setName('canal')
+                .setNameLocalizations({ "en-US": 'channel' })
                 .setDescription('Canal donde se enviará el mensaje de verificación')
                 .setDescriptionLocalizations({
                     "en-US": "Channel where the verification message will be sent",

@@ -1,4 +1,5 @@
 const {SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits} = require('discord.js')
+
 module.exports = {
     CMD: new SlashCommandBuilder()
         .setName("reload")
@@ -9,45 +10,46 @@ module.exports = {
         })
         .addStringOption(option =>
             option.setName("modulo")
-            .setDescription("Módulo a recargar")
-            .setDescriptionLocalizations({ "en-US": "Module to reload" })
-            .addChoices(
-                {name: "Comandos", value:"commands"},
-                {name: "Eventos", value:"events"},
-                {name: "Handlers", value:"handlers"},
-            )
+                .setNameLocalizations({ "en-US": "module" })
+                .setDescription("Módulo a recargar")
+                .setDescriptionLocalizations({ "en-US": "Module to reload" })
+                .addChoices(
+                    {name: "Comandos", value:"commands"},
+                    {name: "Eventos", value:"events"},
+                    {name: "Handlers", value:"handlers"},
+                )
         )
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
 
     async execute(client, interaction){
-        let args = interaction.options.getString("modulo");
-        let opcion = "Comandos, Eventos y Handlers";
+        let args = interaction.options.getString("modulo")
+        let opcion = "Comandos, Eventos y Handlers"
 
-        await interaction.deferReply(); // Defer para respuestas de más de 3 segundos
+        await interaction.deferReply() // Defer para respuestas de más de 3 segundos
 
         try{
             switch(args?.toLowerCase()){
                 case "commands":{
-                    opcion = "Comandos";
-                    await client.loadSlashCommands();
+                    opcion = "Comandos"
+                    await client.loadSlashCommands()
                 }
-                    break;
+                    break
                 case "events":{
-                    opcion = "Eventos";
-                    await client.loadEvents();
+                    opcion = "Eventos"
+                    await client.loadEvents()
                 }
-                    break;
+                    break
                 case "handlers":{
-                    opcion = "Handlers";
-                    await client.loadHandlers();
+                    opcion = "Handlers"
+                    await client.loadHandlers()
                 }
-                    break;
+                    break
                 default:{
-                    await client.loadEvents();
-                    await client.loadHandlers();
-                    await client.loadSlashCommands();
+                    await client.loadEvents()
+                    await client.loadHandlers()
+                    await client.loadSlashCommands()
                 }   
-                    break;
+                    break
             }
             interaction.editReply({
                 embeds: [
@@ -56,11 +58,11 @@ module.exports = {
                     .setColor(process.env.COLOR)
                 ],
                 ephemeral: true
-            });
-            console.log(`✅ ${opcion} recargados\n`.yellow);
+            })
+            console.log(`✅ ${opcion} recargados\n`.yellow)
         }catch(e){
-            interaction.editReply({content: `**Ha ocurrido un error al recargar el bot**\nMira la consola para mas detalle :P`});
-            console.log(e);
+            interaction.editReply({content: `**Ha ocurrido un error al recargar el bot**\nMira la consola para mas detalle :P`})
+            console.log(e)
         }
     }
 } 

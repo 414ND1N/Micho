@@ -9,8 +9,9 @@ module.exports = {
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
         .addUserOption((option) => 
             option.setName('usuario')
-            .setDescription('Usuario del cual mostrar información')
-            .setDescriptionLocalizations({ "en-US": 'User of which to show information' })
+                .setNameLocalizations({ "en-US": 'user' })
+                .setDescription('Usuario del cual mostrar información')
+                .setDescriptionLocalizations({ "en-US": 'User of which to show information' })
         ),
 
     execute(client, interaction) {

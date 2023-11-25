@@ -11,15 +11,18 @@ module.exports = {
         })
         .addStringOption(option =>
             option.setName("pregunta")
-            .setDescription('Pregunta que deseas que la bola te responda')
-            .setDescriptionLocalizations({
-                "en-US": "Question you want the ball to answer"
-            })
-            .setRequired(true)
+                .setNameLocalizations({
+                    "en-US": "question"
+                })
+                .setDescription('Pregunta que deseas que la bola te responda')
+                .setDescriptionLocalizations({
+                    "en-US": "Question you want the ball to answer"
+                })
+                .setRequired(true)
         ),
     async execute(client, interaction){
         
-        let pregunta = interaction.options.getString("pregunta");
+        let pregunta = interaction.options.getString("pregunta")
 
         const opciones = [
             "Es cierto",
@@ -33,8 +36,8 @@ module.exports = {
             "Los astros aun no se alinean",
         ]
 
-        const randomIndex = Math.floor(Math.random() * opciones.length);
-        const item = opciones[randomIndex];
+        const randomIndex = Math.floor(Math.random() * opciones.length)
+        const item = opciones[randomIndex]
         
         return interaction.reply({
             embeds: [

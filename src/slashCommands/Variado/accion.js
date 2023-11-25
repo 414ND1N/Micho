@@ -1,5 +1,5 @@
-const {SlashCommandBuilder, EmbedBuilder} = require('discord.js');
-const axios = require('axios');
+const {SlashCommandBuilder, EmbedBuilder} = require('discord.js')
+const axios = require('axios')
 module.exports = {
     CMD: new SlashCommandBuilder()
         .setName("accion")
@@ -12,271 +12,408 @@ module.exports = {
         })
         .addSubcommand(subcommand => 
             subcommand.setName('saludar')
-            .setDescription('Saluda a otro usuario')
-            .setDescriptionLocalizations({
-                "en-US": "Greet another user"
-            })
-            .addUserOption(option => 
-                option.setName('usuario')
-                    .setDescription('Usuario al que se desea hacer la acción')
-                    .setDescriptionLocalizations({
-                        "en-US": 'User to whom you want to do the action'
-                    })
-            )
-            .addStringOption(option =>
-                option.setName('tipo')
-                    .setDescription('Tipo de imagenes para enviar')
-                    .setDescriptionLocalizations({
-                        "en-US": 'Type of images to send'
-                    })
-            )
+                .setNameLocalizations({
+                    "en-US": "greet"
+                })
+                .setDescription('Saluda a otro usuario')
+                .setDescriptionLocalizations({
+                    "en-US": "Greet another user"
+                })
+                .addUserOption(option => 
+                    option.setName('usuario')
+                        .setNameLocalizations({
+                            "en-US": "user"
+                        })
+                        .setDescription('Usuario al que se desea hacer la acción')
+                        .setDescriptionLocalizations({
+                            "en-US": 'User to whom you want to do the action'
+                        })
+                )
+                .addStringOption(option =>
+                    option.setName('tipo')
+                        .setNameLocalizations({
+                            "en-US": "type"
+                        })
+                        .setDescription('Tipo de imagenes para enviar')
+                        .setDescriptionLocalizations({
+                            "en-US": 'Type of images to send'
+                        })
+                )
         )
         .addSubcommand(subcommand => 
             subcommand.setName('felicitar')
-            .setDescription('Felicita a otro usuario')
-            .setDescriptionLocalizations({
-                "en-US": "Congratulate another user"
-            })
-            .addUserOption(option => 
-                option.setName('usuario')
-                    .setDescription('Usuario al que se desea hacer la acción')
-                    .setDescriptionLocalizations({
-                        "en-US": 'User to whom you want to do the action'
-                    })
-
-            )
-            .addStringOption(option =>
-                option.setName('tipo')
-                    .setDescription('Tipo de imagenes para enviar')
-                    .setDescriptionLocalizations({
-                        "en-US": 'Type of images to send'
-                    })
-            )
+                .setNameLocalizations({
+                    "en-US": "congratulate"
+                })
+                .setDescription('Felicita a otro usuario')
+                .setDescriptionLocalizations({
+                    "en-US": "Congratulate another user"
+                })
+                .addUserOption(option => 
+                    option.setName('usuario')
+                        .setNameLocalizations({
+                            "en-US": "user"
+                        })
+                        .setDescription('Usuario al que se desea hacer la acción')
+                        .setDescriptionLocalizations({
+                            "en-US": 'User to whom you want to do the action'
+                        })
+                )
+                .addStringOption(option =>
+                    option.setName('tipo')
+                        .setNameLocalizations({
+                            "en-US": "type"
+                        })
+                        .setDescription('Tipo de imagenes para enviar')
+                        .setDescriptionLocalizations({
+                            "en-US": 'Type of images to send'
+                        })
+                )
         )
         .addSubcommand(subcommand => 
             subcommand.setName('palmada')
-            .setDescription('Dale palmadas a otro usuario')
-            .setDescriptionLocalizations({
-                "en-US": "Pat another user"
-            })
-            .addUserOption(option => 
-                option.setName('usuario')
-                    .setDescription('Usuario al que se desea hacer la acción')
-                    .setDescriptionLocalizations({
-                        "en-US": 'User to whom you want to do the action'
-                    })
-            )
-            .addStringOption(option =>
-                option.setName('tipo')
-                    .setDescription('Tipo de imagenes para enviar')
-                    .setDescriptionLocalizations({
-                        "en-US": 'Type of images to send'
-                    })
-            )
+                .setNameLocalizations({
+                    "en-US": "pat"
+                })
+                .setDescription('Dale palmadas a otro usuario')
+                .setDescriptionLocalizations({
+                    "en-US": "Pat another user"
+                })
+                .addUserOption(option => 
+                    option.setName('usuario')
+                        .setNameLocalizations({
+                            "en-US": "user"
+                        })
+                        .setDescription('Usuario al que se desea hacer la acción')
+                        .setDescriptionLocalizations({
+                            "en-US": 'User to whom you want to do the action'
+                        })
+                )
+                .addStringOption(option =>
+                    option.setName('tipo')
+                        .setNameLocalizations({
+                            "en-US": "type"
+                        })
+                        .setDescription('Tipo de imagenes para enviar')
+                        .setDescriptionLocalizations({
+                            "en-US": 'Type of images to send'
+                        })
+                )
         )
         .addSubcommand(subcommand => 
             subcommand.setName('tocar')
-            .setDescription('Darle toques a otro usuario')
-            .addUserOption(option => 
-                option.setName('usuario')
-                    .setDescription('Usuario al que se desea hacer la acción')
-                    .setDescriptionLocalizations({
-                        "en-US": 'User to whom you want to do the action'
-                    })
-
-            )
-            .addStringOption(option =>
-                option.setName('tipo')
-                    .setDescription('Tipo de imagenes para enviar')
-                    .setDescriptionLocalizations({
-                        "en-US": 'Type of images to send'
-                    })
-            )
+                .setNameLocalizations({
+                    "en-US": "poke"
+                })
+                .setDescription('Darle toques a otro usuario')
+                .setDescriptionLocalizations({
+                    "en-US" : "Poke another user"
+                })
+                .addUserOption(option => 
+                    option.setName('usuario')
+                        .setNameLocalizations({
+                            "en-US": "user"
+                        })
+                        .setDescription('Usuario al que se desea hacer la acción')
+                        .setDescriptionLocalizations({
+                            "en-US": 'User to whom you want to do the action'
+                        })
+                )
+                .addStringOption(option =>
+                    option.setName('tipo')
+                        .setNameLocalizations({
+                            "en-US": "type"
+                        })
+                        .setDescription('Tipo de imagenes para enviar')
+                        .setDescriptionLocalizations({
+                            "en-US": 'Type of images to send'
+                        })
+                )
         )
         .addSubcommand(subcommand => 
             subcommand.setName('lamer')
-            .setDescription('Lamer a otro usuario')
-            .addUserOption(option => 
-                option.setName('usuario')
-                    .setDescription('Usuario al que se desea hacer la acción')
-                    .setDescriptionLocalizations({
-                        "en-US": 'User to whom you want to do the action'
-                    })
-
-            )
-            .addStringOption(option =>
-                option.setName('tipo')
-                    .setDescription('Tipo de imagenes para enviar')
-                    .setDescriptionLocalizations({
-                        "en-US": 'Type of images to send'
-                    })
-            )
+                .setNameLocalizations({
+                    "en-US": "lick"
+                })
+                .setDescription('Lamer a otro usuario')
+                .setDescriptionLocalizations({
+                    "en-US": "Lick another user"
+                })
+                .addUserOption(option => 
+                    option.setName('usuario')
+                        .setNameLocalizations({
+                            "en-US": "user"
+                        })
+                        .setDescription('Usuario al que se desea hacer la acción')
+                        .setDescriptionLocalizations({
+                            "en-US": 'User to whom you want to do the action'
+                        })
+                )
+                .addStringOption(option =>
+                    option.setName('tipo')
+                        .setNameLocalizations({
+                            "en-US": "type"
+                        })
+                        .setDescription('Tipo de imagenes para enviar')
+                        .setDescriptionLocalizations({
+                            "en-US": 'Type of images to send'
+                        })
+                )
         )
         .addSubcommand(subcommand => 
             subcommand.setName('pulgar')
-            .setDescription('Dale un pulgar arriba a otro usuario')
-            .addUserOption(option => 
-                option.setName('usuario')
-                    .setDescription('Usuario al que se desea hacer la acción')
-                    .setDescriptionLocalizations({
-                        "en-US": 'User to whom you want to do the action'
-                    })
-
-            )
-            .addStringOption(option =>
-                option.setName('tipo')
-                    .setDescription('Tipo de imagenes para enviar')
-                    .setDescriptionLocalizations({
-                        "en-US": 'Type of images to send'
-                    })
-            )
+                .setNameLocalizations({
+                    "en-US": "thumbsup"
+                })
+                .setDescription('Dale un pulgar arriba a otro usuario')
+                .setDescriptionLocalizations({
+                    "en-US": "Give a thumbs up to another user"
+                })
+                .addUserOption(option => 
+                    option.setName('usuario')
+                        .setNameLocalizations({
+                            "en-US": "user"
+                        })
+                        .setDescription('Usuario al que se desea hacer la acción')
+                        .setDescriptionLocalizations({
+                            "en-US": 'User to whom you want to do the action'
+                        })
+                )
+                .addStringOption(option =>
+                    option.setName('tipo')
+                        .setNameLocalizations({
+                            "en-US": "type"
+                        })
+                        .setDescription('Tipo de imagenes para enviar')
+                        .setDescriptionLocalizations({
+                            "en-US": 'Type of images to send'
+                        })
+                )
         )
         .addSubcommand(subcommand => 
             subcommand.setName('sonrojar')
-            .setDescription('Sonrojate por otro usuario')
-            .addUserOption(option => 
-                option.setName('usuario')
-                    .setDescription('Usuario al que se desea hacer la acción')
-                    .setDescriptionLocalizations({
-                        "en-US": 'User to whom you want to do the action'
-                    })
-
-            )
-            .addStringOption(option =>
-                option.setName('tipo')
-                    .setDescription('Tipo de imagenes para enviar')
-                    .setDescriptionLocalizations({
-                        "en-US": 'Type of images to send'
-                    })
-            )
+                .setNameLocalizations({
+                    "en-US": "blush"
+                })
+                .setDescription('Sonrojate por otro usuario')
+                .setDescriptionLocalizations({
+                    "en-US": "Blush for another user"
+                })
+                .addUserOption(option => 
+                    option.setName('usuario')
+                        .setNameLocalizations({
+                            "en-US": "user"
+                        })
+                        .setDescription('Usuario al que se desea hacer la acción')
+                        .setDescriptionLocalizations({
+                            "en-US": 'User to whom you want to do the action'
+                        })
+                )
+                .addStringOption(option =>
+                    option.setName('tipo')
+                        .setNameLocalizations({
+                            "en-US": "type"
+                        })
+                        .setDescription('Tipo de imagenes para enviar')
+                        .setDescriptionLocalizations({
+                            "en-US": 'Type of images to send'
+                        })
+                )
         )
         .addSubcommand(subcommand => 
             subcommand.setName('abrazar')
-            .setDescription('Dale un abrazo a otro usuario')
-            .addUserOption(option => 
-                option.setName('usuario')
-                    .setDescription('Usuario al que se desea hacer la acción')
-                    .setDescriptionLocalizations({
-                        "en-US": 'User to whom you want to do the action'
-                    })
-
-            )
-            .addStringOption(option =>
-                option.setName('tipo')
-                    .setDescription('Tipo de imagenes para enviar')
-                    .setDescriptionLocalizations({
-                        "en-US": 'Type of images to send'
-                    })
-            )
+                .setNameLocalizations({
+                    "en-US": "hug"
+                })
+                .setDescription('Dale un abrazo a otro usuario')
+                .setDescriptionLocalizations({
+                    "en-US": "Give a hug to another user"
+                })
+                .addUserOption(option => 
+                    option.setName('usuario')
+                        .setNameLocalizations({
+                            "en-US": "user"
+                        })
+                        .setDescription('Usuario al que se desea hacer la acción')
+                        .setDescriptionLocalizations({
+                            "en-US": 'User to whom you want to do the action'
+                        })
+                )
+                .addStringOption(option =>
+                    option.setName('tipo')
+                        .setNameLocalizations({
+                            "en-US": "type"
+                        })
+                        .setDescription('Tipo de imagenes para enviar')
+                        .setDescriptionLocalizations({
+                            "en-US": 'Type of images to send'
+                        })
+                )
         )
         .addSubcommand(subcommand => 
             subcommand.setName('besar')
-            .setDescription('Dale un beso a otro usuario')
-            .addUserOption(option => 
-                option.setName('usuario')
-                    .setDescription('Usuario al que se desea hacer la acción')
-                    .setDescriptionLocalizations({
-                        "en-US": 'User to whom you want to do the action'
-                    })
-
-            )
-            .addStringOption(option =>
-                option.setName('tipo')
-                    .setDescription('Tipo de imagenes para enviar')
-                    .setDescriptionLocalizations({
-                        "en-US": 'Type of images to send'
-                    })
-            )
+                .setNameLocalizations({
+                    "en-US": "kiss"
+                })
+                .setDescription('Dale un beso a otro usuario')
+                .setDescriptionLocalizations({
+                    "en-US": "Give a kiss to another user"
+                })
+                .addUserOption(option => 
+                    option.setName('usuario')
+                        .setNameLocalizations({
+                            "en-US": "user"
+                        })
+                        .setDescription('Usuario al que se desea hacer la acción')
+                        .setDescriptionLocalizations({
+                            "en-US": 'User to whom you want to do the action'
+                        })
+                )
+                .addStringOption(option =>
+                    option.setName('tipo')
+                        .setNameLocalizations({
+                            "en-US": "type"
+                        })
+                        .setDescription('Tipo de imagenes para enviar')
+                        .setDescriptionLocalizations({
+                            "en-US": 'Type of images to send'
+                        })
+                )
         )
         .addSubcommand(subcommand => 
             subcommand.setName('abofetear')
-            .setDescription('Dale una bofetada a otro usuario')
-            .addUserOption(option => 
-                option.setName('usuario')
-                    .setDescription('Usuario al que se desea hacer la acción')
-                    .setDescriptionLocalizations({
-                        "en-US": 'User to whom you want to do the action'
-                    })
-
-            )
-            .addStringOption(option =>
-                option.setName('tipo')
-                    .setDescription('Tipo de imagenes para enviar')
-                    .setDescriptionLocalizations({
-                        "en-US": 'Type of images to send'
-                    })
-            )
+                .setNameLocalizations({
+                    "en-US": "slap"
+                })
+                .setDescription('Dale una bofetada a otro usuario')
+                .setDescriptionLocalizations({
+                    "en-US": "Slap another user"
+                })
+                .addUserOption(option => 
+                    option.setName('usuario')
+                        .setNameLocalizations({
+                            "en-US": "user"
+                        })
+                        .setDescription('Usuario al que se desea hacer la acción')
+                        .setDescriptionLocalizations({
+                            "en-US": 'User to whom you want to do the action'
+                        })
+                )
+                .addStringOption(option =>
+                    option.setName('tipo')
+                        .setNameLocalizations({
+                            "en-US": "type"
+                        })
+                        .setDescription('Tipo de imagenes para enviar')
+                        .setDescriptionLocalizations({
+                            "en-US": 'Type of images to send'
+                        })
+                )
         )
         .addSubcommand(subcommand => 
             subcommand.setName('golpear')
-            .setDescription('Dale un golpe a otro usuario')
-            .addUserOption(option => 
-                option.setName('usuario')
-                    .setDescription('Usuario al que se desea hacer la acción')
-                    .setDescriptionLocalizations({
-                        "en-US": 'User to whom you want to do the action'
-                    })
-
-            )
-            .addStringOption(option =>
-                option.setName('tipo')
-                    .setDescription('Tipo de imagenes para enviar')
-                    .setDescriptionLocalizations({
-                        "en-US": 'Type of images to send'
-                    })
-            )
+                .setNameLocalizations({
+                    "en-US": "punch"
+                })
+                .setDescription('Dale un golpe a otro usuario')
+                .setDescriptionLocalizations({
+                    "en-US": "Punch another user"
+                })
+                .addUserOption(option => 
+                    option.setName('usuario')
+                        .setNameLocalizations({
+                            "en-US": "user"
+                        })
+                        .setDescription('Usuario al que se desea hacer la acción')
+                        .setDescriptionLocalizations({
+                            "en-US": 'User to whom you want to do the action'
+                        })
+                )
+                .addStringOption(option =>
+                    option.setName('tipo')
+                        .setNameLocalizations({
+                            "en-US": "type"
+                        })
+                        .setDescription('Tipo de imagenes para enviar')
+                        .setDescriptionLocalizations({
+                            "en-US": 'Type of images to send'
+                        })
+                )
         )
         .addSubcommand(subcommand => 
             subcommand.setName('guiño')
-            .setDescription('Dale un guiño a otro usuario')
-            .addUserOption(option => 
-                option.setName('usuario')
-                    .setDescription('Usuario al que se desea hacer la acción')
-                    .setDescriptionLocalizations({
-                        "en-US": 'User to whom you want to do the action'
-                    })
-
-            )
-            .addStringOption(option =>
-                option.setName('tipo')
-                    .setDescription('Tipo de imagenes para enviar')
-                    .setDescriptionLocalizations({
-                        "en-US": 'Type of images to send'
-                    })
-            )
+                .setNameLocalizations({
+                    "en-US": "wink"
+                })
+                .setDescription('Dale un guiño a otro usuario')
+                .setDescriptionLocalizations({
+                    "en-US": "Wink at another user"
+                })
+                .addUserOption(option => 
+                    option.setName('usuario')
+                        .setNameLocalizations({
+                            "en-US": "user"
+                        })
+                        .setDescription('Usuario al que se desea hacer la acción')
+                        .setDescriptionLocalizations({
+                            "en-US": 'User to whom you want to do the action'
+                        })
+                )
+                .addStringOption(option =>
+                    option.setName('tipo')
+                        .setNameLocalizations({
+                            "en-US": "type"
+                        })
+                        .setDescription('Tipo de imagenes para enviar')
+                        .setDescriptionLocalizations({
+                            "en-US": 'Type of images to send'
+                        })
+                )
         )
         .addSubcommand(subcommand => 
             subcommand.setName('acariciar')
-            .setDescription('Acariciar a otro usuario')
-            .addUserOption(option => 
-                option.setName('usuario')
-                    .setDescription('Usuario al que se desea hacer la acción')
-                    .setDescriptionLocalizations({
-                        "en-US": 'User to whom you want to do the action'
-                    })
-
-            )
-            .addStringOption(option =>
-                option.setName('tipo')
-                    .setDescription('Tipo de imagenes para enviar')
-                    .setDescriptionLocalizations({
-                        "en-US": 'Type of images to send'
-                    })
-            )
+                .setNameLocalizations({
+                    "en-US": "cuddle"
+                })
+                .setDescription('Acariciar a otro usuario')
+                .setDescriptionLocalizations({
+                    "en-US": "Cuddle another user"
+                })
+                .addUserOption(option => 
+                    option.setName('usuario')
+                        .setNameLocalizations({
+                            "en-US": "user"
+                        })
+                        .setDescription('Usuario al que se desea hacer la acción')
+                        .setDescriptionLocalizations({
+                            "en-US": 'User to whom you want to do the action'
+                        })
+                )
+                .addStringOption(option =>
+                    option.setName('tipo')
+                        .setNameLocalizations({
+                            "en-US": "type"
+                        })
+                        .setDescription('Tipo de imagenes para enviar')
+                        .setDescriptionLocalizations({
+                            "en-US": 'Type of images to send'
+                        })
+                )
         ),
     
     async execute(client, interaction){
 
-        await interaction.deferReply(); // Defer para respuestas de más de 3 segundos
+        await interaction.deferReply() // Defer para respuestas de más de 3 segundos
 
         //<#> Listas de opciones
         const lista_tipos_busqueda = [
             'zelda','pokemon','anime','adventure time','regular show','five nights at freddys'
         ]
         const lista_acciones = [
+            // Español
             {
                 sub: "saludar",
-                query: "saying hello",
+                query: "greet",
                 mensaje: "saludó a",
             },{
                 sub: "felicitar",
@@ -324,30 +461,25 @@ module.exports = {
                 query: "wink",
                 mensaje: "guiñó a",
             },{
-                sub: "muerte",
-                query: "kill",
-                mensaje: "quiere matar a",
-            },{
                 sub: "acariciar",
                 query: "cuddle",
                 mensaje: "acarició a",
             }
-            
         ] 
 
         //<#> Datos de la interacción
-        const SUB = interaction.options.getSubcommand(); // Subcomando
-        const TIPO = interaction.options.getString('tipo') ?? get_random_option(); // Si no se especifica el tipo, se elige uno aleatorio
+        const SUB = interaction.options.getSubcommand() // Subcomando
+        const TIPO = interaction.options.getString('tipo') || get_random_option() // Si no se especifica el tipo, se elige uno aleatorio
 
         // Usuario al que se le hará la acción
-        const USUARIO = interaction.options.getUser('usuario'); // Usuario al que se le hará la acción
-        const MEMBER = interaction.guild.members.cache.get(USUARIO?.id); // Objeto de miembro del usuario
-        const USERNAME = MEMBER?.nickname || USUARIO?.username || 'todos'; // Apodo del usuario
+        const USUARIO = interaction.options.getUser('usuario') // Usuario al que se le hará la acción
+        const MEMBER = interaction.guild.members.cache.get(USUARIO?.id) // Objeto de miembro del usuario
+        const USERNAME = MEMBER?.nickname || USUARIO?.username || 'todos' // Apodo del usuario
 
         // Usuario que realiza la acción
-        const AUTHOR = interaction.member?.nickname?? interaction.user.username; // Si no tiene apodo, se usa el nombre de usuario
+        const AUTHOR = interaction.member?.nickname?? interaction.user.username // Si no tiene apodo, se usa el nombre de usuario
 
-        const accion_eligida = lista_acciones.find(accion => accion.sub == SUB); // Acción elegida
+        const accion_eligida = lista_acciones.find(accion => accion.sub == SUB) // Acción elegida
 
         if (accion_eligida == undefined) { // Si no se encuentra la acción, se cancela
             return interaction.editReply({
@@ -356,17 +488,17 @@ module.exports = {
                         .setColor(process.env.COLOR_ERROR)
                         .setDescription(`No se encontró la acción seleccionada 🤨`)
                 ]
-            });
+            })
         }
 
 
         //<#> Busqueda de gif
-        const query = `${TIPO} ${accion_eligida.query}`; // Busqueda en Tenor
-        const url_api = `https://tenor.googleapis.com/v2/search?q=${query}&key=${process.env.TENOR_API_KEY}&client_key=my_test_app&limit=8`;
+        const query = `${TIPO} ${accion_eligida.query}` // Busqueda en Tenor
+        const url_api = `https://tenor.googleapis.com/v2/search?q=${query}&key=${process.env.TENOR_API_KEY}&client_key=my_test_app&limit=8`
         
-        const response = await axios.get(url_api);
-        const randomIndex = Math.floor(Math.random() * response.data.results.length);
-        const gif_url = response.data.results[randomIndex]["media_formats"]["mediumgif"]["url"];
+        const response = await axios.get(url_api)
+        const randomIndex = Math.floor(Math.random() * response.data.results.length)
+        const gif_url = response.data.results[randomIndex]["media_formats"]["mediumgif"]["url"]
 
         //<#> Respuesta
         return interaction.editReply({
@@ -376,11 +508,11 @@ module.exports = {
                     .setColor(process.env.COLOR)
                     .setImage(gif_url)
             ]
-        });
+        })
 
         function get_random_option(){
-            const randomIndexOpts = Math.floor(Math.random() * lista_tipos_busqueda.length);
-            return lista_tipos_busqueda[randomIndexOpts];
+            const randomIndexOpts = Math.floor(Math.random() * lista_tipos_busqueda.length)
+            return lista_tipos_busqueda[randomIndexOpts]
         }
     }
 } 

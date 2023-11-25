@@ -1,4 +1,5 @@
-const {SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits, ActivityType} = require('discord.js');
+const {SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits} = require('discord.js')
+
 module.exports = {
     CMD: new SlashCommandBuilder()
         .setName("avatar")
@@ -17,8 +18,8 @@ module.exports = {
     
     async execute(client, interaction){
        
-        const url = interaction.options.getString('url');
-        client.user.setAvatar(url);
+        const url = interaction.options.getString('url')
+        client.user.setAvatar(url)
 
         return interaction.reply({
             embeds: [
@@ -28,6 +29,6 @@ module.exports = {
                     .setImage(url)
             ],
             ephemeral: true
-        });
+        })
     }
 }  
