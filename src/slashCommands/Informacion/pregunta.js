@@ -3,9 +3,9 @@ const { Configuration, OpenAIApi } = require("openai")
 
 module.exports = {
     CMD: new SlashCommandBuilder()
-        .setName("pregunta")
+        .setName("preguntar")
         .setNameLocalizations({
-            "en-US": "question"
+            "en-US": "ask"
         })
         .setDescription("Realiza una pregunta")
         .setDescriptionLocalizations({
@@ -13,18 +13,22 @@ module.exports = {
         })
         .addSubcommand(subcommand => 
             subcommand.setName('grupo')
-            .setDescription('Realiza una pregunta al grupo y podran reaccionar')
-            .setDescriptionLocalizations({
-                "en-US": "Ask a question to the group and they can react"
-            })
-            .addStringOption(option =>
-                option.setName("pregunta")
-                .setDescription('Pregunta que deseas realizar')
-                .setDescriptionLocalizations({
-                    "en-US": "Question you want to ask"
+                .setNameLocalizations({
+                    "en-US": "group"
                 })
-                .setRequired(true)
-            )
+                .setDescription('Realiza una pregunta al grupo y podran reaccionar')
+                .setDescriptionLocalizations({
+                    "en-US": "Ask a question to the group and they can react"
+                })
+                .addStringOption(option =>
+                    option.setName("pregunta")
+                        .setNameLocalizations({"en-US": 'question'})
+                        .setDescription('Pregunta que deseas realizar')
+                        .setDescriptionLocalizations({
+                            "en-US": "Question you want to ask"
+                        })
+                        .setRequired(true)
+                )
         )
         .addSubcommand(subcommand => 
             subcommand.setName(process.env.BOT_NAME.toLowerCase())

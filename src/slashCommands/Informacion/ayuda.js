@@ -32,15 +32,15 @@ module.exports = {
             .setDescription(`Comandos que brindan información del bot y/o servidor`)
             .setColor(`#3a7c21`)
             .addFields(
-                {name: `ayuda`, value:`Sirve para ver el menú de ayuda con los comandos.`},
-                {name: `anime informacion`, value:`Sirve para ver la información de un anime dado.`},
-                {name: `codigo`, value:`Muestra el link del repositorio con el código de \`${process.env.BOT_NAME}\`.`},
-                {name: `diccionario`, value:`Definición de un \`término\` del diccionario urbano.`},
+                {name: `ayuda | help`, value:`Sirve para ver el menú de ayuda con los comandos.`},
+                {name: `anime informacion | anime information`, value:`Sirve para ver la información de un anime dado.`},
+                {name: `codigo | code`, value:`Muestra el link del repositorio con el código de \`${process.env.BOT_NAME}\`.`},
+                {name: `diccionario | dictionary`, value:`Definición de un \`término\` del diccionario urbano.`},
                 {name: `ping`, value:`Sirve para ver el ping en ms de \`${process.env.BOT_NAME}\`.`},
-                {name: `pagina`, value:`Muestra el link de la pana página.`},
-                {name: `pregunta grupo`, value:`Sirve para que destaque tu pregunta en el servidor.
+                {name: `pagina | page`, value:`Muestra el link de la pana página.`},
+                {name: `preguntar grupo | ask group`, value:`Sirve para que destaque tu pregunta en el servidor.
                     > Podran reaccionar a tu pregunta.`},
-                {name: `pregunta ${process.env.BOT_NAME.toLocaleLowerCase()}`, value:`Sirve para realizar una pregunta a ${process.env.BOT_NAME}.
+                {name: `preguntar | ask ${process.env.BOT_NAME.toLocaleLowerCase()} | `, value:`Sirve para realizar una pregunta a ${process.env.BOT_NAME}.
                     > Te respondera con su inteligencia artificial.`},
             )  
             .setThumbnail(`https://i.imgur.com/Ud2cXN5.jpg`)
@@ -52,19 +52,19 @@ module.exports = {
             .addFields(
                 {name: `djpanas`, value:`Sirve para reproducir DJPANAS.\n> Se puede elegir entre las distintas variaciones.`},
                 {name: `\u200b`, value:`\`Estos comandos son subcomandos del comando principal music:\``},
-                {name: `reproducir`, value:`Sirve para reproducir una canción dada (link o nombre).\n
+                {name: `reproducir | pay`, value:`Sirve para reproducir una canción dada (link o nombre).\n
                     > Admite links de \`YouTube\`, \`Spotify\` y \`Soundcloud\`.`},
-                {name: `detener`, value:`Detiene la reproducción de la canción actual.`},
-                {name: `reproduciendo`, value:`Muestra información de la canción que se está reproduciendo.`},
-                {name: `control`, value:`Entre las acciones que cuenta estan: \n
+                {name: `detener | stop`, value:`Detiene la reproducción de la canción actual.`},
+                {name: `reproduciendo | playing`, value:`Muestra información de la canción que se está reproduciendo.`},
+                {name: `control | control`, value:`Entre las acciones que cuenta estan: \n
                     > \`Resumir\`, \`Pausar\`, \`Siguiente\`, \`Anterior\`, \`Detener\`, \`Mezclar\`.`},
-                {name: `volumen`, value:`Sirve para indicar el volumen de la canción.\n
+                {name: `volumen | volume`, value:`Sirve para indicar el volumen de la canción.\n
                     > Admite de \`0%\` a \`200%\`.`},
-                {name: `cola`, value:`Sirve para ver la lista la música que está en la cola de reproducción.\n
+                {name: `cola | queue`, value:`Sirve para ver la lista la música que está en la cola de reproducción.\n
                     > Muestra un menú con botones de navegación.`},
-                {name: `saltar`, value:`Sirve para saltar a una canción de la lista en reproducción.\n
+                {name: `saltar | jump`, value:`Sirve para saltar a una canción de la lista en reproducción.\n
                     > El número de canción se puede ver en la queue.`},
-                {name: `repeticion`, value:`Sirve para cambiar el modo de repetición de la cola en reproducción.\n
+                {name: `repeticion | repeat`, value:`Sirve para cambiar el modo de repetición de la cola en reproducción.\n
                     > \`Cancion actual\`, \`Cola actual\`, \`Detener repéticion\`.`},
             )  
             .setThumbnail(`https://i.imgur.com/9PzViPP.jpg`)
@@ -74,30 +74,30 @@ module.exports = {
             .setDescription(`Comandos de variedad.`)
             .setColor(`#0c6bc2`)
             .addFields(
-                {name: `8ball`, value:`Sirve para que la bola 8 de una respuesta a una pregunta.`},
-                {name: `accion`, value:`Sirve para hacer una acción a otro usuario.\n
+                {name: `bola8 | 8ball`, value:`Sirve para que la bola 8 de una respuesta a una pregunta.`},
+                {name: `accion | action `, value:`Sirve para hacer una acción a otro usuario.\n
                     > Entre las acciones esta \`saludar\`, \`felicitar\`, \`tocar\`, \`abrazar\`, \`besar\`, \`golpear\`,
                     \`dar palmadas\`, \`abofetear\`, \`lamer\`, \`pulgar arriba\`, \`sonrojar\`, \`guiñar\`, \`acariciar\`.\n
                     _Puedes indicar que tipo de imagen buscar_.`},
                 {name: `amiibo`, value:`Sirve para mostrar información de amiibos
                     > Se indica el \`nombre\` del personaje a buscar.`},
                 {name: `dogo`, value:`Sirve para mandar la imágen aleatoria de un perro.`},
-                {name: `elegir opciones`, value:`Sirve para eligir entre las opciones dadas.\n
+                {name: `elegir opciones | choose options`, value:`Sirve para eligir entre las opciones dadas.\n
                     > Las opciones se dan separadas por coma \`,\`.`},
-                {name: `elegir numero`, value:`Sirve paraeligir entre un rango dado.\n
+                {name: `elegir numero | choose number`, value:`Sirve paraeligir entre un rango dado.\n
                     >  Se indica rango inferior (si no se da se tomará como 0) y rango máximo.`},
-                {name: `fortuna`, value:`Mensaje de la galleta de la fortuna.`},
+                {name: `fortuna | fortune`, value:`Mensaje de la galleta de la fortuna.`},
                 {name: `meme personalizado`, value:`Crea un meme con tu propia imagen\n
                     > Se manda la \`url\` de tu imagen y los textos del meme separados por \`;\`.`},
                 {name: `meme plantillas`, value:`Crea un meme con una plantilla\n
                 > Se elige un tipo de \`plantilla\` y los textos del meme separados por \`;\`.`},
-                {name: `micho`, value:`Sirve para mandar la imágen aleatoria de un gato.`},
-                {name: `minecraft servidor`, value:`Muestra informacion del \`panaserver\`.`},
+                {name: `micho | michi`, value:`Sirve para mandar la imágen aleatoria de un gato.`},
+                {name: `minecraft servidor | minecraft server`, value:`Muestra informacion del \`panaserver\`.`},
                 {name: `minecraft skin`, value:`Visualiza la skin de un jugador en específico.\n
                     > Los tipos de mostrar la skin son \`cuerpo\`, \`cabeza\`, \`busto\` o \`skin\`.`},
                 {name: `pokedex`, value:`Sirve para mostrar información de un pokemón según su id\n
                     > Disponible desde el pokemón \`1\` al \`1010\`.`},
-                {name: `sugerir`, value:`Sirve para dar una sugerencia al \`canal de sugerencias\`.`},
+                {name: `sugerir | suggest`, value:`Sirve para dar una sugerencia al \`canal de sugerencias\`.`},
                 {name: `waifu`, value:`Sirve para mostrar la imagen de una waifu aleatoria.\n
                     > Se indica el \`tipo\` (sfw/nsfw) y la \`categoria\` segun el tipo.`},
             )
@@ -109,27 +109,27 @@ module.exports = {
 			.setPlaceholder('Selecciona una categoría')
 			.addOptions(
                 new StringSelectMenuOptionBuilder()
-					.setLabel('Menú')
-					.setDescription('Menú principal.')
+					.setLabel('Menú principal | Home menu')
+					.setDescription('Menu principal de ayuda.')
 					.setValue('menu')
                     .setEmoji(`🏠`),
 				new StringSelectMenuOptionBuilder()
-					.setLabel('información')
+					.setLabel('información | information')
 					.setDescription('Comandos que brindan información sobre el bot o el grupo.')
 					.setValue('info')
                     .setEmoji(`💬`),
 				new StringSelectMenuOptionBuilder()
-					.setLabel('Música	')
+					.setLabel('Música | Music')
 					.setDescription('Comandos para reproducir música en el canal de voz.')
 					.setValue('music')
                     .setEmoji(`🎶`),
 				new StringSelectMenuOptionBuilder()
-					.setLabel('Variedad')
+					.setLabel('Variedad | Variety')
 					.setDescription('Comandos para funciones variadas.')
 					.setValue('var')
                     .setEmoji(`✨`),
                 new StringSelectMenuOptionBuilder()
-					.setLabel('Salir')
+					.setLabel('Salir | Exit')
 					.setDescription('Cerrar el menú de ayuda.')
 					.setValue('exit')
                     .setEmoji(`❌`),
