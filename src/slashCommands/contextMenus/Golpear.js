@@ -3,6 +3,9 @@ const axios = require('axios');
 module.exports = {
     CMD: new ContextMenuCommandBuilder()
         .setName("Golpear")
+        .setNameLocalization({
+            "en-US": "Punch"
+        })
         .setType(ApplicationCommandType.User),
 
     async execute(client, interaction){
