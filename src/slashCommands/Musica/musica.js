@@ -354,7 +354,7 @@ module.exports = {
                 })
                 collector_control.on("end", async () => {
                     //se actualiza el mensaje y se elimina la interacción
-                    embed_help.edit({content: "", embeds:[
+                    embed_music_control.edit({content: "", embeds:[
                         new EmbedBuilder()
                             .setColor(process.env.COLOR)
                             .setThumbnail("https://i.imgur.com/bDO4VTw.gif")
@@ -460,7 +460,7 @@ module.exports = {
                 })
                 collector_repeticion.on("end", async () => {
                     //se actualiza el mensaje y se elimina la interacción
-                    embed_help.edit({content: "", embeds:[
+                    embed_music_repeticion.edit({content: "", embeds:[
                         new EmbedBuilder()
                             .setColor(process.env.COLOR)
                             .setThumbnail("https://i.imgur.com/bDO4VTw.gif")
@@ -625,7 +625,7 @@ module.exports = {
                     })
                     collector.on("end", async () => {
                         //se actualiza el mensaje y se elimina la interacción
-                        embed_help.edit({content: "", embeds:[
+                        embedpaginas.edit({content: "", embeds:[
                             new EmbedBuilder()
                                 .setColor(process.env.COLOR)
                                 .setThumbnail("https://i.imgur.com/bDO4VTw.gif")

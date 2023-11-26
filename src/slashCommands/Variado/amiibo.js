@@ -180,7 +180,7 @@ module.exports = {
             })
             collector.on("end", async () => {
                 //se actualiza el mensaje y se elimina la interacción
-                embed_help.edit({content: "", embeds:[
+                embedpaginas.edit({content: "", embeds:[
                     new EmbedBuilder()
                         .setColor(process.env.COLOR)
                         .setThumbnail("https://i.imgur.com/MHasiWy.gif")
