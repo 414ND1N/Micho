@@ -142,12 +142,8 @@ module.exports = {
                 }
             })
             collector.on("end", async () => {
-                //se actualiza el mensaje y se elimina la interacción
-                embedpaginas.edit({content: "", embeds:[
-                    new EmbedBuilder()
-                        .setColor(process.env.COLOR)
-                        .setThumbnail("https://i.imgur.com/V6b6bnc.gif")
-                ], components:[], ephemeral: true}).catch(() => {})
+                //se actualiza el mensaje para eliminar botones y se elimina la interacción
+                embedpaginas.edit({content: "", components:[], ephemeral: true}).catch(() => {})
                 await interaction.deleteReply()   
             })
         }

@@ -60,14 +60,12 @@ module.exports = {
                 .setTitle(`Amiibo | \`${amiibo.name}\``)
                 .setImage(amiibo.image)
                 .addFields(
-                    { name: `Serie`, value: `${amiibo.amiiboSeries}`, inline: true},
-                    { name: `Videojuego`, value: `${amiibo.gameSeries}`, inline: true},
-                    { name: `Tipo`, value: `${amiibo.type}` },
-                    { name: 'Lanzamientos', value: '\u200B' },
-                    { name: `AU`, value: `\`${amiibo.release.au}\``, inline: true},
-                    { name: 'EU', value: `\`${amiibo.release.eu}\``, inline: true},
-                    { name: 'JP', value: ` \`${amiibo.release.jp}\``, inline: true},
-                    { name: 'NA', value: ` \`${amiibo.release.na}\``, inline: true},
+                    { name: `Serie`, value: `\`${amiibo.amiiboSeries}\``, inline: true},
+                    { name: `Videojuego`, value: `\`${amiibo.gameSeries}\``, inline: true},
+                    { name: `Tipo`, value: `\`${amiibo.type}\``, inline: true },
+                    { name: 'EU', value: `\`${amiibo.release.eu??'s/d'}\``, inline: true},
+                    { name: 'JP', value: ` \`${amiibo.release.jp??'s/d'}\``, inline: true},
+                    { name: 'NA', value: ` \`${amiibo.release.na??'s/d'}\``, inline: true},
                 )
                 .setColor(process.env.COLOR)
             //Agregar pagina al array embeds
@@ -179,12 +177,8 @@ module.exports = {
                 }
             })
             collector.on("end", async () => {
-                //se actualiza el mensaje y se elimina la interacción
-                embedpaginas.edit({content: "", embeds:[
-                    new EmbedBuilder()
-                        .setColor(process.env.COLOR)
-                        .setThumbnail("https://i.imgur.com/MHasiWy.gif")
-                ], components:[], ephemeral: true}).catch(() => {})
+                //se actualiza el mensaje para eliminar botones y se elimina la interacción
+                embedpaginas.edit({content: "", components:[], ephemeral: true}).catch(() => {})
                 await interaction.deleteReply()
             })
         }
