@@ -353,9 +353,12 @@ module.exports = {
 
                 })
                 collector_control.on("end", async () => {
-                    //borramos los embed y los componentes, se deja un mensaje de que se realizó la acción
-                    embed_music_control.edit({content: "El tiempo ha expirado ⏳, utiliza denuevo el comando control 😊", components:[], ephemeral: true}).catch(() => {})
-                    embed_music_control.suppressEmbeds(true)
+                    //se actualiza el mensaje y se elimina la interacción
+                    embed_help.edit({content: "", embeds:[
+                        new EmbedBuilder()
+                            .setColor(process.env.COLOR)
+                            .setThumbnail("https://i.imgur.com/bDO4VTw.gif")
+                    ], components:[], ephemeral: true}).catch(() => {})
                     await interaction.deleteReply()
                     return
                 })
@@ -456,9 +459,12 @@ module.exports = {
 
                 })
                 collector_repeticion.on("end", async () => {
-                    //borramos los embed y los componentes, se deja un mensaje de que se realizó la acción
-                    embed_music_repeticion.edit({content: "El tiempo ha expirado ⏳, utiliza denuevo el comando repetir 😊", components:[], ephemeral: true}).catch(() => {})
-                    embed_music_repeticion.suppressEmbeds(true)
+                    //se actualiza el mensaje y se elimina la interacción
+                    embed_help.edit({content: "", embeds:[
+                        new EmbedBuilder()
+                            .setColor(process.env.COLOR)
+                            .setThumbnail("https://i.imgur.com/bDO4VTw.gif")
+                    ], components:[], ephemeral: true}).catch(() => {})
                     await interaction.deleteReply()
                     return
                 })
@@ -618,9 +624,12 @@ module.exports = {
                         }
                     })
                     collector.on("end", async () => {
-                        //desactivamos botones y editamos el mensaje
-                        embedpaginas.edit({ content: "El tiempo ha expirado ⏳, utiliza denuevo el comando lista 😊", components: [] }).catch(() => { })
-                        embedpaginas.suppressEmbeds(true)
+                        //se actualiza el mensaje y se elimina la interacción
+                        embed_help.edit({content: "", embeds:[
+                            new EmbedBuilder()
+                                .setColor(process.env.COLOR)
+                                .setThumbnail("https://i.imgur.com/bDO4VTw.gif")
+                        ], components:[], ephemeral: true}).catch(() => {})
                         await interaction.deleteReply()
                         return
                     })

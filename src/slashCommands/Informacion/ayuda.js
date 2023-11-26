@@ -178,9 +178,12 @@ module.exports = {
             }
         })
         collector.on("end", async () => {
-            //borramos los embed y los componentes, se deja un mensaje de que el tiempo ha expirado
-            embed_help.edit({content: "El tiempo ha expirado ⏳, utiliza denuevo el comando ayuda 😊", components:[], ephemeral: true}).catch(() => {})
-            embed_help.suppressEmbeds(true)
+            //se actualiza el mensaje y se elimina la interacción
+            embed_help.edit({content: "", embeds:[
+                new EmbedBuilder()
+                    .setColor(process.env.COLOR)
+                    .setThumbnail("https://i.imgur.com/oEqd4ju.gif")
+            ], components:[], ephemeral: true}).catch(() => {})
             await interaction.deleteReply()
         })
     }

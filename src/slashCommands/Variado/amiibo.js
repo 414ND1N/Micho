@@ -179,8 +179,12 @@ module.exports = {
                 }
             })
             collector.on("end", async () => {
-                //desactivamos botones y editamos el mensaje
-                embedpaginas.edit({ content: `Búsqueda del amiibo \`${character}\`.`, components: [] }).catch(() => { })
+                //se actualiza el mensaje y se elimina la interacción
+                embed_help.edit({content: "", embeds:[
+                    new EmbedBuilder()
+                        .setColor(process.env.COLOR)
+                        .setThumbnail("https://i.imgur.com/MHasiWy.gif")
+                ], components:[], ephemeral: true}).catch(() => {})
                 await interaction.deleteReply()
             })
         }
