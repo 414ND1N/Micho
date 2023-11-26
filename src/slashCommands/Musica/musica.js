@@ -570,7 +570,7 @@ module.exports = {
                         if (b?.user.id != interaction.user.id) return b?.reply({ content: `❌ Solo quien uso el comando de queue puede navegar entre páginas` })
 
                         switch (b?.customId) {
-                            case 'atras': {
+                            case 'atras': 
                                 
                                 //Si la pagina a retroceder no es igual a la primera pagina entonces retrocedemos
                                 if (pag_actual !== 0) {
@@ -586,9 +586,9 @@ module.exports = {
                                     await b?.deferUpdate()
 
                                 }
-                            }
+                            
                                 break
-                            case 'siguiente': {
+                            case 'siguiente': 
                                 collector.resetTimer()
                                 //Si la pagina a avanzar es mayor a las paginas actuales regresamos al inicio
                                 if (pag_actual < embeds.length - 1) {
@@ -603,22 +603,19 @@ module.exports = {
                                     //Editamos el embed
                                     await embedpaginas.edit({ embeds: [embeds[pag_actual].setFooter({ text: `Página ${pag_actual + 1} / ${embeds.length}` })], components: [embedpaginas.components[0]] }).catch(() => { })
                                     await b?.deferUpdate()
-
                                 }
-                            }
                                 break
-                            case 'inicio': {
+                            case 'inicio': 
                                 collector.resetTimer()
                                 //Si la pagina a retroceder no es igual a la primera pagina entonces retrocedemos
                                 pag_actual = 0
                                 await embedpaginas.edit({ embeds: [embeds[pag_actual].setFooter({ text: `Página ${pag_actual + 1} / ${embeds.length}` })], components: [embedpaginas.components[0]] }).catch(() => { })
                                 await b?.deferUpdate()
-                            }
                                 break
-                            case 'exit': {
+                            case 'exit': 
                                 collector.stop()
-                            }
                                 break
+                            
                             default:
                                 break
                         }

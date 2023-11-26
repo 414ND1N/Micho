@@ -132,8 +132,6 @@ module.exports = {
                     }
                     case 'exit':{
                         collector.stop()
-                        embedpaginas.edit({content:`( ͡° ͜ʖ ͡°)`, components:[]}).catch(() => {})
-                        embedpaginas.suppressEmbeds(true)
                         break
                     }
                     default:{// Si no es ninguno de los botones de navegacion, se muestra el pokemon normal
@@ -143,7 +141,6 @@ module.exports = {
                     }
                 }
             })
-
             collector.on("end", async () => {
                 //se actualiza el mensaje y se elimina la interacción
                 embedpaginas.edit({content: "", embeds:[
