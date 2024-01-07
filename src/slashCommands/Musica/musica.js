@@ -304,15 +304,22 @@ module.exports = {
                             break
                         }   
                         case 'detener':{
-                            await client.distube.stop(VOICE_CHANNEL)
                             collector_control.resetTimer()
+                            if (!QUEUE) {
+                                // Salir del canal de voz
+                                await client.distube.voices.leave(VOICE_CHANNEL)
+                            }else{
+                                // Parar la reproducción y salir del canal de voz
+                                await client.distube.stop(VOICE_CHANNEL)
+                            }
+                            
                             interaction.editReply({
                                 embeds: [
                                     new EmbedBuilder()
                                         .setTitle('Detener música')
                                         .setThumbnail('https://i.imgur.com/WnsPmQz.gif')
                                         .setColor(process.env.COLOR)
-                                        .setDescription(`Se detuvo la reproducción de música`)
+                                        .setDescription(`Se detuvo la reproducción de música en el canal ${VOICE_CHANNEL}`)
                                 ]
                             })
                             await i?.deferUpdate()
