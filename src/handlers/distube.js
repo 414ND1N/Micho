@@ -1,12 +1,8 @@
 const { DisTube } = require('distube');
-const { SpotifyPlugin } = require('@distube/spotify');
-const { SoundCloudPlugin } = require('@distube/soundcloud');
 const { EmbedBuilder } = require('discord.js');
 const { YtDlpPlugin } = require("@distube/yt-dlp");
 
 module.exports = (client, Discord) => {
-    console.log(`Módulo de música cargado`.red)
-
     client.distube = new DisTube(client, {
         emitNewSongOnly: false,
         leaveOnFinish: false,
@@ -26,21 +22,22 @@ module.exports = (client, Discord) => {
             liveBuffer: 20000,
             dlChunkSize: 1024 * 1024 * 2,
         },
-        
         plugins: [
             new YtDlpPlugin({ 
                 update: true 
             }),
-            new SpotifyPlugin({
-                parallel: true,
-                emitEventsAfterFetching: true,
-            }),
-            new SoundCloudPlugin(),
         ],
     });
 
     //eventos de distube
     client.distube.on("playSong", (queue, song)=>{
+        
+        urls_not_message = [
+            "https://www.youtube.com/watch?v=YX19SjFA3qI",
+            "https://www.youtube.com/watch?v=XLA-SklJ4Qo",
+        ]
+
+        if(urls_not_message.includes(song.url)) return;
 
         embed = new EmbedBuilder()
             .setColor(process.env.COLOR)
@@ -76,6 +73,7 @@ module.exports = (client, Discord) => {
         
         queue.textChannel.send({ embeds: [embed] })
     });
+
     client.distube.on("finish", (queue)=>{
 
         embed = new EmbedBuilder()
@@ -85,9 +83,11 @@ module.exports = (client, Discord) => {
             .setThumbnail('https://i.imgur.com/PKBROBp.gif')
         queue.textChannel.send({ embeds: [embed] })
     }); 
+
     client.distube.on("initQueue", queue => {
         queue.volume = 40;
     });
+
     client.distube.on("disconnect", (queue)=>{
 
         embed = new EmbedBuilder()
@@ -98,6 +98,7 @@ module.exports = (client, Discord) => {
         
         queue.textChannel.send({ embeds: [embed] })
     });
+
     client.distube.on("noRelated", (queue) => {
         queue.textChannel.send("No se encontró un música similar para reproducir")
     });
@@ -122,4 +123,5 @@ module.exports = (client, Discord) => {
         }\n*Enter anything else or wait 60 seconds to cancel*`);
     });
     */
+    console.log(`Módulo de música cargado`.red)
 }

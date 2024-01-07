@@ -95,6 +95,10 @@ module.exports = {
                 {name: `minecraft servidor | minecraft server`, value:`Muestra informacion del \`panaserver\`.`},
                 {name: `minecraft skin`, value:`Visualiza la skin de un jugador en específico.\n
                     > Los tipos de mostrar la skin son \`cuerpo\`, \`cabeza\`, \`busto\` o \`skin\`.`},
+                {name: `pananoche alerta | alert`, value:`Sirve para mandar una alerta de el último en salir es jei\n
+                    > Se manda en con un retraso random (se puede mandar el minimo y maximo de tiempo que puede toamr).`},
+                {name: `pananoche ultimo | last`, value:`Cambia el rol de un usuario por ser el último en salir\n
+                    > Agrega al usuario elegido y quita a los demás usuarios del rol si se indica.`},
                 {name: `pokedex`, value:`Sirve para mostrar información de un pokemón según su id\n
                     > Disponible desde el pokemón \`1\` al \`1010\`.`},
                 {name: `sugerir | suggest`, value:`Sirve para dar una sugerencia al \`canal de sugerencias\`.`},
