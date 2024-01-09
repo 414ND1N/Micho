@@ -1,4 +1,5 @@
 const { SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js')
+const { add } = require('libsodium-wrappers')
 
 module.exports = {
     CMD: new SlashCommandBuilder()
@@ -32,6 +33,24 @@ module.exports = {
                         .setDescription('Saltar la cola directamente a la nueva/s cancion/es')
                         .setDescriptionLocalizations({
                             "en-US": 'Skip the queue directly to the new song/s'
+                        })
+                        .setRequired(false)
+                )
+                .addBooleanOption(option =>
+                    option.setName('nueva')
+                        .setNameLocalizations({ "en-US": 'new' })
+                        .setDescription('Crear una nueva cola de reproducción con la/s nueva/s canción/es')
+                        .setDescriptionLocalizations({
+                            "en-US": 'Create a new playback queue with the new song/s'
+                        })
+                        .setRequired(false)
+                )
+                .addBooleanOption(option =>
+                    option.setName('mezclar')
+                        .setNameLocalizations({ "en-US": 'shuffle' })
+                        .setDescription('Mezclar la cola de reproducción')
+                        .setDescriptionLocalizations({
+                            "en-US": 'Shuffle the playback queue'
                         })
                         .setRequired(false)
                 )
@@ -164,36 +183,49 @@ module.exports = {
             case 'reproducir':
 
                 const canciones = interaction.options.getString('cancion')
-                const saltar = interaction.options.getBoolean('saltar') ?? false
-                const volumen = interaction.options.getNumber("volumen")
 
-                if (saltar) { // Se vacia la cola, y se adelanta directamente a la/s nueva/s cancion/es
+                if (interaction.options.getBoolean('nueva')) { // Si se especifica nueva, no se mantiene la cola anterior
 
-                    const QUEUE = await client.distube.getQueue(VOICE_CHANNEL) ?? null //Cola de reproducción
-
+                    const num_canciones = QUEUE?.songs.length ?? 0
+        
+                    // se agrega la lista
+                    client.distube.play(VOICE_CHANNEL, canciones, {
+                        member: interaction.member ?? undefined,
+                        textChannel: channel
+                    })
+        
+                    // Se vacia las canciones anteriores
                     if (QUEUE && QUEUE.songs.length > 0) {
-                        QUEUE.songs = []
+                        client.distube.jump(VOICE_CHANNEL, num_canciones)
                     }
-
-                    //reproduce la lista
+        
+                } else if (interaction.options.getBoolean('saltar') ) { // Si se especifica saltar, se mantiene la cola anterior
+            
+                    // se agrega la lista y salta a la cancion agregada
                     client.distube.play(VOICE_CHANNEL, canciones, {
                         member: interaction.member ?? undefined,
                         textChannel: channel,
                         skip: true
                     })
         
-                } else{ // Se agrega la/s nueva/s cancion/es a la cola
+                } else { // Si no se especifica nueva o saltar
         
-                    //reproduce la lista
+                    // se agrega la lista a la cola
                     client.distube.play(VOICE_CHANNEL, canciones, {
                         member: interaction.member ?? undefined,
                         textChannel: channel
                     })
                 }
-                
+
                 // Si se especifica un volumen, se cambia el volumen
+                const volumen = interaction.options.getNumber("volumen")
                 if (volumen) {
                     client.distube.setVolume(VOICE_CHANNEL, volumen)
+                }
+
+                // Si se especifica mezclar, se mezcla la cola
+                if (interaction.options.getBoolean("mezclar")) {
+                    client.distube.shuffle(VOICE_CHANNEL)
                 }
 
                 return interaction.editReply({
@@ -202,7 +234,7 @@ module.exports = {
                             .setTitle('Reproducción música')
                             .setThumbnail('https://i.imgur.com/WHCwA6t.gif')
                             .setColor(process.env.COLOR)
-                            .setDescription(`Mira la lista en el canal ${VOICE_CHANNEL}`)
+                            .setDescription(`Mira la lista en el canal ${channel}`)
                     ]
                     , ephemeral: true
                 })
@@ -237,6 +269,11 @@ module.exports = {
                 const cancion_actual = QUEUE.songs[0]
                 const tiempo_reproduccion = getTimeString(QUEUE.currentTime)
                 const tiempo_total = cancion_actual.formattedDuration
+                const tiempo_formateado = `${tiempo_reproduccion} / ${tiempo_total}`
+
+                if( QUEUE.songs[0].isLive) {
+                    tiempo_formateado = '🔴 LIVE'
+                }
 
                 return interaction.editReply({
                     embeds: [
@@ -248,11 +285,11 @@ module.exports = {
                             .setURL(cancion_actual.url)
                             .addFields(
                                 { name: `👁 Vistas`, value: `\`${cancion_actual.views}\``, inline: true },
-                                { name: `⏳ Tiempo`, value: `\`${tiempo_reproduccion} / ${tiempo_total}\``, inline: true }
+                                { name: `⏳ Tiempo`, value: `\`${tiempo_formateado}\``, inline: true }
                             )
                             .setFooter({ text: `👍 ${cancion_actual.likes} / 👎 ${cancion_actual.dislikes}` })
-                    
-                        ]
+                    ],
+                    ephemeral: true
                 })
             case 'controlar':
                 // Creacion de los embed
@@ -311,7 +348,7 @@ module.exports = {
                         return await i.reply({content: `❌ Solo quien uso el comando puede navegar entre categorías.`, ephemeral: true})
                     }
                     switch (i?.customId){
-                        case 'mezclar':
+                        case 'mezclar': {
                             client.distube.shuffle(VOICE_CHANNEL)
                             collector_control.resetTimer()
                             interaction.editReply({
@@ -325,6 +362,7 @@ module.exports = {
                             })
                             await i?.deferUpdate()
                             break
+                        }
                         case 'play':{
                             let accion_usada = 'resumió'
                             if (QUEUE.paused) {
