@@ -44,7 +44,7 @@ module.exports = {
                         })
                         .setRequired(false)
                         .setMinValue(0)
-                        .setMaxValue(150)
+                        .setMaxValue(100)
                 )
         )
         .addSubcommand(subcommand =>
@@ -86,7 +86,7 @@ module.exports = {
                         })
                         .setRequired(true)
                         .setMinValue(0)
-                        .setMaxValue(150)
+                        .setMaxValue(100)
                 )
         )
         .addSubcommand(subcommand =>
