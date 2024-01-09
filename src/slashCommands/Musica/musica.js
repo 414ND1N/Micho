@@ -26,6 +26,26 @@ module.exports = {
                         })
                         .setRequired(true)
                 )
+                .addBooleanOption(option =>
+                    option.setName('saltar')
+                        .setNameLocalizations({ "en-US": 'jump' })
+                        .setDescription('Saltar la cola directamente a la nueva/s cancion/es')
+                        .setDescriptionLocalizations({
+                            "en-US": 'Skip the queue directly to the new song/s'
+                        })
+                        .setRequired(false)
+                )
+                .addNumberOption(option =>
+                    option.setName('volumen')
+                        .setNameLocalizations({ "en-US": 'volume' })
+                        .setDescription('Volumen de la reproducción')
+                        .setDescriptionLocalizations({
+                            "en-US": 'Playback volume'
+                        })
+                        .setRequired(false)
+                        .setMinValue(0)
+                        .setMaxValue(150)
+                )
         )
         .addSubcommand(subcommand =>
             subcommand.setName('detener')
@@ -66,7 +86,7 @@ module.exports = {
                         })
                         .setRequired(true)
                         .setMinValue(0)
-                        .setMaxValue(200)
+                        .setMaxValue(150)
                 )
         )
         .addSubcommand(subcommand =>
@@ -143,15 +163,39 @@ module.exports = {
         switch (SUB) {
             case 'reproducir':
 
-                const cancion = interaction.options.getString('cancion')
+                const canciones = interaction.options.getString('cancion')
+                const saltar = interaction.options.getBoolean('saltar') ?? false
+                const volumen = interaction.options.getNumber("volumen")
 
-                client.distube.play(VOICE_CHANNEL, cancion, {
-                    member: interaction.member ?? undefined,
-                    textChannel: channel
-                }).catch(err => {
-                    console.log('Error con la reproducción de la música:'.red)
-                    console.log(err)
-                })
+                if (saltar) { // Se vacia la cola, y se adelanta directamente a la/s nueva/s cancion/es
+
+                    const QUEUE = await client.distube.getQueue(VOICE_CHANNEL) ?? null //Cola de reproducción
+
+                    if (QUEUE && QUEUE.songs.length > 0) {
+                        QUEUE.songs = []
+                    }
+
+                    //reproduce la lista
+                    client.distube.play(VOICE_CHANNEL, canciones, {
+                        member: interaction.member ?? undefined,
+                        textChannel: channel,
+                        skip: true
+                    })
+        
+                } else{ // Se agrega la/s nueva/s cancion/es a la cola
+        
+                    //reproduce la lista
+                    client.distube.play(VOICE_CHANNEL, canciones, {
+                        member: interaction.member ?? undefined,
+                        textChannel: channel
+                    })
+                }
+                
+                // Si se especifica un volumen, se cambia el volumen
+                if (volumen) {
+                    client.distube.setVolume(VOICE_CHANNEL, volumen)
+                }
+
                 return interaction.editReply({
                     embeds: [
                         new EmbedBuilder()
@@ -181,7 +225,6 @@ module.exports = {
                             .setDescription(`Se detuvo la reproducción de música en el canal ${VOICE_CHANNEL}`)
                     ]
                 })
-
             case 'reproduciendo':
 
                 function getTimeString(time) {
@@ -208,7 +251,9 @@ module.exports = {
                                 { name: `⏳ Tiempo`, value: `\`${tiempo_reproduccion} / ${tiempo_total}\``, inline: true }
                             )
                             .setFooter({ text: `👍 ${cancion_actual.likes} / 👎 ${cancion_actual.dislikes}` })
-                    ]})
+                    
+                        ]
+                })
             case 'controlar':
                 // Creacion de los embed
                 const embed_control = new EmbedBuilder()
@@ -376,7 +421,9 @@ module.exports = {
                     ], components:[], ephemeral: true}).catch(() => {})
                     await interaction.deleteReply()
                     return
+
                 })
+
                 break
             case 'repeticion':
                 // Creacion de los embed
@@ -482,6 +529,7 @@ module.exports = {
                     ], components:[], ephemeral: true}).catch(() => {})
                     await interaction.deleteReply()
                     return
+                    
                 })
                 break
             case 'volumen':
@@ -497,6 +545,7 @@ module.exports = {
                             .addFields({ name: `Se cambió el volúmen de \`${volumen_previo} %\` a \`${porcentaje} %\``, value: `🔈🔉 🔊` })
                             .setThumbnail('https://i.imgur.com/IPLiduk.gif')
                     ]
+
                 })
             case 'cola':
 
