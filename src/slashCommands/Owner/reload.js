@@ -2,7 +2,7 @@ const {SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits} = require('discor
 
 module.exports = {
     CMD: new SlashCommandBuilder()
-        .setName("reload")
+        .setName("recargar")
         .setNameLocalizations({ "en-US": "reload" })
         .setDescription("Recarga los archivos del bot")
         .setDescriptionLocalizations({
@@ -61,7 +61,10 @@ module.exports = {
             })
             console.log(`✅ ${opcion} recargados\n`.yellow)
         }catch(e){
-            interaction.editReply({content: `**Ha ocurrido un error al recargar el bot**\nMira la consola para mas detalle :P`})
+            interaction.editReply({
+                content: `**Ha ocurrido un error al recargar el bot**\nMira la consola para mas detalle :P`,
+                ephemeral: true
+            })
             console.log(e)
         }
     }

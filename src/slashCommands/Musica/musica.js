@@ -109,11 +109,10 @@ module.exports = {
         const SUB = interaction.options.getSubcommand()
         const channel = client.channels.cache.get(process.env.ID_CANAL_DISCO)
         const COM_NO_QUEUE = ['detener', 'reproducir'] //Comandos que no necesitan una cola de reproducción
-        const COM_NO_VOICECHANNEL = [] //Comandos que no necesitan un canal de voz
         const VOICE_CHANNEL = interaction.member.voice?.channel ?? null //Canal de voz
 
         //Comprobaciones previas y que no sea un comando que no lo necesite
-        if (!VOICE_CHANNEL && !COM_NO_VOICECHANNEL.includes(SUB)) {
+        if (!VOICE_CHANNEL) {
             return interaction.reply({
                 embeds: [
                     new EmbedBuilder()
