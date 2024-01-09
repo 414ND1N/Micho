@@ -176,7 +176,7 @@ module.exports = {
             })
         }
 
-        await interaction.deferReply() // Defer para respuestas de más de 3 segundos
+        await interaction.deferReply({ ephemeral: true }) // Defer para respuestas de más de 3 segundos
 
         // Accion a realizar segun el subcomando
         switch (SUB) {
@@ -184,12 +184,12 @@ module.exports = {
 
                 const canciones = interaction.options.getString('cancion')
 
-                if (interaction.options.getBoolean('nueva')) { // Si se especifica nueva, no se mantiene la cola anterior
+                if (interaction.options.getBoolean('nueva') && QUEUE) { // Si se especifica nueva, no se mantiene la cola anterior
 
                     const num_canciones = QUEUE?.songs.length ?? 0
         
                     // se agrega la lista
-                    client.distube.play(VOICE_CHANNEL, canciones, {
+                    await client.distube.play(VOICE_CHANNEL, canciones, {
                         member: interaction.member ?? undefined,
                         textChannel: channel
                     })
@@ -202,7 +202,7 @@ module.exports = {
                 } else if (interaction.options.getBoolean('saltar') ) { // Si se especifica saltar, se mantiene la cola anterior
             
                     // se agrega la lista y salta a la cancion agregada
-                    client.distube.play(VOICE_CHANNEL, canciones, {
+                    await client.distube.play(VOICE_CHANNEL, canciones, {
                         member: interaction.member ?? undefined,
                         textChannel: channel,
                         skip: true
@@ -211,7 +211,7 @@ module.exports = {
                 } else { // Si no se especifica nueva o saltar
         
                     // se agrega la lista a la cola
-                    client.distube.play(VOICE_CHANNEL, canciones, {
+                    await client.distube.play(VOICE_CHANNEL, canciones, {
                         member: interaction.member ?? undefined,
                         textChannel: channel
                     })
@@ -256,6 +256,7 @@ module.exports = {
                             .setColor(process.env.COLOR)
                             .setDescription(`Se detuvo la reproducción de música en el canal ${VOICE_CHANNEL}`)
                     ]
+                    , ephemeral: true
                 })
             case 'reproduciendo':
 
@@ -582,8 +583,8 @@ module.exports = {
                             .setColor(process.env.COLOR)
                             .addFields({ name: `Se cambió el volúmen de \`${volumen_previo} %\` a \`${porcentaje} %\``, value: `🔈🔉 🔊` })
                             .setThumbnail('https://i.imgur.com/IPLiduk.gif')
-                    ]
-
+                    ],
+                    ephemeral: true
                 })
             case 'cola':
 
@@ -756,7 +757,8 @@ module.exports = {
                             .setThumbnail('https://i.imgur.com/bDO4VTw.gif')
                             .setColor(process.env.COLOR)
                             .addFields({ name: `Se saltó a la canción número \`${poscicion}\``, value: `🐱‍🏍 🎶🎵` })
-                    ]
+                    ],
+                    ephemeral: true
                 })               
         }
     }
