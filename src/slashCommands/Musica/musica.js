@@ -292,6 +292,62 @@ module.exports = {
                     ],
                     ephemeral: true
                 })
+            case 'saltar':
+                const poscicion = interaction.options.getNumber('poscicion')
+
+                //Comprobaciones previas
+                if (poscicion > (QUEUE.songs.length)) {
+                    return interaction.editReply({
+                        embeds: [
+                            new EmbedBuilder()
+                                .setColor(process.env.COLOR_ERROR)
+                                .setDescription(`La lista unicamente cuenta con \`${QUEUE.songs.length}\` canciones`)
+                        ],
+                        ephemeral: true
+                    })
+                }
+
+                client.distube.jump(VOICE_CHANNEL, poscicion - 1)
+                return interaction.editReply({
+                    embeds: [
+                        new EmbedBuilder()
+                            .setTitle('Salto en lista de música')
+                            .setColor(process.env.COLOR)
+                            .setThumbnail('https://i.imgur.com/bDO4VTw.gif')
+                            .addFields({ name: `Se saltó a la canción número \`${poscicion}\``, value: `🐱‍🏍 🎶🎵` })
+                    ],
+                    ephemeral: true
+                })       
+            case 'volumen':
+                const porcentaje = interaction.options.getNumber('porcentaje')
+                const volumen_previo = QUEUE.volume
+
+                client.distube.setVolume(VOICE_CHANNEL, porcentaje)
+
+                if (volumen_previo <= porcentaje){ //Se aumentó el volumen
+                    return interaction.editReply({
+                        embeds: [
+                            new EmbedBuilder()
+                                .setTitle('Volúmen música')
+                                .setColor(process.env.COLOR)
+                                .addFields({ name: `Se cambió el volúmen de \`${volumen_previo} %\` a \`${porcentaje} %\``, value: `🔈🔉 🔊` })
+                                .setThumbnail('https://i.imgur.com/bDO4VTw.gif')
+                        ],
+                        ephemeral: true
+                    })
+                } else { //Se disminuyó el volumen
+                    return interaction.editReply({
+                        embeds: [
+                            new EmbedBuilder()
+                                .setTitle('Volúmen música')
+                                .setColor(process.env.COLOR)
+                                .addFields({ name: `Se cambió el volúmen de \`${volumen_previo} %\` a \`${porcentaje} %\``, value: `🔈🔉 🔊` })
+                                .setThumbnail('https://i.imgur.com/9fBJ0s7.gif')
+                        ],
+                        ephemeral: true
+                    })
+                }
+            // Comandos con collector
             case 'controlar':
                 // Creacion de los embed
                 const embed_control = new EmbedBuilder()
@@ -456,14 +512,15 @@ module.exports = {
                     embed_music_control.edit({content: "", embeds:[
                         new EmbedBuilder()
                             .setColor(process.env.COLOR)
-                            .setThumbnail("https://i.imgur.com/bDO4VTw.gif")
+                            .setThumbnail("https://i.imgur.com/DeMOi0v.gif")
                     ], components:[], ephemeral: true}).catch(() => {})
                     await interaction.deleteReply()
+                    embed_music_control.suppressEmbeds(true)
                     return
-
                 })
 
                 break
+
             case 'repeticion':
                 // Creacion de los embed
                 const embed_repeticion = new EmbedBuilder()
@@ -564,28 +621,14 @@ module.exports = {
                     embed_music_repeticion.edit({content: "", embeds:[
                         new EmbedBuilder()
                             .setColor(process.env.COLOR)
-                            .setThumbnail("https://i.imgur.com/bDO4VTw.gif")
+                            .setThumbnail("https://i.imgur.com/DeMOi0v.gif")
                     ], components:[], ephemeral: true}).catch(() => {})
+                    embed_music_repeticion.suppressEmbeds(true)
                     await interaction.deleteReply()
                     return
-                    
                 })
                 break
-            case 'volumen':
-                const porcentaje = interaction.options.getNumber('porcentaje')
-                const volumen_previo = QUEUE.volume
 
-                client.distube.setVolume(VOICE_CHANNEL, porcentaje)
-                return interaction.editReply({
-                    embeds: [
-                        new EmbedBuilder()
-                            .setTitle('Volúmen música')
-                            .setColor(process.env.COLOR)
-                            .addFields({ name: `Se cambió el volúmen de \`${volumen_previo} %\` a \`${porcentaje} %\``, value: `🔈🔉 🔊` })
-                            .setThumbnail('https://i.imgur.com/IPLiduk.gif')
-                    ],
-                    ephemeral: true
-                })
             case 'cola':
 
                 let listaqueue = [] //Array vació donde estaran las canciones
@@ -632,7 +675,8 @@ module.exports = {
 
                         embedpaginas = await interaction.channel.send({
                             embeds: [embeds[0]],
-                            components: [row]
+                            components: [row],
+                            ephemeral: true
                         }).catch(() => { })
 
                         //Si el numero de embeds es mayor a 1 ponemos los botones de paginacion
@@ -661,7 +705,8 @@ module.exports = {
                         embedpaginas = await interaction.channel.send({
                             content: `**Navega con los _botones_ en el menú**`,
                             embeds: [embeds[0].setFooter({ text: `Página ${pag_actual + 1} / ${embeds.length}` })],
-                            components: [row]
+                            components: [row],
+                            ephemeral: true
                         })
                     }
 
@@ -718,9 +763,6 @@ module.exports = {
                             case 'exit': 
                                 collector.stop()
                                 break
-                            
-                            default:
-                                break
                         }
                     })
                     collector.on("end", async () => {
@@ -728,38 +770,14 @@ module.exports = {
                         embedpaginas.edit({content: "", embeds:[
                             new EmbedBuilder()
                                 .setColor(process.env.COLOR)
-                                .setThumbnail("https://i.imgur.com/bDO4VTw.gif")
+                                .setThumbnail("https://i.imgur.com/DeMOi0v.gif")
                         ], components:[], ephemeral: true}).catch(() => {})
+                        embedpaginas.suppressEmbeds(true)
                         await interaction.deleteReply()
                         return
                     })
                 }
-            case 'saltar':
-                const poscicion = interaction.options.getNumber('poscicion')
-
-                //Comprobaciones previas
-                if (poscicion > (QUEUE.songs.length)) {
-                    return interaction.editReply({
-                        embeds: [
-                            new EmbedBuilder()
-                                .setColor(process.env.COLOR_ERROR)
-                                .setDescription(`La lista unicamente cuenta con \`${QUEUE.songs.length}\` canciones`)
-                        ],
-                        ephemeral: true
-                    })
-                }
-
-                client.distube.jump(VOICE_CHANNEL, poscicion - 1)
-                return interaction.editReply({
-                    embeds: [
-                        new EmbedBuilder()
-                            .setTitle('Salto en lista de música')
-                            .setThumbnail('https://i.imgur.com/bDO4VTw.gif')
-                            .setColor(process.env.COLOR)
-                            .addFields({ name: `Se saltó a la canción número \`${poscicion}\``, value: `🐱‍🏍 🎶🎵` })
-                    ],
-                    ephemeral: true
-                })               
+   
         }
     }
 }  
