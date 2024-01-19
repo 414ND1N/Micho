@@ -3,8 +3,8 @@ const { Configuration, OpenAIApi } = require("openai");
 module.exports = async (client, message) => {
     if (!message.guild || !message.channel || message.author.bot) return;
 
-    if (message.channel.id === process.env.ID_CANAL_CHATBOT) { startChatBot( message) } // ChatBot con GPT
-
+    // ChatGPT Response
+    //if (message.channel.id === process.env.ID_CANAL_CHATBOT) { startChatBot( message) } // ChatBot con GPT
     
     // COMANDOS PREFIX
     /*

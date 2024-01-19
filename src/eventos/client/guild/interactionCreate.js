@@ -8,17 +8,14 @@ module.exports = async (client, interaction) => {
             if (COMANDO.OWNER) {
                 const DUENOS = process.env.OWNER_IDS.split(" ");
                 if (!DUENOS.include(interaction.user.id)) return interaction.reply({ content: `❌ **Solo los dueños del bot pueden ejecutar este comando! 🤨**\nFirma ${DUENOS.map(DUENO => `<@${DUENO}>`).join(", ")}` })
-
             }
 
             if (COMANDO.BOT_PERMISSIONS) {
                 if (!interaction.guild.members.me.permissions.has(COMANDO.BOT_PERMISSIONS)) return interaction.reply({ content: `❌ **Necesito los siguientes permisos para ejecutar este comando 💀 :**\n${COMANDO.BOT_PERMISSIONS.map(PERMISO => `\`${PERMISO}\``).join(", ")}` })
-
             }
 
             if (COMANDO.PERMISSIONS) {
                 if (!interaction.members.permissions.has(COMANDO.PERMISSIONS)) return interaction.reply({ content: `❌ **Necesitas los siguientes permisos para ejecutar este comando  :**\n${COMANDO.PERMISSIONS.map(PERMISO => `\`${PERMISO}\``).join(", ")}` })
-
             }
 
             try {
