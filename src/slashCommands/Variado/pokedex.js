@@ -17,7 +17,7 @@ module.exports = {
                 })
                 .setRequired(true)
                 .setMinValue(1)
-                .setMaxValue(1010)
+                .setMaxValue(1025)
         ),
     async execute(client, interaction){
 
