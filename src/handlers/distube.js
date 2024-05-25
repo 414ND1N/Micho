@@ -17,7 +17,7 @@ module.exports = (client, Discord) => {
         joinNewVoiceChannel: false,
         ytdlOptions: {
             highWaterMark: 1024 * 1024 * 64,
-            quality: "lowestaudio",
+            //quality: "lowestaudio",
             format: "audioonly",
             liveBuffer: 20000,
             dlChunkSize: 1024 * 1024 * 2,
@@ -32,13 +32,6 @@ module.exports = (client, Discord) => {
     //eventos de distube
     client.distube.on("playSong", (queue, song)=>{
         
-        urls_not_message = [
-            "https://www.youtube.com/watch?v=YX19SjFA3qI",
-            "https://www.youtube.com/watch?v=XLA-SklJ4Qo",
-        ]
-
-        if(urls_not_message.includes(song.url)) return;
-
         embed = new EmbedBuilder()
             .setColor(process.env.COLOR)
             .setTitle('Reproducción 🔈 🎶')
@@ -85,7 +78,7 @@ module.exports = (client, Discord) => {
     }); 
 
     client.distube.on("initQueue", queue => {
-        queue.volume = 40;
+        queue.volume = 80;
     });
 
     client.distube.on("disconnect", (queue)=>{
