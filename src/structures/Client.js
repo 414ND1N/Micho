@@ -1,5 +1,7 @@
 const { Client, Collection, GatewayIntentBits, Partials, ActivityType, PresenceUpdateStatus } = require('discord.js');
 const BotUtils = require('./Utils');
+
+// Instancia del cliente
 module.exports = class extends Client {
     constructor(options = {
         intents: [

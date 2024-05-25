@@ -1,5 +1,4 @@
 const { SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js')
-const { add } = require('libsodium-wrappers')
 
 module.exports = {
     CMD: new SlashCommandBuilder()
