@@ -2,25 +2,25 @@ const { DisTube } = require('distube');
 const { EmbedBuilder } = require('discord.js');
 const { YtDlpPlugin } = require("@distube/yt-dlp");
 
-module.exports = (client, Discord) => {
+module.exports = (client, _) => {
     client.distube = new DisTube(client, {
         emitNewSongOnly: false,
         leaveOnFinish: false,
         leaveOnStop: true,
         leaveOnEmpty: true,
+        emptyCooldown: 60,
         savePreviousSongs: true,
         emitAddSongWhenCreatingQueue: false,
         searchSongs: 0,
         searchCooldown: 60,
         nsfw: true,
-        emptyCooldown: 60,
         joinNewVoiceChannel: false,
         ytdlOptions: {
-            highWaterMark: 1024 * 1024 * 64,
+            //highWaterMark: 1024 * 1024 * 64,
             //quality: "lowestaudio",
             format: "audioonly",
-            liveBuffer: 20000,
-            dlChunkSize: 1024 * 1024 * 2,
+            //liveBuffer: 20000,
+            //dlChunkSize: 1024 * 1024 * 2,
         },
         plugins: [
             new YtDlpPlugin({ 
@@ -104,7 +104,7 @@ module.exports = (client, Discord) => {
         message.channel.send(`No resultados encontrados en ${query}! 💀`)
     });
 
-    client.distube.on('error', (channel, e) => {
+    client.distube.on('error', (_, e) => {
         console.log(`Error encontrado en distube:`.red);
         console.log(e)
     });

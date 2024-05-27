@@ -6,6 +6,7 @@ const { handleMusicQueue } = require('../Subcommands/handle_music_queue.js')
 const { handleMusicRepeat } = require('../Subcommands/handle_music_repeat.js')
 
 module.exports = {
+    cooldown: 10,
     CMD: new SlashCommandBuilder()
         .setName("musica")
         .setNameLocalizations({
