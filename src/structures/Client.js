@@ -82,21 +82,32 @@ module.exports = class extends Client {
         const RUTA_ARCHIVOS = await this.utils.loadFiles("/src/slashCommands")
 
         if (RUTA_ARCHIVOS.length) {
-            for (const rutaArchivo of RUTA_ARCHIVOS) {
+            // for (const rutaArchivo of RUTA_ARCHIVOS) {
+            //     try {
+            //         const COMANDO = require(rutaArchivo);
+        
+            //         if ((rutaArchivo.split('\\').pop().split('/').slice(-2)[0]).toLowerCase() === "commandcode") {
+            //             continue // Si es un subcommand no hacer nada
+            //         }
+        
+            //         this.slashCommands.set(COMANDO.CMD.name, COMANDO) // Se agrega el comando a la colección
+            //         this.slashArray.push(COMANDO.CMD.toJSON()) // Se agrega el comando a la lista de comandos a publicar
+            //     } catch (e) {
+            //         console.log(`(X) ERROR AL CARGAR EL COMANDO ${rutaArchivo}`.red);
+            //         console.log(e);
+            //     }
+            // }
+            
+            RUTA_ARCHIVOS.forEach(rutaArchivo => {
                 try {
                     const COMANDO = require(rutaArchivo);
-        
-                    if ((rutaArchivo.split('\\').pop().split('/').slice(-2)[0]).toLowerCase() === "subcommands") {
-                        continue // Si es un subcommand no hacer nada
-                    }
-        
                     this.slashCommands.set(COMANDO.CMD.name, COMANDO) // Se agrega el comando a la colección
                     this.slashArray.push(COMANDO.CMD.toJSON()) // Se agrega el comando a la lista de comandos a publicar
                 } catch (e) {
                     console.log(`(X) ERROR AL CARGAR EL COMANDO ${rutaArchivo}`.red);
                     console.log(e);
                 }
-            }
+            });
         }
 
         console.log(`(✔) ${this.slashCommands.size} Comandos cargados`.green);
