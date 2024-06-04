@@ -133,8 +133,5 @@ Toffu .env
 .vscode/sftp.json
 
 #
-/src/slashCommands/Musica dividida/
-/src/comandos/Musica dividida/
-/src/commands
-/src/slashCommands/Pruebas/
-/src/slashCommands/Privados/
+/src/commands/slashCommands/Musica/djpanas.js
+/src/commands/slashCommands/Variado/pananoche.js

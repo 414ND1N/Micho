@@ -34,7 +34,7 @@ module.exports = {
                     .setTitle(`\`${AUTHOR} abrazó a ${USERNAME}.\``) // Si no se especifica usuario, se indica a todos
                     .setColor(process.env.COLOR)
                     .setImage(gif_url)
-            ]
+            ]       
         });
     }
 } 

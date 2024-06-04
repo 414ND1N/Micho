@@ -12,7 +12,8 @@ module.exports = class extends Client {
             GatewayIntentBits.GuildVoiceStates,
             GatewayIntentBits.GuildEmojisAndStickers,
             GatewayIntentBits.GuildMessageTyping,
-            GatewayIntentBits.GuildMessageReactions
+            GatewayIntentBits.GuildMessageReactions,
+            GatewayIntentBits.DirectMessagePolls,
         ],
         partials: [Partials.User, Partials.Channel, Partials.GuildMember, Partials.Message, Partials.Reaction, Partials.ThreadMember],
         allowedMentions: {
@@ -27,135 +28,96 @@ module.exports = class extends Client {
     }) {
         super({
             ...options
-        });
+        })
 
-        this.commands = new Collection();
-        this.slashCommands = new Collection();
-        this.voiceGenerator = new Collection();
-        this.cooldowns  = new Collection();
-        this.slashArray = [];
+        //this.commands = new Collection()
+        this.commands = new Collection()
+        this.voiceGenerator = new Collection()
+        this.cooldowns  = new Collection()
+        this.commandsArray = []
         
-        this.utils = new BotUtils(this);
+        this.utils = new BotUtils(this)
 
-        this.start();
+        this.start()
     }
 
     async start() {
-        await this.loadEvents();
-        await this.loadHandlers();
-        await this.loadSlashCommands();
+        await this.loadEvents()
+        await this.loadHandlers()
+        await this.loadCommands()
         this.login(process.env.BOT_TOKEN)
     }
-
-    //Funcion eliminada (comandos prefix)
-    /*
-    async loadCommandsPrefix() {
-        console.log(`(${process.env.PREFIX}) Cargando comandos`.yellow);
-        await this.commands.clear();
-
-        const RUTA_ARCHIVOS = await this.utils.loadFiles("/src/comandos");
-
-        if (RUTA_ARCHIVOS.length) {
-            RUTA_ARCHIVOS.forEach((rutaArchivo) => {
-                try {
-                    const COMANDO = require(rutaArchivo);
-                    const NOMBRE_COMANDO = rutaArchivo.split('\\').pop().split('/').pop().split(".")[0];
-                    COMANDO.NAME = NOMBRE_COMANDO;
-
-                    if (NOMBRE_COMANDO) this.commands.set(NOMBRE_COMANDO, COMANDO);
-                } catch (e) {
-                    console.log(`(X) ERROR AL CARGAR EL COMANDO ${rutaArchivo}`.bgRed);
-                    console.log(e);
-                }
-            })
-        }
-        console.log(`(${process.env.PREFIX}) ${this.commands.size} Comandos cargados`.green);
-    }
-    */
    
-    async loadSlashCommands() {
+    // !! Deprecated (Comandos prefix)
+
+    async loadCommands() {
         console.log(`(/) Cargando comandos ...`.yellow)
-        await this.slashCommands.clear()
+        await this.commands.clear()
 
-        this.slashArray = []
+        this.commandsArray = []
 
-        const RUTA_ARCHIVOS = await this.utils.loadFiles("/src/slashCommands")
+        const RUTA_ARCHIVOS = await this.utils.loadFiles("/src/commands")
 
         if (RUTA_ARCHIVOS.length) {
-            // for (const rutaArchivo of RUTA_ARCHIVOS) {
-            //     try {
-            //         const COMANDO = require(rutaArchivo);
-        
-            //         if ((rutaArchivo.split('\\').pop().split('/').slice(-2)[0]).toLowerCase() === "commandcode") {
-            //             continue // Si es un subcommand no hacer nada
-            //         }
-        
-            //         this.slashCommands.set(COMANDO.CMD.name, COMANDO) // Se agrega el comando a la colección
-            //         this.slashArray.push(COMANDO.CMD.toJSON()) // Se agrega el comando a la lista de comandos a publicar
-            //     } catch (e) {
-            //         console.log(`(X) ERROR AL CARGAR EL COMANDO ${rutaArchivo}`.red);
-            //         console.log(e);
-            //     }
-            // }
             
             RUTA_ARCHIVOS.forEach(rutaArchivo => {
                 try {
-                    const COMANDO = require(rutaArchivo);
-                    this.slashCommands.set(COMANDO.CMD.name, COMANDO) // Se agrega el comando a la colección
-                    this.slashArray.push(COMANDO.CMD.toJSON()) // Se agrega el comando a la lista de comandos a publicar
+                    const COMANDO = require(rutaArchivo)
+                    this.commands.set(COMANDO.CMD.name, COMANDO) // Se agrega el comando a la colección
+                    this.commandsArray.push(COMANDO.CMD.toJSON()) // Se agrega el comando a la lista de comandos a publicar
                 } catch (e) {
-                    console.log(`(X) ERROR AL CARGAR EL COMANDO ${rutaArchivo}`.red);
-                    console.log(e);
+                    console.log(`(X) ERROR AL CARGAR EL COMANDO ${rutaArchivo}`.red)
+                    console.log(e)
                 }
-            });
+            })
         }
 
-        console.log(`(✔) ${this.slashCommands.size} Comandos cargados`.green);
+        console.log(`(✔) ${this.commands.size} comandos cargados`.green)
 
         if (this?.application?.commands) {
-            this.application.commands.set(this.slashArray);
-            console.log(`(*) ${this.slashCommands.size} Comandos Publicados!`.green);
+            this.application.commands.set(this.commandsArray)
+            console.log(`(*) ${this.commands.size} comandos publicados!`.white)
         }
     }
 
     async loadHandlers() {
-        console.log(`(/) Cargando handlers ...`.yellow);
+        console.log(`(/) Cargando handlers ...`.yellow)
 
-        const RUTA_ARCHIVOS = await this.utils.loadFiles("/src/handlers");
+        const RUTA_ARCHIVOS = await this.utils.loadFiles("/src/handlers")
 
         if (RUTA_ARCHIVOS.length) {
             RUTA_ARCHIVOS.forEach((rutaArchivo) => {
                 try {
-                    require(rutaArchivo)(this);
+                    require(rutaArchivo)(this)
                 } catch (e) {
-                    console.log(`(X) ERROR AL CARGAR EL HANDLER ${rutaArchivo}`.red);
-                    console.log(e);
+                    console.log(`(X) ERROR AL CARGAR EL HANDLER ${rutaArchivo}`.red)
+                    console.log(e)
                 }
             })
         }
-        console.log(`(✔) ${RUTA_ARCHIVOS.length} Handlers Cargados`.green);
+        console.log(`(✔) ${RUTA_ARCHIVOS.length} Handlers Cargados`.green)
     }
 
     async loadEvents() {
-        console.log(`(/) Cargando eventos ...`.yellow);
+        console.log(`(/) Cargando eventos ...`.yellow)
 
-        const RUTA_ARCHIVOS = await this.utils.loadFiles("/src/eventos");
+        const RUTA_ARCHIVOS = await this.utils.loadFiles("/src/eventos")
 
-        this.removeAllListeners();
+        this.removeAllListeners()
 
         if (RUTA_ARCHIVOS.length) {
             RUTA_ARCHIVOS.forEach((rutaArchivo) => {
                 try {
-                    const EVENTO = require(rutaArchivo);
-                    const NOMBRE_EVENTO = rutaArchivo.split('\\').pop().split('/').pop().split(".")[0];
-                    this.on(NOMBRE_EVENTO, EVENTO.bind(null, this));
+                    const EVENTO = require(rutaArchivo)
+                    const NOMBRE_EVENTO = rutaArchivo.split('\\').pop().split('/').pop().split(".")[0]
+                    this.on(NOMBRE_EVENTO, EVENTO.bind(null, this))
                 } catch (e) {
-                    console.log(`(X) ERROR AL CARGAR EL EVENTO ${rutaArchivo}`.red);
-                    console.log(e);
+                    console.log(`(X) ERROR AL CARGAR EL EVENTO ${rutaArchivo}`.red)
+                    console.log(e)
                 }
             })
         }
-        console.log(`(✔) ${RUTA_ARCHIVOS.length} Eventos Cargados`.green);
+        console.log(`(✔) ${RUTA_ARCHIVOS.length} Eventos Cargados`.green)
     }
     
 }

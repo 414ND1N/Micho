@@ -1,5 +1,3 @@
-const { Configuration, OpenAIApi } = require("openai");
-
 module.exports = async (client, message) => {
     if (!message.guild || !message.channel || message.author.bot) return;
 
@@ -47,68 +45,68 @@ module.exports = async (client, message) => {
 }
 
 // Funcion chatbot
-async function startChatBot( message) {
-    //Chat con CHATGPT3.5
-    if (message.channel.id !== process.env.ID_CANAL_CHATBOT) return; //Si el canal no es el de chatbot, no hacer nada
+// async function startChatBot( message) {
+//     //Chat con CHATGPT3.5
+//     if (message.channel.id !== process.env.ID_CANAL_CHATBOT) return; //Si el canal no es el de chatbot, no hacer nada
 
-    if (message.content.startsWith(process.env.PREFIX_IGNORE_CHAT_API)) return; //Si inicia con "!" se ignora
+//     if (message.content.startsWith(process.env.PREFIX_IGNORE_CHAT_API)) return; //Si inicia con "!" se ignora
 
-    const configuration = new Configuration({
-        apiKey: process.env.OPENAI_API_KEY,
-    });
-    const openai = new OpenAIApi(configuration);
+//     const configuration = new Configuration({
+//         apiKey: process.env.OPENAI_API_KEY,
+//     });
+//     const openai = new OpenAIApi(configuration);
 
-    let conversationLog = [{
-        role: 'system', content: process.env.OPENAI_BOT_CONTENT //
-    }];
+//     let conversationLog = [{
+//         role: 'system', content: process.env.OPENAI_BOT_CONTENT //
+//     }];
 
-    await message.channel.sendTyping(); //Simular que el bot esta escribiendo
+//     await message.channel.sendTyping(); //Simular que el bot esta escribiendo
 
-    //Añadir mensajes anteriores
-    let prevMessages = await message.channel.messages.fetch({ limit: 6 });
-    prevMessages.reverse();
+//     //Añadir mensajes anteriores
+//     let prevMessages = await message.channel.messages.fetch({ limit: 6 });
+//     prevMessages.reverse();
 
-    prevMessages.forEach((msg) => {
-        if (message.content.startsWith(process.env.PREFIX_IGNORE_CHAT_API)) return; // Si el mensaje empieza con el prefijo de ignorar no hacer nada
-        //if(msg.author.id !== client.user.id && message.author.bot) return; //Si el mensaje no es del mismo usuario o es bot no hacer nada
-        if (message.author.bot) return; //Si el mensaje no es del mismo usuario o es bot no hacer nada
+//     prevMessages.forEach((msg) => {
+//         if (message.content.startsWith(process.env.PREFIX_IGNORE_CHAT_API)) return; // Si el mensaje empieza con el prefijo de ignorar no hacer nada
+//         //if(msg.author.id !== client.user.id && message.author.bot) return; //Si el mensaje no es del mismo usuario o es bot no hacer nada
+//         if (message.author.bot) return; //Si el mensaje no es del mismo usuario o es bot no hacer nada
 
-        conversationLog.push({
-            role: 'assistant',
-            content: msg.content,
-            name: msg.author.username.replace(/\s+/g, '_').replace(/[^\w\s]/gi, '')
-        });
+//         conversationLog.push({
+//             role: 'assistant',
+//             content: msg.content,
+//             name: msg.author.username.replace(/\s+/g, '_').replace(/[^\w\s]/gi, '')
+//         });
 
-        //if (msg.author.id == message.author.id) {
-        conversationLog.push({
-            role: 'user',
-            content: msg.content,
-            name: message.author.username
-                .replace(/\s+/g, '_')
-                .replace(/[^\w\s]/gi, ''),
-        });
-        //};
-    });
+//         //if (msg.author.id == message.author.id) {
+//         conversationLog.push({
+//             role: 'user',
+//             content: msg.content,
+//             name: message.author.username
+//                 .replace(/\s+/g, '_')
+//                 .replace(/[^\w\s]/gi, ''),
+//         });
+//         //};
+//     });
 
-    //LLAMADA API
-    try {
-        const result = await openai
-            .createChatCompletion({
-                model: 'gpt-3.5-turbo',
-                messages: conversationLog,
-                // max_tokens: 256, // limit token usage
-            })
-            .catch((error) => {
-                console.log(`Error de OPENAI:`);
-                console.error(error)
-            });
+//     //LLAMADA API
+//     try {
+//         const result = await openai
+//             .createChatCompletion({
+//                 model: 'gpt-3.5-turbo',
+//                 messages: conversationLog,
+//                 // max_tokens: 256, // limit token usage
+//             })
+//             .catch((error) => {
+//                 console.log(`Error de OPENAI:`);
+//                 console.error(error)
+//             });
         
-        message.reply(result.data.choices[0].message)
-    } catch (error) {
-        console.log(`Error de OPENAI:`);
-        console.error(error)
-    }
+//         message.reply(result.data.choices[0].message)
+//     } catch (error) {
+//         console.log(`Error de OPENAI:`);
+//         console.error(error)
+//     }
 
     
 
-}
+// }

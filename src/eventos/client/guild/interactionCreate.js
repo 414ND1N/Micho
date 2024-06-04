@@ -3,11 +3,22 @@ const { Collection } = require('discord.js');
 module.exports = async (client, interaction) => {
     if (!interaction.guild || !interaction.channel) return; // Si no contiene guild o channel, no hacer nada
 
-    if (interaction.isChatInputCommand()) { // Si no es un comando, no hacer nada
+    // ++ Tipos de interaction ++
+    // isButton() - Si es un botón
+    // isChatInputCommand() - Si es un comando de chat
+    // isContextMenuCommand() - Si es un comando de menú contextual
+    // isMessageContextMenuCommand() - Si es un comando de menú contextual de mensaje
+    // isSelectMenu() - Si es un menú de selección
+    // isUserContextMenuCommand() - Si es un comando de menú contextual de usuario
 
-        // ** Manejo de comandos
-        const COMANDO = client.slashCommands.get(interaction?.commandName);
+    // ** Manejo de comandos
+    if (interaction.isChatInputCommand() || interaction.isUserContextMenuCommand() || interaction.isMessageContextMenuCommand() ) {
 
+        // Busca el comando en la colección de comandos slash, app y message
+        const COMANDO = client.commands.get(interaction?.commandName) ||
+            client.appCommands.get(interaction?.commandName) ||
+            client.messageCommands.get(interaction?.commandName);
+            
         if (COMANDO) {
             if (COMANDO.OWNER) {
                 const DUENOS = process.env.OWNER_IDS.split(" ");
@@ -39,7 +50,6 @@ module.exports = async (client, interaction) => {
             const timestamps = cooldowns.get(COMANDO.CMD.name)
             const defaultCooldownDuration = 5
             const cooldownAmount = (COMANDO.cooldown ?? defaultCooldownDuration) * 1_000
-
 
             if (timestamps.has(interaction.user.id)) {
                 const expirationTime = timestamps.get(interaction.user.id) + cooldownAmount
@@ -91,19 +101,5 @@ module.exports = async (client, interaction) => {
                 break;
             }
         }
-        // respond to the button
     }
-    // else if (interaction.isStringSelectMenu()) {
-    //     // respond to the select menu
-    // }
-
-    /*
-        // Context Menu Handling
-        if (interaction.isContextMenu()) {
-            await interaction.deferReply({ ephemeral: false });
-            const command = client.slashCommands.get(interaction.commandName);
-            if (command) command.run(client, interaction);
-        }
-        */
-
 }

@@ -2,10 +2,12 @@ const { EmbedBuilder, ContextMenuCommandBuilder, ApplicationCommandType } = requ
 const axios = require('axios');
 module.exports = {
     CMD: new ContextMenuCommandBuilder()
-        .setName("Acariar")
+        .setName("Saludar")
         .setType(ApplicationCommandType.User),
 
     async execute(client, interaction) {
+
+        console.log('Accion app saludar')
 
         function get_random_option() {
             const tipos = ['zelda', 'pokemon', 'anime', 'adventure time', 'regular show'];
@@ -14,14 +16,14 @@ module.exports = {
         }
 
         // Usuario que realiza la acción
-        const AUTHOR = interaction.member?.nickname ?? interaction.user.username; // Si no tiene apodo, se usa el nombre de usuario
+        const AUTHOR = interaction.member?.nickname?? interaction.user.username; // Si no tiene apodo, se usa el nombre de usuario
 
         // Usuario al que se le hará la acción
         const USUARIO = interaction.targetUser; // Usuario al que se le hará la acción
         const MEMBER = interaction.guild.members.cache.get(USUARIO?.id); // Objeto de miembro del usuario
         const USERNAME = MEMBER?.nickname || USUARIO.username || 'todos'; // Apodo del usuario
-        
-        const query = `${get_random_option()} cuddle`; // Busqueda en Tenor
+       
+        const query = `${get_random_option()} saying hello`; // Busqueda en Tenor
         const url_api = `https://tenor.googleapis.com/v2/search?q=${query}&key=${process.env.TENOR_API_KEY}&client_key=my_test_app&limit=8`;
 
         const response = await axios.get(url_api);
@@ -31,7 +33,7 @@ module.exports = {
         return interaction.reply({
             embeds: [
                 new EmbedBuilder()
-                    .setTitle(`\`${AUTHOR} acarició a ${USERNAME}.\``) // Si no se especifica usuario, se indica a todos
+                    .setTitle(`\`${AUTHOR} saludó a ${USERNAME}.\``) // Si no se especifica usuario, se indica a todos
                     .setColor(process.env.COLOR)
                     .setImage(gif_url)
             ]

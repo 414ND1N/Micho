@@ -1,9 +1,9 @@
 const { SlashCommandBuilder, EmbedBuilder} = require('discord.js')
 
-const { handleMusicPlay } = require('../../commandCode/Musica/handle_play.js')
-const { handleMusicControl } = require('../../commandCode/Musica/handle_control.js')
-const { handleMusicQueue } = require('../../commandCode/Musica/handle_queue.js')
-const { handleMusicRepeat } = require('../../commandCode/Musica/handle_repeat.js')
+const { handleMusicPlay } = require('../../../commandCode/Musica/handle_play.js')
+const { handleMusicControl } = require('../../../commandCode/Musica/handle_control.js')
+const { handleMusicQueue } = require('../../../commandCode/Musica/handle_queue.js')
+const { handleMusicRepeat } = require('../../../commandCode/Musica/handle_repeat.js')
 
 module.exports = {
     cooldown: 10,

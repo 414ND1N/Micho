@@ -8,7 +8,7 @@ module.exports = {
         })
         .setDescription('Controla la voz en un canal de voz.')
         .setDescriptionLocalizations({
-            "en-US": 'Control voice in a voice channel.'
+            "en-US": 'Manage voice in a voice channel.'
         })
         // Agregar
         .addSubcommandGroup(group =>

@@ -1,8 +1,8 @@
 module.exports = client => {
-    console.log(`Sesión iniciada como ${client.user.tag}`.green)
+    console.log(`Sesión iniciada como ${client.user.tag}`.brightCyan)
 
     if(client?.application?.commands){
-        client.application.commands.set(client.slashArray);
-        console.log(`(✔) ${client.slashCommands.size} Comandos publicados 😎`.green);
+        client.application.commands.set(client.commandsArray)
+        console.log(`${client.commands.size} Comandos publicados 😎`.white)
     }
 }

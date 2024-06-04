@@ -31,7 +31,7 @@ module.exports = {
             switch(args?.toLowerCase()){
                 case "commands":{
                     opcion = "Comandos"
-                    await client.loadSlashCommands()
+                    await client.loadCommands()
                 }
                     break
                 case "events":{
@@ -47,7 +47,7 @@ module.exports = {
                 default:{
                     await client.loadEvents()
                     await client.loadHandlers()
-                    await client.loadSlashCommands()
+                    await client.loadCommands()
                 }   
                     break
             }

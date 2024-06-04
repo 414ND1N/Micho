@@ -169,7 +169,6 @@ module.exports = {
     async execute(client, interaction) {
         // constantes
         const ROLE  = interaction.options.getRole('rol')
-        //console.log(ROLE)
         if (!ROLE) return interaction.reply({
             content: `❌ **No se ha encontrado el rol**`,
             ephemeral: true
@@ -214,13 +213,13 @@ module.exports = {
                             await interaction.guild.members.cache.get(USER.id).roles.add(ROLE)
                             // Respuesta
                             return interaction.reply({
-                                content: `**Se ha agregado el rol \`${ROLE.name}\` al usuario \`${USER}\`**`,
+                                content: `**Se ha agregado el rol \`${ROLE.name}\` al usuario \`${USER.username}\`**`,
                                 ephemeral: true
                             })
                         } catch (error) {
                             console.log(error)
                             return interaction.reply({
-                                content: `❌ **No se ha podido agregar el rol \`${ROLE.name}\` al usuario \`${USER}\`**`,
+                                content: `❌ **No se ha podido agregar el rol \`${ROLE.name}\` al usuario \`${USER.username}\`**`,
                                 ephemeral: true
                             })
                         }
@@ -269,13 +268,13 @@ module.exports = {
                             await interaction.guild.members.cache.get(USER.id).roles.remove(ROLE)
                             // Respuesta
                             return interaction.reply({
-                                content: `**Se ha quitado el rol \`${ROLE.name}\` al usuario \`${USER}\`**`,
+                                content: `**Se ha quitado el rol \`${ROLE.name}\` al usuario \`${USER.username}\`**`,
                                 ephemeral: true
                             })
                         } catch (error) {
                             console.log(error)
                             return interaction.reply({
-                                content: `❌ **No se ha podido quitar el rol \`${ROLE.name}\` al usuario \`${USER}\`**`,
+                                content: `❌ **No se ha podido quitar el rol \`${ROLE.name}\` al usuario \`${USER.username}\`**`,
                                 ephemeral: true
                             })
                         }
