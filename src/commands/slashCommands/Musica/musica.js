@@ -181,7 +181,11 @@ module.exports = {
             })
         }
 
-        await interaction.deferReply({ ephemeral: true }) // Defer para respuestas de más de 3 segundos
+        // Veruficar si el comando usa pagination, en dado caso no se hace un deferReply
+        if (SUB != 'cola') {
+            // Defer para respuestas de más de 3 segundos
+            await interaction.deferReply({ ephemeral: true })
+        }
 
         // Accion a realizar segun el subcomando
 
