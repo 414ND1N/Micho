@@ -1,53 +1,53 @@
-const {SlashCommandBuilder, EmbedBuilder} = require('discord.js')
+const { SlashCommandBuilder, EmbedBuilder } = require('discord.js')
+const { ActionRowBuilder, ModalBuilder, TextInputBuilder, TextInputStyle } = require('discord.js')
 const axios = require('axios')
 
 module.exports = {
     CMD: new SlashCommandBuilder()
-    .setName("anime")
-    .setDescription("Descubre sobre anime")
-    .setDescriptionLocalizations({
-        "en-US": "Discover about anime"
-    })
-    .addSubcommand(subcommand =>
-        subcommand.setName('informacion')
-            .setNameLocalizations({ "en-US": "information" })
-            .setDescription('Información de un anime')
-            .setDescriptionLocalizations({
-                "en-US": "Anime information"
-            })
-            .addStringOption(option =>
-                option.setName('nombre')
-                    .setNameLocalizations({ "en-US": "name" })
-                    .setDescription('Nombre del anime a buscar')
-                    .setDescriptionLocalizations({
-                        "en-US": 'Anime name to search'
-                    })
-                    .setRequired(true)
-            )
-    ),
+        .setName("anime")
+        .setDescription("Descubre sobre anime")
+        .setDescriptionLocalizations({
+            "en-US": "Discover about anime"
+        })
+    ,
 
-    async execute(client, interaction){
+    async execute(client, interaction) {
 
-        await interaction.deferReply() // Defer para respuestas de más de 3 segundos
+        const modal = new ModalBuilder()
+            .setTitle('Anime')
+            .setCustomId(`animeModal-${interaction.user.id}`)
 
-        //constantes
-        const SUB = interaction.options.getSubcommand()
+        const input = new TextInputBuilder()
+            .setCustomId('animeInput')
+            .setLabel('Nombre del anime')
+            .setMaxLength(50)
+            .setMinLength(3)
+            .setRequired(true)
+            .setPlaceholder('Ingrese el nombre del anime')
+            .setStyle(TextInputStyle.Short)
 
-        switch(SUB){
+        const firstActionRow = new ActionRowBuilder().addComponents(input)
 
-            case 'informacion':{
-                
-                const nombreAnime = interaction.options.getString('nombre')
+        modal.addComponents(firstActionRow)
+        await interaction.showModal(modal)
+
+        // Esperar respuesta
+        const filter = (interaction) => interaction.customId === `animeModal-${interaction.user.id}`
+
+        interaction
+            .awaitModalSubmit({ filter, time: 20_000 })
+            .then(async (modalInteraction) => {
+                const nombreAnime = modalInteraction.fields.getTextInputValue('animeInput')
                 const url_api = `https://api.jikan.moe/v4/anime?q=${nombreAnime}&sfw`
                 const response = await axios.get(url_api)
 
-                if(response.data.data.length == 0){ // Si no se encuentra ningún anime con el nombre, se envía un mensaje de error
-                    return interaction.editReply({
+                if (response.data.data.length == 0) { // Si no se encuentra ningún anime con el nombre, se envía un mensaje de error
+                    return modalInteraction.reply({
                         embeds: [
                             new EmbedBuilder()
-                            .setColor(process.env.COLOR_ERROR)
-                            .setDescription(`No se encontró ningún anime con el nombre\n \`${nombreAnime}\``)
-                            .setThumbnail('https://i.imgur.com/rIPXKFQ.png')
+                                .setColor(process.env.COLOR_ERROR)
+                                .setDescription(`No se encontró ningún anime con el nombre\n \`${nombreAnime}\``)
+                                .setThumbnail('https://i.imgur.com/rIPXKFQ.png')
                         ]
                     })
                 }
@@ -68,38 +68,40 @@ module.exports = {
                 const scored_by = response.data.data[0].scored_by
                 const image = response.data.data[0].images.webp.image_url
 
-                return interaction.editReply({
+                modalInteraction.reply({
                     embeds: [
                         new EmbedBuilder()
-                        .setTitle(`Anime | \`${title} - ${title_japanese}\` `)
-                        .setThumbnail(image)
-                        .addFields(
-                            { name: `Top AnimeList`, value: `${rank}`, inline: true},
-                            { name: `Episodios`, value: `${episodes}`, inline: true},
-                            { name: `Año salida`, value: `${year}`, inline: true },
-                            { name: `Estado`, value: `${status}`, inline: true},
-                            { name: `Fuente`, value: `${source}`, inline: true},
-                            { name: `Rating`, value: `${rating}`, inline: true},
-                            { name: `Temas`, value: `${themes}`, inline: true },
-                            { name: `Generos`, value: `${genres}`, inline: true },
-                            { name: `Sinopsis`, value: `${synopsisFormated}`},
-                        )
-                        .setURL(url_anime)
-                        .setFooter({ text:`Puntuación ${score}/10 por ${scored_by} usuarios`})
-                        .setColor(process.env.COLOR)
+                            .setTitle(`Anime | \`${title} - ${title_japanese}\` `)
+                            .setThumbnail(image)
+                            .addFields(
+                                { name: `Top AnimeList`, value: `${rank}`, inline: true },
+                                { name: `Episodios`, value: `${episodes}`, inline: true },
+                                { name: `Año salida`, value: `${year}`, inline: true },
+                                { name: `Estado`, value: `${status}`, inline: true },
+                                { name: `Fuente`, value: `${source}`, inline: true },
+                                { name: `Rating`, value: `${rating}`, inline: true },
+                                { name: `Temas`, value: `${themes}`, inline: true },
+                                { name: `Generos`, value: `${genres}`, inline: true },
+                                { name: `Sinopsis`, value: `${synopsisFormated}` },
+                            )
+                            .setURL(url_anime)
+                            .setFooter({ text: `Puntuación ${score}/10 por ${scored_by} usuarios` })
+                            .setColor(process.env.COLOR)
                     ]
                 })
-            }
-            default:
-                return interaction.editReply({
+            })
+            .catch(async (_) => {
+                interaction.followUp({
                     embeds: [
                         new EmbedBuilder()
+                            .setTitle('No se ha recibido respuesta')
                             .setColor(process.env.COLOR_ERROR)
-                            .setTitle(`Subcomando no encontrado`)
-                    ]
+                            .setDescription('No se ha recibido respuesta\nInténtalo de nuevo.')
+                            .setThumbnail('https://i.imgur.com/rIPXKFQ.png')
+                            .setTimestamp()
+                    ],
+                    ephemeral: true
                 })
-        }
-
-
+            })
     }
 }

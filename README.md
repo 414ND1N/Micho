@@ -15,14 +15,14 @@
   <br>
 </div>
 
-> 👤 \*Creado por **`414ND1N`\***
+> 👤 \*Creado por **`414ND1N`**
 
 > 👤 _Basado [**`handler de Dew`**](https://github.com/dewstouh/handler-v14)_
 
 ### 📝 Requisitos
-- [Node.js](https://nodejs.org/es/) v16.20.2 
-- [Discord.js](https://discord.js.org/#/) v13.1.0 ó superior
-- [DisTube](https://distube.js.org/#/docs/DisTube/stable/general/welcome) v4.1.0 ó superior
+- [Node.js](https://nodejs.org/es/) v22.2.0 
+- [Discord.js](https://discord.js.org/#/) v14.15.2 ó superior
+- [DisTube](https://distube.js.org/#/docs/DisTube/stable/general/welcome) v5.0.1
 
 ### 🔧 Funciones
 
@@ -33,77 +33,3 @@
 - Mensajes privados a usuarios
 - Manejo bot
 - Comandos context menu
-
-### 💬 Comandos de información
-
-- ayuda
-- ping
-- pagina
-- preguntar 
-    - grupo `tu pregunta`
-    - micho `tu pregunta`
-- codigo
-- diccionario `palabra`
-
-
-### 💱 Comandos variedad
-
-- 8ball `pregunta`
-- accion `usuario` `accion`
-- amiibo `personaje`
-- conversar `texto`
-- elegir 
-    - opcion `opcion 1, opcion 2, ...`
-    - numeros `min` `max`
-- fortuna
-- image `texto`
-- micho
-- minecraft 
-    - skin `usuario` `tipo`
-    - servidor
-- pokedex `id pokemon`
-- sugerir `sugerencia`
-- waifu `tipo` `categoria`
-
-
-### 🎵 Comandos de música
-
-- djpanas `tipo`
-- reproducir
-- detener
-- reproduciendo
-- Control
-  - `anterior`
-  - `resumir`
-  - `pausar`
-  - `siguiente`
-  - `detener`
-  - `mezclar cola`
-- lista
-- volume `numero`
-- jump `numero`
-- repeticion
-  - `cancion actual`
-  - `cola`
-  - `desactivar`
-- 
-
-### 🤓 Comandos de administrador
-- avatar `url` 
-- clear `usuario*` `numero mensajes`
-- decir `texto`
-- dm `usuario` `mensaje`
-- imagenia `entrada`
-- presencia 
-  - `estado`
-  - `actividad` `tipo`
-- reload `archivo*`
-- userinfo `usuario`
-
-### 👀 Context Menu
-- acciones
-  - Abrazar
-  - Acariciar
-  - Felicitar
-  - Golpear
-  - Saluda
