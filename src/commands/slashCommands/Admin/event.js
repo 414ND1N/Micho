@@ -50,7 +50,7 @@ module.exports = {
         switch (EVENT) {
             case 'guildMemberAdd':
                 // client, member
-                client.emit('guildMemberAdd', client, member)
+                client.emit('guildMemberAdd', member)
                 break
 
             // case 'guildMemberUpdate':

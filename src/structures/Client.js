@@ -30,7 +30,6 @@ module.exports = class extends Client {
             ...options
         })
 
-        //this.commands = new Collection()
         this.commands = new Collection()
         this.voiceGenerator = new Collection()
         this.cooldowns  = new Collection()
@@ -102,15 +101,17 @@ module.exports = class extends Client {
         console.log(`(/) Cargando eventos ...`.yellow)
 
         const RUTA_ARCHIVOS = await this.utils.loadFiles("/src/eventos")
-
         this.removeAllListeners()
 
         if (RUTA_ARCHIVOS.length) {
             RUTA_ARCHIVOS.forEach((rutaArchivo) => {
                 try {
                     const EVENTO = require(rutaArchivo)
-                    const NOMBRE_EVENTO = rutaArchivo.split('\\').pop().split('/').pop().split(".")[0]
-                    this.on(NOMBRE_EVENTO, EVENTO.bind(null, this))
+                    if (EVENTO.once) {
+                        this.once(EVENTO.name, (...args) => EVENTO.execute(...args));
+                    } else {
+                        this.on(EVENTO.name, (...args) => EVENTO.execute(...args));
+                    }
                 } catch (e) {
                     console.log(`(X) ERROR AL CARGAR EL EVENTO ${rutaArchivo}`.red)
                     console.log(e)
