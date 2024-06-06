@@ -1,21 +1,9 @@
 const { DisTube } = require('distube');
 const { EmbedBuilder } = require('discord.js');
-const { YtDlpPlugin } = require("@distube/yt-dlp");
 const { YouTubePlugin } = require("@distube/youtube");
+const fs = require('fs');
 
 module.exports = (client, _) => {
-
-    //definir plugins
-    const youtubePlugin = new YouTubePlugin({
-        ytdlOptions: {
-            //highWaterMark: 1024 * 1024 * 64,
-            //quality: "lowestaudio",
-            format: "audioonly",
-            //liveBuffer: 20000,
-            //dlChunkSize: 1024 * 1024 * 2,
-        },
-    });
-
     //definir el distube
     client.distube = new DisTube(client, {
         emitNewSongOnly: false,
@@ -24,16 +12,26 @@ module.exports = (client, _) => {
         //leaveOnEmpty: true,
         //emptyCooldown: 60,
         savePreviousSongs: true,
+        emitAddListWhenCreatingQueue: false,
         emitAddSongWhenCreatingQueue: false,
         //searchSongs: 0,
         //searchCooldown: 60,
         nsfw: true,
         joinNewVoiceChannel: false,
         plugins: [
-            new YtDlpPlugin({ 
-                update: true 
-            }),
-            youtubePlugin
+            new YouTubePlugin({
+                ytdlOptions: {
+                    //highWaterMark: 1024 * 1024 * 64,
+                    //quality: "lowestaudio",
+                    format: "audioonly",
+                    //liveBuffer: 20000,
+                    //dlChunkSize: 1024 * 1024 * 2,
+                },
+                cookies: JSON.parse(fs.readFileSync('./src/utils/Cookies/YouTubeCookies.json')),
+            })
+            // new YtDlpPlugin({ 
+            //     update: true 
+            // }),
         ],
     });
 

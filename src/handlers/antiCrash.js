@@ -17,4 +17,6 @@ module.exports = client => {
     });
 
     process.on("multipleResolves", () =>{});
+
+    console.log(`Módulo anticrash cargado`.red)
 }

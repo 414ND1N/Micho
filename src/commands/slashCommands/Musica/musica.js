@@ -309,11 +309,11 @@ module.exports = {
                     break
     
                 case 'repeticion': //Subcommand
-                    handleMusicRepeat(interaction, client, VOICE_CHANNEL, QUEUE)
+                    handleMusicRepeat(interaction, client, VOICE_CHANNEL)
                     break
     
                 case 'cola': //Subcommand
-                    handleMusicQueue(interaction, client, VOICE_CHANNEL, QUEUE)
+                    handleMusicQueue(interaction, QUEUE)
                     break
        
             }

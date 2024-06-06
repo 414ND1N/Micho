@@ -135,3 +135,4 @@ Toffu .env
 #
 /src/commands/slashCommands/Musica/djpanas.js
 /src/commands/slashCommands/Variado/pananoche.js
+/src/utils/Cookies

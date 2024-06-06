@@ -42,8 +42,8 @@ module.exports = class extends Client {
     }
 
     async start() {
-        await this.loadEvents()
         await this.loadHandlers()
+        await this.loadEvents()
         await this.loadCommands()
         this.login(process.env.BOT_TOKEN)
     }

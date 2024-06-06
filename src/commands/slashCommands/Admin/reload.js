@@ -45,8 +45,8 @@ module.exports = {
                 }
                     break
                 default:{
-                    await client.loadEvents()
                     await client.loadHandlers()
+                    await client.loadEvents()
                     await client.loadCommands()
                 }   
                     break
