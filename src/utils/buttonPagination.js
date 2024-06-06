@@ -101,15 +101,8 @@ module.exports = async (interaction, pages, pagination_time= 30*1000) => {
         })
 
         filter.on('end', async () => {
-            await msg.edit({
-                embeds: [ 
-                    new EmbedBuilder()
-                        .setColor(process.env.COLOR)
-                        .setThumbnail("https://i.imgur.com/DeMOi0v.gif")
-                ],
-                components: [],
-                ephemeral: true
-            }).catch(() => { })
+            // Borrar mensajes después de 2
+            setTimeout(() => interaction.deleteReply(), 2000)
         })
 
         return msg

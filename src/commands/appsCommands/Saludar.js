@@ -7,8 +7,6 @@ module.exports = {
 
     async execute(client, interaction) {
 
-        console.log('Accion app saludar')
-
         function get_random_option() {
             const tipos = ['zelda', 'pokemon', 'anime', 'adventure time', 'regular show'];
             const randomIndexOpts = Math.floor(Math.random() * tipos.length);

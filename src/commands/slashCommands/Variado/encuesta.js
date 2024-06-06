@@ -47,16 +47,6 @@ module.exports = {
                             "en-US": 'Allows selecting multiple options.'
                         })
                 )
-                .addNumberOption(option =>
-                    option.setName('duracion')
-                        .setNameLocalizations({ "en-US": 'duration' })
-                        .setDescription('Duración de la encuesta en días.')
-                        .setDescriptionLocalizations({
-                            "en-US": 'Poll duration in days.'
-                        })
-                        .setMinValue(1)
-                        .setMaxValue(7)
-                )
         )
         .addSubcommand(subcommand =>
             subcommand.setName("finalizar")
@@ -86,7 +76,6 @@ module.exports = {
                     const PREGUNTA = interaction.options.getString('pregunta')
                     const OPCIONES = interaction.options.getString('opciones').split(',')
                     const MULTIPLE = interaction.options.getBoolean('multiple') ?? false
-                    const DURACION = interaction.options.getNumber('duracion') ?? 1
             
                     // Validaciones
                     if (OPCIONES.length < 2) {
@@ -96,19 +85,11 @@ module.exports = {
                         })
                     }
             
-                    if (DURACION > 120) {
-                        return interaction.reply({
-                            content: 'La duración máxima es de 5 días.', 
-                            ephemeral: true 
-                        })
-                    }
-            
                     interaction.channel.send({
                         poll: {
                             question: {text: PREGUNTA},
                             answers: OPCIONES.map(opcion => ({ text: opcion })),
                             allowMultiselect: MULTIPLE,
-                            timeout: DURACION,
                             layoutType: PollLayoutType.Default
                         }
                     })

@@ -1,20 +1,12 @@
 const { DisTube } = require('distube');
 const { EmbedBuilder } = require('discord.js');
 const { YtDlpPlugin } = require("@distube/yt-dlp");
+const { YouTubePlugin } = require("@distube/youtube");
 
 module.exports = (client, _) => {
-    client.distube = new DisTube(client, {
-        emitNewSongOnly: false,
-        leaveOnFinish: false,
-        leaveOnStop: true,
-        leaveOnEmpty: true,
-        emptyCooldown: 60,
-        savePreviousSongs: true,
-        emitAddSongWhenCreatingQueue: false,
-        searchSongs: 0,
-        searchCooldown: 60,
-        nsfw: true,
-        joinNewVoiceChannel: false,
+
+    //definir plugins
+    const youtubePlugin = new YouTubePlugin({
         ytdlOptions: {
             //highWaterMark: 1024 * 1024 * 64,
             //quality: "lowestaudio",
@@ -22,10 +14,26 @@ module.exports = (client, _) => {
             //liveBuffer: 20000,
             //dlChunkSize: 1024 * 1024 * 2,
         },
+    });
+
+    //definir el distube
+    client.distube = new DisTube(client, {
+        emitNewSongOnly: false,
+        //leaveOnFinish: false,
+        //leaveOnStop: true,
+        //leaveOnEmpty: true,
+        //emptyCooldown: 60,
+        savePreviousSongs: true,
+        emitAddSongWhenCreatingQueue: false,
+        //searchSongs: 0,
+        //searchCooldown: 60,
+        nsfw: true,
+        joinNewVoiceChannel: false,
         plugins: [
             new YtDlpPlugin({ 
                 update: true 
             }),
+            youtubePlugin
         ],
     });
 
@@ -104,7 +112,7 @@ module.exports = (client, _) => {
         message.channel.send(`No resultados encontrados en ${query}! 💀`)
     });
 
-    client.distube.on('error', (_, e) => {
+    client.distube.on('error', (e, channel, song) => {
         console.log(`Error encontrado en distube:`.red);
         console.log(e)
     });

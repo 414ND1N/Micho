@@ -1,5 +1,5 @@
 const { EmbedBuilder} = require('discord.js')
-const buttonPagination = require('../../utils/buttonPagination')
+const buttonPagination = require('../buttonPagination')
 
 // musicCommands.js
 const handleMusicQueue = async (interaction, client, VOICE_CHANNEL, QUEUE, channel) => {

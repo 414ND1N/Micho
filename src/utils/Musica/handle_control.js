@@ -74,24 +74,34 @@ const handleMusicControl = async (interaction, client, VOICE_CHANNEL, QUEUE, cha
                 break
             
             case 'play': 
-                let accion_usada = 'resumió'
                 if (QUEUE.paused) {
                     client.distube.resume(VOICE_CHANNEL)
+
+                    collector.resetTimer()
+                    interaction.editReply({
+                        embeds: [
+                            new EmbedBuilder()
+                                .setTitle(`Reanudar la música`)
+                                .setThumbnail('https://i.imgur.com/9fBJ0s7.gif')
+                                .setColor(process.env.COLOR)
+                                .addFields({ name: `Se renaudó la música`, value: `🚦🛑` })
+                        ]
+                    })
                 } else {
-                    accion_usada = 'pausó'
                     client.distube.pause(VOICE_CHANNEL)
+
+                    collector.resetTimer()
+                    interaction.editReply({
+                        embeds: [
+                            new EmbedBuilder()
+                                .setTitle(`Pausa de la música`)
+                                .setThumbnail('https://i.imgur.com/kY0gh91.gif')
+                                .setColor(process.env.COLOR)
+                                .addFields({ name: `Se pausó la música`, value: `🚦🛑` })
+                        ]
+                    })
                 }
 
-                collector.resetTimer()
-                interaction.editReply({
-                    embeds: [
-                        new EmbedBuilder()
-                            .setTitle(`Se ${accion_usada} la música`)
-                            .setThumbnail('https://i.imgur.com/kY0gh91.gif')
-                            .setColor(process.env.COLOR)
-                            .addFields({ name: `Se pausó la música`, value: `🚦🛑` })
-                    ]
-                })
                 await i?.deferUpdate()
                 break
             
