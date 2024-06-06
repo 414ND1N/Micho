@@ -7,8 +7,6 @@ const handleMusicPlay = async (interaction, client, VOICE_CHANNEL, QUEUE, channe
             
         const canciones = interaction.options.getString('cancion')
 
-        console.log(canciones)
-    
         if (interaction.options.getBoolean('nueva') && QUEUE) { // Si se especifica nueva, no se mantiene la cola anterior
             const num_canciones = QUEUE?.songs.length ?? 0;
             // se agrega la lista
@@ -16,15 +14,6 @@ const handleMusicPlay = async (interaction, client, VOICE_CHANNEL, QUEUE, channe
                 member: interaction.member ?? undefined,
                 textChannel: channel ?? undefined
             });
-    
-            // this.client.distube
-            // .play<Metadata>(vc, input, {
-            //   skip,
-            //   position,
-            //   textChannel: interaction.channel ?? undefined,
-            //   member: interaction.member,
-            //   metadata: { interaction },
-            // })
     
             // Se vacia las canciones anteriores
             if (QUEUE && QUEUE.songs.length > 0) {
