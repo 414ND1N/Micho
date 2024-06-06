@@ -185,7 +185,6 @@ module.exports = {
         // Veruficar si el comando usa pagination, en dado caso no se hace un deferReply
         if (!COM_NO_DEFER.includes(SUB)) {
             // Defer para respuestas de más de 3 segundos
-            console.log('DeferReply')
             await interaction.deferReply({ ephemeral: true })
         }
 
