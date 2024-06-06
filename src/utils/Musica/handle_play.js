@@ -4,7 +4,7 @@ const { EmbedBuilder } = require('discord.js')
 module.exports = async (interaction, client, VOICE_CHANNEL, QUEUE, channel) => {
 
     try {
-            
+        interaction.deferReply({ ephemeral: true })
         const canciones = interaction.options.getString('cancion')
 
         if (interaction.options.getBoolean('nueva') && QUEUE) { // Si se especifica nueva, no se mantiene la cola anterior

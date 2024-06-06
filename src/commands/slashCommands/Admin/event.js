@@ -47,29 +47,38 @@ module.exports = {
         const { member, options } = interaction
         const EVENT = options.getString("evento")
 
-        switch (EVENT) {
-            case 'guildMemberAdd':
-                // client, member
-                client.emit('guildMemberAdd', member)
-                break
-
-            // case 'guildMemberUpdate':
-            //     // oldMember, newMember
-            //     client.emit('guildMemberUpdate', member, member)
-            //     break
-
-            default:
-                // !! No existe el evento
-                return interaction.reply({
-                    content: `El evento ${EVENT} no existe.`,
-                    ephemeral: true
-                })
+        try {
+            switch (EVENT) {
+                case 'guildMemberAdd':
+                    // client, member
+                    client.emit('guildMemberAdd', member)
+                    break
+    
+                // case 'guildMemberUpdate':
+                //     // oldMember, newMember
+                //     client.emit('guildMemberUpdate', member, member)
+                //     break
+    
+                default:
+                    // !! No existe el evento
+                    return interaction.reply({
+                        content: `El evento ${EVENT} no existe.`,
+                        ephemeral: true
+                    })
+            }
+    
+            return interaction.reply({
+                content: `Evento \`${EVENT}\` emitido`,
+                ephemeral: true
+            })
+        } catch (error) {
+            console.error(error)
+            return interaction.reply({
+                content: `Ha ocurrido un error al emitir el evento \`${EVENT}\``,
+                ephemeral: true
+            })
+            
         }
-
-        return interaction.reply({
-            content: `Evento ${EVENT} emitido.`,
-            ephemeral: true
-        })
     }
 }
 
