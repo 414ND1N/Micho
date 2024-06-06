@@ -1,10 +1,10 @@
-const {ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType, EmbedBuilder} = require('discord.js')
+const {ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType} = require('discord.js')
 
 module.exports = async (interaction, pages, pagination_time= 30*1000) => {
     try {
         if(!interaction || !pages || !pages>0) throw new Error('Faltan argumentos o no son válidos')
 
-        await interaction.deferReply()
+        await interaction.deferReply({ephemeral: true})
 
         if (pages.length === 1) {
             return await interaction.editReply({

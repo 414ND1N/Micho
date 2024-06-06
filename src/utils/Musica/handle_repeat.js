@@ -1,23 +1,16 @@
-const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js')
+const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType } = require('discord.js')
 
 // musicCommands.js
-const handleMusicRepeat = async (interaction, client, VOICE_CHANNEL) => {
+module.exports = async (interaction, client, VOICE_CHANNEL) => {
 
     try {
-        // Creacion de los embed
-        const embed_repeticion = new EmbedBuilder()
-            .setTitle(`Controla la canción en reproducción`)
-            .setColor(process.env.COLOR)
-            .setThumbnail('https://i.imgur.com/bDO4VTw.gif')
-            .addFields(
-                { name: `🔂 Repetir canción actual`, value: `Repetir la canción actual` },
-                { name: `🔁 Repetir lista completa`, value: `Repetir la cola completa` },
-                { name: `❌ Desactivar repetición`, value: `Desactiva la repetición de la música o cola` },
-                { name: `🚪 Salir`, value: `Cerrar el menú de control` },
-            )
+
+        if(!interaction || !client || !VOICE_CHANNEL) throw new Error('Faltan argumentos o no son válidos')
+
+        await interaction.deferReply({ ephemeral: true })
 
         // Botones
-        const row_repeticion = new ActionRowBuilder().addComponents(
+        const row = new ActionRowBuilder().addComponents(
             new ButtonBuilder()
                 .setEmoji('🔂')
                 .setCustomId('rep_actual')
@@ -41,18 +34,39 @@ const handleMusicRepeat = async (interaction, client, VOICE_CHANNEL) => {
         )
 
         //Creacion del Embed principal
-        let embed_music_repeticion = await interaction.channel.send({
-            embeds: [embed_repeticion],
-            components: [row_repeticion],
-            ephemeral: true
+        const msg = await interaction.editReply({
+            embeds: [ 
+                new EmbedBuilder()
+                    .setTitle(`Controla la canción en reproducción`)
+                    .setColor(process.env.COLOR)
+                    .setThumbnail('https://i.imgur.com/bDO4VTw.gif')
+                    .addFields(
+                        { name: `🔂 Repetir canción actual`, value: `Repetir la canción actual` },
+                        { name: `🔁 Repetir lista completa`, value: `Repetir la cola completa` },
+                        { name: `❌ Desactivar repetición`, value: `Desactiva la repetición de la música o cola` },
+                        { name: `🚪 Salir`, value: `Cerrar el menú de control` },
+                    )
+            ],
+            components: [row],
+            ephemeral: true,
+            fetchReply: true
         })
 
-        //Creacion del collector
-        const collector = embed_music_repeticion.createMessageComponentCollector({ time: 18e3 }) //18 segundos de tiempo de espera
-        collector.on("collect", async (b) => {
+        //Creacion del filter
+        const filter = msg.createMessageComponentCollector({ 
+            ComponentType: ComponentType.Button,
+            time: 10000
+        })
+        
+        filter.on("collect", async (b) => {
             if (b?.user.id != interaction.user.id) {
-                return await b.reply({ content: `❌ Solo quien uso el comando puede navegar entre categorías.`, ephemeral: true })
+                return await b.reply({ 
+                    content: `❌ Solo quien uso el comando puede navegar entre categorías.`, 
+                    ephemeral: true 
+                })
             }
+
+            await b.deferUpdate()
 
             switch (b.customId) {
                 case 'rep_actual':
@@ -76,53 +90,37 @@ const handleMusicRepeat = async (interaction, client, VOICE_CHANNEL) => {
                     }
 
                     client.distube.setRepeatMode(VOICE_CHANNEL, repeticion_value)
-                    collector.resetTimer()
-
-                    interaction.editReply({
+                    await interaction.editReply({
                         embeds: [
                             new EmbedBuilder()
-                                .setTitle('Repetición cola música')
                                 .setColor(process.env.COLOR)
-                                .addFields({ name: `Se cambió la repetición a \`${modo_rep}\``, value: `🔄 🎶 🎵` })
-                                .setThumbnail('https://i.imgur.com/Cm5hy47.gif')
-                        ]
+                                .setDescription(`Repetición de la música establecida en \`${modo_rep}\``)
+                        ],
+                        components: [],
+                        ephemeral: true
                     })
-                    await b?.deferUpdate()
+                    filter.resetTimer()
                     break
-
                 case 'exit':
-                    // Finalizar el collector
-                    collector.stop()
-
+                    // Finalizar el filter
+                    filter.stop()
             }
-
         })
-        collector.on("end", async () => {
-            //se actualiza el mensaje y se elimina la interacción
-            embed_music_repeticion.edit({
-                content: "", embeds: [
-                    new EmbedBuilder()
-                        .setColor(process.env.COLOR)
-                        .setThumbnail("https://i.imgur.com/DeMOi0v.gif")
-                ], components: [], ephemeral: true
-            }).catch(() => { })
-            embed_music_repeticion.suppressEmbeds(true)
-            await interaction.deleteReply()
-            return
+        filter.on("end", async () => {
+            // Borrar mensaje
+            interaction.deleteReply()
         })
     } catch (error) {
         console.error(error)
+        // Borrar mensajes
         return interaction.editReply({
             embeds: [
                 new EmbedBuilder()
                     .setColor(process.env.COLOR_ERROR)
-                    .setDescription(`Ocurrió un error al mostrar el menú de control`)
-            ]
-            , ephemeral: true
+                    .setDescription(`Ocurrió un error al mostrar el menú de repetición`)
+            ],
+            components: [],
+            ephemeral: true
         })
     }
 }
-
-module.exports = {
-    handleMusicRepeat
-};

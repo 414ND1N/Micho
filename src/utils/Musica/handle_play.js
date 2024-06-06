@@ -1,7 +1,7 @@
 const { EmbedBuilder } = require('discord.js')
 
 // musicCommands.js
-const handleMusicPlay = async (interaction, client, VOICE_CHANNEL, QUEUE, channel) => {
+module.exports = async (interaction, client, VOICE_CHANNEL, QUEUE, channel) => {
 
     try {
             
@@ -67,10 +67,4 @@ const handleMusicPlay = async (interaction, client, VOICE_CHANNEL, QUEUE, channe
             , ephemeral: true
         })
     }
-
-
 }
-
-module.exports = {
-    handleMusicPlay
-};

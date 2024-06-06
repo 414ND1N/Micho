@@ -2,7 +2,7 @@ const { EmbedBuilder } = require('discord.js')
 const buttonPagination = require('../buttonPagination')
 
 // musicCommands.js
-const handleMusicQueue = async (interaction, QUEUE) => {
+module.exports = async (interaction, QUEUE) => {
 
     try {
 
@@ -44,7 +44,3 @@ const handleMusicQueue = async (interaction, QUEUE) => {
         })
     }
 }
-
-module.exports = {
-    handleMusicQueue
-};

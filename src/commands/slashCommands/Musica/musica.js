@@ -1,9 +1,9 @@
 const { SlashCommandBuilder, EmbedBuilder} = require('discord.js')
 
-const { handleMusicPlay } = require('../../../utils/Musica/handle_play.js')
-const { handleMusicControl } = require('../../../utils/Musica/handle_control.js')
-const { handleMusicQueue } = require('../../../utils/Musica/handle_queue.js')
-const { handleMusicRepeat } = require('../../../utils/Musica/handle_repeat.js')
+const handleMusicPlay = require('../../../utils/Musica/handle_play.js')
+const handleMusicControl  = require('../../../utils/Musica/handle_control')
+const handleMusicQueue = require('../../../utils/Musica/handle_queue.js')
+const handleMusicRepeat = require('../../../utils/Musica/handle_repeat.js')
 
 module.exports = {
     cooldown: 10,
@@ -153,6 +153,7 @@ module.exports = {
         const SUB = interaction.options.getSubcommand()
         const channel = client.channels.cache.get(process.env.ID_CANAL_DISCO)
         const COM_NO_QUEUE = ['detener', 'reproducir'] //Comandos que no necesitan una cola de reproducción
+        const COM_NO_DEFER = ['cola', 'reproducir', 'controlar', 'repeticion'] //Comandos que no necesitan un deferReply
         const VOICE_CHANNEL = interaction.member.voice?.channel ?? null //Canal de voz
 
         //Comprobaciones previas y que no sea un comando que no lo necesite
@@ -182,8 +183,9 @@ module.exports = {
         }
 
         // Veruficar si el comando usa pagination, en dado caso no se hace un deferReply
-        if (SUB != 'cola') {
+        if (!COM_NO_DEFER.includes(SUB)) {
             // Defer para respuestas de más de 3 segundos
+            console.log('DeferReply')
             await interaction.deferReply({ ephemeral: true })
         }
 
