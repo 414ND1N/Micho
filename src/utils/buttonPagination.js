@@ -1,10 +1,10 @@
 const {ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType} = require('discord.js')
 
-module.exports = async (interaction, pages, pagination_time= 30*1000) => {
+module.exports = async (interaction, pages, pagination_time= 30_000) => {
     try {
         if(!interaction || !pages || !pages>0) throw new Error('Faltan argumentos o no son válidos')
 
-        await interaction.deferReply({ephemeral: true})
+        await interaction.deferReply()
 
         if (pages.length === 1) {
             return await interaction.editReply({
@@ -71,7 +71,7 @@ module.exports = async (interaction, pages, pagination_time= 30*1000) => {
                         ],
                         components: [row],
                         ephemeral: true
-                    }).catch(() => { })
+                    }).catch((e) => {console.error(e)})
                     break
                 case 'next':
                     filter.resetTimer()
@@ -82,7 +82,7 @@ module.exports = async (interaction, pages, pagination_time= 30*1000) => {
                         ],
                         components: [row],
                         ephemeral: true
-                    }).catch(() => { })
+                    }).catch((e) => {console.error(e)})
                     break
                 case 'home':
                     filter.resetTimer()
@@ -93,7 +93,7 @@ module.exports = async (interaction, pages, pagination_time= 30*1000) => {
                         ],
                         components: [row],
                         ephemeral: true
-                    }).catch(() => { })
+                    }).catch((e) => {console.error(e)})
                     break
                 case 'exit':
                     filter.stop()
@@ -102,7 +102,7 @@ module.exports = async (interaction, pages, pagination_time= 30*1000) => {
 
         filter.on('end', async () => {
             // Borrar mensajes después de 2
-            setTimeout(() => interaction.deleteReply(), 2000)
+            interaction.deleteReply()
         })
 
         return msg
