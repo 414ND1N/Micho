@@ -22,7 +22,7 @@ module.exports = {
                 })
                 .setRequired(true)
         ),
-    async execute(client, interaction) {
+    async execute(interaction) {
 
         //USO DE LA API github.com/N3evin/AmiiboAPI
 

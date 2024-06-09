@@ -15,14 +15,24 @@ module.exports = class extends Client {
             GatewayIntentBits.GuildMessageReactions,
             GatewayIntentBits.DirectMessagePolls,
         ],
-        partials: [Partials.User, Partials.Channel, Partials.GuildMember, Partials.Message, Partials.Reaction, Partials.ThreadMember],
+        partials: [
+            Partials.User,
+            Partials.Channel,
+            Partials.GuildMember,
+            Partials.Message,
+            Partials.Reaction,
+            Partials.ThreadMember,
+        ],
         allowedMentions: {
             parse: ["roles", "users", "everyone"],
             repliedUser: false,
         },
         presence: {
-            activities: [{name: process.env.STATUS, type: ActivityType[process.env.STATUS_TYPE]}
-            ],
+            activities: [{
+                name: process.env.STATUS,
+                type: ActivityType[process.env.STATUS_TYPE
+                ]
+            }],
             status: PresenceUpdateStatus.Online
         },
     }) {
@@ -32,9 +42,9 @@ module.exports = class extends Client {
 
         this.commands = new Collection()
         this.voiceGenerator = new Collection()
-        this.cooldowns  = new Collection()
+        this.cooldowns = new Collection()
         this.commandsArray = []
-        
+
         this.utils = new BotUtils(this)
 
         this.start()
@@ -46,7 +56,7 @@ module.exports = class extends Client {
         await this.loadCommands()
         this.login(process.env.BOT_TOKEN)
     }
-   
+
     // !! Deprecated (Comandos prefix)
 
     async loadCommands() {
@@ -58,7 +68,7 @@ module.exports = class extends Client {
         const RUTA_ARCHIVOS = await this.utils.loadFiles("/src/commands")
 
         if (RUTA_ARCHIVOS.length) {
-            
+
             RUTA_ARCHIVOS.forEach(rutaArchivo => {
                 try {
                     const COMANDO = require(rutaArchivo)
@@ -120,5 +130,5 @@ module.exports = class extends Client {
         }
         console.log(`(✔) ${RUTA_ARCHIVOS.length} Eventos Cargados`.green)
     }
-    
+
 }

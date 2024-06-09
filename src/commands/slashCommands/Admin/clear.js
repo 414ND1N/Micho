@@ -29,7 +29,7 @@ module.exports = {
                     "en-US": "Indicates who you want to delete the messages",
                 })
         ),
-    async execute(client, interaction){
+    async execute(interaction){
 
         const valor = interaction.options.getNumber("mensajes")
         const user = interaction.options.getUser("objetivo")

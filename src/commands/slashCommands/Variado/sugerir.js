@@ -12,8 +12,8 @@ module.exports = {
             "en-US": "Give suggestion to vote in the suggestions channel"
         })
         ,
-    async execute(client, interaction){
-        let sugerencia = interaction.options.getString("sugerencia")
+    async execute(interaction){
+        const { client } = interaction
         // Modal para confirmar la sugerencia
         const modal = new ModalBuilder()
             .setTitle('Sugerir | Suggest')
@@ -36,7 +36,7 @@ module.exports = {
         const filter = (interaction) => interaction.customId === `suggestModal-${interaction.user.id}`
         
         interaction
-            .awaitModalSubmit({ filter, time: 40_00 })
+            .awaitModalSubmit({ filter, time: 50_00 })
             .then(async (modalInteraction) => {
                 const sugerencia = modalInteraction.fields.getTextInputValue('suggestInput')
                 const channel = client.channels.cache.get(process.env.ID_CANAL_SUGERENCIAS) //ID del canal de sugerencias

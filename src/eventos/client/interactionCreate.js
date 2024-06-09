@@ -69,15 +69,17 @@ module.exports = {
                     }
                 }
 
-                timestamps.set(interaction.user.id, now);
-                setTimeout(() => timestamps.delete(interaction.user.id), cooldownAmount);
+                timestamps.set(interaction.user.id, now)
+                setTimeout(() => timestamps.delete(interaction.user.id), cooldownAmount)
 
                 try {
-                    COMANDO.execute(interaction.client, interaction, "/");
+                    COMANDO.execute(interaction, "/")
                 } catch (e) {
-                    interaction.reply({ content: `**Ha ocurrido un error al ejecutar el comando!**\n*Mira la consola para mas detalle 💀*` });
+                    interaction.reply({ 
+                        content: `**Ha ocurrido un error al ejecutar el comando!**\n*Mira la consola para mas detalle 💀*` 
+                    })
                     console.log(e)
-                    return;
+                    return
                 }
             }
         } else if (interaction.isButton()) {

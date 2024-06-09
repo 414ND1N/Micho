@@ -68,7 +68,7 @@ module.exports = {
                 )
         )
         ,
-    async execute(client, interaction){
+    async execute(interaction){
         try {
             switch (interaction.options.getSubcommand()) {
                 case 'crear':

@@ -18,7 +18,7 @@ module.exports = {
                 .addChannelTypes(ChannelType.GuildText)
         ),
     
-    async execute(client, interaction){
+    async execute(interaction){
        
         await interaction.deferReply();
         const channel = interaction.options.getChannel("canal");

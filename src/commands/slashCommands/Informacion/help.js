@@ -15,9 +15,10 @@ module.exports = {
             "en-US": 'Show all available commands 📚'
         })
     ,
-    async execute(client, interaction) {
+    async execute(interaction) {
         try {
 
+            const { client } = interaction
             const commandFolders = await fs.readdirSync('./src/commands/slashCommands')
             const helpEmbeds = []
 

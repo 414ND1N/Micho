@@ -8,12 +8,13 @@ module.exports = {
             "en-US": `Ping of ${process.env.BOT_NAME}`
         })
     ,
-    async execute(client, interaction){
+    async execute(interaction){
+
         return interaction.reply({
             embeds: [
                 new EmbedBuilder()
                     .setColor(process.env.COLOR)
-                    .setDescription(`Ping de ${client.ws.ping}ms`)
+                    .setDescription(`Ping de ${interaction.client.ws.ping}ms`)
             ]
         })
     }

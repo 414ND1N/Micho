@@ -11,7 +11,7 @@ module.exports = {
         })
     ,
 
-    async execute(client, interaction) {
+    async execute(interaction) {
 
         const modal = new ModalBuilder()
             .setTitle('Anime')

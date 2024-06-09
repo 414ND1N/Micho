@@ -166,7 +166,7 @@ module.exports = {
         )
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
     ,
-    async execute(client, interaction) {
+    async execute(interaction) {
         // constantes
         const ROLE  = interaction.options.getRole('rol')
         if (!ROLE) return interaction.reply({

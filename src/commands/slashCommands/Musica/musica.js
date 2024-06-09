@@ -148,8 +148,9 @@ module.exports = {
                 })
         ),
 
-    async execute(client, interaction) {
+    async execute(interaction) {
         //constantes
+        const { client } = interaction
         const SUB = interaction.options.getSubcommand()
         const channel = client.channels.cache.get(process.env.ID_CANAL_DISCO)
         const COM_NO_QUEUE = ['detener', 'reproducir'] //Comandos que no necesitan una cola de reproducción

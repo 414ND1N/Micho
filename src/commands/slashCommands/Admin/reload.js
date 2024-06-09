@@ -21,7 +21,9 @@ module.exports = {
         )
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
 
-    async execute(client, interaction){
+    async execute(interaction){
+        
+        const { client } = interaction
         let args = interaction.options.getString("modulo")
         let opcion = "Comandos, Eventos y Handlers"
 

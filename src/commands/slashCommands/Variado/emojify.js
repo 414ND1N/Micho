@@ -72,7 +72,7 @@ module.exports = {
                 )
         )
         ,
-    async execute(client, interaction){
+    async execute(interaction){
         try {
 
             await interaction.deferReply()

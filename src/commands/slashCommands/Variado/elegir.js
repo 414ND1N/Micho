@@ -53,7 +53,7 @@ module.exports = {
                         })
                 )
         ),
-    async execute(client, interaction){
+    async execute(interaction){
 
         //constantes
         const SUB = interaction.options.getSubcommand()

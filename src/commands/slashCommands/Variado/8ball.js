@@ -20,7 +20,7 @@ module.exports = {
                 })
                 .setRequired(true)
         ),
-    async execute(client, interaction){
+    async execute(interaction){
         
         let pregunta = interaction.options.getString("pregunta")
 

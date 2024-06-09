@@ -120,7 +120,7 @@ module.exports = {
         )
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
     ,
-    async execute(client, interaction){
+    async execute(interaction){
         
         // Verificar si se debe activar o desactivar la voz
         // 0 = Activar, 1 = Desactivar

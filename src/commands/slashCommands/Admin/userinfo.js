@@ -14,7 +14,7 @@ module.exports = {
                 .setDescriptionLocalizations({ "en-US": 'User of which to show information' })
         ),
 
-    execute(client, interaction) {
+    execute(interaction) {
 
         const USUARIO = interaction.options.getUser('usuario'); // Usuario al que se le hará la acción
         const MEMBER = interaction.guild.members.cache.get(USUARIO?.id); // Objeto de miembro del usuario

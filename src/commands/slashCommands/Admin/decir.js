@@ -16,7 +16,7 @@ module.exports = {
                 .setDescriptionLocalizations({ "en-US": "Text you want to say 😊" })
                 .setRequired(true)
         ),
-    async execute(client, interaction){
+    async execute(interaction){
         await interaction.deferReply()
         let args = interaction.options.getString("texto")
         await interaction.channel.sendTyping()

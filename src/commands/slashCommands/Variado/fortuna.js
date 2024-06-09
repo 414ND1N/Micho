@@ -9,7 +9,7 @@ module.exports = {
         .setDescriptionLocalizations({
             "en-US": "Fortune cookie message"
         }),
-    async execute(client, interaction) {
+    async execute(interaction) {
         
         // frase de la galleta de la suerte
         const opciones = [

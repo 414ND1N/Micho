@@ -11,7 +11,7 @@ module.exports = {
             "en-US": "My code repository ☺"
         })
     ,
-    async execute(client, interaction){
+    async execute(interaction){
 
         const url = new ButtonBuilder()
 			.setLabel('Enlace al repositorio')

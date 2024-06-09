@@ -72,9 +72,10 @@ module.exports = {
                 )
         )
         ,
-    async execute(client, interaction){
+    async execute(interaction){
         
         //verificar si el canal es NSFW
+        const { client } = interaction
         const CANAL_NSFW = client.channels.cache.get(process.env.ID_CANAL_NSFW)
         const CANAL_PRUEBAS = client.channels.cache.get(process.env.ID_CANAL_PRUEBAS)
 

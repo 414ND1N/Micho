@@ -50,7 +50,7 @@ module.exports = {
                 })
         ),
 
-    async execute(client, interaction) {
+    async execute(interaction) {
 
         await interaction.deferReply(); // Defer si la respuesta tarda más de 3 segundos
 

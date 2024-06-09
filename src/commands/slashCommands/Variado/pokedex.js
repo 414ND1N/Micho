@@ -19,10 +19,10 @@ module.exports = {
                 .setMinValue(1)
                 .setMaxValue(1025)
         ),
-    async execute(client, interaction){
+    async execute(interaction){
 
         //USO DE LA API pokeapi.co
-
+        const { client } = interaction
         await interaction.deferReply()
 
         const busqueda = interaction.options.getNumber("id")

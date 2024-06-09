@@ -75,9 +75,10 @@ module.exports = {
         )
     ,
 
-    async execute(client, interaction) {
+    async execute(interaction) {
 
         try {
+            const { client } = interaction
 
             interaction.deferReply({ ephemeral: true })
 

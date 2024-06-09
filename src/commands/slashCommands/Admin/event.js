@@ -42,9 +42,9 @@ module.exports = {
 
         )
     ,
-    async execute(client, interaction) {
+    async execute(interaction) {
 
-        const { member, options } = interaction
+        const { client, member, options} = interaction
         const EVENT = options.getString("evento")
 
         try {

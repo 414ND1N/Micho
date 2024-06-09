@@ -92,7 +92,7 @@ module.exports = {
         )
     ,
 
-    async execute(client, interaction) {
+    async execute(interaction) {
 
         await interaction.deferReply() // Defer para respuestas de más de 3 segundos
         const SUB = interaction.options.getSubcommand() //Subcomando
