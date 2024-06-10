@@ -30,7 +30,7 @@ module.exports = async (interaction, QUEUE) => {
             embeds.push(el_embed)
         }
     
-        await buttonPagination(interaction, embeds)
+        await buttonPagination(interaction, embeds, 45_000)
     } catch (error) {
 
         console.error(error)

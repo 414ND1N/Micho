@@ -197,14 +197,7 @@ module.exports = {
                     handleMusicPlay(interaction, client, VOICE_CHANNEL, QUEUE, channel)
                     break
                 case 'detener':
-                    if (!QUEUE) {
-                        // Salir del canal de voz
-                        await client.distube.voices.leave(VOICE_CHANNEL)
-                    }else{
-                        // Parar la reproducción y salir del canal de voz
-                        await client.distube.stop(VOICE_CHANNEL)
-                    }
-                    
+                    await client.distube.voices.leave(VOICE_CHANNEL)
                     return interaction.editReply({
                         embeds: [
                             new EmbedBuilder()
