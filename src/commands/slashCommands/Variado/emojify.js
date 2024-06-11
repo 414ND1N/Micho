@@ -109,7 +109,7 @@ module.exports = {
                 case 'mezclar':
                     const eString = options.getString("emojis")
                     const emojis = onlyEmoji(eString)
-                    const response = `⚠ Uno o varios emojis no son válidos en \`${eString}\`!. Ten en cuentas que gestos 👌 y emojis personalizados del servidor \`no son válidos\``
+                    const response = `❌ Uno o varios emojis no son válidos en \`${eString}\`!\nTen en cuentas que gestos 👌 y emojis personalizados del servidor \`no son válidos\`.`
 
                     const output = await axios.get('https://tenor.googleapis.com/v2/featured?'+(
                         new url.URLSearchParams({
@@ -145,7 +145,7 @@ module.exports = {
                         embeds: [
                             new EmbedBuilder()
                                 .setImage(output.data.results[0].url)
-                                .setColor(process.env.COLOR)
+                                .setColor("Random")
                                 .setTimestamp()
                         ]
                     })

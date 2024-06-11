@@ -51,7 +51,7 @@ module.exports = {
             embeds: [
                 new EmbedBuilder()
                     .setTitle(`${interaction.user?.username} pregunto su fortuna`)
-                    .setColor(process.env.COLOR)
+                    .setColor("Random")
                     .setThumbnail('https://i.imgur.com/2LoGAXT.gif')
                     .setDescription(`**Tu fortuna es:**\n \`${item}\``)
             ]
