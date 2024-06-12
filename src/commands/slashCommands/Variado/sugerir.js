@@ -11,8 +11,8 @@ module.exports = {
         .setDescriptionLocalizations({
             "en-US": "Give suggestion to vote in the suggestions channel"
         })
-        ,
-    async execute(interaction){
+    ,
+    async execute(interaction) {
         const { client } = interaction
         // Modal para confirmar la sugerencia
         const modal = new ModalBuilder()
@@ -34,50 +34,37 @@ module.exports = {
 
         // Esperar respuesta
         const filter = (interaction) => interaction.customId === `suggestModal-${interaction.user.id}`
-        
+
         interaction
-            .awaitModalSubmit({ filter, time: 50_00 })
+            .awaitModalSubmit({ filter, time: 50_000 })
             .then(async (modalInteraction) => {
                 const sugerencia = modalInteraction.fields.getTextInputValue('suggestInput')
                 const channel = client.channels.cache.get(process.env.ID_CANAL_SUGERENCIAS) //ID del canal de sugerencias
-                const channel_pruebas = client.channels.cache.get(process.env.ID_CANAL_PRUEBAS) //ID del canal de pruebas
-                
-                const AUTHOR = interaction.member?.nickname?? interaction.user.username // Si no tiene apodo, se usa el nombre de usuario
-    
-                //Si el canal es el de pruebas se enviará la sugerencia en el canal de pruebas
-                if (interaction.channel == channel_pruebas) {
-                    const mensaje = await channel_pruebas.send({ embeds: [
+                const AUTHOR = interaction.member?.nickname ?? interaction.user.username // Si no tiene apodo, se usa el nombre de usuario
+
+                const mensaje = await channel.send({
+                    embeds: [
                         new EmbedBuilder()
                             .setTitle(`Sugerencia de \`${AUTHOR}\``)
                             .setDescription(`\`${sugerencia}\``)
                             .setColor(process.env.COLOR)
                             .setTimestamp()
                             .setThumbnail(`https://i.imgur.com/t6AR3RO.gif`)
-                    ], fetchReply: true })
-                    mensaje.react(`👍`)
-                    mensaje.react(`👎`)
-                } else{
-                    //Si el canal no es el de pruebas se enviará la sugerencia en el canal de sugerencias
-                    const mensaje = await channel.send({ embeds: [
+                    ], fetchReply: true
+                })
+                mensaje.react(`👍`)
+                mensaje.react(`👎`)
+
+                return modalInteraction.reply({
+                    embeds: [
                         new EmbedBuilder()
-                            .setTitle(`Sugerencia de \`${AUTHOR}\``)
-                            .setDescription(`\`${sugerencia}\``)
+                            .setTitle(`Sugerencia realizada`)
+                            .setDescription(`Sugerencia \`${sugerencia}\` enviada a ${channel}`)
                             .setColor(process.env.COLOR)
                             .setTimestamp()
-                            .setThumbnail(`https://i.imgur.com/t6AR3RO.gif`)
-                    ], fetchReply: true })
-                    mensaje.react(`👍`)
-                    mensaje.react(`👎`)
-                }
-    
-                return modalInteraction.reply({ embeds: [
-                    new EmbedBuilder()
-                        .setTitle(`Sugerencia realizada`)
-                        .setDescription(`Sugerencia \`${sugerencia}\` enviada a ${channel}`)
-                        .setColor(process.env.COLOR)
-                        .setTimestamp()
-                        .setThumbnail(`https://i.imgur.com/X3E6BAy.gif`)
-                ], ephemeral: true })
+                            .setThumbnail(`https://i.imgur.com/X3E6BAy.gif`)
+                    ], ephemeral: true
+                })
             })
             .catch(async (_) => {
                 interaction.followUp({
