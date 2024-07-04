@@ -9,28 +9,35 @@ module.exports = {
         .setNameLocalizations({
             "en-US": "url"
         })
-        .setDescription('Verifica si el enlace puede ser peligroso.')
+        .setDescription('Verifica el contenido de un enlace.')
         .setDescriptionLocalizations({
-            "en-US": 'Check if the url can be dangerous.'
+            "en-US": 'Check the content of a url.'
         })
-        .addStringOption(option =>
-            option
-                .setName("enlace")
-                .setNameLocalizations({
-                    "en-US": "url"
-                })
-                .setDescription("Enlace a verificar.")
+        .addSubcommand(subcommand =>
+            subcommand.setName("verificar")
+                .setNameLocalizations({ "en-US": "verify"})
+                .setDescription("Verifica si el enlace puede ser peligroso.")
                 .setDescriptionLocalizations({
-                    "en-US": "Url to check."
+                    "en-US": "Check if the url can be dangerous."
                 })
-                .setRequired(true)
+                .addStringOption(option =>
+                    option.setName("enlace")
+                        .setNameLocalizations({
+                            "en-US": "url"
+                        })
+                        .setDescription("Enlace a verificar.")
+                        .setDescriptionLocalizations({
+                            "en-US": "Url to check."
+                        })
+                        .setRequired(true)
+                )
         )
     ,
     /**
     * @param {ChatInputCommandInteraction} interaction
     */
     async execute(interaction) {
-        
+
         await interaction.deferReply({ ephemeral: true })
 
         try {
@@ -52,14 +59,6 @@ module.exports = {
             } else {
                 results = '> ✅ Este enlace no contiene virus.'
             }
-
-            // const dataObj = {
-            //     url : `> 🔗 Más información: \`${data.url}\``,
-            //     scanDate : `> 🔗 Más información: \`<t:${Math.floor((new Date(data.scan_date).getTime())/1000)}:F>\``,
-            //     positives : `> 🦠 Positivos: \`${data.positives}\`/\`${data.total}\``,
-            //     results : results,
-            //     full: `> Click [aquí](${data.permalink}) para ver el reporte completo.`
-            // }
 
             return interaction.editReply({
                 embeds: [
