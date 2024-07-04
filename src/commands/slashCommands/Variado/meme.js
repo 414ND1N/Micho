@@ -57,9 +57,9 @@ module.exports = {
                         .setNameLocalizations({
                             "en-US": "texts"
                         })
-                        .setDescription('Texto que se pondra en la plantilla del meme separado por comas ()')
+                        .setDescription('Texto que se pondra en la plantilla del meme separado por punto y coma (;)')
                         .setDescriptionLocalizations({
-                            "en-US": 'Text to be placed on the meme template separated by commas ()'
+                            "en-US": 'Text to be placed on the meme template separated by semicolon (;)'
                         })
                         .setRequired(true)
                 )
@@ -83,9 +83,12 @@ module.exports = {
                 )
                 .addStringOption(option =>
                     option.setName('textos')
-                        .setDescription('Texto que se pondra separado por comas ()')
+                        .setNameLocalizations({
+                            "en-US": "texts"
+                        })
+                        .setDescription('Texto que se pondra en la plantilla del meme separado por punto y coma (;)')
                         .setDescriptionLocalizations({
-                            "en-US": 'Text to be placed separated by commas ()'
+                            "en-US": 'Text to be placed on the meme template separated by semicolon (;)'
                         })
                         .setRequired(true)
                 )
@@ -95,7 +98,6 @@ module.exports = {
     async execute(interaction) {
 
         await interaction.deferReply() // Defer para respuestas de más de 3 segundos
-        const SUB = interaction.options.getSubcommand() //Subcomando
 
         const TEXTO_ENTRADA = interaction.options.getString('textos') //Texto de entrada
 
@@ -111,44 +113,38 @@ module.exports = {
             "\"": "''''",
         }
         
-        const textoSeparados = TEXTO_ENTRADA.split(';') //Separar el texto por ;
-        const textoProcesado = textoSeparados.map(text => ( //Remplazar caracteres especiales 
+        const textoProcesado = TEXTO_ENTRADA.split(';')
+        .map(text => ( //Remplazar caracteres especiales 
             text.replace(/[\?&%#\/\\<>"]/g, match => remplazos[match]).replace(/\s/g, "_") 
         ))
-        
-        const TEXTO_FORMATEADO = textoProcesado.join('/')
+        .join('/')
 
         const AUTHOR = interaction.member?.nickname?? interaction.user.username // Si no tiene apodo, se usa el nombre de usuario
 
-
-        switch (SUB) {
+        switch (interaction.options.getSubcommand()) {
             case 'predefinido':
 
                 const ID_PLANTILLA = interaction.options.getString('plantilla')
-
-                img_url = `https://api.memegen.link/images/${ID_PLANTILLA}/${TEXTO_FORMATEADO}.png`
         
                 return interaction.editReply({
                     embeds: [
                         new EmbedBuilder()
                             .setTitle(`\`${AUTHOR}\` envió un meme`)
                             .setColor(process.env.COLOR)
-                            .setImage(img_url)
+                            .setImage(`https://api.memegen.link/images/${ID_PLANTILLA}/${textoProcesado}.png`)
                             .setFooter({text: 'Creado con memegen.link'})
                     ]
                 })
             case 'personalizado':
 
-                const BACKGROUND_IMG = interaction.options.getString('imagen')
-                
-                img_url = `https://api.memegen.link/images/custom/${TEXTO_FORMATEADO}.png?background=${BACKGROUND_IMG}`
+                const IMG = options.getString('imagen')
 
                 return interaction.editReply({
                     embeds: [
                         new EmbedBuilder()
                             .setTitle(`\`${AUTHOR}\` envió un meme`)
                             .setColor(process.env.COLOR)
-                            .setImage(img_url)
+                            .setImage(`https://api.memegen.link/images/custom/${textoProcesado}.png?background=${IMG}`)
                             .setFooter({text: 'Creado con memegen.link'})
                     ]
                 })
