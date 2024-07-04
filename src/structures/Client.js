@@ -14,6 +14,7 @@ module.exports = class extends Client {
             GatewayIntentBits.GuildMessageTyping,
             GatewayIntentBits.GuildMessageReactions,
             GatewayIntentBits.DirectMessagePolls,
+            GatewayIntentBits.DirectMessages,
         ],
         partials: [
             Partials.User,
