@@ -134,7 +134,7 @@ Toffu .env
 
 # Comandos locales
 /src/commands/slashCommands/Musica/djpanas.js
-/src/commands/slashCommands/Variado/pananoche.js
+/src/commands/slashCommands/Admin/pananoche.js
 
 # Distube
 /src/utils/Cookies
