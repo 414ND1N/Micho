@@ -1,6 +1,6 @@
 const {ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType} = require('discord.js')
 
-module.exports = async (interaction, pages, pagination_time= 30_000) => {
+module.exports = async (interaction, pages, pagination_time= 30_000, delete_message = true) => {
     try {
         if(!interaction || !pages || !pages>0) throw new Error('Faltan argumentos o no son válidos')
 
@@ -34,8 +34,15 @@ module.exports = async (interaction, pages, pagination_time= 30_000) => {
             .setCustomId('exit')
             .setStyle(ButtonStyle.Danger)
             .setEmoji('🚪')
+        
+        const row = new ActionRowBuilder()
 
-        const row = new ActionRowBuilder().addComponents(prev, home, exit, next)
+        if (pages.length < 3) {
+            row.addComponents(prev, next, exit)
+        }else{
+            row.addComponents(home, prev, next, exit)
+        }
+
         let index = 0
 
         const msg = await interaction.editReply({
@@ -101,8 +108,17 @@ module.exports = async (interaction, pages, pagination_time= 30_000) => {
         })
 
         filter.on('end', async () => {
-            // Borrar mensajes después de 2
-            interaction.deleteReply()
+
+            if (delete_message) {
+                // Borrar mensajes después de 2
+                interaction.deleteReply()
+            } else {
+                // Eliminar botones
+                interaction.editReply({
+                    embeds: [pages[index]],
+                    components: []
+                })
+            }
         })
 
         return msg

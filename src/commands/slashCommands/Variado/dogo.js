@@ -22,7 +22,7 @@ module.exports = {
             embeds: [
                 new EmbedBuilder()
                     .setTitle(`${AUTHOR} envió un PERRO 🐶`)
-                    .setColor(process.env.COLOR)
+                    .setColor("Random")
                     .setImage(img_url)
             ]
         })
