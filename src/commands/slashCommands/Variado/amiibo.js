@@ -29,8 +29,7 @@ module.exports = {
             //USO DE LA API github.com/N3evin/AmiiboAPI
 
             const character = interaction.options.getString("personaje")
-            const busqueda = `character=${character}`
-            const url_api = `https://amiiboapi.com/api/amiibo/?${busqueda}`
+            const url_api = `https://amiiboapi.com/api/amiibo/?character=${character}`
             let response = null
 
             //Verificar si existe el amiibo
@@ -48,6 +47,18 @@ module.exports = {
             }
             
             const amiibos = response.data.amiibo
+
+            if (amiibos.length === 0) {
+                return interaction.reply({
+                    embeds: [
+                        new EmbedBuilder()
+                            .setColor(process.env.COLOR_ERROR)
+                            .setDescription(`No se encontró ningún amiibo de \`${character}\``)
+                    ],
+                    ephemeral: true
+                })
+            }
+
             await interaction.channel.sendTyping()
 
             //Páginas
