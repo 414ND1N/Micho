@@ -1,5 +1,4 @@
 const { SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits } = require('discord.js')
-const { Routes, DataResolver } = require('discord.js')
 
 module.exports = {
     cooldown: 20,

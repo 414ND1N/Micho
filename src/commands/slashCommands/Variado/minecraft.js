@@ -1,5 +1,6 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js')
-const axios = require('axios');
+const axios = require('axios')
+const minecraftServer = require('../../../schemas/minecraftServer')
 
 module.exports = {
     CMD: new SlashCommandBuilder()
@@ -82,60 +83,73 @@ module.exports = {
             case 'servidor':
                 //USO DE API: api.mcsrvstat.us
 
-                const url_api = `https://api.mcsrvstat.us/2/${process.env.MINECRAFT_IP}`;
-                const response = await axios.get(url_api);
+                // Obtener el registro guardado en la base de datos
+                minecraftServer.findOne({}, async (err, server) => {
+                    if(err || !server){
+                        return interaction.editReply({
+                            embeds: [
+                                new EmbedBuilder()
+                                .setColor(process.env.COLOR_ERROR)
+                                .setDescription(`No se encontró información del servidor.`)
+                                .setThumbnail('https://i.imgur.com/rIPXKFQ.png')
+                            ]
+                        })
+                    }
+                    
+                    const url_api = `https://api.mcsrvstat.us/2/${server.IP}`;
+                    const response = await axios.get(url_api);
 
-                if(response.data.length == 0){ // Si no se encuentra ningún anime con el nombre, se envía un mensaje de error
+                    if(response.data.length == 0){
+                        return interaction.editReply({
+                            embeds: [
+                                new EmbedBuilder()
+                                .setColor(process.env.COLOR_ERROR)
+                                .setDescription(`No se encontró información del servidor.`)
+                                .setThumbnail('https://i.imgur.com/rIPXKFQ.png')
+                            ]
+                        })
+                    }
+
+                    //Si el servidor está online
+                    if(response.data.online){ 
+                        return interaction.editReply({
+                            embeds: [
+                                new EmbedBuilder()
+                                    .setColor(process.env.COLOR)
+                                    .setTitle(`Minecraft | \`${server.Nombre}\``)
+                                    .setDescription(`El servidor está online ✅`)
+                                    .addFields(
+                                        { name: 'Version', value: `${response.data.version} | ${response.data.software}`, inline: true},
+                                        { name: `Jugadores`, value: `${response.data.players.online} / ${response.data.players.max}`, inline: true},
+                                        { name: 'Motd', value: `${response.data.motd.clean[0]}`},
+                                        { name: `IP Java 1`, value: `${server.JavaIP}`},
+                                        { name: `IP Java 2`, value: `${response.data.ip}:${response.data.port}`},
+                                        { name: `IP y PORT Bedrock`, value: `${response.data.ip} - ${response.data.port}`},
+                                        
+                                    )
+                                    .setThumbnail(server.IconUrl)
+                            ]
+                        })
+                    }
+
+                    //Si el servidor está offline
                     return interaction.editReply({
                         embeds: [
                             new EmbedBuilder()
-                            .setColor(process.env.COLOR_ERROR)
-                            .setDescription(`No se encontró información del servidor.`)
-                            .setThumbnail('https://i.imgur.com/rIPXKFQ.png')
-                        ]
-                    })
-                }
-
-                //Si el servidor está online
-                if(response.data.online){ 
-                    return interaction.editReply({
-                        embeds: [
-                            new EmbedBuilder()
-                                .setColor(process.env.COLOR)
-                                .setTitle(`Minecraft | \`Panaserver\``)
-                                .setDescription(`El servidor está online ✅`)
+                                .setColor(process.env.COLOR_ERROR)
+                                .setTitle(`Minecraft | \`${server.Nombre}\``)
+                                .setDescription(`El servidor está offline ❌`)
                                 .addFields(
                                     { name: 'Version', value: `${response.data.version} | ${response.data.software}`, inline: true},
-                                    { name: `Jugadores`, value: `${response.data.players.online} / ${response.data.players.max}`, inline: true},
-                                    { name: 'Motd', value: `${response.data.motd.clean[0]}`},
-                                    { name: `IP Java`, value: `${process.env.MINECRAFT_IP}`},
+                                    { name: `IP Java 1`, value: `${server.JavaIP}`},
+                                    { name: `IP Java 2`, value: `${response.data.ip}:${response.data.port}`},
                                     { name: `IP y PORT Bedrock`, value: `${response.data.ip} - ${response.data.port}`},
-                                    
                                 )
-                                .setThumbnail('https://i.imgur.com/hLOfOwk.png')
-                                .setURL(process.env.MINECRAFT_SERVER_PAGE)
+                                .setThumbnail(server.IconUrl)
                         ]
                     })
 
-                }
-
-                //Si el servidor está offline
-                return interaction.editReply({
-                    embeds: [
-                        new EmbedBuilder()
-                            .setColor(process.env.COLOR_ERROR)
-                            .setTitle(`Minecraft | \`Panaserver\``)
-                            .setDescription(`El servidor está offline ❌`)
-                            .addFields(
-                                { name: 'Version', value: `${response.data.version} | ${response.data.software}`, inline: true},
-                                { name: `IP Java`, value: `${process.env.MINECRAFT_IP}`},
-                                { name: `IP y PORT Bedrock`, value: `${response.data.ip} - ${response.data.port}`},
-                            )
-                            .setThumbnail('https://i.imgur.com/hLOfOwk.png')
-                            .setURL(process.env.MINECRAFT_SERVER_PAGE)
-                    ]
                 })
-                
             default:
                 return interaction.editReply({
                     embeds: [

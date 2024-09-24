@@ -132,7 +132,10 @@ Toffu.exe
 Toffu .env
 .vscode/sftp.json
 
-#
+# Comandos locales
 /src/commands/slashCommands/Musica/djpanas.js
 /src/commands/slashCommands/Variado/pananoche.js
+
+# Distube
 /src/utils/Cookies
+/*-base.js

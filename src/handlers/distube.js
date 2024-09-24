@@ -1,6 +1,7 @@
 const { DisTube } = require('distube');
 const { EmbedBuilder } = require('discord.js');
 const { YouTubePlugin } = require("@distube/youtube");
+const { SoundCloudPlugin } = require("@distube/soundcloud");
 const fs = require('fs');
 
 module.exports = (client, _) => {
@@ -26,9 +27,11 @@ module.exports = (client, _) => {
                     format: "audioonly",
                     //liveBuffer: 20000,
                     //dlChunkSize: 1024 * 1024 * 2,
-                },
+                }
+                ,
                 cookies: JSON.parse(fs.readFileSync('./src/utils/Cookies/YouTubeCookies.json')),
-            })
+            }),
+            new SoundCloudPlugin()
             // new YtDlpPlugin({ 
             //     update: true 
             // }),
