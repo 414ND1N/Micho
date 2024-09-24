@@ -1,6 +1,7 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js')
 const axios = require('axios')
 const minecraftServer = require('../../../schemas/minecraftServer')
+const buttonPagination = require('../../../utils/buttonPagination')
 
 module.exports = {
     CMD: new SlashCommandBuilder()
@@ -52,14 +53,14 @@ module.exports = {
         ),
 
     async execute(interaction) {
-
-        await interaction.deferReply(); // Defer si la respuesta tarda más de 3 segundos
-
         //constantes
         const SUB = interaction.options.getSubcommand();
 
         switch (SUB) {
             case 'skin':
+
+                await interaction.deferReply(); // Defer si la respuesta tarda más de 3 segundos
+
                 const nombre = interaction.options.getString('nombre');
                 //comprobar si viene tipo, si no, poner por defecto body
                 const tipo = interaction.options.getString('tipo') == null ? 'body' : interaction.options.getString('tipo');
@@ -67,7 +68,7 @@ module.exports = {
                 let img_url = `https://mineskin.eu/armor/${tipo}/${nombre}.png`;
 
                 //Si es helm o skin, cambiar el formato del URL
-                if(tipo == 'helm' || tipo == 'skin'){
+                if (tipo == 'helm' || tipo == 'skin') {
                     img_url = `https://mineskin.eu/${tipo}/${nombre}.png`;
                 }
 
@@ -82,82 +83,69 @@ module.exports = {
 
             case 'servidor':
                 //USO DE API: api.mcsrvstat.us
+                try {
 
-                // Obtener el registro guardado en la base de datos
-                minecraftServer.findOne({}, async (err, server) => {
-                    if(err || !server){
+                    //Páginas
+                    let embeds = []
+
+                    const servers = await minecraftServer.find({})
+                    if (!servers) {
                         return interaction.editReply({
                             embeds: [
                                 new EmbedBuilder()
-                                .setColor(process.env.COLOR_ERROR)
-                                .setDescription(`No se encontró información del servidor.`)
-                                .setThumbnail('https://i.imgur.com/rIPXKFQ.png')
-                            ]
-                        })
-                    }
-                    
-                    const url_api = `https://api.mcsrvstat.us/2/${server.IP}`;
-                    const response = await axios.get(url_api);
-
-                    if(response.data.length == 0){
-                        return interaction.editReply({
-                            embeds: [
-                                new EmbedBuilder()
-                                .setColor(process.env.COLOR_ERROR)
-                                .setDescription(`No se encontró información del servidor.`)
-                                .setThumbnail('https://i.imgur.com/rIPXKFQ.png')
+                                    .setColor(process.env.COLOR_ERROR)
+                                    .setDescription(`No se encontró información del servidor.`)
+                                    .setThumbnail('https://i.imgur.com/rIPXKFQ.png')
                             ]
                         })
                     }
 
-                    //Si el servidor está online
-                    if(response.data.online){ 
-                        return interaction.editReply({
-                            embeds: [
-                                new EmbedBuilder()
-                                    .setColor(process.env.COLOR)
-                                    .setTitle(`Minecraft | \`${server.Nombre}\``)
-                                    .setDescription(`El servidor está online ✅`)
-                                    .addFields(
-                                        { name: 'Version', value: `${response.data.version} | ${response.data.software}`, inline: true},
-                                        { name: `Jugadores`, value: `${response.data.players.online} / ${response.data.players.max}`, inline: true},
-                                        { name: 'Motd', value: `${response.data.motd.clean[0]}`},
-                                        { name: `IP Java 1`, value: `${server.JavaIP}`},
-                                        { name: `IP Java 2`, value: `${response.data.ip}:${response.data.port}`},
-                                        { name: `IP y PORT Bedrock`, value: `${response.data.ip} - ${response.data.port}`},
-                                        
-                                    )
-                                    .setThumbnail(server.IconUrl)
-                            ]
-                        })
-                    }
+                    servers.forEach(async (server) => {
 
-                    //Si el servidor está offline
+                        // Obtener el registro guardado en la base de datos
+                        const url_api = `https://api.mcsrvstat.us/2/${server.IP}`
+                        const response = await axios.get(url_api)
+
+                        if (response.data.length != 0) {
+                            //Se encontró información del servidor
+                            let embed = new EmbedBuilder()
+                                .setColor(process.env.COLOR)
+                                .setTitle(`Minecraft | \`${server.Nombre}\``)
+                                .addFields(
+                                    { name: 'Version', value: `${response.data.version} | ${response.data.software}`, inline: true },
+                                    { name: 'Motd', value: `${response.data.motd.clean[0]}` },
+                                    { name: `IP Java 1`, value: `${server.JavaIP}` },
+                                    { name: `IP Java 2`, value: `${response.data.ip}:${response.data.port}` },
+                                    { name: `IP y PORT Bedrock`, value: `${response.data.ip} - ${response.data.port}` },
+                                )
+                                .setThumbnail(server.IconUrl)
+                                .setTimestamp()
+
+                            // Si el servidor está online
+                            if (response.data.online) {
+                                embed.setDescription(`El servidor está online ✅`)
+                                embed.addFields(
+                                    { name: `Jugadores`, value: `${response.data.players.online} / ${response.data.players.max}`, inline: true },
+                                )
+                            } else {
+                                embed.setDescription(`El servidor está offline ❌`)
+                            }
+
+                            embeds.push(embed)
+                        }
+                    })
+                    await buttonPagination(interaction, embeds, 80_000, false)
+                } catch (error) {
+                    console.error(error)
                     return interaction.editReply({
                         embeds: [
                             new EmbedBuilder()
                                 .setColor(process.env.COLOR_ERROR)
-                                .setTitle(`Minecraft | \`${server.Nombre}\``)
-                                .setDescription(`El servidor está offline ❌`)
-                                .addFields(
-                                    { name: 'Version', value: `${response.data.version} | ${response.data.software}`, inline: true},
-                                    { name: `IP Java 1`, value: `${server.JavaIP}`},
-                                    { name: `IP Java 2`, value: `${response.data.ip}:${response.data.port}`},
-                                    { name: `IP y PORT Bedrock`, value: `${response.data.ip} - ${response.data.port}`},
-                                )
-                                .setThumbnail(server.IconUrl)
+                                .setDescription(`Ocurrió un error al mostrar la información de los servidores`)
                         ]
+                        , ephemeral: true
                     })
-
-                })
-            default:
-                return interaction.editReply({
-                    embeds: [
-                        new EmbedBuilder()
-                            .setColor(process.env.COLOR_ERROR)
-                            .setTitle(`Subcomando no encontrado`)
-                    ]
-                })
+                }
         }
     }
 }

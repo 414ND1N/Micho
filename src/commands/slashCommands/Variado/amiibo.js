@@ -1,7 +1,7 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js')
-// const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js')
 const buttonPagination = require('../../../utils/buttonPagination')
 const axios = require('axios')
+
 module.exports = {
     CMD: new SlashCommandBuilder()
         .setName("amiibo")
@@ -54,26 +54,25 @@ module.exports = {
             var embeds = []
 
             amiibos.forEach(async amiibo => {
-                //Crear embed de amiibo individual
-                const embedAmiibo = new EmbedBuilder()
-                    .setTitle(`Amiibo | \`${amiibo.name}\``)
-                    .setImage(amiibo.image)
-                    .addFields(
-                        { name: `Serie`, value: `\`${amiibo.amiiboSeries}\``, inline: true},
-                        { name: `Videojuego`, value: `\`${amiibo.gameSeries}\``, inline: true},
-                        { name: `Tipo`, value: `\`${amiibo.type}\``, inline: true },
-                        { name: 'EU', value: `\`${amiibo.release.eu??'s/d'}\``, inline: true},
-                        { name: 'JP', value: ` \`${amiibo.release.jp??'s/d'}\``, inline: true},
-                        { name: 'NA', value: ` \`${amiibo.release.na??'s/d'}\``, inline: true},
-                    )
-                    .setColor("Random")
                 //Agregar pagina al array embeds
-                embeds.push(embedAmiibo)
+                embeds.push(
+                    new EmbedBuilder()
+                        .setTitle(`Amiibo | \`${amiibo.name}\``)
+                        .setImage(amiibo.image)
+                        .addFields(
+                            { name: `Serie`, value: `\`${amiibo.amiiboSeries}\``, inline: true},
+                            { name: `Videojuego`, value: `\`${amiibo.gameSeries}\``, inline: true},
+                            { name: `Tipo`, value: `\`${amiibo.type}\``, inline: true },
+                            { name: 'EU', value: `\`${amiibo.release.eu??'s/d'}\``, inline: true},
+                            { name: 'JP', value: ` \`${amiibo.release.jp??'s/d'}\``, inline: true},
+                            { name: 'NA', value: ` \`${amiibo.release.na??'s/d'}\``, inline: true},
+                        )
+                        .setColor("Random")
+                )
             })
 
             await buttonPagination(interaction, embeds, 80_000, false)
         } catch (error) {
-
             console.error(error)
             return interaction.editReply({
                 embeds: [
