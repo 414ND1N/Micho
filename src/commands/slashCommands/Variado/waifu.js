@@ -1,5 +1,5 @@
-const {SlashCommandBuilder, EmbedBuilder} = require('discord.js');
-const axios = require('axios');
+const {SlashCommandBuilder, EmbedBuilder, ChatInputCommandInteraction} = require('discord.js')
+const axios = require('axios')
 
 module.exports = {
     CMD: new SlashCommandBuilder()
@@ -72,26 +72,26 @@ module.exports = {
                 )
         )
         ,
+    /**
+    * @param {ChatInputCommandInteraction} interaction
+    */
     async execute(interaction){
         
-        //verificar si el canal es NSFW
-        const { client } = interaction
-        const CANAL_NSFW = client.channels.cache.get(process.env.ID_CANAL_NSFW)
-        const CANAL_PRUEBAS = client.channels.cache.get(process.env.ID_CANAL_PRUEBAS)
-
         const sub_command = interaction.options.getSubcommand() // Tipo de la imagen (SFW o NSFW)
         const categoria = interaction.options.getString('categoria') // Categoría de la imagen
-        const canales_permitidos = [CANAL_NSFW, CANAL_PRUEBAS]
 
-        if(sub_command == "nsfw" && !canales_permitidos.includes(interaction.channel)){
-            return interaction.reply({ embeds: [
-                new EmbedBuilder()
-                    .setTitle(`Comando no disponible 🤐`)
-                    .setDescription(`Este comando solo está disponible en ${CANAL_NSFW}`)
-                    .setColor(process.env.COLOR)
-                    .setTimestamp()
-                    .setThumbnail(`https://i.imgur.com/gqL0iZa.gif`)
-            ], ephemeral: true })
+        if(sub_command == "nsfw" && !interaction.channel.nsfw){
+            return interaction.reply({ 
+                embeds: [
+                    new EmbedBuilder()
+                        .setTitle(`Comando no disponible 🤐`)
+                        .setDescription(`Este comando solo está disponible en canales NSFW`)
+                        .setColor(process.env.COLOR)
+                        .setTimestamp()
+                        .setThumbnail(`https://i.imgur.com/gqL0iZa.gif`)
+                ], 
+                ephemeral: true 
+            })
         }
 
         await interaction.deferReply() // Defer para respuestas de más de 3 segundos

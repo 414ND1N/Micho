@@ -1,5 +1,6 @@
-const { Collection } = require('discord.js');
-const { Events } = require('discord.js');
+const { Collection } = require('discord.js')
+const { Events } = require('discord.js')
+const Roles = require('../../schemas/Roles')
 
 module.exports = {
     name: Events.InteractionCreate,
@@ -84,10 +85,26 @@ module.exports = {
         } else if (interaction.isButton()) {
             switch (interaction.customId) {
                 case 'verify_role': { // Verificar usuario para darle el rol de verificado
-                    const role = interaction.guild.roles.cache.get(process.env.ID_ROL_VERIFICADO);
-                    if (!role) return interaction.reply({ content: `❌ **No se ha encontrado el rol de verificado**` });
 
-                    interaction.member.roles.add(role)
+                    // Buscar el rol en la bd con el guildID y el nombre
+                    const ROL_DATA = await Roles.findOne({ GuildID: interaction.guild.id, Name: "Verificado" })
+                    if (!ROL_DATA) {
+                        return interaction.reply({
+                            content: `❌ **No se ha encontrado el rol de Verficado en la base de datos**`,
+                            ephemeral: true
+                        })
+                    }
+
+                    // Buscar el rol en el servidor
+                    const ROL = interaction.guild.roles.cache.get(ROL_DATA.ID);
+                    if (!ROL) {
+                        return interaction.reply({ 
+                            content: `❌ **No se ha encontrado el rol de verificado**` 
+                        })
+                    } 
+
+                    // Agregar el rol al usuario
+                    interaction.member.roles.add(ROL)
                         .then(() => {
                             interaction.reply({
                                 content: `✅ **Te has verificado correctamente!**`,

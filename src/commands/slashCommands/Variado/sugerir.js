@@ -1,5 +1,6 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js')
 const { ActionRowBuilder, ModalBuilder, TextInputBuilder, TextInputStyle } = require('discord.js')
+const Channels = require('../../../schemas/Channels')
 
 module.exports = {
     CMD: new SlashCommandBuilder()
@@ -38,8 +39,18 @@ module.exports = {
         interaction
             .awaitModalSubmit({ filter, time: 50_000 })
             .then(async (modalInteraction) => {
+
+                // Buscar el rol en la bd con el guildID y el nombre
+                const CHANNEL_DATA = await Channels.findOne({ GuildID: interaction.guild.id, Name: "Sugerencia" })
+                if (!CHANNEL_DATA) {
+                    return interaction.reply({
+                        content: `❌ **No se ha encontrado el canal de sugerencias en la base de datos**`,
+                        ephemeral: true
+                    })
+                }
+
                 const sugerencia = modalInteraction.fields.getTextInputValue('suggestInput')
-                const channel = client.channels.cache.get(process.env.ID_CANAL_SUGERENCIAS) //ID del canal de sugerencias
+                const channel = client.channels.cache.get(CHANNEL_DATA.ID) //ID del canal de sugerencias
                 const AUTHOR = interaction.member?.nickname ?? interaction.user.username // Si no tiene apodo, se usa el nombre de usuario
 
                 const mensaje = await channel.send({

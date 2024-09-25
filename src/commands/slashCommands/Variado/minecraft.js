@@ -4,6 +4,7 @@ const minecraftServer = require('../../../schemas/minecraftServer')
 const buttonPagination = require('../../../utils/buttonPagination')
 
 module.exports = {
+    cooldown: 15,
     CMD: new SlashCommandBuilder()
         .setName("minecraft")
         .setDescription("Obtiene información de Minecraft")

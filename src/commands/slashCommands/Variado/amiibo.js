@@ -3,6 +3,7 @@ const buttonPagination = require('../../../utils/buttonPagination')
 const axios = require('axios')
 
 module.exports = {
+    cooldown: 10,
     CMD: new SlashCommandBuilder()
         .setName("amiibo")
         .setNameLocalizations({

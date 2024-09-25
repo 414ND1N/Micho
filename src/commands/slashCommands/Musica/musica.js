@@ -5,6 +5,8 @@ const handleMusicControl  = require('../../../functions/Musica/handle_control')
 const handleMusicQueue = require('../../../functions/Musica/handle_queue.js')
 const handleMusicRepeat = require('../../../functions/Musica/handle_repeat.js')
 
+const Channels = require('../../../schemas/Channels')
+
 module.exports = {
     cooldown: 10,
     CMD: new SlashCommandBuilder()
@@ -152,10 +154,18 @@ module.exports = {
         //constantes
         const { client } = interaction
         const SUB = interaction.options.getSubcommand()
-        const channel = client.channels.cache.get(process.env.ID_CANAL_DISCO)
         const COM_NO_QUEUE = ['detener', 'reproducir'] //Comandos que no necesitan una cola de reproducción
         const COM_NO_DEFER = ['cola', 'reproducir', 'controlar', 'repeticion'] //Comandos que no necesitan un deferReply
         const VOICE_CHANNEL = interaction.member.voice?.channel ?? null //Canal de voz
+        
+        // Buscar el rol en la bd con el guildID y el nombre
+        const CHANNEL_DATA = await Channels.findOne({ GuildID: interaction.guild.id, Name: "Disco" })
+        let channel = null
+        if (CHANNEL_DATA) {
+            channel = client.channels.cache.get(CHANNEL_DATA.ID)
+        }else {
+            channel = interaction.channel
+        }
 
         //Comprobaciones previas y que no sea un comando que no lo necesite
         if (!VOICE_CHANNEL) {
