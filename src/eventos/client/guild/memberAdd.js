@@ -1,7 +1,7 @@
 const { EmbedBuilder } = require('discord.js')
 const { Events } = require('discord.js')
 const Channels = require('../../../schemas/Channels')
-// const Servers = require('../../../schemas/Servers')
+const axios = require('axios')
 
 module.exports = {
     name: Events.GuildMemberAdd,
@@ -33,5 +33,15 @@ module.exports = {
                     .setTimestamp()
             ]
         })
+
+        // Enviar mensaje a través de la API de CallMeBot a WhatsApp
+        const message = encodeURIComponent(`${member.user.username} se ha unido a ${member.guild.name}`);
+        const apiUrl = `https://api.callmebot.com/whatsapp.php?phone=${process.env.PHONE_NUMBER}&apikey=${process.env.API_KEY}&text=${message}`;
+
+        try {
+            await axios.get(apiUrl);
+        } catch (error) {
+            console.error('Error al enviar mensaje a WhatsApp:', error);
+        }
     }
 }
