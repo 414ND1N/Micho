@@ -139,3 +139,5 @@ Toffu .env
 # Distube
 /src/utils/Cookies
 /*-base.js
+
+.idea
