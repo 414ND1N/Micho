@@ -4,6 +4,7 @@ let RoleSchema = new Schema({
     Name: String,
     ID: String,
     GuildID: String,
+    RolID: String
 })
 
 module.exports = model('Roles', RoleSchema, 'Roles')

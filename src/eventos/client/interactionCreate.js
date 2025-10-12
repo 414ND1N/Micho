@@ -96,15 +96,17 @@ module.exports = {
                     }
 
                     // Buscar el rol en el servidor
-                    const ROL = interaction.guild.roles.cache.get(ROL_DATA.ID);
-                    if (!ROL) {
+                    const ROL_VERIFICADO = interaction.guild.roles.cache.get(ROL_DATA.RolID)
+                    
+                    if (!ROL_VERIFICADO) {
                         return interaction.reply({ 
-                            content: `❌ **No se ha encontrado el rol de verificado**` 
+                            content: `❌ **No se ha encontrado el rol de verificado**`,
+                            ephemeral: true
                         })
                     } 
 
                     // Agregar el rol al usuario
-                    interaction.member.roles.add(ROL)
+                    interaction.member.roles.add(ROL_VERIFICADO)
                         .then(() => {
                             interaction.reply({
                                 content: `✅ **Te has verificado correctamente!**`,
