@@ -4,13 +4,21 @@ const OpenAI = require('openai');
 module.exports = async (message) => {
     if (message.author.bot) return //Si el mensaje es de un bot no hacer nada
 
+    // Verificar que el mensaje no empiece con el prefijo
+    if (message.content.startsWith("!!")) return
+
     //Chat con DeepSeek
 
     // Buscar el canal en la bd con el guildID y el nombre
-    const CHANNEL_DATA = await Channels.findOne({ GuildID: message.guild.id, Name: "ChattingWBot" })
+    const CHANNEL_DATA = await Channels.findOne({ GuildID: message.guild.id, ID: message.channel.id , Name: "ChattingWBot" })
+
     if (!CHANNEL_DATA) return
 
-    if (message.content.startsWith("!!")) return
+    // Verificar que el canal sea el correcto
+    if (CHANNEL_DATA.ID !== message.channel.id){
+        // Regresar mensaje de error
+        return message.reply("Este canal no es para chatear conmigo 🙀")
+    }
 
     const openai = new OpenAI({
         baseURL: 'https://api.deepseek.com',
@@ -36,8 +44,8 @@ module.exports = async (message) => {
                 role: 'assistant',
                 content: msgi.content,
                 name: msgi.author.username.replace(/\s+/g, '_').replace(/[^\w\s]/gi, '')
-            });
-        };
+            })
+        }
         if (msgi.author.id == message.author.id) {
             conversationLog.push({
                 role: 'user',
@@ -45,8 +53,8 @@ module.exports = async (message) => {
                 name: message.author.username
                     .replace(/\s+/g, '_')
                     .replace(/[^\w\s]/gi, ''),
-            });
-        };
+            })
+        }
     });
 
     await message.channel.sendTyping(); //Simular que el bot esta escribiendo
