@@ -43,7 +43,7 @@ module.exports = {
             embeds: [
                 new EmbedBuilder()
                     .setTitle(`${interaction.user?.username} pregunto: **${pregunta}**`)
-                    .setColor(process.env.COLOR)
+                        .setColor(Number(process.env.COLOR))
                     .setThumbnail('https://i.imgur.com/q0C7GuE.png')
                     .setDescription(`**Mi respuesta es:** \`${item}\``)
             ]

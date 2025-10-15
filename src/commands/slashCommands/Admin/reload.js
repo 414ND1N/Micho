@@ -57,7 +57,7 @@ module.exports = {
                 embeds: [
                     new EmbedBuilder()
                     .addFields({name: `✅ ${opcion} recargados`, value:`> *Okay!*`})
-                    .setColor(process.env.COLOR)
+                    .setColor(Number(process.env.COLOR))
                 ],
                 ephemeral: true
             })

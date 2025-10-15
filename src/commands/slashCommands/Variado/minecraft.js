@@ -30,7 +30,6 @@ module.exports = {
                         .setNameLocalizations({
                             "en-US": "type"
                         })
-                        .setDescription('Tipo en la que se visualizará la skin')
                         .setDescriptionLocalizations({
                             "en-US": "Type in which the skin will be displayed"
                         })
@@ -42,7 +41,7 @@ module.exports = {
                         )
                 )
         )
-        .addSubcommand(subcommand =>
+                .addSubcommand(subcommand =>
             subcommand.setName('servidor')
                 .setNameLocalizations({
                     "en-US": "server"
@@ -76,7 +75,7 @@ module.exports = {
                 return interaction.editReply({
                     embeds: [
                         new EmbedBuilder()
-                            .setColor(process.env.COLOR)
+                            .setColor(Number(process.env.COLOR))
                             .setTitle(`Minecraft | Skin de \`${nombre}\``)
                             .setImage(img_url) // Nombre del archivo adjunto
                     ]
@@ -93,11 +92,10 @@ module.exports = {
                     if (!servers) {
                         return interaction.editReply({
                             embeds: [
-                                new EmbedBuilder()
-                                    .setColor(process.env.COLOR_ERROR)
-                                    .setDescription(`No se encontró información del servidor.`)
-                                    .setThumbnail('https://i.imgur.com/rIPXKFQ.png')
-                            ]
+                                        new EmbedBuilder()
+                                            .setColor(Number(process.env.COLOR_ERROR))
+                                            .setThumbnail('https://i.imgur.com/rIPXKFQ.png')
+                                    ]
                         })
                     }
 
@@ -110,7 +108,7 @@ module.exports = {
                         if (response.data.length != 0) {
                             //Se encontró información del servidor
                             let embed = new EmbedBuilder()
-                                .setColor(process.env.COLOR)
+                                .setColor(Number(process.env.COLOR))
                                 .setTitle(`Minecraft | \`${server.Nombre}\``)
                                 .addFields(
                                     { name: 'Version', value: `${response.data.version} | ${response.data.software}`, inline: true },
@@ -141,7 +139,7 @@ module.exports = {
                     return interaction.editReply({
                         embeds: [
                             new EmbedBuilder()
-                                .setColor(process.env.COLOR_ERROR)
+                                .setColor(Number(process.env.COLOR_ERROR))
                                 .setDescription(`Ocurrió un error al mostrar la información de los servidores`)
                         ]
                         , ephemeral: true

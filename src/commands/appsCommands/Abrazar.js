@@ -32,7 +32,7 @@ module.exports = {
             embeds: [
                 new EmbedBuilder()
                     .setTitle(`\`${AUTHOR} abrazó a ${USERNAME}.\``) // Si no se especifica usuario, se indica a todos
-                    .setColor(process.env.COLOR)
+                    .setColor(Number(process.env.COLOR))
                     .setImage(gif_url)
             ]       
         });

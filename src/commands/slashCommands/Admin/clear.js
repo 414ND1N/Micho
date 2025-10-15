@@ -49,7 +49,7 @@ module.exports = {
                 console.log(`🧹 Se han eliminado una cantidad de ${valor} mensajes de ${user.username}`.blue)
                 let ClearCommandembed = new EmbedBuilder()
                     .setTitle('🧹 __CLEAR__ 🧹')
-                    .setColor(process.env.COLOR)
+                    .setColor(Number(process.env.COLOR))
                     .setDescription(`Se han eliminado una cantidad de \`${messages.size}\` mensajes de \`${user.username}\``)
                     .setThumbnail("https://i.imgur.com/7bj9r36.gif")
 
@@ -60,7 +60,7 @@ module.exports = {
             interaction.channel.bulkDelete(valor, true).then(async (messages) => {
                 let ClearCommandembed = new EmbedBuilder()
                     .setTitle('🧹 __CLEAR__ 🧹')
-                    .setColor(process.env.COLOR)
+                    .setColor(Number(process.env.COLOR))
                     .setDescription(`Se han eliminado una cantidad de \`${messages.size}\` mensajes 🧹`)
                     .setThumbnail("https://i.imgur.com/7bj9r36.gif")
                 

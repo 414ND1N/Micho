@@ -45,7 +45,7 @@ module.exports = {
                     return modalInteraction.reply({
                         embeds: [
                             new EmbedBuilder()
-                                .setColor(process.env.COLOR_ERROR)
+                                .setColor(Number(process.env.COLOR_ERROR))
                                 .setDescription(`No se encontró ningún anime con el nombre\n \`${nombreAnime}\``)
                                 .setThumbnail('https://i.imgur.com/rIPXKFQ.png')
                         ]
@@ -59,7 +59,6 @@ module.exports = {
                 const year = response.data.data[0].year
                 const status = response.data.data[0].status
                 const source = response.data.data[0].source
-                const rating = response.data.data[0].rating
                 const synopsis = response.data.data[0].synopsis
                 const synopsisFormated = synopsis?.length <= 1000 ? synopsis : synopsis.slice(0, 1000) + ' ...' // Si la sinopsis es mayor a 1024 caracteres, se corta y se agrega '...'
                 const genres = response.data.data[0].genres.map(genre => genre.name).join(', ')
@@ -86,7 +85,7 @@ module.exports = {
                             )
                             .setURL(url_anime)
                             .setFooter({ text: `Puntuación ${score}/10 por ${scored_by} usuarios` })
-                            .setColor(process.env.COLOR)
+                            .setColor(Number(process.env.COLOR))
                     ]
                 })
             })
@@ -95,7 +94,7 @@ module.exports = {
                     embeds: [
                         new EmbedBuilder()
                             .setTitle('No se ha recibido respuesta')
-                            .setColor(process.env.COLOR_ERROR)
+                            .setColor(Number(process.env.COLOR_ERROR))
                             .setDescription('No se ha recibido respuesta\nInténtalo de nuevo.')
                             .setThumbnail('https://i.imgur.com/rIPXKFQ.png')
                             .setTimestamp()

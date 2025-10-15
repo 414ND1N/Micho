@@ -37,8 +37,8 @@ module.exports = {
             } catch (error) {
                 return interaction.channel.send({
                     embeds: [
-                        new EmbedBuilder()
-                            .setColor(process.env.COLOR_ERROR)
+                            new EmbedBuilder()
+                                .setColor(Number(process.env.COLOR_ERROR))
                             .setDescription(`No se encontró ningún pokemón con el id \`${busqueda}\``)
                     ],
                     ephemeral: true
@@ -97,8 +97,8 @@ module.exports = {
             console.error(error)
             return interaction.editReply({
                 embeds: [
-                    new EmbedBuilder()
-                        .setColor(process.env.COLOR_ERROR)
+                        new EmbedBuilder()
+                            .setColor(Number(process.env.COLOR_ERROR))
                         .setDescription(`Ocurrió un error al mostrar la pokedéx`)
                 ]
                 , ephemeral: true

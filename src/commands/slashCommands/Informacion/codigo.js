@@ -25,7 +25,7 @@ module.exports = {
             embeds: [
                 new EmbedBuilder()
                     .setTitle('Código fuente')
-                    .setColor(process.env.COLOR)
+                    .setColor(Number(process.env.COLOR))
                     .setDescription(`Puedes encontrar mi código fuente en mi repositorio de GitHub. Haz clic en el botón para acceder al repositorio.`)  
             ],
             components: [row]

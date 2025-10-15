@@ -130,7 +130,7 @@ module.exports = {
                     embeds: [
                         new EmbedBuilder()
                             .setTitle(`\`${AUTHOR}\` envió un meme`)
-                            .setColor(process.env.COLOR)
+                            .setColor(Number(process.env.COLOR))
                             .setImage(`https://api.memegen.link/images/${ID_PLANTILLA}/${textoProcesado}.png`)
                             .setFooter({text: 'Creado con memegen.link'})
                     ]
@@ -143,7 +143,7 @@ module.exports = {
                     embeds: [
                         new EmbedBuilder()
                             .setTitle(`\`${AUTHOR}\` envió un meme`)
-                            .setColor(process.env.COLOR)
+                            .setColor(Number(process.env.COLOR))
                             .setImage(`https://api.memegen.link/images/custom/${textoProcesado}.png?background=${IMG}`)
                             .setFooter({text: 'Creado con memegen.link'})
                     ]
@@ -152,7 +152,7 @@ module.exports = {
                 return interaction.editReply({
                     embeds: [
                         new EmbedBuilder()
-                            .setColor(process.env.COLOR_ERROR)
+                            .setColor(Number(process.env.COLOR_ERROR))
                             .setTitle({text: `Subcomando no encontrado`})
                     ]
                 })

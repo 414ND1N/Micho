@@ -406,10 +406,10 @@ module.exports = {
         await interaction.deferReply() // Defer para respuestas de más de 3 segundos
 
         //<#> Listas de opciones
-        const lista_tipos_busqueda = [
+        const types_list = [
             'zelda','pokemon','anime','adventure time','regular show','five nights at freddys'
         ]
-        const lista_acciones = [
+        const actions_list = [
             // Español
             {
                 sub: "saludar",
@@ -469,7 +469,7 @@ module.exports = {
 
         //<#> Datos de la interacción
         const SUB = interaction.options.getSubcommand() // Subcomando
-        const TIPO = interaction.options.getString('tipo') || get_random_option() // Si no se especifica el tipo, se elige uno aleatorio
+        const TIPO = interaction.options.getString('tipo') || types_list[Math.floor(Math.random() * types_list.length)]// Si no se especifica el tipo, se elige uno aleatorio
 
         // Usuario al que se le hará la acción
         const USUARIO = interaction.options.getUser('usuario') // Usuario al que se le hará la acción
@@ -479,18 +479,17 @@ module.exports = {
         // Usuario que realiza la acción
         const AUTHOR = interaction.member?.nickname?? interaction.user.username // Si no tiene apodo, se usa el nombre de usuario
 
-        const accion_eligida = lista_acciones.find(accion => accion.sub == SUB) // Acción elegida
+        const accion_eligida = actions_list.find(accion => accion.sub == SUB) // Acción elegida
 
         if (accion_eligida == undefined) { // Si no se encuentra la acción, se cancela
             return interaction.editReply({
                 embeds: [
                     new EmbedBuilder()
-                        .setColor(process.env.COLOR_ERROR)
+                        .setColor(Number(process.env.COLOR_ERROR))
                         .setDescription(`No se encontró la acción seleccionada 🤨`)
                 ]
             })
         }
-
 
         //<#> Busqueda de gif
         const query = `${TIPO} ${accion_eligida.query}` // Busqueda en Tenor
@@ -505,14 +504,9 @@ module.exports = {
             embeds: [
                 new EmbedBuilder()
                     .setTitle(`\`${AUTHOR} ${accion_eligida.mensaje} ${USERNAME}.\``) // Si no se especifica usuario, se indica a todos
-                    .setColor(process.env.COLOR)
+                    .setColor(Number(process.env.COLOR))
                     .setImage(gif_url)
             ]
         })
-
-        function get_random_option(){
-            const randomIndexOpts = Math.floor(Math.random() * lista_tipos_busqueda.length)
-            return lista_tipos_busqueda[randomIndexOpts]
-        }
     }
 } 
