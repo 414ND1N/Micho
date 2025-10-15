@@ -30,6 +30,7 @@ module.exports = {
                         .setNameLocalizations({
                             "en-US": "type"
                         })
+                        .setDescription('Tipo de visualización de la skin')
                         .setDescriptionLocalizations({
                             "en-US": "Type in which the skin will be displayed"
                         })
@@ -41,7 +42,7 @@ module.exports = {
                         )
                 )
         )
-                .addSubcommand(subcommand =>
+        .addSubcommand(subcommand =>
             subcommand.setName('servidor')
                 .setNameLocalizations({
                     "en-US": "server"
@@ -89,50 +90,75 @@ module.exports = {
                     let embeds = []
 
                     const servers = await minecraftServer.find({})
-                    if (!servers) {
+                    if (!servers || servers.length === 0) {
                         return interaction.editReply({
                             embeds: [
-                                        new EmbedBuilder()
-                                            .setColor(Number(process.env.COLOR_ERROR))
-                                            .setThumbnail('https://i.imgur.com/rIPXKFQ.png')
-                                    ]
+                                new EmbedBuilder()
+                                    .setColor(Number(process.env.COLOR_ERROR))
+                                    .setThumbnail('https://i.imgur.com/rIPXKFQ.png')
+                            ]
                         })
                     }
 
-                    servers.forEach(async (server) => {
+                    for (const server of servers) {
+                        try {
+                            const url_api = `https://api.mcsrvstat.us/2/${server.IP}`
+                            const response = await axios.get(url_api)
+                            const data = response && response.data ? response.data : {}
 
-                        // Obtener el registro guardado en la base de datos
-                        const url_api = `https://api.mcsrvstat.us/2/${server.IP}`
-                        const response = await axios.get(url_api)
+                            // Si no hay datos relevantes, saltar
+                            if (!Object.keys(data).length) continue
 
-                        if (response.data.length != 0) {
-                            //Se encontró información del servidor
+                            // Valores seguros / fallback
+                            const version = (data.version ?? '').toString()
+                            const software = (data.software ?? '').toString()
+                            const motd = (data.motd && Array.isArray(data.motd.clean) && data.motd.clean[0]) ? data.motd.clean[0].toString() : 'N/A'
+                            const ip = (data.ip ?? 'N/A').toString()
+                            const port = (data.port ?? 'N/A').toString()
+                            const javaIP = (server.JavaIP ?? 'N/A').toString()
+                            const icon = (server.IconUrl ?? null)
+
                             let embed = new EmbedBuilder()
                                 .setColor(Number(process.env.COLOR))
-                                .setTitle(`Minecraft | \`${server.Nombre}\``)
+                                .setTitle(`Minecraft | \`${String(server.Nombre ?? 'Servidor')}\``)
                                 .addFields(
-                                    { name: 'Version', value: `${response.data.version} | ${response.data.software}`, inline: true },
-                                    { name: 'Motd', value: `${response.data.motd.clean[0]}` },
-                                    { name: `IP Java 1`, value: `${server.JavaIP}` },
-                                    { name: `IP Java 2`, value: `${response.data.ip}:${response.data.port}` },
-                                    { name: `IP y PORT Bedrock`, value: `${response.data.ip} - ${response.data.port}` },
+                                    { name: 'Version', value: `${version} | ${software}`, inline: true },
+                                    { name: 'Motd', value: motd },
+                                    { name: `IP Java 1`, value: javaIP },
+                                    { name: `IP Java 2`, value: `${ip}:${port}` },
+                                    { name: `IP y PORT Bedrock`, value: `${ip} - ${port}` },
                                 )
-                                .setThumbnail(server.IconUrl)
                                 .setTimestamp()
 
-                            // Si el servidor está online
-                            if (response.data.online) {
-                                embed.setDescription(`El servidor está online ✅`)
-                                embed.addFields(
-                                    { name: `Jugadores`, value: `${response.data.players.online} / ${response.data.players.max}`, inline: true },
-                                )
+                            if (icon) embed.setThumbnail(icon)
+
+                            if (data.online) {
+                                const playersOnline = (data.players && (data.players.online ?? '0')).toString()
+                                const playersMax = (data.players && (data.players.max ?? '0')).toString()
+                                embed.setDescription('El servidor está online ✅')
+                                embed.addFields({ name: 'Jugadores', value: `${playersOnline} / ${playersMax}`, inline: true })
                             } else {
-                                embed.setDescription(`El servidor está offline ❌`)
+                                embed.setDescription('El servidor está offline ❌')
                             }
 
                             embeds.push(embed)
+                        } catch (err) {
+                            console.error('Error al consultar servidor', server, err)
+                            // continuar con el siguiente servidor
                         }
-                    })
+                    }
+
+                    if (embeds.length === 0) {
+                        return interaction.editReply({
+                            embeds: [
+                                new EmbedBuilder()
+                                    .setColor(Number(process.env.COLOR_ERROR))
+                                    .setDescription('No se encontró información válida de los servidores.')
+                            ],
+                            ephemeral: true
+                        })
+                    }
+
                     await buttonPagination(interaction, embeds, 80_000, false)
                 } catch (error) {
                     console.error(error)
