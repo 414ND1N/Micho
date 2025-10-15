@@ -34,7 +34,7 @@ module.exports = {
             return interaction.editReply({
                 embeds: [
                     new EmbedBuilder()
-                        .setColor(process.env.COLOR_ERROR)
+                        .setColor(Number(process.env.COLOR_ERROR))
                         .setDescription(`No se encontró resultados para **${term}**.`)
                         .setThumbnail("https://i.imgur.com/WHCwA6t.gifv")
                 ],
@@ -46,7 +46,7 @@ module.exports = {
 
         interaction.editReply({ embeds: [
             new EmbedBuilder()
-                .setColor(process.env.COLOR)
+                .setColor(Number(process.env.COLOR))
                 .setTitle(answer.word)
                 .setURL(answer.permalink)
                 .addFields(

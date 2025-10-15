@@ -80,7 +80,7 @@ module.exports = {
                             .setTitle(`Mensaje directo a ${user.username}`)
                             .setDescription(`Se ha enviado el mensaje:\n> ${text}`)
                             .setThumbnail(user.displayAvatarURL({ dynamic: true }))
-                            .setColor(process.env.COLOR)
+                            .setColor(Number(process.env.COLOR))
                             .setTimestamp()
                     ],
                     ephemeral: true

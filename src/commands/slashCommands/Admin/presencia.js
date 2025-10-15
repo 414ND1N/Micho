@@ -104,7 +104,7 @@ module.exports = {
             embeds: [
                 new EmbedBuilder()
                     .setTitle(`Cambio de presencia de ${process.env.BOT_NAME}`)
-                    .setColor(process.env.COLOR)
+                    .setColor(Number(process.env.COLOR))
                     .setDescription(`Se cambió ${sub} a \`${texto_estado}\`.`)
                     .setThumbnail("https://i.imgur.com/lIs9ZAg.gif")
             ],

@@ -2,6 +2,45 @@ const { Collection } = require('discord.js')
 const { Events } = require('discord.js')
 const Roles = require('../../schemas/Roles')
 
+// Buttons functions
+
+async function verify_role(interaction) {
+    // Buscar el rol en la bd con el guildID y el nombre
+    const ROL_DATA = await Roles.findOne({ GuildID: interaction.guild.id, Name: "Verificado" })
+    if (!ROL_DATA) {
+        return interaction.reply({
+            content: `❌ **No se ha encontrado el rol de Verficado en la base de datos**`,
+            ephemeral: true
+        })
+    }
+
+    // Buscar el rol en el servidor
+    const ROL_VERIFICADO = interaction.guild.roles.cache.get(ROL_DATA.RolID)
+
+    if (!ROL_VERIFICADO) {
+        return interaction.reply({
+            content: `❌ **No se ha encontrado el rol de verificado**`,
+            ephemeral: true
+        })
+    }
+
+    // Agregar el rol al usuario
+    interaction.member.roles.add(ROL_VERIFICADO)
+        .then(() => {
+            interaction.reply({
+                content: `✅ **Te has verificado correctamente!**`,
+                ephemeral: true
+            });
+        })
+        .catch(() => {
+            interaction.reply({
+                content: `❌ **No se ha podido verificar**`,
+                ephemeral: true
+            });
+        })
+}
+
+
 module.exports = {
     name: Events.InteractionCreate,
     async execute(interaction) {
@@ -75,8 +114,8 @@ module.exports = {
                 try {
                     COMANDO.execute(interaction, "/")
                 } catch (e) {
-                    interaction.reply({ 
-                        content: `**Ha ocurrido un error al ejecutar el comando!**\n*Mira la consola para mas detalle 💀*` 
+                    interaction.reply({
+                        content: `**Ha ocurrido un error al ejecutar el comando!**\n*Mira la consola para mas detalle 💀*`
                     })
                     console.log(e)
                     return
@@ -85,40 +124,7 @@ module.exports = {
         } else if (interaction.isButton()) {
             switch (interaction.customId) {
                 case 'verify_role': { // Verificar usuario para darle el rol de verificado
-
-                    // Buscar el rol en la bd con el guildID y el nombre
-                    const ROL_DATA = await Roles.findOne({ GuildID: interaction.guild.id, Name: "Verificado" })
-                    if (!ROL_DATA) {
-                        return interaction.reply({
-                            content: `❌ **No se ha encontrado el rol de Verficado en la base de datos**`,
-                            ephemeral: true
-                        })
-                    }
-
-                    // Buscar el rol en el servidor
-                    const ROL_VERIFICADO = interaction.guild.roles.cache.get(ROL_DATA.RolID)
-                    
-                    if (!ROL_VERIFICADO) {
-                        return interaction.reply({ 
-                            content: `❌ **No se ha encontrado el rol de verificado**`,
-                            ephemeral: true
-                        })
-                    } 
-
-                    // Agregar el rol al usuario
-                    interaction.member.roles.add(ROL_VERIFICADO)
-                        .then(() => {
-                            interaction.reply({
-                                content: `✅ **Te has verificado correctamente!**`,
-                                ephemeral: true
-                            });
-                        })
-                        .catch(() => {
-                            interaction.reply({
-                                content: `❌ **No se ha podido verificar**`,
-                                ephemeral: true
-                            });
-                        })
+                    verify_role(interaction)
                     break;
                 }
             }

@@ -86,7 +86,7 @@ module.exports = {
                     new EmbedBuilder()
                         .setTitle(`Comando no disponible 🤐`)
                         .setDescription(`Este comando solo está disponible en canales NSFW`)
-                        .setColor(process.env.COLOR)
+                        .setColor(Number(process.env.COLOR))
                         .setTimestamp()
                         .setThumbnail(`https://i.imgur.com/gqL0iZa.gif`)
                 ], 
@@ -106,7 +106,7 @@ module.exports = {
             embeds: [
                 new EmbedBuilder()
                     .setTitle(`${AUTHOR} invocó a una mona china 🐵 🇯🇵 `)
-                    .setColor(process.env.COLOR)
+                    .setColor(Number(process.env.COLOR))
                     .setImage(img_url)
             ]
         })

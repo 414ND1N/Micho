@@ -97,7 +97,7 @@ module.exports = {
                             embeds: [
                                 new EmbedBuilder()
                                     .setTitle(`Error al intentar cambiar el avatar`)
-                                    .setColor(process.env.COLOR_ERROR)
+                                    .setColor(Number(process.env.COLOR_ERROR))
                                     .setDescription('El archivo debe ser una imagen')
                             ],
                             ephemeral: true
@@ -116,7 +116,7 @@ module.exports = {
                             embeds: [
                                 new EmbedBuilder()
                                     .setTitle(`Error al intentar cambiar el avatar`)
-                                    .setColor(process.env.COLOR_ERROR)
+                                    .setColor(Number(process.env.COLOR_ERROR))
                             ],
                             ephemeral: true
                         })
@@ -126,7 +126,7 @@ module.exports = {
                         embeds: [
                             new EmbedBuilder()
                                 .setTitle(`Cambio de avatar de \`${process.env.BOT_NAME}\``)
-                                .setColor(process.env.COLOR)
+                                .setColor(Number(process.env.COLOR))
                                 .setImage(URL)
                         ],
                         ephemeral: true
@@ -144,7 +144,7 @@ module.exports = {
                             embeds: [
                                 new EmbedBuilder()
                                     .setTitle(`Error al intentar cambiar el banner`)
-                                    .setColor(process.env.COLOR_ERROR)
+                                    .setColor(Number(process.env.COLOR_ERROR))
                             ],
                             ephemeral: true
                         })
@@ -170,7 +170,7 @@ module.exports = {
                         embeds: [
                             new EmbedBuilder()
                                 .setTitle(`Cambio de banner de \`${process.env.BOT_NAME}\``)
-                                .setColor(process.env.COLOR)
+                                .setColor(Number(process.env.COLOR))
                                 .setImage(URL)
                         ],
                         ephemeral: true

@@ -58,7 +58,7 @@ module.exports = {
                         new EmbedBuilder()
                             .setTitle(`Sugerencia de \`${AUTHOR}\``)
                             .setDescription(`\`${sugerencia}\``)
-                            .setColor(process.env.COLOR)
+                            .setColor(Number(process.env.COLOR))
                             .setTimestamp()
                             .setThumbnail(`https://i.imgur.com/t6AR3RO.gif`)
                     ], fetchReply: true
@@ -71,7 +71,7 @@ module.exports = {
                         new EmbedBuilder()
                             .setTitle(`Sugerencia realizada`)
                             .setDescription(`Sugerencia \`${sugerencia}\` enviada a ${channel}`)
-                            .setColor(process.env.COLOR)
+                            .setColor(Number(process.env.COLOR))
                             .setTimestamp()
                             .setThumbnail(`https://i.imgur.com/X3E6BAy.gif`)
                     ], ephemeral: true
@@ -82,7 +82,7 @@ module.exports = {
                     embeds: [
                         new EmbedBuilder()
                             .setTitle('No se ha recibido respuesta')
-                            .setColor(process.env.COLOR_ERROR)
+                            .setColor(Number(process.env.COLOR_ERROR))
                             .setDescription('No se ha recibido respuesta\nInténtalo de nuevo.')
                             .setThumbnail('https://i.imgur.com/rIPXKFQ.png')
                             .setTimestamp()

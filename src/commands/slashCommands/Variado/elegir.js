@@ -71,7 +71,7 @@ module.exports = {
                 return interaction.reply({
                     embeds: [
                         new EmbedBuilder()
-                            .setColor(process.env.COLOR)
+                            .setColor(Number(process.env.COLOR))
                             .setDescription(`Elegí \`${opciones[rIndex]}\` 🧐`)
                     ]
                 })
@@ -87,7 +87,7 @@ module.exports = {
                 return interaction.reply({
                     embeds: [
                         new EmbedBuilder()
-                            .setColor(process.env.COLOR)
+                            .setColor(Number(process.env.COLOR))
                             .setDescription(`Elegí \`${rIndex}\` 🧐`)
                     ]
                 })

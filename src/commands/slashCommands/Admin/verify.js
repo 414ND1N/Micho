@@ -24,7 +24,7 @@ module.exports = {
         const channel = interaction.options.getChannel("canal");
 
         embed_verify = new EmbedBuilder()
-            .setColor(process.env.COLOR)
+            // .setColor(process.env.COLOR)
             .setTitle(`Bienvenido a ${interaction.guild?.name}`)
             .setDescription("Reacciona a este mensaje para obtener el rol de \`Pana\` y poder ver el resto del servidor")
 

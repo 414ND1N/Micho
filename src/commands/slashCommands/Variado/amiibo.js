@@ -53,7 +53,7 @@ module.exports = {
                 return interaction.reply({
                     embeds: [
                         new EmbedBuilder()
-                            .setColor(process.env.COLOR_ERROR)
+                            .setColor(Number(process.env.COLOR_ERROR))
                             .setDescription(`No se encontró ningún amiibo de \`${character}\``)
                     ],
                     ephemeral: true
@@ -89,7 +89,7 @@ module.exports = {
             return interaction.editReply({
                 embeds: [
                     new EmbedBuilder()
-                        .setColor(process.env.COLOR_ERROR)
+                        .setColor(Number(process.env.COLOR_ERROR))
                         .setDescription(`Ocurrió un error al mostrar la información de amiibos`)
                 ]
                 , ephemeral: true
