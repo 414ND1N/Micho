@@ -1,5 +1,6 @@
-const { SlashCommandBuilder, EmbedBuilder } = require('discord.js')
-const { ActionRowBuilder, ModalBuilder, TextInputBuilder, TextInputStyle } = require('discord.js')
+const { SlashCommandBuilder, EmbedBuilder} = require('discord.js')
+const { ModalBuilder, TextInputBuilder, TextInputStyle , LabelBuilder } = require('discord.js')
+const { ErrorEmbed } = require('@/utils/PredefinedComponents')
 const axios = require('axios')
 
 module.exports = {
@@ -13,26 +14,31 @@ module.exports = {
 
     async execute(interaction) {
 
-        const modal = new ModalBuilder()
-            .setTitle('Anime')
-            .setCustomId(`animeModal-${interaction.user.id}`)
+        // Modal para ingresar el nombre del anime
+        const customModalId = `animeModal-${interaction.user.id}`
 
-        const input = new TextInputBuilder()
+        const searchInputModal = new ModalBuilder()
+            .setTitle('Anime')
+            .setCustomId(customModalId)
+
+        const anime_input = new TextInputBuilder()
             .setCustomId('animeInput')
-            .setLabel('Nombre del anime')
             .setMaxLength(50)
             .setMinLength(3)
             .setRequired(true)
             .setPlaceholder('Ingrese el nombre del anime')
             .setStyle(TextInputStyle.Short)
+            .setValue('Naruto')
 
-        const firstActionRow = new ActionRowBuilder().addComponents(input)
+        const input_label = new LabelBuilder()
+            .setLabel('Nombre del anime')
+            .setTextInputComponent(anime_input)
 
-        modal.addComponents(firstActionRow)
-        await interaction.showModal(modal)
+        searchInputModal.addLabelComponents(input_label)
+        await interaction.showModal(searchInputModal)
 
         // Esperar respuesta
-        const filter = (interaction) => interaction.customId === `animeModal-${interaction.user.id}`
+        const filter = (interaction) => interaction.customId === customModalId
 
         interaction
             .awaitModalSubmit({ filter, time: 20_000 })
@@ -65,13 +71,14 @@ module.exports = {
                 const themes = response.data.data[0].themes.map(theme => theme.name).join(', ')
                 const score = response.data.data[0].score
                 const scored_by = response.data.data[0].scored_by
-                const image = response.data.data[0].images.webp.image_url
+                const image_url = response.data.data[0].images.webp.image_url
+                const rating = response.data.data[0].rating
 
                 modalInteraction.reply({
                     embeds: [
                         new EmbedBuilder()
                             .setTitle(`Anime | \`${title} - ${title_japanese}\` `)
-                            .setThumbnail(image)
+                            .setThumbnail(image_url)
                             .addFields(
                                 { name: `Top AnimeList`, value: `${rank}`, inline: true },
                                 { name: `Episodios`, value: `${episodes}`, inline: true },
@@ -91,14 +98,7 @@ module.exports = {
             })
             .catch(async (_) => {
                 interaction.followUp({
-                    embeds: [
-                        new EmbedBuilder()
-                            .setTitle('No se ha recibido respuesta')
-                            .setColor(Number(process.env.COLOR_ERROR))
-                            .setDescription('No se ha recibido respuesta\nInténtalo de nuevo.')
-                            .setThumbnail('https://i.imgur.com/rIPXKFQ.png')
-                            .setTimestamp()
-                    ],
+                    embeds: [ErrorEmbed],
                     ephemeral: true
                 })
             })

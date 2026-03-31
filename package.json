@@ -10,12 +10,16 @@
   },
   "author": "",
   "license": "ISC",
+  "_moduleAliases": {
+    "@": "src"
+  },
   "dependencies": {
+    "module-alias": "^2.2.2",
     "@iamtraction/google-translate": "^2.0.1",
     "axios": "^1.6.2",
     "color": "^4.2.3",
     "colors": "^1.4.0",
-    "discord.js": "^14.15.2",
+    "discord.js": "^14.25.1",
     "dotenv": "^16.0.3",
     "emoji-aware": "^3.1.0",
     "glob": "^8.0.3",
