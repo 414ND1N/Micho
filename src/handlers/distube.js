@@ -1,35 +1,35 @@
 const { DisTube } = require('distube');
 const { EmbedBuilder } = require('discord.js');
-const { YouTubePlugin } = require("@distube/youtube");
-// const { SoundCloudPlugin } = require("@distube/soundcloud");
+// const { YouTubePlugin } = require("@distube/youtube");
+const { SoundCloudPlugin } = require("@distube/soundcloud");
 // const fs = require('fs');
 const { COLOR } = require('@/config')
 
 module.exports = (client, _) => {
     //definir el distube
     client.distube = new DisTube(client, {
-        emitNewSongOnly: false,
-        savePreviousSongs: true,
-        emitAddListWhenCreatingQueue: false,
-        emitAddSongWhenCreatingQueue: false,
-        nsfw: true,
-        joinNewVoiceChannel: false,
+        // emitNewSongOnly: false,
+        // savePreviousSongs: true,
+        // emitAddListWhenCreatingQueue: false,
+        // emitAddSongWhenCreatingQueue: false,
+        // nsfw: true,
+        // joinNewVoiceChannel: false,
         plugins: [
-            new YouTubePlugin({
-                ytdlOptions: {
-                    //highWaterMark: 1024 * 1024 * 64,
-                    //quality: "lowestaudio",
-                    format: "audioonly",
-                    //liveBuffer: 20000,
-                    //dlChunkSize: 1024 * 1024 * 2,
-                }
-                // ,
-                // cookies: JSON.parse(fs.readFileSync('./src/utils/Cookies/YouTubeCookies.json')),
-            }),
-            // new SoundCloudPlugin()
-            // new YtDlpPlugin({ 
-            //     update: true 
+            // new YouTubePlugin({
+            //     // ytdlOptions: {
+            //     //     //highWaterMark: 1024 * 1024 * 64,
+            //     //     //quality: "lowestaudio",
+            //     //     format: "audioonly",
+            //     //     //liveBuffer: 20000,
+            //     //     //dlChunkSize: 1024 * 1024 * 2,
+            //     // }
+            //     // ,
+            //     // cookies: JSON.parse(fs.readFileSync('./src/utils/Cookies/YouTubeCookies.json')),
             // }),
+            new SoundCloudPlugin(),
+            new YtDlpPlugin({ 
+                update: true 
+            }),
         ],
     });
 

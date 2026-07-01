@@ -1,5 +1,5 @@
 const { Events } = require('discord.js');
-const handleOpenaiChat  = require('@/functions/chat_ai/handle_openai_chat')
+// const handleOpenaiChat  = require('@/functions/chat_ai/handle_openai_chat')
 
 module.exports = {
     name: Events.MessageCreate,
@@ -7,9 +7,9 @@ module.exports = {
 
         if (message.author.bot) return //Si el es bot no hacer nada
 
-        if (message.guild) { // Mensaje enviado en un servidor
-            return handleOpenaiChat(message)
-        }
+        // if (message.guild) { // Mensaje enviado en un servidor
+        //     return handleOpenaiChat(message)
+        // }
 
         // Mensaje enviado por un usuario al bot por DM
         console.log(`DM: ${message.content}`.yellow)

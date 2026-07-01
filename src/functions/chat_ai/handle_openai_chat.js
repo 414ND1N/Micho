@@ -10,12 +10,12 @@ module.exports = async (message) => {
     //Chat con DeepSeek
 
     // Buscar el canal en la bd con el guildID y el nombre
-    const CHANNEL_DATA = await Channels.findOne({ GuildID: message.guild.id, ID: message.channel.id , Name: "ChattingWBot" })
+    const CHANNEL_DATA = await Channels.findOne({ guild_id: message.guild.id, channel_id: message.channel.id , key: "ai_chat" })
 
     if (!CHANNEL_DATA) return
 
     // Verificar que el canal sea el correcto
-    if (CHANNEL_DATA.ID !== message.channel.id){
+    if (CHANNEL_DATA.channel_id !== message.channel.id){
         // Regresar mensaje de error
         return message.reply("Este canal no es para chatear conmigo 🙀")
     }
