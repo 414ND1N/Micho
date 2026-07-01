@@ -1,4 +1,4 @@
-module.exports = client => {
+module.exports = (client, _)  => {
     process.removeAllListeners();
 
     process.on("unhandledRejection", (reason, p) => {

@@ -1,11 +1,12 @@
 const {SlashCommandBuilder,EmbedBuilder} = require('discord.js')
+const { COLOR, COLOR_ERROR, BOT_NAME } = require('@/config')
 
 module.exports = {
     CMD: new SlashCommandBuilder()
         .setName("ping")
-        .setDescription(`Ping de ${process.env.BOT_NAME}`)
+        .setDescription(`Ping de ${BOT_NAME}`)
         .setDescriptionLocalizations({
-            "en-US": `Ping of ${process.env.BOT_NAME}`
+            "en-US": `Ping of ${BOT_NAME}`
         })
     ,
     async execute(interaction){
@@ -13,7 +14,7 @@ module.exports = {
         return interaction.reply({
             embeds: [
                 new EmbedBuilder()
-                    .setColor(Number(process.env.COLOR))
+                    .setColor(COLOR)
                     .setDescription(`Ping de ${interaction.client.ws.ping}ms`)
             ]
         })

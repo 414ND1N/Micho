@@ -1,4 +1,6 @@
 const {SlashCommandBuilder, EmbedBuilder} = require('discord.js')
+const { COLOR } = require('@/config')
+
 module.exports = {
     CMD: new SlashCommandBuilder()
         .setName("bola8")
@@ -43,7 +45,7 @@ module.exports = {
             embeds: [
                 new EmbedBuilder()
                     .setTitle(`${interaction.user?.username} pregunto: **${pregunta}**`)
-                        .setColor(Number(process.env.COLOR))
+                        .setColor(COLOR)
                     .setThumbnail('https://i.imgur.com/q0C7GuE.png')
                     .setDescription(`**Mi respuesta es:** \`${item}\``)
             ]

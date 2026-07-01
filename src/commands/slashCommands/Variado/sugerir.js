@@ -1,6 +1,7 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js')
 const { ActionRowBuilder, ModalBuilder, TextInputBuilder, TextInputStyle } = require('discord.js')
-const Channels = require('../../../schemas/Channels')
+const Channels = require('@/schemas/channels')
+const { COLOR, COLOR_ERROR } = require('@/config')
 
 module.exports = {
     CMD: new SlashCommandBuilder()
@@ -41,7 +42,7 @@ module.exports = {
             .then(async (modalInteraction) => {
 
                 // Buscar el rol en la bd con el guildID y el nombre
-                const CHANNEL_DATA = await Channels.findOne({ GuildID: interaction.guild.id, Name: "Sugerencia" })
+                const CHANNEL_DATA = await Channels.findOne({ guild_id: interaction.guild.id, key: "suggest" })
                 if (!CHANNEL_DATA) {
                     return interaction.reply({
                         content: `❌ **No se ha encontrado el canal de sugerencias en la base de datos**`,
@@ -50,7 +51,7 @@ module.exports = {
                 }
 
                 const sugerencia = modalInteraction.fields.getTextInputValue('suggestInput')
-                const channel = client.channels.cache.get(CHANNEL_DATA.ID) //ID del canal de sugerencias
+                const channel = client.channels.cache.get(CHANNEL_DATA.channel_id) //ID del canal de sugerencias
                 const AUTHOR = interaction.member?.nickname ?? interaction.user.username // Si no tiene apodo, se usa el nombre de usuario
 
                 const mensaje = await channel.send({
@@ -58,7 +59,7 @@ module.exports = {
                         new EmbedBuilder()
                             .setTitle(`Sugerencia de \`${AUTHOR}\``)
                             .setDescription(`\`${sugerencia}\``)
-                            .setColor(Number(process.env.COLOR))
+                            .setColor(COLOR)
                             .setTimestamp()
                             .setThumbnail(`https://i.imgur.com/t6AR3RO.gif`)
                     ], fetchReply: true
@@ -71,7 +72,7 @@ module.exports = {
                         new EmbedBuilder()
                             .setTitle(`Sugerencia realizada`)
                             .setDescription(`Sugerencia \`${sugerencia}\` enviada a ${channel}`)
-                            .setColor(Number(process.env.COLOR))
+                            .setColor(COLOR)
                             .setTimestamp()
                             .setThumbnail(`https://i.imgur.com/X3E6BAy.gif`)
                     ], ephemeral: true
@@ -82,7 +83,7 @@ module.exports = {
                     embeds: [
                         new EmbedBuilder()
                             .setTitle('No se ha recibido respuesta')
-                            .setColor(Number(process.env.COLOR_ERROR))
+                            .setColor(COLOR_ERROR)
                             .setDescription('No se ha recibido respuesta\nInténtalo de nuevo.')
                             .setThumbnail('https://i.imgur.com/rIPXKFQ.png')
                             .setTimestamp()

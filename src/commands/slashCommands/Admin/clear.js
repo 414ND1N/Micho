@@ -1,4 +1,5 @@
 const { SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits } = require('discord.js')
+const { COLOR, COLOR_ERROR } = require('@/config')
 
 const BULK_DELETE_LIMIT = 100
 const MAX_AMOUNT_MS = 14 * 24 * 60 * 60 * 1000 // 14 días en milisegundos
@@ -74,7 +75,7 @@ module.exports = {
             return interaction.reply({
                 embeds: [
                     new EmbedBuilder()
-                        .setColor(Number(process.env.COLOR_ERROR))
+                        .setColor(Number(COLOR_ERROR))
                         .setDescription("No hay mensajes para eliminar")
                         .setThumbnail('https://i.imgur.com/rIPXKFQ.png')
                 ]
@@ -94,7 +95,7 @@ module.exports = {
             return interaction.reply({
                 embeds: [
                     new EmbedBuilder()
-                        .setColor(Number(process.env.COLOR_ERROR))
+                        .setColor(Number(COLOR_ERROR))
                         .setDescription("No se encontraron mensajes que coincidan con los criterios de eliminación")
                         .setThumbnail('https://i.imgur.com/rIPXKFQ.png')
                 ]
@@ -116,7 +117,7 @@ module.exports = {
         let ClearCommandembed = new EmbedBuilder()
             .setTitle('🧹 __Limpieza__ 🧹')
             .setColor(
-                deletedCount > 0 ? Number(process.env.COLOR) : Number(process.env.COLOR_ERROR)
+                deletedCount > 0 ? COLOR : COLOR_ERROR
             )
             .setDescription(
                 `Se han eliminado \`${deletedCount}\` mensaje${deletedCount !== 1 ? 's' : ''} de ${user ? ('\`' + user.username + '\`') : botsOnly ? 'los bots' : 'los usuarios'}`

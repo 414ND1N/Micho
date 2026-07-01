@@ -1,5 +1,6 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js')
 const axios = require('axios')
+const { COLOR, COLOR_ERROR } = require('@/config')
 
 module.exports = {
     CMD: new SlashCommandBuilder()
@@ -34,7 +35,7 @@ module.exports = {
             return interaction.editReply({
                 embeds: [
                     new EmbedBuilder()
-                        .setColor(Number(process.env.COLOR_ERROR))
+                        .setColor(COLOR_ERROR)
                         .setDescription(`No se encontró resultados para **${term}**.`)
                         .setThumbnail("https://i.imgur.com/WHCwA6t.gifv")
                 ],
@@ -46,7 +47,7 @@ module.exports = {
 
         interaction.editReply({ embeds: [
             new EmbedBuilder()
-                .setColor(Number(process.env.COLOR))
+                .setColor(COLOR)
                 .setTitle(answer.word)
                 .setURL(answer.permalink)
                 .addFields(

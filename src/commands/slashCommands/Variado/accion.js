@@ -1,5 +1,7 @@
 const {SlashCommandBuilder, EmbedBuilder} = require('discord.js')
 const axios = require('axios')
+const { COLOR, COLOR_ERROR } = require('@/config')
+
 module.exports = {
     CMD: new SlashCommandBuilder()
         .setName("accion")
@@ -485,7 +487,7 @@ module.exports = {
             return interaction.editReply({
                 embeds: [
                     new EmbedBuilder()
-                        .setColor(Number(process.env.COLOR_ERROR))
+                        .setColor(COLOR_ERROR)
                         .setDescription(`No se encontró la acción seleccionada 🤨`)
                 ]
             })
@@ -504,7 +506,7 @@ module.exports = {
             embeds: [
                 new EmbedBuilder()
                     .setTitle(`\`${AUTHOR} ${accion_eligida.mensaje} ${USERNAME}.\``) // Si no se especifica usuario, se indica a todos
-                    .setColor(Number(process.env.COLOR))
+                    .setColor(COLOR)
                     .setImage(gif_url)
             ]
         })

@@ -1,4 +1,5 @@
 const { SlashCommandBuilder,EmbedBuilder, ButtonBuilder, ActionRowBuilder, ButtonStyle} = require('discord.js')
+const { COLOR } = require('@/config')
 
 module.exports = {
     CMD: new SlashCommandBuilder()
@@ -25,7 +26,7 @@ module.exports = {
             embeds: [
                 new EmbedBuilder()
                     .setTitle('Código fuente')
-                    .setColor(Number(process.env.COLOR))
+                    .setColor(COLOR)
                     .setDescription(`Puedes encontrar mi código fuente en mi repositorio de GitHub. Haz clic en el botón para acceder al repositorio.`)  
             ],
             components: [row]

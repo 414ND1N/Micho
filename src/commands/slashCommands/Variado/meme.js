@@ -1,4 +1,6 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js')
+const { COLOR, COLOR_ERROR } = require('@/config')
+
 module.exports = {
     CMD: new SlashCommandBuilder()
         .setName("meme")
@@ -130,7 +132,7 @@ module.exports = {
                     embeds: [
                         new EmbedBuilder()
                             .setTitle(`\`${AUTHOR}\` envió un meme`)
-                            .setColor(Number(process.env.COLOR))
+                            .setColor(COLOR)
                             .setImage(`https://api.memegen.link/images/${ID_PLANTILLA}/${textoProcesado}.png`)
                             .setFooter({text: 'Creado con memegen.link'})
                     ]
@@ -143,7 +145,7 @@ module.exports = {
                     embeds: [
                         new EmbedBuilder()
                             .setTitle(`\`${AUTHOR}\` envió un meme`)
-                            .setColor(Number(process.env.COLOR))
+                            .setColor(COLOR)
                             .setImage(`https://api.memegen.link/images/custom/${textoProcesado}.png?background=${IMG}`)
                             .setFooter({text: 'Creado con memegen.link'})
                     ]
@@ -152,7 +154,7 @@ module.exports = {
                 return interaction.editReply({
                     embeds: [
                         new EmbedBuilder()
-                            .setColor(Number(process.env.COLOR_ERROR))
+                            .setColor(COLOR_ERROR)
                             .setTitle({text: `Subcomando no encontrado`})
                     ]
                 })

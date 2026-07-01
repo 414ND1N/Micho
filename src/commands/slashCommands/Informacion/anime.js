@@ -2,6 +2,7 @@ const { SlashCommandBuilder, EmbedBuilder} = require('discord.js')
 const { ModalBuilder, TextInputBuilder, TextInputStyle , LabelBuilder } = require('discord.js')
 const { ErrorEmbed } = require('@/utils/PredefinedComponents')
 const axios = require('axios')
+const { COLOR, COLOR_ERROR } = require('@/config')
 
 module.exports = {
     CMD: new SlashCommandBuilder()
@@ -51,7 +52,7 @@ module.exports = {
                     return modalInteraction.reply({
                         embeds: [
                             new EmbedBuilder()
-                                .setColor(Number(process.env.COLOR_ERROR))
+                                .setColor(COLOR_ERROR)
                                 .setDescription(`No se encontró ningún anime con el nombre\n \`${nombreAnime}\``)
                                 .setThumbnail('https://i.imgur.com/rIPXKFQ.png')
                         ]
@@ -92,7 +93,7 @@ module.exports = {
                             )
                             .setURL(url_anime)
                             .setFooter({ text: `Puntuación ${score}/10 por ${scored_by} usuarios` })
-                            .setColor(Number(process.env.COLOR))
+                            .setColor(COLOR)
                     ]
                 })
             })

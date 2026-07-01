@@ -1,4 +1,5 @@
 const {SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits} = require('discord.js')
+const { COLOR } = require('@/config')
 
 module.exports = {
     CMD: new SlashCommandBuilder()
@@ -57,7 +58,7 @@ module.exports = {
                 embeds: [
                     new EmbedBuilder()
                     .addFields({name: `✅ ${opcion} recargados`, value:`> *Okay!*`})
-                    .setColor(Number(process.env.COLOR))
+                    .setColor(COLOR)
                 ],
                 ephemeral: true
             })

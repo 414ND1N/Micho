@@ -1,5 +1,5 @@
 const { Events } = require('discord.js');
-const handleOpenaiChat  = require('../../functions/ChatAI/handle_openai_chat')
+const handleOpenaiChat  = require('@/functions/chat_ai/handle_openai_chat')
 
 module.exports = {
     name: Events.MessageCreate,

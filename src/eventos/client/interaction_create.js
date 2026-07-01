@@ -1,12 +1,11 @@
 const { Collection } = require('discord.js')
 const { Events } = require('discord.js')
-const Roles = require('../../schemas/Roles')
-
+const Roles = require('@/schemas/roles')
 // Buttons functions
 
 async function verify_role(interaction) {
     // Buscar el rol en la bd con el guildID y el nombre
-    const ROL_DATA = await Roles.findOne({ GuildID: interaction.guild.id, Name: "Verificado" })
+    const ROL_DATA = await Roles.findOne({ guild_id: interaction.guild.id, key: 'verify' })
     if (!ROL_DATA) {
         return interaction.reply({
             content: `❌ **No se ha encontrado el rol de Verficado en la base de datos**`,
@@ -15,7 +14,7 @@ async function verify_role(interaction) {
     }
 
     // Buscar el rol en el servidor
-    const ROL_VERIFICADO = interaction.guild.roles.cache.get(ROL_DATA.RolID)
+    const ROL_VERIFICADO = interaction.guild.roles.cache.get(ROL_DATA.rol_id)
 
     if (!ROL_VERIFICADO) {
         return interaction.reply({

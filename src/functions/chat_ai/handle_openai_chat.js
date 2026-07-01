@@ -1,4 +1,4 @@
-const Channels = require('../../schemas/Channels')
+const Channels = require('@/schemas/channels')
 const OpenAI = require('openai');
 
 module.exports = async (message) => {

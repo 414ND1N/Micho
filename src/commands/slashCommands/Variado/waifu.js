@@ -1,5 +1,6 @@
 const {SlashCommandBuilder, EmbedBuilder, ChatInputCommandInteraction} = require('discord.js')
 const axios = require('axios')
+const { COLOR } = require('@/config')
 
 module.exports = {
     CMD: new SlashCommandBuilder()
@@ -86,7 +87,7 @@ module.exports = {
                     new EmbedBuilder()
                         .setTitle(`Comando no disponible 🤐`)
                         .setDescription(`Este comando solo está disponible en canales NSFW`)
-                        .setColor(Number(process.env.COLOR))
+                        .setColor(COLOR)
                         .setTimestamp()
                         .setThumbnail(`https://i.imgur.com/gqL0iZa.gif`)
                 ], 
@@ -106,7 +107,7 @@ module.exports = {
             embeds: [
                 new EmbedBuilder()
                     .setTitle(`${AUTHOR} invocó a una mona china 🐵 🇯🇵 `)
-                    .setColor(Number(process.env.COLOR))
+                    .setColor(COLOR)
                     .setImage(img_url)
             ]
         })

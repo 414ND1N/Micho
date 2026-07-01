@@ -1,13 +1,14 @@
 const { SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits } = require('discord.js')
+const { COLOR, COLOR_ERROR, BOT_NAME } = require('@/config')
 
 module.exports = {
     cooldown: 20,
     CMD: new SlashCommandBuilder()
         .setName("avatar")
         .setNameLocalizations({ "en-US": "avatar" })
-        .setDescription(`Actualizar el avatar de ${process.env.BOT_NAME}`)
+        .setDescription(`Actualizar el avatar de ${BOT_NAME}`)
         .setDescriptionLocalizations({
-            "en-US": `Update ${process.env.BOT_NAME}'s avatar`
+            "en-US": `Update ${BOT_NAME}'s avatar`
         })
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
         .addSubcommandGroup(subcommandGroup =>
@@ -97,7 +98,7 @@ module.exports = {
                             embeds: [
                                 new EmbedBuilder()
                                     .setTitle(`Error al intentar cambiar el avatar`)
-                                    .setColor(Number(process.env.COLOR_ERROR))
+                                    .setColor(Number(COLOR_ERROR))
                                     .setDescription('El archivo debe ser una imagen')
                             ],
                             ephemeral: true
@@ -116,7 +117,7 @@ module.exports = {
                             embeds: [
                                 new EmbedBuilder()
                                     .setTitle(`Error al intentar cambiar el avatar`)
-                                    .setColor(Number(process.env.COLOR_ERROR))
+                                    .setColor(Number(COLOR_ERROR))
                             ],
                             ephemeral: true
                         })
@@ -125,8 +126,8 @@ module.exports = {
                     return await interaction.editReply({
                         embeds: [
                             new EmbedBuilder()
-                                .setTitle(`Cambio de avatar de \`${process.env.BOT_NAME}\``)
-                                .setColor(Number(process.env.COLOR))
+                                .setTitle(`Cambio de avatar de \`${BOT_NAME}\``)
+                                .setColor(Number(COLOR))
                                 .setImage(URL)
                         ],
                         ephemeral: true
@@ -144,7 +145,7 @@ module.exports = {
                             embeds: [
                                 new EmbedBuilder()
                                     .setTitle(`Error al intentar cambiar el banner`)
-                                    .setColor(Number(process.env.COLOR_ERROR))
+                                    .setColor(Number(COLOR_ERROR))
                             ],
                             ephemeral: true
                         })
@@ -159,7 +160,7 @@ module.exports = {
                     //         embeds: [
                     //             new EmbedBuilder()
                     //                 .setTitle(`Error al intentar cambiar el banner`)
-                    //                 .setColor(process.env.COLOR_ERROR)
+                    //                 .setColor(COLOR_ERROR)
                     //         ],
                     //         ephemeral: true
                     //     })
@@ -169,8 +170,8 @@ module.exports = {
                     return interaction.editReply({
                         embeds: [
                             new EmbedBuilder()
-                                .setTitle(`Cambio de banner de \`${process.env.BOT_NAME}\``)
-                                .setColor(Number(process.env.COLOR))
+                                .setTitle(`Cambio de banner de \`${BOT_NAME}\``)
+                                .setColor(Number(COLOR))
                                 .setImage(URL)
                         ],
                         ephemeral: true
@@ -180,7 +181,7 @@ module.exports = {
         } catch (error) {
             console.error(error)
             return interaction.reply({
-                content: `Ocurrió un error al intentar cambiar el avatar de ${process.env.BOT_NAME}`,
+                content: `Ocurrió un error al intentar cambiar el avatar de ${BOT_NAME}`,
                 ephemeral: true
             })
         }

@@ -1,13 +1,14 @@
 const { SlashCommandBuilder, PermissionFlagsBits, EmbedBuilder } = require('discord.js')
 const { ChatInputCommandInteraction } = require('discord.js');
+const { COLOR, BOT_NAME } = require('@/config')
 
 module.exports = {
     CMD: new SlashCommandBuilder()
         .setName("mensaje")
         .setNameLocalizations({ "en-US": "message" })
-        .setDescription(`${process.env.BOT_NAME} dirá el texto que le digas`)
+        .setDescription(`${BOT_NAME} dirá el texto que le digas`)
         .setDescriptionLocalizations({
-            "en-US": `${process.env.BOT_NAME} will say the text you tell him`
+            "en-US": `${BOT_NAME} will say the text you tell him`
         })
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
         .addSubcommand(subcommand =>
@@ -80,7 +81,7 @@ module.exports = {
                             .setTitle(`Mensaje directo a ${user.username}`)
                             .setDescription(`Se ha enviado el mensaje:\n> ${text}`)
                             .setThumbnail(user.displayAvatarURL({ dynamic: true }))
-                            .setColor(Number(process.env.COLOR))
+                            .setColor(COLOR)
                             .setTimestamp()
                     ],
                     ephemeral: true

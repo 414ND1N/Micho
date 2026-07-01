@@ -1,5 +1,5 @@
 const { Events } = require('discord.js')
-const mongoose = require('mongoose')
+const Database = require('@/database/db')
 
 module.exports = {
     name: Events.ClientReady,
@@ -12,17 +12,12 @@ module.exports = {
             console.log(`${client.commands.size} Comandos publicados 😎`.white)
         }
 
-        if (process.env.MONGODB_URI){
-            await mongoose.connect(process.env.MONGODB_URI, {
-                keepAlive: true,
-                useNewUrlParser: true,
-                useUnifiedTopology: true
-            }).then(() => {
-                console.log('Conectado a la base de datos 🗄️'.brightGreen)
-            }).catch((err) => {
-                console.log('Error al conectar a la base de datos ❌'.brightRed)
-                console.log(err)
-            })
+        try {
+            Database.initialize()
+            console.log('Conectado a la base de datos 🗄️'.brightGreen)
+        } catch (err) {
+            console.log('Error al conectar a la base de datos ❌'.brightRed)
+            console.log(err)
         }
 
     }

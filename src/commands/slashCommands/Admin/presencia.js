@@ -1,20 +1,21 @@
 const {SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits, ActivityType} = require('discord.js')
+const { COLOR, BOT_NAME } = require('@/config')
 
 module.exports = {
     CMD: new SlashCommandBuilder()
         .setName("presencia")
         .setNameLocalizations({ "en-US": "presence" })
-        .setDescription(`Actualizar la presencia de ${process.env.BOT_NAME}`)
+        .setDescription(`Actualizar la presencia de ${BOT_NAME}`)
         .setDescriptionLocalizations({
-            "en-US": `Update ${process.env.BOT_NAME}'s presence`
+            "en-US": `Update ${BOT_NAME}'s presence`
         })
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
         .addSubcommand(subcommand => 
             subcommand.setName('actividad')
                 .setNameLocalizations({ "en-US": "activity" })
-                .setDescription(`Actualiza la actividad de ${process.env.BOT_NAME}`)
+                .setDescription(`Actualiza la actividad de ${BOT_NAME}`)
                 .setDescriptionLocalizations({
-                    "en-US": `Update ${process.env.BOT_NAME}'s activity`
+                    "en-US": `Update ${BOT_NAME}'s activity`
                 })
                 .addStringOption(option =>
                     option.setName('tipo')
@@ -45,9 +46,9 @@ module.exports = {
         .addSubcommand(subcommand => 
             subcommand.setName('estado')
                 .setNameLocalizations({ "en-US": "status" })
-                .setDescription(`Actualiza el estado de ${process.env.BOT_NAME}`)
+                .setDescription(`Actualiza el estado de ${BOT_NAME}`)
                 .setDescriptionLocalizations({
-                    "en-US": `Update ${process.env.BOT_NAME}'s status`
+                    "en-US": `Update ${BOT_NAME}'s status`
                 })
                 .addStringOption(option =>
                     option.setName('tipo')
@@ -103,8 +104,8 @@ module.exports = {
         return interaction.reply({
             embeds: [
                 new EmbedBuilder()
-                    .setTitle(`Cambio de presencia de ${process.env.BOT_NAME}`)
-                    .setColor(Number(process.env.COLOR))
+                    .setTitle(`Cambio de presencia de ${BOT_NAME}`)
+                    .setColor(COLOR)
                     .setDescription(`Se cambió ${sub} a \`${texto_estado}\`.`)
                     .setThumbnail("https://i.imgur.com/lIs9ZAg.gif")
             ],

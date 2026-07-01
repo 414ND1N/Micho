@@ -1,5 +1,6 @@
-const {SlashCommandBuilder, EmbedBuilder} = require('discord.js');
-const axios = require('axios');
+const {SlashCommandBuilder, EmbedBuilder} = require('discord.js')
+const axios = require('axios')
+
 module.exports = {
     CMD: new SlashCommandBuilder()
         .setName("dogo")

@@ -1,5 +1,6 @@
 const { Client, Collection, GatewayIntentBits, Partials, ActivityType, PresenceUpdateStatus } = require('discord.js');
-const BotUtils = require('./Utils');
+const BotUtils = require('@/structures/utils')
+const { STATUS, STATUS_TYPE } = require('@/config')
 
 // Instancia del cliente
 module.exports = class extends Client {
@@ -30,8 +31,8 @@ module.exports = class extends Client {
         },
         presence: {
             activities: [{
-                name: process.env.STATUS,
-                type: ActivityType[process.env.STATUS_TYPE
+                name: STATUS,
+                type: ActivityType[STATUS_TYPE
                 ]
             }],
             status: PresenceUpdateStatus.Online

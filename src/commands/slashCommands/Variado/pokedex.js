@@ -1,6 +1,7 @@
 const {SlashCommandBuilder, EmbedBuilder} = require('discord.js')
 // const { ActionRowBuilder, ButtonBuilder, ButtonStyle} = require('discord.js');
-const buttonPagination = require('../../../utils/buttonPagination')
+const buttonPagination = require('@/utils/button_pagination')
+const { COLOR_ERROR } = require('@/config')
 const axios = require('axios')
 
 module.exports = {
@@ -38,7 +39,7 @@ module.exports = {
                 return interaction.channel.send({
                     embeds: [
                             new EmbedBuilder()
-                                .setColor(Number(process.env.COLOR_ERROR))
+                                .setColor(COLOR_ERROR)
                             .setDescription(`No se encontró ningún pokemón con el id \`${busqueda}\``)
                     ],
                     ephemeral: true
@@ -98,7 +99,7 @@ module.exports = {
             return interaction.editReply({
                 embeds: [
                         new EmbedBuilder()
-                            .setColor(Number(process.env.COLOR_ERROR))
+                            .setColor(COLOR_ERROR)
                         .setDescription(`Ocurrió un error al mostrar la pokedéx`)
                 ]
                 , ephemeral: true

@@ -1,6 +1,7 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js')
-const buttonPagination = require('../../../utils/buttonPagination')
+const buttonPagination = require('@/utils/button_pagination')
 const axios = require('axios')
+const { COLOR_ERROR } = require('@/config')
 
 module.exports = {
     cooldown: 10,
@@ -53,7 +54,7 @@ module.exports = {
                 return interaction.reply({
                     embeds: [
                         new EmbedBuilder()
-                            .setColor(Number(process.env.COLOR_ERROR))
+                            .setColor(COLOR_ERROR)
                             .setDescription(`No se encontró ningún amiibo de \`${character}\``)
                     ],
                     ephemeral: true
@@ -89,7 +90,7 @@ module.exports = {
             return interaction.editReply({
                 embeds: [
                     new EmbedBuilder()
-                        .setColor(Number(process.env.COLOR_ERROR))
+                        .setColor(COLOR_ERROR)
                         .setDescription(`Ocurrió un error al mostrar la información de amiibos`)
                 ]
                 , ephemeral: true

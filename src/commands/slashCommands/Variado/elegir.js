@@ -1,4 +1,6 @@
 const {SlashCommandBuilder, EmbedBuilder} = require('discord.js')
+const { COLOR } = require('@/config')
+
 module.exports = {
     CMD: new SlashCommandBuilder()
         .setName("elegir")
@@ -71,7 +73,7 @@ module.exports = {
                 return interaction.reply({
                     embeds: [
                         new EmbedBuilder()
-                            .setColor(Number(process.env.COLOR))
+                            .setColor(COLOR)
                             .setDescription(`Elegí \`${opciones[rIndex]}\` 🧐`)
                     ]
                 })
@@ -87,7 +89,7 @@ module.exports = {
                 return interaction.reply({
                     embeds: [
                         new EmbedBuilder()
-                            .setColor(Number(process.env.COLOR))
+                            .setColor(COLOR)
                             .setDescription(`Elegí \`${rIndex}\` 🧐`)
                     ]
                 })

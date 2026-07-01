@@ -1,5 +1,7 @@
-const {SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits, ChannelType} = require('discord.js');
-const { ActionRowBuilder, ButtonBuilder, ButtonStyle} = require('discord.js');
+const {SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits, ChannelType} = require('discord.js')
+const { ActionRowBuilder, ButtonBuilder, ButtonStyle} = require('discord.js')
+const { COLOR } = require('@/config')
+
 module.exports = {
     CMD: new SlashCommandBuilder()
         .setName("verificar")
@@ -24,7 +26,7 @@ module.exports = {
         const channel = interaction.options.getChannel("canal");
 
         embed_verify = new EmbedBuilder()
-            // .setColor(process.env.COLOR)
+            .setColor(COLOR)
             .setTitle(`Bienvenido a ${interaction.guild?.name}`)
             .setDescription("Reacciona a este mensaje para obtener el rol de \`Pana\` y poder ver el resto del servidor")
 
