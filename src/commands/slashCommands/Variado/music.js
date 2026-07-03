@@ -211,8 +211,7 @@ module.exports = {
                     break
                 case 'busquedarapida': //Subcommand
                     const songQuickplay = interaction.options.getString('consulta')
-                    const sourceQuickplay = interaction.options.getString('origen') || 'auto'
-                    quickPlayFunction(interaction, player, queue, userVoiceChannel, channel, songQuickplay, sourceQuickplay)
+                    quickPlayFunction(interaction, player, queue, userVoiceChannel, channel, songQuickplay)
                     break
                 case 'detener': //Subcommand
                     stopFunction(interaction, queue, userVoiceChannel)

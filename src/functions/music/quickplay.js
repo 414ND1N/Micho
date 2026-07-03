@@ -4,14 +4,7 @@ const { EmbedBuilder } = require('discord.js')
 const { COLOR, COLOR_ERROR } = require('@/config')
 const { QueryType } = require('discord-player')
 
-module.exports = async (interaction, player, queue, voiceChannel, textChannel, song, source) => {
-
-    let selectedSearchEngine = QueryType.AUTO_SEARCH
-    if (source === 'deezer') {
-        selectedSearchEngine = QueryType.DEEZER_SONG;
-    } else if (source === 'soundcloud') {
-        selectedSearchEngine = QueryType.SOUNDCLOUD_TRACK
-    }
+module.exports = async (interaction, player, queue, voiceChannel, textChannel, song) => {
 
     if (queue && queue.isPlaying()) {
         let interaccionuser = interaction.member.voice.channel.id;
@@ -47,8 +40,7 @@ module.exports = async (interaction, player, queue, voiceChannel, textChannel, s
     let research
     try {
         research = await player.search(song, {
-            requestedBy: interaction.member,
-            searchEngine: selectedSearchEngine,
+            requestedBy: interaction.member
         })
 
         if (!research.hasTracks()) {
@@ -66,7 +58,6 @@ module.exports = async (interaction, player, queue, voiceChannel, textChannel, s
     }
 
     if (research && research.tracks) {
-        
         // Filter out tracks that exceed the duration limit
         const filteredTracks = research.tracks.filter(track => {
             const durationInSeconds = convertDurationToSeconds(track.duration)
