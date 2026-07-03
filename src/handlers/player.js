@@ -2,6 +2,7 @@ const { Player, useMainPlayer } = require('discord-player');
 const { DefaultExtractors } = require('@discord-player/extractor');
 const { EmbedBuilder } = require('discord.js')
 // const { SoundcloudExtractor } = require("discord-player-soundcloud")
+const { YouTubeDlpExtractor } = require("discord-player-youtubedlp")
 const { DeezerExtractor } = require("discord-player-deezer")
 
 const { COLOR } = require('@/config')
@@ -9,14 +10,16 @@ const { COLOR } = require('@/config')
 module.exports = async (client, _) => {
 
     client.player = new Player(
-        client,
-        {
-            skipFFmpeg: false,
-        }
+        client
     )
     const player = useMainPlayer();
 
     async function setupExtractors() {
+        await player.extractors.register(YouTubeDlpExtractor, {
+            agent: {
+                cookiesFile: process.env.YOUTUBE_COOKIES_FILE,
+            }
+        })
         await player.extractors.loadMulti(DefaultExtractors)
         await player.extractors.register(DeezerExtractor, {
             decryptionKey: process.env.DEEZER_DECRYPTION_KEY,
@@ -110,9 +113,9 @@ module.exports = async (client, _) => {
         console.error(`[Player Error] Error encontrado: ${error.message}`);
     });
 
-    client.player.events.on('debug', (queue, message) => {
-        console.error(`[Player Debug]: ${message}`)
-    });
+    // client.player.events.on('debug', (queue, message) => {
+    //     console.error(`[Player Debug]: ${message}`)
+    // });
 
     console.log(`🎵 Módulo de música cargado`.red)
 }

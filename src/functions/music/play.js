@@ -11,6 +11,8 @@ module.exports = async (interaction, player, queue, voiceChannel, textChannel, s
         selectedSearchEngine = QueryType.DEEZER_SONG
     } else if (source === 'soundcloud') {
         selectedSearchEngine = QueryType.SOUNDCLOUD_TRACK
+    } else if (source === 'youtube') {
+        selectedSearchEngine = QueryType.YOUTUBE_SEARCH
     }
 
     if (queue && queue.isPlaying()) {

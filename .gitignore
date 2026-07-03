@@ -1,6 +1,9 @@
 wip_files/
 data/*.*
 
+# Youtube cookies file
+cookies.txt
+
 # Logs
 logs
 *.log

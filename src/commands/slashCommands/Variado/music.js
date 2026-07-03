@@ -39,18 +39,19 @@ module.exports = {
                         })
                         .setRequired(true)
                 )
-                .addStringOption(option =>
-                    option.setName('origen')
-                        .setNameLocalizations({ "en-US": 'source' })
-                        .setDescription('Origen de la canción')
-                        .setDescriptionLocalizations({
-                            "en-US": 'Song source'
-                        })
-                        .addChoices(
-                            { name: 'Deezer', value: 'deezer' },
-                            { name: 'SoundCloud', value: 'soundcloud' }
-                        )
-                )
+                // .addStringOption(option =>
+                //     option.setName('origen')
+                //         .setNameLocalizations({ "en-US": 'source' })
+                //         .setDescription('Origen de la canción')
+                //         .setDescriptionLocalizations({
+                //             "en-US": 'Song source'
+                //         })
+                //         .addChoices(
+                //             { name: 'Deezer', value: 'deezer' },
+                //             { name: 'SoundCloud', value: 'soundcloud' },
+                //             { name: 'YouTube', value: 'youtube' }
+                //         )
+                // )
         )
         .addSubcommand(subcommand =>
             subcommand.setName('busquedarapida')
@@ -67,18 +68,6 @@ module.exports = {
                             "en-US": 'Song to play (url or name)'
                         })
                         .setRequired(true)
-                )
-                .addStringOption(option =>
-                    option.setName('origen')
-                        .setNameLocalizations({ "en-US": 'source' })
-                        .setDescription('Origen de la canción')
-                        .setDescriptionLocalizations({
-                            "en-US": 'Song source'
-                        })
-                        .addChoices(
-                            { name: 'Deezer', value: 'deezer' },
-                            { name: 'SoundCloud', value: 'soundcloud' }
-                        )
                 )
         )
         .addSubcommand(subcommand =>
