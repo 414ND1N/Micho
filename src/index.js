@@ -1,7 +1,7 @@
-require('module-alias/register');
-require('dotenv').config();
-require('colors');
+require('module-alias/register')
+require('dotenv').config()
+require('colors')
 
-const Bot = require('./structures/client.js');
+const Bot = require('@/structures/client.js')
 
-new Bot();
+new Bot()

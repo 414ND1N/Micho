@@ -1,4 +1,4 @@
-# MICHO | Discord bot
+# MICHO | A simple Discord bot
 
 <div align="center">
 
