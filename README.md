@@ -20,8 +20,10 @@
 > 👤 _Basado [**`handler de Dew`**](https://github.com/dewstouh/handler-v14)_
 
 ### 📝 Requisitos
+
 - [Node.js](https://nodejs.org/es/) v22.2.0 
 - [Discord.js](https://discord.js.org/#/) v14.15.2 ó superior
+- [Ffmpeg](https://ffmpeg.org/download.html) v6.0 ó superior
 
 ### 🔧 Funciones
 
