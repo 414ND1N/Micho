@@ -1,4 +1,4 @@
-const { Player, useMainPlayer, useQueue, useHistory } = require('discord-player');
+const { Player, useMainPlayer } = require('discord-player');
 const { DefaultExtractors } = require('@discord-player/extractor');
 const { EmbedBuilder } = require('discord.js')
 // const { SoundcloudExtractor } = require("discord-player-soundcloud")
@@ -8,7 +8,12 @@ const { COLOR } = require('@/config')
 
 module.exports = async (client, _) => {
 
-    client.player = new Player(client)
+    client.player = new Player(
+        client,
+        {
+            skipFFmpeg: false,
+        }
+    )
     const player = useMainPlayer();
 
     async function setupExtractors() {
@@ -105,9 +110,9 @@ module.exports = async (client, _) => {
         console.error(`[Player Error] Error encontrado: ${error.message}`);
     });
 
-    // client.player.events.on('debug', (queue, message) => {
-    //     console.error(`[Player Debug]: ${message}`)
-    // });
+    client.player.events.on('debug', (queue, message) => {
+        console.error(`[Player Debug]: ${message}`)
+    });
 
     console.log(`🎵 Módulo de música cargado`.red)
 }

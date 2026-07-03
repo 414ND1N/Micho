@@ -209,10 +209,9 @@ module.exports = async (interaction, player, queue, voiceChannel, textChannel, s
                             leaveOnStopCooldown: 60 * 1000, // 60 segundos
                             leaveOnEnd: false,
                             leaveOnEmpty: false,
-                            disableFilterer: false,
                             leaveOnEmptyCooldown: IDLE_TIMEOUT_MS,
                             disableVolume: false, // Permitir el control de volumen
-                            smoothVolume: true // Habilitar el control de volumen suave
+                            smoothVolume: true, // Habilitar el control de volumen suave
                         },
                     })
                 } catch (error) {
