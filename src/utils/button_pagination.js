@@ -4,8 +4,6 @@ module.exports = async (interaction, pages, pagination_time= 30_000, delete_mess
     try {
         if(!interaction || !pages || !pages>0) throw new Error('Faltan argumentos o no son válidos')
 
-        await interaction.deferReply()
-
         if (pages.length === 1) {
             return await interaction.editReply({
                 embeds: [pages[0]],

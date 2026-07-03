@@ -11,7 +11,7 @@ module.exports = class extends Client {
             GatewayIntentBits.GuildMessages,
             GatewayIntentBits.MessageContent,
             GatewayIntentBits.GuildVoiceStates,
-            GatewayIntentBits.GuildEmojisAndStickers,
+            // GatewayIntentBits.GuildEmojisAndStickers,
             GatewayIntentBits.GuildMessageTyping,
             GatewayIntentBits.GuildMessageReactions,
             GatewayIntentBits.DirectMessagePolls,
@@ -32,8 +32,7 @@ module.exports = class extends Client {
         presence: {
             activities: [{
                 name: STATUS,
-                type: ActivityType[STATUS_TYPE
-                ]
+                type: ActivityType[STATUS_TYPE]
             }],
             status: PresenceUpdateStatus.Online
         },

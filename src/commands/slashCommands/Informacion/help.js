@@ -60,6 +60,7 @@ module.exports = {
                 helpEmbeds.push(categoryEmbed)
             }
 
+            await interaction.deferReply()
             await buttonPagination(interaction, helpEmbeds,60_000)
 
         } catch (error) {

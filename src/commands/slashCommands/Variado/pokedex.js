@@ -27,7 +27,6 @@ module.exports = {
         try{
             //USO DE LA API pokeapi.co
             // const { client } = interaction
-
             const busqueda = interaction.options.getNumber("id")
             const url_api = `https://pokeapi.co/api/v2/pokemon/${busqueda}`
             let response = null
@@ -92,6 +91,7 @@ module.exports = {
                 ) //Agregamos el embed a la lista de embeds
             }
 
+            await interaction.deferReply()
             await buttonPagination(interaction, embeds, 90_000, false)
         } catch (error) {
             console.log("Error en pokedex :C")

@@ -83,7 +83,8 @@ module.exports = {
                         .setColor("Random")
                 )
             })
-
+            
+            await interaction.deferReply()
             await buttonPagination(interaction, embeds, 80_000, false)
         } catch (error) {
             console.error(error)

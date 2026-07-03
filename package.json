@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "./src/index.js",
+  "type": "commonjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./src/index.js",
@@ -14,23 +15,26 @@
     "@": "src"
   },
   "dependencies": {
-    "@discordjs/opus": "^0.10.0",
+    "@discord-player/extractor": "^7.2.0",
     "@discordjs/voice": "^0.18.0",
-    "@distube/youtube": "^1.0.4",
     "@iamtraction/google-translate": "^2.0.1",
+    "@snazzah/davey": "^0.1.12",
     "axios": "^1.6.2",
     "better-sqlite3": "^12.11.1",
     "color": "^4.2.3",
     "colors": "^1.4.0",
-    "discord.js": "^14.25.1",
-    "distube": "^5.1.2",
+    "discord-api-types": "^0.38.40",
+    "discord-player": "^7.2.0",
+    "discord-player-deezer": "^2.6.0",
+    "discord.js": "^14.26.4",
     "dotenv": "^16.0.3",
     "emoji-aware": "^3.1.0",
     "glob": "^8.0.3",
+    "mediaplex": "^1.0.0",
     "module-alias": "^2.2.2",
     "moment": "^2.29.4",
     "ms": "^2.1.3",
     "npm": "^10.8.2",
-    "openai": "^4.80.0"
+    "play-dl": "^1.9.7"
   }
 }

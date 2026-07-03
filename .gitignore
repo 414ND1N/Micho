@@ -1,3 +1,6 @@
+wip_files/
+data/*.*
+
 # Logs
 logs
 *.log
