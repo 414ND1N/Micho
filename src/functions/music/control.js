@@ -1,6 +1,8 @@
 const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType } = require('discord.js')
 const { COLOR, COLOR_ERROR } = require('@/config')
 // const { useHistory } = require('discord-player')
+const { ErrorEmbed } = require('@/utils/predifined_components')
+const { PEEPO_JUMPING } = require('@/images')
 
 module.exports = async (interaction, queue, voiceChannel) => {
     try {
@@ -67,7 +69,7 @@ module.exports = async (interaction, queue, voiceChannel) => {
                 new EmbedBuilder()
                     .setTitle(`Controla la canción en reproducción`)
                     .setColor(COLOR)
-                    .setThumbnail('https://i.imgur.com/bDO4VTw.gif')
+                    .setThumbnail(queue.currentTrack?.thumbnail ?? PEEPO_JUMPING)
                     .addFields(
                         { name: `⏮ Anterior canción`, value: `Reanuda la reproducción de la música actual` },
                         { name: `⏯ Resumir - Pausar reproducción`, value: `Reanuda la reproducción de la música actual` },
@@ -171,11 +173,7 @@ module.exports = async (interaction, queue, voiceChannel) => {
     } catch (error) {
         console.log(`Error al mostrar el menú de control: ${error}`)
         return interaction.editReply({
-            embeds: [
-                new EmbedBuilder()
-                    .setColor(COLOR_ERROR)
-                    .setDescription(`Ocurrió un error al mostrar el menú de control`)
-            ],
+            embeds: [ ErrorEmbed('Ocurrió un error al mostrar el menú de control de la música')],
             components: [],
             ephemeral: true
         })

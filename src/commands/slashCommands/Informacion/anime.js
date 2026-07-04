@@ -1,8 +1,9 @@
 const { SlashCommandBuilder, EmbedBuilder} = require('discord.js')
 const { ModalBuilder, TextInputBuilder, TextInputStyle , LabelBuilder } = require('discord.js')
-const { ErrorEmbed } = require('@/utils/PredefinedComponents')
+const { ErrorEmbed } = require('@/utils/predifined_components')
 const axios = require('axios')
 const { COLOR, COLOR_ERROR } = require('@/config')
+const { PEEPO_DOUBT } = require('@/images')
 
 module.exports = {
     CMD: new SlashCommandBuilder()
@@ -54,7 +55,7 @@ module.exports = {
                             new EmbedBuilder()
                                 .setColor(COLOR_ERROR)
                                 .setDescription(`No se encontró ningún anime con el nombre\n \`${nombreAnime}\``)
-                                .setThumbnail('https://i.imgur.com/rIPXKFQ.png')
+                                .setThumbnail(PEEPO_DOUBT)
                         ]
                     })
                 }
@@ -97,9 +98,9 @@ module.exports = {
                     ]
                 })
             })
-            .catch(async (_) => {
+            .catch(async (e) => {
                 interaction.followUp({
-                    embeds: [ErrorEmbed],
+                    embeds: [ErrorEmbed(e)],
                     ephemeral: true
                 })
             })

@@ -1,6 +1,7 @@
 const {SlashCommandBuilder, EmbedBuilder, ChatInputCommandInteraction} = require('discord.js')
 const axios = require('axios')
 const { COLOR } = require('@/config')
+const { PEEPO_SUSPICIOUS } = require('@/images')
 
 module.exports = {
     CMD: new SlashCommandBuilder()
@@ -89,7 +90,7 @@ module.exports = {
                         .setDescription(`Este comando solo está disponible en canales NSFW`)
                         .setColor(COLOR)
                         .setTimestamp()
-                        .setThumbnail(`https://i.imgur.com/gqL0iZa.gif`)
+                        .setThumbnail(PEEPO_SUSPICIOUS)
                 ], 
                 ephemeral: true 
             })

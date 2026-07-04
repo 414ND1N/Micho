@@ -4,7 +4,7 @@ const { EmbedBuilder } = require('discord.js')
 // const { SoundcloudExtractor } = require("discord-player-soundcloud")
 const { YouTubeDlpExtractor } = require("discord-player-youtubedlp")
 const { DeezerExtractor } = require("discord-player-deezer")
-
+const { PEEPO_LEAVING, PEEPO_SIT } = require('@/images')
 const { COLOR } = require('@/config')
 
 module.exports = async (client, _) => {
@@ -52,7 +52,7 @@ module.exports = async (client, _) => {
                 .setTitle('Finalización música')
                 .setColor(COLOR)
                 .addFields({ name: `Saliendo del canal de voz ...`, value: `Hasta la próxima 😊` })
-                .setThumbnail('https://i.imgur.com/lIs9ZAg.gif')
+                .setThumbnail(PEEPO_LEAVING)
 
             queue.metadata.send({ embeds: [embed] })
         } catch (error) {
@@ -66,7 +66,7 @@ module.exports = async (client, _) => {
                 .setTitle('Lista completada')
                 .setColor(COLOR)
                 .setDescription('Agrega más música para\nseguir reproduciendo')
-                .setThumbnail('https://i.imgur.com/PKBROBp.gif')
+                .setThumbnail(PEEPO_SIT)
             queue.metadata.send({ embeds: [embed] })
         } catch (error) {
             console.error(`Error al enviar mensaje de lista completada: ${error}`);
@@ -79,7 +79,7 @@ module.exports = async (client, _) => {
                 .setTitle('Canal de voz vacio')
                 .setColor(COLOR)
                 .addFields({ name: `Canal de voz vacio`, value: `procedo a salirme lentamente ...` })
-                .setThumbnail('https://i.imgur.com/L8cJ1fZ.gif')
+                .setThumbnail(PEEPO_LEAVING)
 
             queue.metadata.send({ embeds: [embed] })
         } catch (error) {

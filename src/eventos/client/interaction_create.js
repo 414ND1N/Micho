@@ -1,6 +1,7 @@
 const { Collection } = require('discord.js')
 const { Events } = require('discord.js')
 const Roles = require('@/schemas/roles')
+const { ErrorEmbed } = require('@/utils/predifined_components')
 // Buttons functions
 
 async function verify_role(interaction) {
@@ -18,7 +19,7 @@ async function verify_role(interaction) {
 
     if (!ROL_VERIFICADO) {
         return interaction.reply({
-            content: `❌ **No se ha encontrado el rol de verificado**`,
+            embeds: [ErrorEmbed(`❌ **No se ha encontrado el rol de Verficado en el servidor**`)],
             ephemeral: true
         })
     }
@@ -33,7 +34,7 @@ async function verify_role(interaction) {
         })
         .catch(() => {
             interaction.reply({
-                content: `❌ **No se ha podido verificar**`,
+                embeds: [ErrorEmbed(`❌ **No se ha podido agregar el rol de Verficado al usuario**`)],
                 ephemeral: true
             });
         })

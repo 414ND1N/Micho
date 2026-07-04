@@ -1,5 +1,7 @@
 const { EmbedBuilder } = require('discord.js')
 const { COLOR, COLOR_ERROR } = require('@/config')
+const { ErrorEmbed } = require('@/utils/predifined_components')
+const { PEEPO_OK } = require('@/images')
 
 module.exports = async (interaction, queue, voiceChannel) => {
     try {
@@ -60,7 +62,7 @@ module.exports = async (interaction, queue, voiceChannel) => {
             embeds: [
                 new EmbedBuilder()
                     .setTitle('Pausar música')
-                    .setThumbnail('https://i.imgur.com/WnsPmQz.gif')
+                    .setThumbnail(PEEPO_OK)
                     .setColor(COLOR)
                     .setDescription(`Se pausó la reproducción de música en el canal ${voiceChannel}`)
             ]
@@ -69,13 +71,7 @@ module.exports = async (interaction, queue, voiceChannel) => {
 
     } catch (error) {
         return interaction.editReply({
-            embeds: [
-                new EmbedBuilder()
-                    .setTitle('Pausar música')
-                    .setThumbnail('https://i.imgur.com/WHCwA6t.gif')
-                    .setColor(COLOR_ERROR)
-                    .setDescription(`No se pudo pausar la canción, por favor revisa mis permisos`)
-            ]
+            embeds: [ErrorEmbed('Ocurrió un error al pausar la música')]
             , ephemeral: true
         })
     }

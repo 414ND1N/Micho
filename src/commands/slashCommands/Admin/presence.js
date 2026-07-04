@@ -1,5 +1,6 @@
 const {SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits, ActivityType} = require('discord.js')
 const { COLOR, BOT_NAME } = require('@/config')
+const { PEEPO_LEAVING } = require('@/images')
 
 module.exports = {
     CMD: new SlashCommandBuilder()
@@ -107,7 +108,7 @@ module.exports = {
                     .setTitle(`Cambio de presencia de ${BOT_NAME}`)
                     .setColor(COLOR)
                     .setDescription(`Se cambió ${sub} a \`${texto_estado}\`.`)
-                    .setThumbnail("https://i.imgur.com/lIs9ZAg.gif")
+                    .setThumbnail(PEEPO_LEAVING)
             ],
             ephemeral: true
         })

@@ -1,5 +1,7 @@
 const { EmbedBuilder } = require('discord.js')
 const { COLOR, COLOR_ERROR } = require('@/config')
+const { ErrorEmbed } = require('@/utils/predifined_components')
+const { PEEPO_SPEAKER } = require('@/images')
 
 module.exports = async (interaction, queue, voiceChannel, desiredVolume) => {
     try {
@@ -49,7 +51,7 @@ module.exports = async (interaction, queue, voiceChannel, desiredVolume) => {
             embeds: [
                 new EmbedBuilder()
                     .setTitle('Volúmen música')
-                    .setThumbnail('https://i.imgur.com/9fBJ0s7.gif')
+                    .setThumbnail(PEEPO_SPEAKER)
                     .setColor(COLOR)
                     .setDescription(`Se cambió el volumen de la música a \`${desiredVolume}%\` en el canal ${voiceChannel}`)
             ]
@@ -59,13 +61,7 @@ module.exports = async (interaction, queue, voiceChannel, desiredVolume) => {
     } catch (error) {
         console.log(`Error al cambiar el volumen de la música: ${error}`)
         return interaction.editReply({
-            embeds: [
-                new EmbedBuilder()
-                    .setTitle('Volúmen música')
-                    .setThumbnail('https://i.imgur.com/WHCwA6t.gif')
-                    .setColor(COLOR_ERROR)
-                    .setDescription(`No se pudo cambiar el volumen de la música en el canal ${voiceChannel} debido a un error`)
-            ]
+            embeds: [ErrorEmbed(`Ocurrió un error al intentar cambiar el volumen de la música: ${error.message}`)]
             , ephemeral: true
         })
     }

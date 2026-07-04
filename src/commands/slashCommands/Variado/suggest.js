@@ -2,6 +2,8 @@ const { SlashCommandBuilder, EmbedBuilder } = require('discord.js')
 const { ActionRowBuilder, ModalBuilder, TextInputBuilder, TextInputStyle } = require('discord.js')
 const Channels = require('@/schemas/channels')
 const { COLOR, COLOR_ERROR } = require('@/config')
+const { PEEPO_COUNCIL, PEEPO_OK, PEEPO_DOUBT } = require('@/images')
+const { ErrorEmbed } = require('@/utils/predifined_components')
 
 module.exports = {
     CMD: new SlashCommandBuilder()
@@ -61,7 +63,7 @@ module.exports = {
                             .setDescription(`\`${sugerencia}\``)
                             .setColor(COLOR)
                             .setTimestamp()
-                            .setThumbnail(`https://i.imgur.com/t6AR3RO.gif`)
+                            .setThumbnail(PEEPO_COUNCIL)
                     ], fetchReply: true
                 })
                 mensaje.react(`👍`)
@@ -74,20 +76,13 @@ module.exports = {
                             .setDescription(`Sugerencia \`${sugerencia}\` enviada a ${channel}`)
                             .setColor(COLOR)
                             .setTimestamp()
-                            .setThumbnail(`https://i.imgur.com/X3E6BAy.gif`)
+                            .setThumbnail(PEEPO_OK)
                     ], ephemeral: true
                 })
             })
             .catch(async (_) => {
                 interaction.followUp({
-                    embeds: [
-                        new EmbedBuilder()
-                            .setTitle('No se ha recibido respuesta')
-                            .setColor(COLOR_ERROR)
-                            .setDescription('No se ha recibido respuesta\nInténtalo de nuevo.')
-                            .setThumbnail('https://i.imgur.com/rIPXKFQ.png')
-                            .setTimestamp()
-                    ],
+                    embeds: [ErrorEmbed('No se ha recibido respuesta a tiempo')],
                     ephemeral: true
                 })
             })

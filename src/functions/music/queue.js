@@ -2,6 +2,7 @@ const { EmbedBuilder } = require('discord.js')
 const { COLOR, COLOR_ERROR } = require('@/config')
 const { useHistory } = require('discord-player')
 const buttonPagination = require('@/utils/button_pagination')
+const { ErrorEmbed } = require('@/utils/predifined_components')
 
 module.exports = async (interaction, queue, voiceChannel, queueType) => {
     try {
@@ -122,13 +123,7 @@ module.exports = async (interaction, queue, voiceChannel, queueType) => {
     } catch (error) {
         console.log(`Error al mostrar la cola de reproducción: ${error}`)
         return interaction.editReply({
-            embeds: [
-                new EmbedBuilder()
-                    .setTitle('Pausar música')
-                    .setThumbnail('https://i.imgur.com/WHCwA6t.gif')
-                    .setColor(COLOR_ERROR)
-                    .setDescription(`No se pudo mostrar la cola de reproducción, ocurrió un error`)
-            ]
+            embeds: [ErrorEmbed('Ocurrió un error al mostrar la cola de reproducción')]
             , ephemeral: true
         })
     }

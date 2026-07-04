@@ -1,7 +1,6 @@
-const { SlashCommandBuilder, EmbedBuilder } = require('discord.js')
+const { SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits } = require('discord.js')
 const fs = require('fs')
 const buttonPagination = require('@/utils/button_pagination')
-
 
 module.exports = {
     cooldown: 20,
@@ -15,6 +14,9 @@ module.exports = {
             "en-US": 'Show all available commands 📚'
         })
     ,
+    /**
+    * @param {ChatInputCommandInteraction} interaction
+    */
     async execute(interaction) {
         try {
 
@@ -22,7 +24,11 @@ module.exports = {
             const commandFolders = await fs.readdirSync('./src/commands/slashCommands')
             const helpEmbeds = []
 
-            for (const folder of commandFolders) {
+            // Verificar permisos de usuario actual (admin) para mostrar comandos de admin
+            const isAdmin = await interaction.member.permissions.has(PermissionFlagsBits.Administrator)
+            const filteredFolders = isAdmin ? commandFolders : commandFolders.filter(folder => folder !== 'admin')
+
+            for (const folder of filteredFolders) {
                 const commandFiles = fs.readdirSync(`./src/commands/slashCommands/${folder}`).filter(file => file.endsWith('.js'));
                 const categoryEmbed = new EmbedBuilder() //Creacion embed con informacion de la variante shiny
                     .setTitle(folder)
@@ -38,13 +44,13 @@ module.exports = {
                         continue
                     }
 
-                    const description = `${command.CMD.description || "Sin descripción"}`
+                    const description = `${command.CMD.descriptionLocalized ?? command.CMD.description ?? "Sin descripción"}`
 
                     if (command.CMD.type === "SUB_COMMAND" || command.CMD.type === "SUB_COMMAND_GROUP") {
                         subcommands.push(command)
                     } else {
                         categoryEmbed.addFields({
-                            name: `\`/${command.CMD.name}\``,
+                            name: `\`/${command.CMD.nameLocalized ?? command.CMD.name}\``,
                             value: description
                         })
                     }

@@ -14,7 +14,7 @@ module.exports = {
 
         if (!MESSAGE.poll) {
             return interaction.reply({
-                content: 'El mensaje no es una encuesta.', 
+                content: 'El mensaje no es una encuesta.',
                 ephemeral: true 
             })
         }

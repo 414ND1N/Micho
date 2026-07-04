@@ -1,6 +1,7 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js')
 const axios = require('axios')
 const { COLOR, COLOR_ERROR } = require('@/config')
+const { PEEPO_INVESTIGATING, PEEPO_LEARNING } = require('@/images')
 
 module.exports = {
     CMD: new SlashCommandBuilder()
@@ -37,7 +38,7 @@ module.exports = {
                     new EmbedBuilder()
                         .setColor(COLOR_ERROR)
                         .setDescription(`No se encontró resultados para **${term}**.`)
-                        .setThumbnail("https://i.imgur.com/WHCwA6t.gifv")
+                        .setThumbnail(PEEPO_INVESTIGATING)
                 ],
                 ephemeral: true
             })
@@ -54,7 +55,7 @@ module.exports = {
                     { name: 'Definición', value: answer.definition.substring(0, 1024) }, 
                     { name: 'Ejemplo', value: answer.example.substring(0, 1024)}, 
                     { name: 'Valoración', value: `${answer.thumbs_up} 👍 - ${answer.thumbs_down} 👎` })
-                .setThumbnail("https://i.imgur.com/LwPfwE5.jpg")
+                .setThumbnail(PEEPO_LEARNING)
             ] 
         })
 

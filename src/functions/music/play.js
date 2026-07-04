@@ -3,6 +3,8 @@ const { convertDurationToSeconds } = require('@/utils/music_utils')
 const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType } = require('discord.js')
 const { COLOR, COLOR_ERROR } = require('@/config')
 const { QueryType } = require('discord-player')
+const { ErrorEmbed } = require('@/utils/predifined_components')
+const { PEEPO_SIT, PEEPO_SUSPICIOUS } = require('@/images')
 
 module.exports = async (interaction, player, queue, voiceChannel, textChannel, song, source) => {
 
@@ -20,11 +22,7 @@ module.exports = async (interaction, player, queue, voiceChannel, textChannel, s
         let interaccionclient = interaction.guild.members.me.voice.channel.id;
         if (interaccionclient != interaccionuser) {
             return interaction.editReply({
-                embeds: [
-                    new EmbedBuilder()
-                        .setColor(COLOR_ERROR)
-                        .setDescription(`Tienes que estar en el mismo canal de voz que yo para ejecutar el comando 🤨`)
-                ],
+                embeds: [ErrorEmbed('Tienes que estar en el mismo canal de voz para ejecutar el comando')],
                 ephemeral: true
             })
         }
@@ -37,11 +35,7 @@ module.exports = async (interaction, player, queue, voiceChannel, textChannel, s
             await player.voiceUtils.join(voiceChannel)
         } else {
             return interaction.editReply({
-                embeds: [new EmbedBuilder()
-                    .setColor(COLOR_ERROR)
-                    .setDescription('Ya estoy reproduciendo música en otro canal de voz, por favor únete a ese canal para escuchar la música.')
-                    .setThumbnail('https://i.imgur.com/L8cJ1fZ.gif')
-                    .setTimestamp()]
+                embeds: [ErrorEmbed('Tienes que estar en el mismo canal de voz para ejecutar el comando')],
             })
         }
     }
@@ -55,12 +49,7 @@ module.exports = async (interaction, player, queue, voiceChannel, textChannel, s
 
         if (!research.hasTracks()) {
             return interaction.editReply({
-                embeds: [new EmbedBuilder()
-                    .setColor(COLOR_ERROR)
-                    .setDescription('No he podido encontrar resultados')
-                    .setThumbnail('https://i.imgur.com/L8cJ1fZ.gif')
-                    .setTimestamp()
-                ]
+                embeds: [ErrorEmbed('No he podido encontrar resultados')],
             })
         }
     } catch (e) {
@@ -69,12 +58,7 @@ module.exports = async (interaction, player, queue, voiceChannel, textChannel, s
 
     if (!research || !research.tracks || research.tracks.length === 0) {
         return interaction.editReply({
-            embeds: [new EmbedBuilder()
-                .setColor(COLOR_ERROR)
-                .setDescription('No he podido encontrar resultados')
-                .setThumbnail('https://i.imgur.com/L8cJ1fZ.gif')
-                .setTimestamp()
-            ]
+            embeds: [ErrorEmbed('No he podido encontrar resultados')],
         })
     }
 
@@ -82,11 +66,7 @@ module.exports = async (interaction, player, queue, voiceChannel, textChannel, s
     if (research.playlist) {
         if (research.tracks.length + (queue?.size ?? 0) > MAX_QUEUE_SIZE) {
             return interaction.editReply({
-                embeds: [new EmbedBuilder()
-                    .setColor(COLOR_ERROR)
-                    .setDescription(`No puedo agregar mas de ${MAX_QUEUE_SIZE} canciones de una playlist.`)
-                    .setTimestamp()
-                ]
+                embeds: [ErrorEmbed(`No se pueden agregar más canciones a la cola. El límite máximo es de ${MAX_QUEUE_SIZE} canciones.`)],
             });
         }
     }
@@ -100,12 +80,7 @@ module.exports = async (interaction, player, queue, voiceChannel, textChannel, s
 
     if (filteredTracks.length === 0 && research.tracks.length > 0) {
         return interaction.editReply({
-            embeds: [new EmbedBuilder()
-                .setColor(COLOR_ERROR)
-                .setDescription('Lo siento, no pude encontrar lo que buscaste')
-                .setThumbnail('https://i.imgur.com/L8cJ1fZ.gif')
-                .setTimestamp()
-            ]
+            embeds: [ErrorEmbed(`No se pueden agregar canciones a la cola.`)],
         });
     }
 
@@ -120,7 +95,7 @@ module.exports = async (interaction, player, queue, voiceChannel, textChannel, s
                 { name: 'Duración', value: `${track.duration}`, inline: true },
                 { name: 'Resultado', value: `${currentIndex + 1} / ${total}`, inline: true }
             )
-            .setThumbnail(track.thumbnail || 'https://i.imgur.com/WHCwA6t.gif')
+            .setThumbnail(track.thumbnail || PEEPO_SIT)
             .setTimestamp()
     }
 
@@ -240,13 +215,7 @@ module.exports = async (interaction, player, queue, voiceChannel, textChannel, s
     filter.on('end', async (_, reason) => {
         if (hasSelectedTrack || reason === 'selected') {
             return await interaction.editReply({
-                embeds: [
-                    new EmbedBuilder()
-                        .setTitle('Reproducción música')
-                        .setThumbnail('https://i.imgur.com/WHCwA6t.gif')
-                        .setColor(COLOR)
-                        .setDescription(`Mira la lista en el canal ${textChannel}`)
-                ],
+                embeds: [ErrorEmbed('Se ha agregado la canción a la cola de reproducción')],
                 components: [],
                 ephemeral: true
             })
