@@ -1,4 +1,5 @@
-const { Events } = require('discord.js');
+const { Events } = require('discord.js')
+const { RESPUESTA_DM } = require('@/config')
 // const handleOpenaiChat  = require('@/functions/chat_ai/handle_openai_chat')
 
 module.exports = {
@@ -16,7 +17,7 @@ module.exports = {
 
         // Responder al mensaje
         await message.channel.sendTyping()
-        message.reply(process.env.RESPUESTA_DM)
+        message.reply(RESPUESTA_DM)
     }
 }
 
