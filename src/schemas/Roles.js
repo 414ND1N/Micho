@@ -1,6 +1,25 @@
 const Database = require('../database/db')
 
 class Roles {
+
+    static async findAll() {
+        return new Promise((resolve, reject) => {
+            try {
+                const db = Database.getDatabase()
+
+                let sql = 'SELECT * FROM Roles'
+
+                const stmt = db.prepare(sql)
+                const result = stmt.all()
+
+                resolve(result)
+            }
+            catch (error) {
+                reject(error)
+            }
+        })
+    }
+
     static findOne(query) {
         return new Promise((resolve, reject) => {
             try {
@@ -83,6 +102,37 @@ class Roles {
                 
                 // Recuperar el documento actualizado
                 this.findOne(query).then(resolve).catch(reject)
+            } catch (error) {
+                reject(error)
+            }
+        })
+    }
+
+    static delete(query) {
+        return new Promise((resolve, reject) => {
+            try {
+                const db = Database.getDatabase()
+                
+                let sql = 'DELETE FROM Roles WHERE 1=1'
+                const params = []
+                
+                if (query.guild_id) {
+                    sql += ' AND guild_id = ?'
+                    params.push(query.guild_id)
+                }
+                if (query.rol_id) {
+                    sql += ' AND rol_id = ?'
+                    params.push(query.rol_id)
+                }
+                if (query.key) {
+                    sql += ' AND key = ?'
+                    params.push(query.key)
+                }
+                
+                const stmt = db.prepare(sql)
+                const info = stmt.run(...params)
+                
+                resolve(info.changes > 0)
             } catch (error) {
                 reject(error)
             }

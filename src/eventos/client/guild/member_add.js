@@ -1,7 +1,7 @@
 const { EmbedBuilder } = require('discord.js')
 const { Events } = require('discord.js')
 const Channels = require('@/schemas/channels')
-const { COLOR } = require('@/config')
+const { PEEPO_SURPRISE } = require('@/images')
 
 module.exports = {
     name: Events.GuildMemberAdd,
@@ -29,8 +29,8 @@ module.exports = {
                     .setTitle(`¡ Nuevo \`pana\` se ha unido al grupo !`)
                     .setDescription(`Bienvenido a \`${member.guild.name}\``)
                     .setThumbnail(`${member.user.avatarURL({ forceStatic: false })}`)
-                    .setImage(`https://i.imgur.com/KNJ57fn.gif`)
-                    .setColor(COLOR)
+                    .setImage(PEEPO_SURPRISE)
+                    .setColor('Random')
                     .setTimestamp()
             ]
         })

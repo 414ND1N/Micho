@@ -1,6 +1,8 @@
 const { EmbedBuilder } = require('discord.js')
 const { QueueRepeatMode } = require('discord-player');
 const { COLOR, COLOR_ERROR } = require('@/config')
+const { ErrorEmbed } = require('@/utils/predifined_components')
+const { PEEPO_DISCO} = require('@/images')
 
 module.exports = async (interaction, queue, voiceChannel, loopType) => {
     try {
@@ -60,7 +62,7 @@ module.exports = async (interaction, queue, voiceChannel, loopType) => {
             embeds: [
                 new EmbedBuilder()
                     .setTitle('Bucle música')
-                    .setThumbnail('https://i.imgur.com/9fBJ0s7.gif')
+                    .setThumbnail(PEEPO_DISCO)
                     .setColor(COLOR)
                     .setDescription(`Se cambió el bucle de la música en el canal ${voiceChannel}`)
             ]
@@ -69,13 +71,7 @@ module.exports = async (interaction, queue, voiceChannel, loopType) => {
 
     } catch (error) {
         return interaction.editReply({
-            embeds: [
-                new EmbedBuilder()
-                    .setTitle('Bucle música')
-                    .setThumbnail('https://i.imgur.com/WHCwA6t.gif')
-                    .setColor(COLOR_ERROR)
-                    .setDescription(`No se pudo cambiar el bucle de la música en el canal ${voiceChannel}`)
-            ]
+            embeds: [ErrorEmbed('Ocurrió un error al cambiar el bucle de la música')]
             , ephemeral: true
         })
     }

@@ -1,5 +1,7 @@
-const { EmbedBuilder, ContextMenuCommandBuilder, ApplicationCommandType } = require('discord.js');
-const axios = require('axios');
+const { EmbedBuilder, ContextMenuCommandBuilder, ApplicationCommandType } = require('discord.js')
+const axios = require('axios')
+const { COLOR, GIF_OPTIONS } = require('@/config')
+
 module.exports = {
     CMD: new ContextMenuCommandBuilder()
         .setName("Abrazar")
@@ -8,31 +10,30 @@ module.exports = {
     async execute(client, interaction) {
 
         function get_random_option() {
-            const tipos = ['zelda', 'pokemon', 'anime', 'adventure time', 'regular show'];
-            const randomIndexOpts = Math.floor(Math.random() * tipos.length);
-            return tipos[randomIndexOpts];
+            const randomIndexOpts = Math.floor(Math.random() * GIF_OPTIONS.length)
+            return GIF_OPTIONS[randomIndexOpts]
         }
 
         // Usuario que realiza la acción
-        const AUTHOR = interaction.member?.nickname ?? interaction.user.username; // Si no tiene apodo, se usa el nombre de usuario
+        const AUTHOR = interaction.member?.nickname ?? interaction.user.username // Si no tiene apodo, se usa el nombre de usuario
 
         // Usuario al que se le hará la acción
-        const USUARIO = interaction.targetUser; // Usuario al que se le hará la acción
-        const MEMBER = interaction.guild.members.cache.get(USUARIO?.id); // Objeto de miembro del usuario
-        const USERNAME = MEMBER?.nickname || USUARIO.username || 'todos'; // Apodo del usuario
+        const USUARIO = interaction.targetUser // Usuario al que se le hará la acción
+        const MEMBER = interaction.guild.members.cache.get(USUARIO?.id) // Objeto de miembro del usuario
+        const USERNAME = MEMBER?.nickname || USUARIO.username || 'todos' // Apodo del usuario
         
-        const query = `${get_random_option()} hug`; // Busqueda en Tenor
-        const url_api = `https://tenor.googleapis.com/v2/search?q=${query}&key=${process.env.TENOR_API_KEY}&client_key=my_test_app&limit=8`;
+        const query = `${get_random_option()} hug` // Busqueda en Tenor
+        const url_api = `https://tenor.googleapis.com/v2/search?q=${query}&key=${process.env.TENOR_API_KEY}&client_key=my_test_app&limit=8`
 
-        const response = await axios.get(url_api);
-        const randomIndex = Math.floor(Math.random() * response.data.results.length);
-        const gif_url = response.data.results[randomIndex]["media_formats"]["mediumgif"]["url"];
+        const response = await axios.get(url_api)
+        const randomIndex = Math.floor(Math.random() * response.data.results.length)
+        const gif_url = response.data.results[randomIndex]["media_formats"]["mediumgif"]["url"]
 
         return interaction.reply({
             embeds: [
                 new EmbedBuilder()
                     .setTitle(`\`${AUTHOR} abrazó a ${USERNAME}.\``) // Si no se especifica usuario, se indica a todos
-                    .setColor(Number(process.env.COLOR))
+                    .setColor(COLOR)
                     .setImage(gif_url)
             ]       
         });

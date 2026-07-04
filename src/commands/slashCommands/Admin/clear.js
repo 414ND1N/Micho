@@ -1,6 +1,6 @@
 const { SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits } = require('discord.js')
 const { COLOR, COLOR_ERROR } = require('@/config')
-
+const { PEEPO_OK, PEEPO_SUSPICIOUS, PEEPO_SHOOTING } = require('@/images')
 const BULK_DELETE_LIMIT = 100
 const MAX_AMOUNT_MS = 14 * 24 * 60 * 60 * 1000 // 14 días en milisegundos
 
@@ -77,7 +77,7 @@ module.exports = {
                     new EmbedBuilder()
                         .setColor(Number(COLOR_ERROR))
                         .setDescription("No hay mensajes para eliminar")
-                        .setThumbnail('https://i.imgur.com/rIPXKFQ.png')
+                        .setThumbnail(PEEPO_OK)
                 ]
             })
         }
@@ -97,7 +97,7 @@ module.exports = {
                     new EmbedBuilder()
                         .setColor(Number(COLOR_ERROR))
                         .setDescription("No se encontraron mensajes que coincidan con los criterios de eliminación")
-                        .setThumbnail('https://i.imgur.com/rIPXKFQ.png')
+                        .setThumbnail(PEEPO_SUSPICIOUS)
                 ]
             })
         }
@@ -114,19 +114,19 @@ module.exports = {
             }
         }
 
-        let ClearCommandembed = new EmbedBuilder()
-            .setTitle('🧹 __Limpieza__ 🧹')
-            .setColor(
-                deletedCount > 0 ? COLOR : COLOR_ERROR
-            )
-            .setDescription(
-                `Se han eliminado \`${deletedCount}\` mensaje${deletedCount !== 1 ? 's' : ''} de ${user ? ('\`' + user.username + '\`') : botsOnly ? 'los bots' : 'los usuarios'}`
-            )
-            .setThumbnail("https://i.imgur.com/7bj9r36.gif")
-
-        await interaction.reply({ embeds: [ClearCommandembed] })
+        await interaction.reply({
+            embeds: [
+                new EmbedBuilder()
+                    .setTitle('🧹 __Limpieza__ 🧹')
+                    .setColor(
+                        deletedCount > 0 ? COLOR : COLOR_ERROR
+                    )
+                    .setDescription(
+                        `Se han eliminado \`${deletedCount}\` mensaje${deletedCount !== 1 ? 's' : ''} de ${user ? ('\`' + user.username + '\`') : botsOnly ? 'los bots' : 'los usuarios'}`
+                    )
+                    .setThumbnail(PEEPO_SHOOTING)
+            ]
+        })
         setTimeout(() => interaction.deleteReply(), 10000)
-
-
     }
 }   

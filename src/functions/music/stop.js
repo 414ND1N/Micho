@@ -1,5 +1,7 @@
 const { EmbedBuilder } = require('discord.js')
 const { COLOR, COLOR_ERROR } = require('@/config')
+const { ErrorEmbed } = require('@/utils/predifined_components')
+const { PEEPO_LEAVING } = require('@/images')
 
 module.exports = async (interaction, queue, voiceChannel) => {
     try {
@@ -49,7 +51,7 @@ module.exports = async (interaction, queue, voiceChannel) => {
             embeds: [
                 new EmbedBuilder()
                     .setTitle('Detener música')
-                    .setThumbnail('https://i.imgur.com/WnsPmQz.gif')
+                    .setThumbnail(PEEPO_LEAVING)
                     .setColor(COLOR)
                     .setDescription(`Se detuvo la reproducción de música en el canal ${voiceChannel}`)
             ]
@@ -58,13 +60,7 @@ module.exports = async (interaction, queue, voiceChannel) => {
 
     } catch (error) {
         return interaction.editReply({
-            embeds: [
-                new EmbedBuilder()
-                    .setTitle('Detener música')
-                    .setThumbnail('https://i.imgur.com/WHCwA6t.gif')
-                    .setColor(COLOR_ERROR)
-                    .setDescription(`No se pudo abandonar el canal de voz, por favor revisa mis permisos`)
-            ]
+            embeds: [ErrorEmbed(`Ocurrió un error al intentar detener la música: ${error.message}`)]
             , ephemeral: true
         })
     }

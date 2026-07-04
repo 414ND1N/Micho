@@ -1,5 +1,5 @@
 const {SlashCommandBuilder, EmbedBuilder} = require('discord.js')
-const { COLOR } = require('@/config')
+const { COLOR, EIGHT_BALL_OPTIONS } = require('@/config')
 
 module.exports = {
     CMD: new SlashCommandBuilder()
@@ -26,27 +26,15 @@ module.exports = {
         
         let pregunta = interaction.options.getString("pregunta")
 
-        const opciones = [
-            "Es cierto",
-            "Definitivamente",
-            "Lo mas probable",
-            "No tengo una respuesta para eso..", 
-            "No cuentes con ello",
-            "Es muy dudoso",
-            "Creeria que si",
-            "Diria que no",
-            "Los astros aun no se alinean",
-        ]
-
-        const randomIndex = Math.floor(Math.random() * opciones.length)
-        const item = opciones[randomIndex]
+        const randomIndex = Math.floor(Math.random() * EIGHT_BALL_OPTIONS.length)
+        const item = EIGHT_BALL_OPTIONS[randomIndex]
         
         return interaction.reply({
             embeds: [
                 new EmbedBuilder()
                     .setTitle(`${interaction.user?.username} pregunto: **${pregunta}**`)
                         .setColor(COLOR)
-                    .setThumbnail('https://i.imgur.com/q0C7GuE.png')
+                    .setThumbnail(EIGHT_BALL)
                     .setDescription(`**Mi respuesta es:** \`${item}\``)
             ]
         })

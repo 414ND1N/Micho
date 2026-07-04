@@ -2,7 +2,8 @@ const { IDLE_TIMEOUT_MS, MAX_QUEUE_SIZE, DEFAULT_VOLUME, MAX_TRACK_DURATION } = 
 const { convertDurationToSeconds } = require('@/utils/music_utils')
 const { EmbedBuilder } = require('discord.js')
 const { COLOR, COLOR_ERROR } = require('@/config')
-const { QueryType } = require('discord-player')
+const { ErrorEmbed } = require('@/utils/predifined_components')
+const { PEEPO_SURPRISE } = require('@/images')
 
 module.exports = async (interaction, player, queue, voiceChannel, textChannel, song) => {
 
@@ -11,11 +12,7 @@ module.exports = async (interaction, player, queue, voiceChannel, textChannel, s
         let interaccionclient = interaction.guild.members.me.voice.channel.id;
         if (interaccionclient != interaccionuser) {
             return interaction.editReply({
-                embeds: [
-                    new EmbedBuilder()
-                        .setColor(COLOR_ERROR)
-                        .setDescription(`Tienes que estar en el mismo canal de voz que yo para ejecutar el comando 🤨`)
-                ],
+                embeds: [ErrorEmbed('Tienes que estar en el mismo canal de voz para ejecutar el comando')],
                 ephemeral: true
             })
         }
@@ -28,11 +25,7 @@ module.exports = async (interaction, player, queue, voiceChannel, textChannel, s
             await player.voiceUtils.join(voiceChannel)
         } else {
             return interaction.editReply({
-                embeds: [new EmbedBuilder()
-                    .setColor(COLOR_ERROR)
-                    .setDescription('Ya estoy reproduciendo música en otro canal de voz, por favor únete a ese canal para escuchar la música.')
-                    .setThumbnail('https://i.imgur.com/L8cJ1fZ.gif')
-                    .setTimestamp()]
+                embeds: [ErrorEmbed('Tienes que estar en el mismo canal de voz para ejecutar el comando')],
             })
         }
     }
@@ -45,12 +38,7 @@ module.exports = async (interaction, player, queue, voiceChannel, textChannel, s
 
         if (!research.hasTracks()) {
             return interaction.editReply({
-                embeds: [new EmbedBuilder()
-                    .setColor(COLOR_ERROR)
-                    .setDescription('No he podido encontrar resultados')
-                    .setThumbnail('https://i.imgur.com/L8cJ1fZ.gif')
-                    .setTimestamp()
-                ]
+                embeds: [ErrorEmbed('No he podido encontrar resultados')],
             })
         }
     } catch (e) {
@@ -66,12 +54,7 @@ module.exports = async (interaction, player, queue, voiceChannel, textChannel, s
 
         if (filteredTracks.length === 0 && research.tracks.length > 0) {
             return interaction.editReply({
-                embeds: [new EmbedBuilder()
-                    .setColor(COLOR_ERROR)
-                    .setDescription('Lo siento, no pude encontrar lo que buscaste')
-                    .setThumbnail('https://i.imgur.com/L8cJ1fZ.gif')
-                    .setTimestamp()
-                ]
+                embeds: [ErrorEmbed(`No se pueden agregar canciones a la cola.`)],
             });
         }
         research.tracks = filteredTracks
@@ -79,11 +62,7 @@ module.exports = async (interaction, player, queue, voiceChannel, textChannel, s
 
     if (research?.tracks?.length + (queue?.size ?? 0) > MAX_QUEUE_SIZE) {
         return interaction.editReply({
-            embeds: [new EmbedBuilder()
-                .setColor(COLOR_ERROR)
-                .setDescription(`No puedo agregar mas de ${MAX_QUEUE_SIZE} canciones de una playlist.`)
-                .setTimestamp()
-            ]
+            embeds: [ErrorEmbed(`No se pueden agregar más canciones a la cola. El límite máximo es de ${MAX_QUEUE_SIZE} canciones.`)],
         });
     }
 
@@ -108,7 +87,7 @@ module.exports = async (interaction, player, queue, voiceChannel, textChannel, s
         embeds: [
             new EmbedBuilder()
                 .setTitle('Reproducción música')
-                .setThumbnail('https://i.imgur.com/WHCwA6t.gif')
+                .setThumbnail(PEEPO_SURPRISE)
                 .setColor(COLOR)
                 .setDescription(`Mira la lista en el canal ${textChannel}`)
         ]
